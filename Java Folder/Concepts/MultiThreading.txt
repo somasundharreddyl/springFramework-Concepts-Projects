@@ -1,0 +1,471 @@
+                                             MultiThreading
+                                           ------------------
+1.Multitasking : Run multiple programs Parallely.
+  a.Process Base Multitaksing.
+  b.Thread-Base Multitasking.
+
+2.Thread vs Process:
+  a.Two Threads Share same address Space.
+  b.Context Switching between threads is usually less expensive than between process
+  c.The cost of communication btw threads is relatively low.
+
+3. Why MultiThreading?
+ *In single-threaded Env,only one task at a time can be performed.
+ *CPU cycles are wasted,for Ex:when waiting for user Input.
+ *Multitasking allows idle cpu time to be put to good use.
+
+
+4.Threads:
+ *A thread is an independent sequential path of execution within a program.
+ *Many Threads can run concurrently with in a program.
+ *At runtime,threads in a program exit in a common memory space and can share both data and code.
+ *They also share process running the program.
+
+Important Concepts:
+1.Creating threads and providing the code that gets executed by a thread.
+2.Accessing common data and code through Synchronization.
+3.Transitioning btw thread states.
+
+
+5.Main Thread(User Thread):
+  * Created by JVMM.
+  * When a standalone application is run,a user Thread is Automatically created to execute the main() method of the application.This thread is called main thread.
+  * if no other user threads are spawned,the program terminates when the main() method finishes executing.
+  * All other threads, called child threads are spawned from the main thread.
+  *The main() method can then finish,but the program will keep running until all user threads have completed.
+  *The runtime Env distinguishes btw user threads and daemon threads.
+  *Calling setDaemon(boolean) method in the Thread Class marks the statue of thread 
+as either daemon or user,but this must be done before the thread is started.
+  * As log as user thread is alive,JVM does not terminate.
+  * A daemon thread is at the mercy of runtime system: it is stopped if there are no more user threads running,thus terminating program. 
+
+
+6. How to create our own Custom Thread:
+   a.Implementing Runnable Interface.
+   b.Extending Thread class.
+
+a.Extending Thread class:
+---------------------------
+
+public class Thread1 extends Thread{
+@Override
+public void run(){
+for(int i=1;i<=5;i++){Sout(i);}
+}
+
+}
+    
+    main(){
+Sout("main Thread is starting");
+Thread t1=new Thread1();
+t1.start();
+Sout("main Thread is Ended");
+}
+
+
+
+Output:
+main Thread is starting
+main Thread is Ended
+1
+2
+3
+4
+5
+
+Note : Here Eventhough the execution of main thread is completed,it is waiting for user thread to complete its execution.After that main thread terminate its Execution.
+
+
+
+b.Runnable Interface - Functional Interface:
+--------------------------------------------
+
+public class Thread2 implements Runnable{
+@Override
+public void run(){
+for(int i=1;i<=5;i++){
+Sout(Thread.currentThread()+" "+i);
+}
+}
+}
+
+
+
+ main(){
+Sout("main Thread is starting");
+Thread t2=new Thread(new Thread2(),"thread2");   --> seting thread Name.
+t2.start();
+Sout("main Thread is Ended");
+}
+
+
+
+-----------------------------------------------------------------------------------
+Note :
+
+Inbuilt Thread Logic:
+---------------------
+public class Thread implements Runnable{
+
+private Runnable target;
+
+public void run(){
+if(target!=null){
+target.run();
+}
+}
+
+}
+
+
+main(){
+Runnable r=new Thread2();
+Thread t2=new Thread(r);   --> Passing an instance of Runnable.
+t2.run();
+Sout("main Thread is Ended");
+}
+
+
+
+
+1.Extending Thread: Here we are overriding the run() method in Thread1 class by writing our own logic.then executing that overriden run() method by start().
+
+2.Implementing Runnable:Here we are creating an instance of Runnable Interface (r) and passing that instance in Thread class as an argument then we are running method t2.run().
+
+public void run(){
+if(target!=null){
+target.run();
+}
+
+Here Thread class is not null which means it has object of Runnable Interface then it executes r.run() or new Thread2().run()(runs actual logic in overriden run() method).
+
+
+
+------------------------------------------------------------------------------------Que 1:When to use which process to create thread?
+Ans:If I want to do Multiple Implementation then I will go with Runnable Process.
+
+Que 2:While Implementing Runnable Interface, How can you reduce Boiler plate code by using Lambda Expressions.
+
+Ans:
+Thread thread2=new Thread(new Thread2(),"thread2");
+                   ||
+Thread thread2=new Thread(()->{for(int i=0;i<5;i++){System.out.println(Thread.currentThread()+" "+i);}},"thread2");
+
+
+------------------------------------------------------------------------------------                              
+                                                        Synchronization
+                                                       ------------------
+1.Threads share the same memory space, i.e they can share resources(objects).
+2.However, there are critical situations where it is desirable that only one thread at a time has access to a shared Resource.
+Ex: Ticket Booking System.
+
+3.Method-1:Synchronize Block
+---------------------------
+
+public class Stack{
+
+private int[] array;
+private int stackTop;
+Object lock;
+
+public Stack(int capacity){
+array=new int[capacity];
+stackTop=-1;
+lock=new Object();
+}
+
+
+public boolean push(int element){    
+synchronize(lock){
+if(isFull())return false;
+++stackTop;
+try{Thread.sleep(1000);}catch(Exception e){}
+array[stackTop]=element;
+return true;
+}
+}
+
+
+public int pop(){
+synchronize(lock){
+if(isEmpty()) return Integer.MIN_VALUE;
+int obj=array[stackTop];
+array[stackTop]=Integer.MIN_VALUE;
+try{Thread.sleep(1000);}catch(Exception e){}
+stackTop--;
+}
+}
+
+}
+
+
+
+
+
+
+Method-2: Synchronize Method
+----------------------------
+
+public class Stack{
+
+private int[] array;
+private int stackTop;
+Object lock;
+
+public Stack(int capacity){
+array=new int[capacity];
+stackTop=-1;
+lock=new Object();
+}
+
+
+public synchronized boolean push(int element){    
+//synchronize(this) ---> By default it takes instance of current class as lock
+if(isFull())return false;
+++stackTop;
+try{Thread.sleep(1000);}catch(Exception e){}
+array[stackTop]=element;
+return true;
+}
+}
+
+
+public synchronized int pop(){
+//synchronize(this){
+if(isEmpty()) return Integer.MIN_VALUE;
+int obj=array[stackTop];
+array[stackTop]=Integer.MIN_VALUE;
+try{Thread.sleep(1000);}catch(Exception e){}
+stackTop--;
+}
+------------------------------------------------------------------------------------
+
+Ques:When do use what Method?
+Ans: if you want to synchronize particular lines of code then use synchronize Block.
+
+Ques: How to Synchronize Static Methods?Because in normal methods we use instance of class as lock.But for Static methods we cant create objects.
+
+Note :
+
+Synchronized Methods:
+--------------------
+
+* While a thread is inside a synchronized method of an Object,all other threads that wish to execute this synchronized method or any other synchronized method of the object will have to wait.
+
+*This Restrication does not apply to the thread that already has the lock and is executing a synchronized method of the object.
+
+*Such a method can invoke other synchronized methods of the object without being blocked.
+
+* The Non-synchronized methods of the object can always be called at any time by any thread.
+
+Rules of Synchronization:
+-------------------------
+*A thread must acquire the object lock associated with a shared resource before it can enter the shared resource.
+*The runtime system ensures that no otherthread can enter a shared resourced if another thread already holds the object lock associated with it.
+*if a thread cannot immediately acquire the object lock,it is blocked i.e it must wait for the lock to become available.
+*When a thread exits a shared resource,the runtime system ensures that the object lock is also relinquished.if another thread is waiting for this object lock,it can try to acquire the lock in order to gain access to the shared resource.
+*It should be made clear that programs should not make any assumptions about the order in which threads are granted ownership of a lock.
+
+Static Synchronized Methods:
+---------------------------
+*A thread acquiring the lock of a class to execute a static synchronized method has no effect on any thread acquiring the lock on any object of the class to execute a synchronized instance method.
+
+*In other words,Synchronization of static methods in a class is independent from the synchronization of instance methods on objects of the class.
+
+*A subclass decides whether the new definition of an inherited synchronized method will remain synchronized in the subclass.
+
+Race Condition:
+---------------
+*It occurs when two or more threads simuntaneously update the same value(stackTopIndex) ans ad a consequence, leave the value in an undefined or inconsistent state.
+
+
+Synchronized Blocks:
+---------------------
+*Whereas execution of synchronized methods of an object is synchronized on the lock of the object, the synchronized block allows execution of arbitrary code to be synchronized on the lock of an arbitrary object.
+*The general form of synchronized statement is as follows : synchronized(Object ref expression){<code block>}
+*The obj ref Expression must evaluate to a non-null reference value,otherwise a null pointer Exception is thrown.
+
+
+Thread Safety:
+-------------
+* Its the term used to describe the design of classes that ensure that the state of their object is always consistent.Even when the objects are used concurrently by multiply threads.
+Ex: StringBuffer
+
+
+Volatile Keyword:
+-----------------
+* Volatile helps to directly Change value in the Main Memory instead of Cache Memory.
+
+ public class Tv Set{
+private static volatile TvSet tvSetInstance=null;
+
+private TvSeat(){
+System.out.private("Tv Set instantiated");
+}
+
+public static TvSet getTvSetInstance(){
+if(tvsetInstance == null){
+synchronized(TvSet.class){
+if(tvSetInstance==null)
+tvSetInstance=new Tvset();
+}
+}
+return tvSetInstance;
+}
+}
+
+
+Producer - Consumer Problem:
+-----------------------------
+public boolean add(int item)
+{
+synchronized(q){
+while(q.size()==capacity)
+{
+try{q.wait();}
+catch(InterruptedException e){e.printstackTrace();}
+}q.add(item);
+q.notifyAll();
+return true;
+}
+}
+
+
+public int remove()
+{
+synchronize(q){
+while(q.size()==0)
+{
+try{
+q.wait();
+}catch(InterruptedException e){
+e.printstackTrace();
+}
+}
+int element=q.poll();
+q.notifyAll();
+return element;
+}
+}
+
+
+Thread States:
+---------------
+main(){
+Thread t3=new Thread(()->{
+try{
+Thread.sleep(1);
+for(int i=1000;i>0;i--);
+}catch(Interruption e){
+e.printstackTrace();
+}
+},"states");
+
+t3.start();
+while(true)
+{
+Thread.State state=t3.getState();
+System.out.println(state);
+if(state==Thread.State.TERMINATED)break;
+}
+
+Waiting and Notify:
+-------------------
+A thread in the waiting for Notification state can be awakened by occurence of any of these three Incidents:
+1.Another thread invokes the notify() method on the object of the waiting thread and the waiting thread is selected as the thread to be awakened.
+2.The waiting thread times out.
+3.Another thread interrupts the waiting thread. interrupt() method
+
+
+Notify:
+------
+1.Invoking the notify() method on an object wakes up a single thread that is waiting for the lock of this object.
+2.The selection of a thread to awaken is dependent on the thread policies implemented by JVM.
+3.On being notified, a waiting thread first transits to the Blocked-for-lock axquisition state to acquire the lock on the object, and not directly to the Ready-to-run state.
+4.The thread is also removed from the wait set of Object.
+
+Important Methods:
+-----------------
+1.final void wait(long timeout) throws InterruptedException
+2.final void wait(long timeout,int nanos) throws InterruptedException
+3.final void wait() throws InterruptedException
+4.final void notify()
+5.final void notifyAll()
+
+
+Thread Joining:
+----------------
+main(){
+
+Thread thread=new Thread(()->
+{
+System.out.println(Thread.currentThread());
+},"child Thread");
+thread.start();
+
+try{
+thread.start();
+}catch(InterruptedException e){
+e.printStackTrace();
+}
+System.out.println("main is Exciting");
+}
+
+
+
+Thread Prorities:
+-----------------
+*Thread.MIN_PRIORITY
+*Thread.MAX_PRIORITY
+*Thread.NORM_PRIORITY
+*getPriority(),setPriority()
+
+
+Thread Schedulers: 1.Preemptive Scheduling  2.Time Sliced or Round-Robin Scheduling.
+
+
+DeadLocks:
+----------
+
+*A deadlock is a situation where a thread is waiting for an object lock that another thread holds,and this second thread is waiting for an object lock that the first thread holds.
+*Since each thread is waiting for the other thread to relinquish a lock, they both remain waiting forever in the blocked-for-lock acquisition state.
+*The threads are said to be deadlocked
+
+Code:
+-----
+
+String lock1="sundhar";
+String lock2="soma";
+
+Thread t1=new Thread(()->{
+synchronized(lock1){
+try{
+Thread.sleep(1);
+}catch(Exception e){
+e.printstackTrace();
+}
+synchronized(lock2){
+System.out.println("lock acquired");
+}
+},"thread1");
+
+
+Thread t2=new Thread(()->{
+synchronized(lock2){      ----> Clear deadlock Situation : synchronized(lock1)
+                                                           synchronized(lock2)
+try{
+Thread.sleep(1);
+}catch(Exception e){
+e.printstackTrace();
+}
+synchronized(lock1){
+System.out.println("lock acquired");
+}
+},"thread2");
+
+t1.start();
+t2.start();
+}
+
+
+

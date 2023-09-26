@@ -1,0 +1,29 @@
+MicroServices:
+1.How Two MicroServices Communicate or connect?
+2.What is Circuit Breaker?
+3.Architecture of Microservices.
+4.Components of Microservices?
+5. How do you do Authentication and Authorization in Microservices?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

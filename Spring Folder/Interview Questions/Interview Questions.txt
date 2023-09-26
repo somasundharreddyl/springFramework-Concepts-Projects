@@ -1,0 +1,58 @@
+Spring:
+
+0.Why Spring? 
+*Simplify the java Enterprise Development.
+*lightweight development with Java POJOs,
+*promote loose coupling by making use of dependency injection
+via configuration file or annotations,
+*declarative programming with Aspect-Oriented-Programming or AOP.
+*minimize java code.
+
+1.what is SpringBoot?
+2.@Restcontroller vs @Controller
+3.Monolithic architecture vs Microservices architecture
+4.We are Developig Rest API,what is Use of @Param?
+5.What is Query Parameter?
+6.What is Request Context?Application Context?
+7.What is status code 200,404?other status code?
+8.Springboot Profile?
+9. @Qualifier 
+10.Constructor Injection vs Setter Injection?
+11.Actuator?
+12.How can you Create a Springboot Project from Scratch?
+13.How to read the Properties file in Application.Properties?
+14. @Value 
+
+
+Hibernate:
+1.What is ORM(Object Relation Mapping) Tool:
+  *To speed up software development process.
+  *You are developing Java Project,You want to store data in database,So to achieve that you need to write sql query.
+  *Here,As a developer You need to focus on developing,not on Writing queries.
+  *EX:Hibernate,Django ORM Tools convert the objects into query data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

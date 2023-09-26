@@ -1,0 +1,154 @@
+Out of Topic Que's:
+
+1.Why did you choose Java.
+* fond of Java.
+* always be in the top 5 programming Languages.
+* simple Prog lang & very good features like independent,Both compiled & Interpreter,OOPS,Robust,Portable.
+* Most of the Mobile applications & web based application are developing through Java.
+
+2.Concepts of Java:
+data types, OOP, operators, exception handling, Multithreading and collections.
+
+
+Core Java:
+1.Java Features?Java Architecure - process of conv .java to .class & .class to bytecode
+2.What is portal,Platform Independent,Artechture Nuetral,Dynamic coding?
+3.Arrays?Types? Static and Dynamic
+4.Pre - Increment vs Post-Increment
+5.Variable
+6.Garbage Collection?Who perform GC?
+7.Class variable vs Local Variable  
+8.Super vs this
+9.Abstraction?Advantages?How to achieve Abstraction?
+10.Parent class vs Child Class
+11.Abstract class?Abstract Method?Can we create objects for Abstract Class?
+12.Interface?
+13.Static Keyword?can we overload Static Methods?
+14.final?
+15.Access Modifiers?Types?Explain Each one?
+16.Wrapper class?  convert string into Integer?integer.pathInt
+17.Exception?Types?Explain and Examples?
+18.Why do we need to Handle this Exceptions? How do You Handle this Exceptions?
+19.What is JVM,JDK VS JVM? 
+20.Garbage Collection?Who perform garbage collection?JVM  How to perform?finalize method
+21.Costructor overloading?
+22.What is an array?
+23.String vs StringBuffer?
+24.Package vs sub-Package?  Package inside package
+25.Can we Override static methods?No,Static Methods is binded with class During compile Time.But Overriding is achieved in RunTime.
+26.Can We override Main Method?NO,Main Method is Static Method.
+27. String s=new String();
+28.How can We create Immutable class?
+29.Transient Variable?
+
+
+
+MultiThreading:
+1.Multi casting & Multi-Threading?
+2.Thread?How many ways we can create a thread?
+3.Thread Pool?
+4.Synchronization?
+5.Thread Priority?
+6.HashMap in MultiThreading?
+7.Synchronized HashMap?
+8.What is alternative method for run() in Runnable which gives Return Type Instead of Void?Call() Method.
+9.Ways to Create Thread?
+10.Comparator vs Comparable?
+11.Serialization?convert Objects into Bytes.
+12.fork Join() in MultiThread?
+
+OOPS:
+1.What is OOPS?Loose coupling & Dynamic Binding achieved.
+2.Abstract vs Encapsulation.
+3.Overloading vs overloading
+4.Can we Inherit Constructors? No,We cant Inherit contructors.We only Inherit variables & methods.
+5.Inheritance?Types?Explain?
+6.Abstraction?
+7.Polymorphism?Method overloading vs Method Overiding?  
+8.How to create Immutable Class? 
+
+
+
+ Exception Handling:
+1.why do we use Exception Handlings?
+2.Can we use multiple Catch blocks?
+3.Types of Exceptions? checked(IO Exception,SQL EXCEP,File not found,classNot found) & unchecked Exceptions(Arithmetic,ArrayIndexoutofBound,Nullpointer)
+4.Finally(is a block along with try always execute irrespective of exception rise or not.to close database connections to avoid leakage) vs final (final var,final class,final method)
+5.throw(Unchecked Excep,throw only single Exception explicitly or manually & write - inside Method) vs throws(Checked Excep,declare an Exception which might be thrown by method & throw multiple Exceptions & write - along with Method)
+6.Do we create our own Exceptions?
+7.When Null pointer Exception will come?
+8.when do we get Checked Exceptions?
+9.what is the use of Exception reference?
+10.Null pointer Exception is checked Exception or Unchecked Exception?Resource or File Not Found Exception?
+11.Out of Memory Error?
+12.VM Argument Parameters?
+
+Programs:
+1.Write a program to print frequency of array Elements?
+2.Write a program for prime numbers?
+
+
+Collections:  
+0.Collection vs Collections 
+1.Arraylist vs Linkedlist
+2.Hashmap vs HashTable
+3.ArrayList vs Vector?  
+4.How do you make Arraylist as a synchronized one?
+5.How to convert Hashset as a synchronized one?
+6.How do you convert Arrays into Arraylist?Vice versa?
+7.Cloning?
+8. In Collections, we have two classes which will not allow Heterogenous Data?Reset & Trimmer
+9.What is Hash Collision problem?How to Avoid Hash Collision?
+10.Load Factor in HashMap?
+11.How to Bind multiple Employee Ojects.
+12.HashMap vs Concurrent HashMap?
+13.In which Java Version, HashMap is Introduced?
+14.In which Java Version, Concurrent HashMap is Introduced?
+
+Java 8:
+1.what are Java8 Features?
+2.when do we use optional class?
+3.what is Map?
+4.What is Functional Interface?
+5.Find duplcate Elements in list using StreamAPI?
+6.In java8 ,What are New Changes?Lamda Expression,Functional Interface
+7.What is Consumer Interface?
+
+
+
+Java 8 Coding Que's:
+1.Given a list of Employee details?(EmpId,EmpName,EmpGender,EmpAge,EmpDept,EmpSalary)
+ a.How Many Male & Female Employees in the Organisation?
+ b.How Many Dept are in the ORG.
+
+
+
+Design Patterns & Solid Principles:
+1.What is the use of Design Patterns in java?Factory Design Pattern?Singleton Design Pattern
+2.What is solid Principal?Explain Each Principle?
+3.create Singleton Class?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
