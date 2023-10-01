@@ -1,0 +1,45 @@
+
+                                                    Project Overview
+                                                   -------------------
+
+*Figma
+*Try to Start with Front End Flow chart.
+
+Front End(Merchandise Store):
+a.develop Prototype.
+b.Hardcode Design Pages with dummy values.
+c.Color-wise Selection in Product Description
+
+Backend:
+a.Include Pagination.
+b.Multiple payment GateWays(in case of Failure)
+c.Login/sigup for Better Experience.
+
+
+Database:
+
+
+
+1.Performance Improvement(Scalability Increases)
+a.Caching(Time Bound)
+
+2.Scalability
+
+3.Security
+
+
+
+
+
+
+*Integrating with 3rd party API(movieDB)(TMDB)(RapidAPI) By using React/Angular.
+*Backend : Chatting Application using Socket Programming- Node.js - Code with Harry
+                                                         - Java
+*Booking/Reservation - Race Condition / 2 persons cant book same Resource at a Time.
+*BookMyShow API Design Challenges - Riddhi Dutta Video.
+*E-Commerce Full Stack(Authentication/Authorization/Product Search/Filter/Add to Cart/Payment Gateway)
+  (Java/Angular) https://youtu.be/U5TdEJnJU88?si=m3vo1pKjegI9zZvj
+
+
+
+
