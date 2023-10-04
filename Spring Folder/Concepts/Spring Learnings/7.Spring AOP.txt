@@ -1,0 +1,236 @@
+                                              Spring AOP
+                                            --------------
+1.Ascept Oriented Programming is methodology to develop Applications.
+2.Ex: Shopping Cart:
+  a.We can add Items,Remove Items.
+  b.Loggers to Track Each and Every Operation and to Know where we get Errors.
+  c.Authentication and Authorize Logic
+  d.Json Conversion 
+  These are things that we do everytime we get Request(Payment,Shopping Cart).
+3.AOP Tells to separate Cross-cutting-Conserns(like Logging,Authentication,Authorization,JsonConversion)
+ from Business Logic.
+4.Implementation:
+  a.Create simple Maven Projet(No Dependencies).
+  b.Add spring-context Dependency,AspectJ Runtime Dependency,AspectJ Weaver Dependency,springboot-starter-aop dependency.
+         @Component
+  c.Create ShoppingCart Class.Methods(void checkout()).
+  d.Create Configuration Class to create Beans by Annotation Based Config.
+  e.In main Method- ApplicationContext context=new AnnotationConfigApplicationContext(configClass.class);
+    Shoppingcart cart=context.getBean(ShoppingCart.class);
+    cart.checkout();
+  f.Create Logging in checkout() Method.like  "Enter into Checkout Method".
+  g.Do Authentication and Authorization for Checkout().
+  h.Do Sanitize the Data.
+
+public void checkout(){
+//Logging                           >
+//Authentication & Authorization    >  ----> Cross-Cutting Concerns
+//Sanitize the Data                 >
+Sout("Checkout Shopping Cart");  ---> Business Logic
+}
+
+  i. Goal : Separate Cross Cutting Concerns from Business Logic.For all these Cross-Cutting Concerns,
+      we need to create different Aspects.
+
+  j. Create Ascept for Logging.
+     @Aspect
+     @component
+     public class LoggingAscept{
+
+      @Before("execution(* demo.practice.Shoppingcart.checkout())")   --> PointCuts
+      public void logger(){
+       Sout("loggers");
+      }
+      }
+
+  Note:
+   * -----> Denotes any Return Type for checkout() Method.
+   logger() method get executed just before the checkout() method is called.
+
+   k. Enable it in Configclass to work.
+
+     @EnableAsceptJautoProxy
+     @ComponentScan(basepackages="demo")
+     @Configuration
+      public class configClass{}
+
+   l.we can call Different PointCuts(When & where we call this logger method) : @before, @after, call after Returning value,
+     call after throwing a value, call around the method(checkout()).
+
+
+
+   m.create another loggerMethod(afterLogger()). @After("execution(* *.*.checkout())")
+
+      @After("execution(* *.*.checkout(..))")
+      public void afterLogger(Joinpoint jp){jp.getSignature();  jp.getArgs()[0].toString();}
+     
+     Note: * *.*.checkout()
+  
+     first * ---> any Return Type.
+     Second * --> for any Package.
+     Third * ---> for any Class.
+
+     means - for any ReturnType,For anyPackage,For anyClass - if there is Checkout() method, call that.
+
+    Note: * *.*.checkout(. .)
+  
+     first * ---> any Return Type.
+     Second * --> for any Package.
+     Third * ---> for any Class.
+
+     means - for any ReturnType,For anyPackage,For anyClass,for any No of Parameters - if there is Checkout() method, then call that.
+
+              @Aspect
+              @Component
+   n. Create AuthenticationAspect class{
+       
+       @Pointcut("within(demo..*)")  ----> demo package
+       public void authenticatingPointCut(){
+ 
+
+      }
+       @Pointcut("within(demo..*)") ----> for any methods in Shoppingcart Class.
+       public void authorizationPointCut(){
+ 
+
+      }
+
+      @Before("authenticatingPointCut()" && "authorizationPointCut()"){
+       public void authenticate(){
+      System.out.println("Authenticating Request");
+      }
+       }
+
+
+
+
+   Homework:
+
+   1.create method in ShoppingCart Class.
+   
+       public int quantity(){return 2;}
+
+   2.In LoggingAscept class:
+    
+      @Pointcut("execution(* demo.ShoppingCart.quantity())")
+      public void afterReturningPointCut(){}
+
+
+    @AfterReturning(pointcut="afterReturningPointCut()",returning ="retVal")
+   public void afterReturning(String retVal){Sout("After Returning :"+retVal);}
+
+
+
+--------------------------------------------------------------------------------------------------
+                            Perfect to Learn
+                            -----------------
+Definations:
+1.AOP Aspect: An aspect is a class that implements enterprise application concerns that cross cut
+        multiple classes such as logging,security,transaction management,validations.
+  * Classes annotated with @Aspect (@AspectJ style)
+
+2.Join Point : Join Points are Specific points in the Application where aspects can be applied.
+              A point during execution of prog, such as execution of method.
+
+3.Pointcut:
+            Pointcuts Define where and when the advice(@before,@after,after throwing) should be applied.
+            A predicate that matches join points. Advice(@before,@after,after throwing)  is associated with a pointcut expression and runs at any join point matched by pointcut.
+
+4.Advice : Actions taken for a particular join point.
+
+
+Ex:
+    @Aspect
+    @Slf4j
+   @component
+    public class loggingAspect{
+
+    @Pointcut("execution(* com.practice.aspectPractice.*.getById(..))") ---> (with in anyclass,only in getById Method)
+    @Pointcut("within(com.practice.aspectPractice.controller.*)") -----> Within Controller Package(any Class,any Method)
+    @Pointcut("this(com.practice.aspectPractice.controller.EmployeeController)")
+    public void loggingPointCut(){}
+
+    @Before("loggingPointCut()")
+    public void before(JoinPoint jp){log.info("Before Method invoked :"+jp.getSignature());
+    }
+
+
+    @After("loggingPointCut()")
+    public void before(JoinPoint jp){log.info("After Method invoked :"+jp.getSignature());
+    }
+   
+    @AfterReturning(value="execution(* com.practice.aspectPractice.controller.*.*(..))",returning="employee")
+    public void after(JoinPoint jp,Employee employee){log.info("After Method Invoked :"+employee);}
+    
+    
+     @AfterThrowing(value="execution(* com.practice.aspectPractice.controller.*.*(..))",throwing="ex")
+    public void after(JoinPoint jp,Exception ex){log.info("After Method Invoked :"+ex.getMessage());}
+   
+    
+    @Around("loggingPointCut()")
+    public Object around(ProceedingJoinPoint jp){log.info("Before Method invoked :"+jp.getSignature());
+             Object obj=joinPoint.proceed();
+       if(obj instanceOf Employee){log.info("After Method invoked:"+jp.getSignature());}
+        else if(obj instanceOf Department){log.info("After Method invoked:"+jp.getSignature());}
+
+     }
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+Aspect-Oriented Programming (AOP) is a programming paradigm that helps in modularizing cross-cutting concerns in 
+software development. Cross-cutting concerns are aspects of software that affect multiple parts of the application, 
+making them hard to manage and maintain using traditional procedural or object-oriented programming approaches. 
+Here are some advantages of following AOP:
+
+1. **Modularity and Reusability:**
+   AOP enables the separation of concerns, allowing developers to isolate specific functionalities into separate aspects.
+ These aspects can be reused across multiple parts of the application, promoting modularity and reusability of code.
+
+2. **Improved Maintainability:**
+   By isolating cross-cutting concerns, AOP makes it easier to manage and maintain the codebase. Changes or updates to 
+a particular concern can be made in a single location (the aspect), and these changes will automatically be reflected wherever 
+that aspect is used.
+
+3. **Enhanced Readability and Understandability:**
+   AOP helps in improving code readability and understandability by keeping the core functionality of each module or class 
+clean and focused on its main purpose. Cross-cutting concerns are handled separately in aspects, making the main codebase 
+more readable and easier to comprehend.
+
+4. **Reduced Code Duplication:**
+   AOP allows for the centralization of common functionalities (cross-cutting concerns) into aspects, reducing the need
+ for duplicating code across different parts of the application. This reduces redundancy and leads to a more maintainable
+ and concise codebase.
+
+5. **Encapsulation of Concerns:**
+   AOP encapsulates cross-cutting concerns into separate aspects, providing a clear separation of concerns. This isolation
+ allows developers to manage and reason about each concern independently, leading to cleaner, more organized code.
+
+6. **Enhanced Scalability:**
+   As the application grows, cross-cutting concerns often become more complex and widespread. AOP helps manage this 
+complexity by providing a structured approach to handling these concerns, making it easier to scale the application 
+without introducing chaos or increasing development effort significantly.
+
+7. **Simplified Error Handling and Logging:**
+   AOP can centralize error handling and logging, making it easier to implement and manage these concerns consistently
+ across the application. This leads to more efficient error handling and standardized logging mechanisms.
+
+8. **Flexible and Dynamic Composition:**
+   AOP allows for flexible composition of aspects, making it possible to dynamically apply aspects to various parts of the
+ application as needed. This flexibility facilitates adapting the behavior of the application at runtime without modifying 
+the core business logic.
+
+9. **Easier Cross-Team Collaboration:**
+   AOP promotes a clear separation of concerns, making it easier for different teams or developers to work on different parts
+ of the application independently. Teams can focus on their specific concerns without interfering with other aspects, thus 
+improving collaboration and productivity.
+
+10. **Cross-Platform and Language Support:**
+    AOP concepts can be applied in various programming languages and platforms, making it a versatile approach that can be utilized
+ in a wide range of software development scenarios.
+
+In summary, AOP helps improve code organization, maintainability, readability, and reusability by effectively addressing cross-cutting 
+concerns in a modular and structured manner.
+
+	

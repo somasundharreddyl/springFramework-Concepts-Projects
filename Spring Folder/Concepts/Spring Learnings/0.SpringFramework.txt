@@ -1,0 +1,698 @@
+                                                         Spring FrameWork
+
+1/9/2023 :
+---------
+1.Spring is dependency Injection & Autowiring Framework.
+Concepts : Tight Coupling,Loose Coupling,Dependency Injection, IOC Container,Application Context,Spring Beans,Auto Wiring,Component Scan
+2.Injecting the Dependency (Ex: Private Student student)
+3.@Autowired - search for the Suitable Class to Instantiate the Object of that Class.
+4.@Component - telling the Spring to manage bean or Obj for Particular Class.(Ex: @Component Class University)
+5.@Bean - In Spring, We call Object as Bean.
+6.Autowiring - autowiring the dependency object in Class.(Public University(Student stud){super(); this.student=student;})
+7.Ioc - Inversion of Control. Normally in Java, Object Creation of inner class is Controlled by Outer Class.But In Spring, To make it
+Loosely Coupled we give control to Spring.
+ 
+                            @Component
+                     Ex:    Public Class University{
+                            @Autowired
+                            private Student student; (Loosely Coupled)       |    Private Student stud=new Student();  (Tightly)
+                             public University(Student student){
+                                 this.student=stud;
+                              }
+
+8.ApplicationContext - Manage all the Spring Beans.   Ex: ApplicationContext con=SpringBoot.run();
+                                                            con.getBean(example.Class);
+                         
+9. Logging - To know What happens in the Back When We Run Sprinboot Application.
+            - application.level.org.springFramework=debug
+
+Steps:
+1.Package-Scan in Main Method Class.
+2.Search for all Spring Annotations (@Component,@Service,@Controller)
+3.Start Creating Bean for Component Classes.But it needs to create Bean for Inner class.
+4.Start Creating Bean for Inner class Object(Student).Finish Creating Bean for Student.
+5.Autowire via Constructor.
+6.Finish Creating Bean for University.
+
+10.Dynamic AutoWiring: By using Interface Reference.
+
+                           @Component
+                     Ex:    Public Class University{
+                            @Autowired
+                            private Student student; (Loosely Coupled)       | Private Student stud=new Student();  (Tightly)
+                             public University(Student student){
+                                 this.student=student;
+                              }
+
+                            @Component
+                            @Primary                              @Component
+Student(INTERFACE)------->(MedicineStudents implements Students,EngineeringStudents implements Students)
+
+11. @Primary - When Spring Confuses Which Implemented class to take when Assigning @Component on both Class, @Primary Helps.
+  
+12.No Bean Found - Forgot to Mention @Component on Class University.  Ex: ApplicationContext con=SpringBoot.run();
+                                                                             con.getBean(University.Class) ----> No Bean Error.
+
+13.Component-Scan : Search for all Components in Given Package.
+
+
+------------------------------------------------------------------------------------
+14. Types of Dependency Injection.
+
+a.Constructor Injection. - use When Bean Creation is Mandatory for those innner classes.
+b.Setter Injection.
+c.Field Injection.    - Bean Creation is Optional for those inner Classes.
+
+ @Primary>more precedence than Naming Convention of Object.
+
+Ex:Consider Two Implemented Classes MedicineStudents,EngineeringStudents with @Components on both, without @Primary.Now if
+we call with Students Interface,Spring got Confuse.For that We use @Primary.Instead of Primary, We call By Naming Convention of Implemented Class.
+        
+            @Autowired
+            private Student engineeringStudents;            
+
+.
+
+15. @Qualifier: When We have Mutiple Implemented Classes to Autowire, We use @Primary, Naming & @Qualifier.
+
+            @Autowired
+            @Qualifier("engStud")
+            private Student engineeringStudents;    
+
+
+            @Component
+            @Qualifier("engStud")
+           Public Class EngineeringStudents implements Students   
+
+
+16.Bean Scope :
+a.Singleton Bean: In Spring, By Default any Bean is the Singleton Bean.
+b.Prototype Bean :  New Bean. @Scope("prototype") or @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+c.Request: One bean Per HTTP Request.
+d.session: one Bean per Http Session.
+
+private static Logger LOGGER=LoggerFactory.getLogger(SpringApplication.class)
+LOGGER.info("{}",obj);   //Instead of SOUT.
+
+Scenario:
+when we want to create different Obj's for inner class, we this Upon inner class Constrctor.
+@Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE,proxyMode=ScopedProxyMode.TARGET_CLASS)
+
+@ComponentScan("com.package")-----> Default on main Class
+if you want to scan into Another package,We use @ComponentScan.
+
+
+Bean LifeCycle:
+Entire Lifecycle of Bean is controlled by Spring Ioc Container.
+
+@PostConstruct --->As soon as Bean is Created and Initialized with Dependencies, this PostConstruct method is called.
+public void method()
+
+@PreDestroy
+public void method() ---> Just Before Bean is Destroyed, this PreDestroy Method is Called.
+
+ 
+CDI:(add dependency of javax.inject in pom.xml)
+1.Context & Dependency Injection:
+#defines Common Annotations: @inject = @Autowired
+ @Named = @Component & @Qualifier
+
+
+Removing Spring Boot and Replacing with spring-core or spring-context.
+Here We are Using Spring Instead of SpringBoot.
+@SpringBootApplication ---> @Configuration + @ComponentScan
+*Replace in above of Main Class.
+*ApplicationContext ac=new AnnotationConfigApplicationContext(CollegeManagemetSystemApplication).
+
+
+_____________________________________________________________________________
+
+Understanding Spring Helps to learn Springboot Easily.
+Helps in Debugging Problems Quickly.
+
+Getting Started with Spring Framework - Approach:
+*Design Game Runner to Run Games(Mario,SuperContra) in an iterative approach.
+
+1.Iteration 1:
+Tightly Coupled Java Code.
+-GameRunner Class.
+-Game classes: Mario,SuperContra,Pacman etc.
+
+2.Iteration 2:
+Loosly Couple.
+-GameRunner Class.
+-GamingConsole Interface
+  *Game classes: Mario,SuperContra,Pacman etc.
+
+3.Iteration 3:
+Loose Coupling - Spring Level 1
+- Spring Beans.
+- Spring Framework will manage Objects & Writing.
+
+Ex: 1. Launch Spring Context.
+       AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(createConfig.class);
+
+    2. Configure the Things that Spring want to manage using @Configuration Class.
+          context.getBean("name");
+          Sout(context.getBean("person")); or (Person.class)
+          Sout(context.getBean("ageNumber"));
+
+
+    3. Configuration Class:
+        
+      record Person(String name,int age){};
+
+      @Configuration
+      public class createConfig{
+       
+       @Bean
+       public String name(){
+       return "Ranga";
+       }
+
+        @Bean(name="ageNumber")
+       public int age(){
+       return 21;
+       }
+    
+       @Bean
+       public Person person(){
+       return new Person("Karun",19,new Address("1-2,Madhapur","500211"));
+       }
+
+
+       @Bean
+       public Person personMethodCall(){
+       return new Person(name(),age());
+       }
+
+       }
+
+Questions:
+1. (Spring Container vs Spring Context vs IOC Container) vs ApplicationContext?
+ans: Manages Spring Beans & their lifeCycle.
+ Types of Spring Container: 1. Bean Factory : Basic Spring Container
+                            2. Application Context : Advance Spring Container with enterprise specific features.
+                              
+
+2. Java Bean vs Spring Bean?
+
+ans: JavaBean(Entriprise Java Bean) - Conditions : Must have no-Args Constr,get & set Methods,implements Seriable.
+     Spring Bean - Any java Obj that is managed by Spring.Spring Use Ioc Container to Manage Beans.
+     Pojo(Plain Old Java Object) Class or Entity Class.
+
+3.How can I list all Beans Managed By Spring?
+   context.getBeanDefinitionNames();
+
+
+4.What if Multiple Matching Beans are Availabale?
+@Primary, @Qualifier.
+
+
+5.Spring is Managing Objects & Performing auto-Wiring.
+  -But aren't we Writing code to create Obj's. Ex: return new Person(); in Method.
+  -How do we get spring to Create Obj's for us.
+
+Note:
+record is new Feature in JDK 16, there is no need to create get,set,equal Methods.
+
+4.Iteration 4:
+Loose Coupling - Spring Level 2
+- Spring Annotations.
+- Spring Framework will create, manage & Autowire Objects.
+
+
+                                                                Advance Spring Topics
+  
+                                                               ------------------------
+
+1.@Eager - Default Initialization to Spring Beans - Bean should be eagerly Initialized along with applicationContext.
+2.@Lazy - configure beans to be lazily initialized - only be created & initialized when it is accessed or requested by 
+another Bean - Not Recommended & Not Frequently used - can also be used on @Config class and @Bean Methods.
+3.Note : Errors will not discover at Compile time,It will show at Run Time. when we use @Lazy.
+EX : @Lazy(value=true) or @Lazy.
+
+Scopes:
+*Scopes applicable for web-aware SpringApplicationContext.(Request,Session,Application,websocket - one Obj)
+1.@Singleton - one obj instance per Spring Ioc Container.
+  @Prototype - Many Obj Instances per Spring Ioc Container.
+   @Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE) or (value="PROTOTYPE")
+
+Java Singleton(Gang of Four Design Patter) vs Spring Singleton:
+a.Spring Singleton : one obj instance per Spring Ioc Container.
+b.Java Singleton : one Obj instance per JVM.
+  
+
+PostConstruct and PreDestroy:(jakarta.package)
+1.@PostConstruct - method is called immediately after Initialization happens.
+Ex: To Make Connections with Resources.
+2.@PreDestroy   - method is called just before the Beans Destroy.
+Ex: To Remove Connections with Resources.
+
+
+Evolution of Jakarta : jakarta.packages
+J2EE ---> JAVA EE ---> JAKARTA EE
+-Java 2 Platform Enterprise Edition.
+-Java Platform Enterprise Edition.
+-Jakarta EE (Oracle gave Java EE Rights to Eclipse Foundation)
+
+Specifications:
+1.Jakarta Server Page(JSP)
+2.Jakarta Standard Tag Library(JSTL)
+3.Jakarta Enterprise Beans(EJB)
+4.Jakarta RESTful Web Servies.
+5.Jakarta Bean Validation.
+6.Jakarta Contexts and Dependency Injection(CDI). - @Named(component),@inject(autowired).
+7.Jakarta Persistence(JPA)
+
+Supported By Spring 6 and Spring Boot 3:Earlier We have Javax Packages.
+To work With Jakarta, add Dependency in POM.xml.
+
+XML Configuration:
+ApplicationContext context=new ClassPathXmlApplicationContext("application.xml");
+		CustomerController controller=(CustomerController)context.getBean("customerController");
+		controller.countCustomers();
+
+
+application.xml:
+<bean id="customerController" class="com.example.SpringBeanScope.CustomerController">
+</bean>
+
+
+Specializations of @Components(annotations that use on Class Name):
+1.@Service    - Bussiness Logic
+2.@Controller - Web Controller
+3.@Repository - Retrieve or Manipulate Data in DB.
+
+EndTitles of Spring:
+SpringFramework Contains Multiple Spring Modules:
+1.Spring Core : IOC Container,Dependency Injec,Autowiring.
+2.Web : Spring MVC(Web Applications,REST API)
+3.Web Reactive: Spring WebFlux etc
+4.Data Access : JDBC,JPA
+5.Integration(With Another Application):JMS
+6.Testing : Mockito,Spring MVC Test etc
+
+Que: Why Spring Divided into Multiple Modules?
+Ans: Each Application can Choosee Modules they want to use.They do not need to
+use of everything in Framework.
+Ex: If I want to Work with Web Application by Using DB, then I use Spring Core,Spring MVC,
+Spring JPA.
+
+Que : BeanFactory vs ApplicationContext?
+Ans : BeanFactory will create a bean object when the getBean() method is called thus making it Lazy initialization. 
+      ApplicationContext loads all the beans and creates objects at the time of startup only thus making it Eager initialization.
+      BeanFactory interface provides basic features only thus requires less memory.
+      ApplicationContext extends the features of BeanFactory.
+------------------------------------------------------------------------------------------------------------------
+
+                                           Spring Boot
+                                           -------------
+
+1.Why SpringBoot?You can Build Web Apps and REST API Without Spring Boot?(Spring MVC).
+2.What are Goals of SpringBoot?
+-Build Production Ready Applications Quickly.
+3.How Does Spring Boot Work?
+4.Spring vs Spring MVC vs Spring Boot?
+
+Before SpringBoot:
+1.We need to do Configuration & import all Dependencies and its Versions in Pom.xml
+  - ComponentScan, ViewResolver.
+  - We need to import mockito,junit,JDBC Dependencies.
+  
+2.Configure DispatchServlet for Spring MVC to work with Web Apps in web.xml.
+
+3. You need to implement logging,Error Handling, Monitoring Explicitly.
+
+Be Quickly:
+-Spring Initializr : Helps easily build Spring Projects.(Spring.io)
+-Spring Boot Starter Projects : helps to Quickly define Dependencies for Application.
+-Spring Boot Auto Configuration : Provide Configurations Automatically Based on Dependencies.
+-Spring Boot DevTools : Helps to make changes without manually Restarting the Server.
+
+1.SpringBoot Starter:
+   To Build an Application, We need Set of Dependencies.
+  a.Spring Boot Starter Web : Spring boot - starter-Json,tomcat,webmvc,web
+  b. Spring Boot Starter JPA : Talk to DB.
+  c.Spring boot Starter Test : Unit Tests,J-unit
+  d.Spring Boot Starter JDBC : Talk to DB.
+  f.Spring Boot Starter Security : Secure Application or REST API.
+
+
+2.Spring Boot Auto Configuration:(Jar Files contains Auto Config)
+  Normally, We need lot of Config to Build Spring App.
+   -ComponentScan,DipatchServlet,Data Source,Json Conversion.
+  How can We simplify this?Spring Boot Auto Config.Based on Which Frameworks are in which classPath?
+  What is Existing Config?
+
+All  ComponentScan,DispatchServlet,Data Source,Json Conversion,Embedded Servlet Container(Tomcat) are Auto Configured. 
+Default Error Pages(ErrorMVCAutoConfiguration),Bean ---> Json Conversion(JacksonHttpMessageConverersConfiguration).
+
+3. Spring Boot Dev Tools:Everytime we do changes in code. No need to Restart Server manually.
+
+
+
+Be Production-Ready:
+-Logging : SpringBoot Provides Default Logging.
+-Diff Configurations for Diff Environ : Provides Profiles,ConfigurationProperties.
+-Monitoring(Spring Boot Actuator) : Sufficient Memory.
+
+1.Logging:
+
+   dev:
+   logging.level.org.springframework=trace
+
+   prod:
+   logging.level.org.springframework=info
+
+order of Logging Levels(From High to Low):
+1.trace : If you select trace, then all the below levels are also Executed.
+2.debug : If you select Debug, then all the below levels are also Executed.
+3.info :    ''
+4.warning : ""
+5.error   : ""
+off
+
+
+2. Managing Application Configuration Using Profiles:
+- Applications have different Envir : Dev,QA, Stage,Production.
+- Different Env Needs Diff Config? How to Provide Diff Config for Diff Env?
+  Ans:Profiles: Envir Specific Config.
+
+Ex:1
+
+Application-dev.Properties:
+logging.level.org.springframework=trace
+
+Application-prod.Properties:
+logging.level.org.springframework=info
+
+
+Application.Properties:
+logging.level.org.springframework=debug
+spring.profiles.active=prod             -----> Here we are Configuring App-prod using Profiles.
+
+Application-prod.Properties>Application.Properties: High Priority (Output : info level)
+
+
+Ex:2
+Application.Properties:
+customer.username=somasundhar
+customer.password=Password321
+
+@ConfigurationProperties(prefix="customer")
+@Component
+public class CustomerCredentials{
+private String username;
+private String password;
+//getters & Setters
+//Constructors
+}
+
+
+@RestController
+Controller Class{
+private CustomerCredentials credentials;
+
+@RequestMapping("/getCredentials")
+public CustomerCredentials getDeatails(){
+return credentials;
+}
+
+}
+
+
+
+3.Embedded Servers:(Spring boot-starter-tomcat,Spring boot-starter-jetty,Spring boot-starter-undertow)
+How do you Deploy Your Application?
+ 1.Install Java
+ 2.Install WebServer/Application Server. Ex:Tomcat/WebSphere/WebLogic
+ 3.Deploy Web Archive(WAR) file -----> Older Approach.(Complex to Setup)
+
+ Embedded Server: 1.Install Java   2. Run JAR file.(Easy Approach)
+
+
+To Run JAR File Externally: Run as Maven Build --> Goals: clean install --> copy jarfile Path
+in Console ---> open Terminal , cd path ---> ls --> copy projName-0.0.1-SNAPSHOT.jar --> java -jar projName-0.0.1-SNAPSHOT.jar
+
+(Java 17 or More<---Supports---SpringBoot 3+)
+
+
+
+4.Monitor Applications Using Spring Boot Actuator:
+ -Monitoring and Managing the Application in Production.
+ -Provides a number of EndPoints.
+   *beans : Complete List of Spring Beans in App.
+   *health : Application Health Information(up or Down)
+   *metrices
+   *mapping : details about Request Mappings.
+   *env : All Environment Details of App. Ex:Jvm,Java Version,SpringBoot Ver,encoding:UTF-8,Tomcat.
+ 
+ 1. Install Spring-boot-starter-actuator Dependency in pom.xml
+ 2. Run Application.
+ 3. localhost:8080/actuator/   -> You will See 3 default Actuators
+ 4. Application.properties:    ---> if you want to see more endPoints.
+    management.endpoints.web.exposure.include=*
+                   or
+    management.endpoints.web.exposure.include=beans,metrices
+
+Finally, Actuator Provide lot of Information about application and environ in which it is Running.
+
+------------------------------------------------------------------------------------------------------------------------------
+                                         JDBC
+                                         -----
+
+1. Connection conn=null;
+2.conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/customerDB","user","Password123");
+3.PreparedStatement st=conn.prepareStatement(sql_Query);
+4.st.execute();
+
+//st.setString(1,cust.getName());
+
+
+
+
+                                          Spring JDBC
+                                        -------------------
+1.Evolution : JDBC --> Spring JDBC ---> JPA ----> Spring Data JPA
+2.Dependencies : Spring Data JPA,Spring Data JDBC,H2 DATABASE,Spring Web
+3.Copy H2 Url : jdbc:h2........     from Console after Running the Application.
+4.application.properties: spring.h2.console.enabled=true
+5. localhost:8080/h2-console
+6.Paste H2 Url : jdbc:h2........     in JDBC URL Input Box.
+7.Click Connect Button.
+
+8.Or You can Create Your Own static URL Instead of Using Dynamic URL(everyRuntime the URL Changes).
+   - Application.properties : spring.datasource.url=jdbc:h2:mem:testdb
+
+9. After connected to h2 DB,create a file schema.sql in resources.Create table of customer
+Spring data jpa, by default picks schema.sql & create table in H2.
+
+10.Now Play with Cutomer Table By Using Spring JDBC, Spring JPA, Spring Hibernate,Spring Data JPA.
+   a.Spring JDBC:(Write less Code When Compare to JDBC.)
+   Ex:
+     public void deleteTodo(int id){
+      jdbcTemplate.update("delete from todo where id=?",id)
+     }
+
+11.Create CustomerRepository Class.
+
+ @Repository
+ public class CustomerRepository{
+
+     @Autowired
+     private JdbcTemplate jdbcTemplate;
+     private static String INSERT_QUERY=
+              """
+                insert into customer(id,name)
+                 values(1,"Sundhar");  
+              """;
+
+    public void insert(){
+      jdbcTemplate.update(INSERT_QUERY);
+}
+
+@Component
+public class CustomerCommandLineRunner implements CommandLineRunner{
+
+@Autowired
+private CustomerRepository repo;
+
+@Override
+public void run( )throws Exception{
+repo.insert();
+}
+}
+
+
+
+Without Hard Coded Values:
+
+ @Repository
+ public class CustomerRepository{
+
+     @Autowired
+     private JdbcTemplate jdbcTemplate;
+     private static String INSERT_QUERY=
+              """
+                insert into customer(id,name)
+                 values(?,?);  
+              """;
+
+
+     private static String DELETE_QUERY=
+              """
+                delete from customer
+                 where id=?
+              """;
+
+
+    public void insert(Customer customer){
+      jdbcTemplate.update(INSERT_QUERY,customer.getId(),customer.getName());
+}
+
+@Component
+public class CustomerCommandLineRunner implements CommandLineRunner{
+
+@Autowired
+private CustomerRepository repo;
+
+@Override
+public void run( )throws Exception{
+repo.insert(new Customer(1,"Sundhar"));
+
+}
+}
+
+
+Note: For Delete ---> jdbcTemplate.update(DELETE_QUERY);
+     findById ---->return jdbcTemplate.queryForObject(SELECT_QUERY,new BeanPropertyRowMapper<>(Customer.class),id);
+                      ResultSet(Record) ---> Bean Mapping => Row Mapper
+
+
+------------------------------------------------------------------------------------------------------
+     
+                          JPA(using Jakarta)
+                          ----------------
+
+
+1.Entity Class with @Entity,@Id,@Column(name="")
+2.Create CustomerJpaRepository class with @Repository and @Transactional{
+    
+     @PersistenceContext   --->Most Specific Annotation for EntityManager.
+     private EntityManager entityManager;
+
+     public void insert(Customer customer){
+      entityManager.merge(customer);
+}
+ }
+
+findById----> return entityManager.find(Customer.class,id);
+deleteById--->Customer cust= entityManager.find(Customer.class,id);
+               entityManager.remove(cust);
+
+
+
+@Component
+public class CustomerCommandLineRunner implements CommandLineRunner{
+
+@Autowired
+private CustomerRepository repo;
+
+@Override
+public void run( )throws Exception{
+repo.insert(new Customer(1,"Sundhar"));
+
+}
+}
+
+
+Note:If you want to see sql queries that execute in Application Console.
+     spring.jpa.show-sql=true
+
+
+------------------------------------------------------------------------------------------------
+
+                                 Spring Data JPA
+
+
+JDBC:
+-----
+1. Write a lot of SQL Queries.
+2. Write a lot of Java Code.
+
+
+Spring JDBC:
+-----------
+1. Write a lot of SQL Queries.
+2. Write lesser Java Code.
+
+
+JPA:
+-----------
+1. Do not Worry about Queries(not need to write Queries)
+2. Just Map Entities to Tables.
+
+Spring Data JPA:
+----------------
+1. Make JPA Even more Simple.
+2. take Care of Everything.
+
+
+Hibernate vs JPA:
+-----------------
+JPA(Jakarta Persistance API): JPA defines the specification. It is an API.
+   1.How do you define entities?(@Entity,@ID,@Column)
+   2.How do you map attributes?
+   3.Who manage the entities?
+
+Hibernate: is one of popular Implementation of JPA.
+other JPA Implementations:Toplink.
+
+
+
+                               
+------------------------------------------------------------------------
+
+
+                <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+
+                <dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,439 @@
+                                           Unit Testing
+                                          ---------------
+Testing Terminologies:
+1. Code Testing
+2. Application Testing.
+
+1.Unit Testing - Written by Developers to test each unit of Functionality.External Dependency is removed.
+2.Integration Testing - User Interface Testing. Integration of Components Testing.
+3.Performance Testing - Runs fast enough even load increase.
+
+
+Junit:
+ *Perform Testing by Developers before Integration Testing(API Testing By Testers).
+ *Developer-Side Testing on JVM.
+ *Junit 5 focus on Java 8 and plus.
+ *AssertJ Library or framework that provides set of assertions.
+ *Mockito Library or Mocking Framework lets you write tests with a clean & Simple API.
+ *H2 Database(IN-Memory) - fast.
+ 
+
+a.Junit,assertJ,mockito dependency are already bundled in Starter-Test Dependency.
+b.Add h2 Database Dependency in pom.xml
+
+<groupId>com.h2database</groupId>
+<artifactId>h2<artifactId>
+<version>2.2.220</version>
+<scope>test</scope>
+
+c.In test/java --> create resources folder and application.yaml
+   
+  spring:
+     datasource:
+       url: jdbc:h2://mem:dbName;DB_CLOSE_DELAY=-1
+       username: user
+       password: password123
+       driver-class-name: org.h2.Driver
+
+   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+
+   jpa.hibernate.ddl-auto: create-drop
+
+                                     (OR)
+
+c.In test/java --> create resources folder and application.properties
+
+spring.datasource.url = jdbc:h2://mem:db;DB_CLOSE_DELAY=-1
+spring.datasource.username = sa
+spring.datasource.password = sa
+spring.datasource.driver-class-name = org.h2.Driver
+
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+jpa.properties.hibernate.dialect = org.hibernate.dialect.H2Dialect
+jpa.properties.show-sql = true
+
+#JPA settings
+jpa.hibernate.ddl-auto = create-drop
+
+---------------If You Get Errors Above-Follow Below---------------------------
+
+
+spring:
+   datasource:
+     url: jdbc:h2:mem:testdb
+     username : sa
+     password : password
+     driver-class-name : org.h2.Driver
+     
+   hibernate:
+       ddl-auto: update
+       
+   h2:
+    console:
+      enabled: true    
+
+d.follow similar structure(same package Level,same className with Test at End) 
+while creating classes in Test.
+
+e.Testing Repository classes:CustomerRepository(List<Customer> findByName(String name); --> Method in CustomerRepo)
+
+@DataJpaTest --> Telling springBoot that In-Memory Database is using.
+public class CustomerRepositoryTest{
+
+@Autowired
+private CustomerRepository customerRepo;
+
+Customer customer;
+
+  @BeforeEach  --> Before performing each Test case.
+  void setup(){
+   customer =new Customer(1,"customer1","customer1@gmail.com");
+   customerRepo.save(customer);
+ }
+
+   @AfterEach --> After Performing each Test Case.
+   void tearDown(){
+    customer=null;
+    customerRepo.deleteAll();
+   }
+
+   
+   //Testcase Success
+   @Test
+  void testFindByCustomerName_FOUND(){
+    List<Customer> customersList=customerRepo.findByCustomerName("customer1");
+    assertThat(customersList.get(0).getId()).isEqualTo(customer.getId());
+    assertThat(customersList.get(0).getEmail()).isEqualTo(customer.getEmail());
+    }
+
+
+  //Failure Testcase - CustomerName which is not in DB.
+
+  @Test
+  void testFindByCustomerName_NOTFOUND(){
+    List<Customer> customersList=customerRepo.findByCustomerName("customer2");
+    assertThat(customersList.isEmpty()).isTrue();
+    }
+}
+
+
+
+2.ServiceLayer Test: ctrl+shift+p
+
+*Individual Testing:Here, Service layer is not suppose to talk with Repository layer.So
+Here we are Mocking the Data.
+
+  class CustomerServiceImplTest{
+
+  @Mock  --> Mocking Repository(Faking)
+  private CustomerRepository customerRepo;
+
+  private CustomerService customerService;
+
+  Customer customer;
+
+  AutoCloseable autoCloseable;
+
+
+
+  @BeforeEach  --> Before performing each Test case.
+  void setup(){
+   autoCloseable =MockitoAnnotations.openMocks(this);
+   customerService=new CustomerServiceImpl(customerRepo);
+   customer =new Customer(1,"customer1","customer1@gmail.com");
+   //customerRepo.save(customer);
+ }
+
+   @AfterEach --> After Performing each Test Case.
+   void tearDown(){
+    autoCloseable.close();
+   }
+
+  
+   @Test
+    void testCreateCustomer(){
+     mock(Customer.class);
+     mock(CustomerRepository.class);
+
+    when(customerRepo.save(customer)).thenReturn(customer);
+
+ //   @Override
+ //   public String createCustomer(Customer customer){
+ //    customerRepo.save(customer);
+ //    return "Success";
+ //   }
+
+    assertThat(customerService.createCustomer(customer)).isEqualTo("Sucess");
+     
+   }
+
+
+
+   
+   @Test
+    void testUpdateCustomer(){
+     mock(Customer.class);
+     mock(CustomerRepository.class);
+
+    when(customerRepo.save(customer)).thenReturn(customer);
+
+ //   @Override
+ //   public String updateCustomer(Customer customer){
+ //    customerRepo.save(customer);
+ //    return "Success";
+ //   }
+
+    assertThat(customerService.updateCustomer(customer)).isEqualTo("Sucess");
+
+     
+     @Test
+    void testGetCustomerById(){
+     mock(Customer.class);
+     mock(CustomerRepository.class);
+    
+
+ //    public Customer getCustomerById(int id){
+ //    if(customerRepo.findById(id).isEmpty())
+//             throw new CustomerNotFoundException("Requested Customer Not Found");
+//      return customerRepo.findById(id).get();
+//     }
+
+
+     when(customerRepo.findById(1)).thenReturn(Optional.ofNullable(customer));  //Might or might not get customer object .
+    
+     assertThat(customerService.getCustomerById(1).getName()).isEqualTo(customer.getName());
+
+     }
+
+
+     
+
+    @Test
+    void testGetCustomerByName(){
+     mock(Customer.class);
+     mock(CustomerRepository.class);
+    
+
+ //    public Customer getCustomerByName(String name){
+ //    
+//      return customerRepo.findByName(name).get();
+//     }
+
+
+     when(customerRepo.findByName("customer1")).thenReturn(new ArrayList<Customer>(Collections.singleton(customer));  //Might or might not get customer object .
+    
+     assertThat(customerService.getCustomerByName("customer1").get(0).getId()).isEqualTo(customer.getId());
+
+     }
+
+
+
+
+     
+      @Test
+    void testGetAllCustomers(){
+     mock(Customer.class);
+     mock(CustomerRepository.class);
+    
+
+ //    public List<Customer> getAllCustomers(){
+ //    if(customerRepo.findAll().isEmpty())
+//             
+//      return customerRepo.findAll();
+//     }
+
+
+     when(customerRepo.findAll()).thenReturn(new ArrayList<Customer>(Collections.singleton(customer));  //Might or might not get customer object .
+    
+     assertThat(customerService.getCustomerAll().get(0).getCustomerName()).isEqualTo(customer.getName());
+
+     }
+
+
+
+   @Test
+   void DeleteCustomerById(){
+      
+     mock(Customer.class);
+     mock(CustomerRepository.class,Mockito.CALLS_REAL_METHODS);
+
+     doAnswer(Answers.CALLS_REAL_METHODS).when(customerRepo).deleteById(any());      ---> if return type is Void
+
+    assertThat(customerService.deleteCustomerById(1)).isEqualTo("Success");
+
+
+    }
+
+
+
+}
+
+
+   
+
+
+
+
+
+  CustomerController layer Testcases: ctrl+shift+t
+   ----------------------------------
+
+  * Mocking all Web Related Requests. For that @WebMvcTest(CustomerController.class)
+
+   @WebMvcTest(CustomerController.class)
+   class CustomerControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private CustomerService customerService;
+    Customer customer1;
+    Customer customer2;
+    List<Customer> customersList=new ArrayList<>();
+
+    @BeforeEach
+    void BeforeSetup(){
+        customer1=new Customer(1,"Ravi","ravi@gmail.com);
+        customer2=new Customer(2,"karan","karan@gmail.com");
+        customersList.add(customer1);
+        customersList.add(customer2);
+          
+    }
+    
+     @AfterEach
+    void tearDown(){}
+
+
+    @Test
+    void testGetCustomerById() throws Exception{
+    when(customerService.getCustomerById(1)).thenReturn(customer1);
+    
+    this.mockMvc.perform(get("/customers/getCustomerById/1")).andDo(print()).andExcept(status().isOk());
+}
+
+
+     @Test
+    void testGetAllCustomers() throws Exception{
+    when(customerService.getAllCustomers()).thenReturn(customersList);
+    this.mockMvc.perform(get("/customers/getAllCustomers")).andDo(print()).andExcept(status().isOk());
+     }
+
+
+     @Test
+    void testDeleteCustomerById() throws Exception{
+     when(customerService.deleteCustomerById(1)).thenReturn("Success");
+     this.mockMvc.perform(delete("/customers/deleteCustomerById/1")).andDo(print()).andExcept(status().isOk());
+    }
+
+     @Test
+   void testCreateCustomer(){
+
+   //Converting Object to Json.
+
+    ObjectMapper mapper=new ObjectMapper();
+     mapper.configure(SerializationFeature.WRAP_ROOT_VALUE,false):
+    ObjectWriter ow=mapper.writer().withDefaultPrettyPrinter();
+     String requestJson=ow.writeValueAsString(customer1);
+
+  
+   when(customerService.createCustomer(customer)).thenReturn("Success");
+   this.mockMvc.perform(post("/customers/postCustomer").contentType(MediaType.Application_Json).content(requestJson))
+      .andDo(print()).andExcept(status().isCREATED());
+
+    }
+
+     @Test
+   void testUpdateCustomer(){
+
+   //Converting Object to Json.
+
+    ObjectMapper mapper=new ObjectMapper();
+     mapper.configure(SerializationFeature.WRAP_ROOT_VALUE,false):
+    ObjectWriter ow=mapper.writer().withDefaultPrettyPrinter();
+     String reuestJson=ow.writeValueAsString(customer1);
+
+  
+   when(customerService.updateCustomer(customer)).thenReturn("Success");
+   this.mockMvc.perform(put("/customers/updateCustomer").contentType(MediaType.Application_Json).content(requestJson))
+      .andDo(print()).andExcept(status().isOK());
+
+    }
+
+  
+
+    }
+
+
+
+
+
+
+
+    }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Steps to Perform:
+-----------------
+
+1. Add Dependencies(apache- derby(Inbuilt DB),mockito).
+2. create class JunitDemoTest in TEST/JAVA.
+3. AssertEquals(22, calculation.multiply(2,11)), @Test on Method.
+4. No need of Postman to check my APIS Because I am Doing Junit Testing.
+5. BookControllerTest, BookServiceControllerTest classes.
+   
+public class CustomerControllerTest{
+
+
+}
+
+
+spring:
+   datasource:
+     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+     username : sa
+     password : 
+     driver-class-name: org.h2.Driver
+       
+   h2:
+    console:
+      enabled: true 
+      
+   jpa:
+    properties:
+      hibernate:
+        dialect:org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+
+   jpa.hibernate.ddl-auto: create-drop
+      
+
+
+
+

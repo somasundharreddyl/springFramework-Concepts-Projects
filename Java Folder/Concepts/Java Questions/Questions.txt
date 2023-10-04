@@ -1,0 +1,136 @@
+100 Java Questions :
+1.Difference of Sub-class and Inner Class 
+2.In Java classes, what are various access for specifiers 
+3.Give the purpose of static variables and static methods. 
+4.Define data encapsulation and tell about its significance 
+5.Define singleton class and provide examples about its usage 
+6.For Java programming questions, what is the meaning of loops and 
+give its 3 types 
+7.What is the meaning of infinite loop? How it is being declared? 
+8.Difference of break statement and continue statement? 
+9.Difference of float variables and double variables in Java.
+10.Meaning of Java final keyword and give example 
+11.What is the meaning of ternary operator and provide example 
+12.Give the different types of the Java operators. 
+13.What is the meaning of default switch case and give an example of 
+it 
+14.Give the base class in the Java and where it is derived 
+15.Can the main method in Java be applied in any data? 
+16.Give Java packages and its significance 
+17.Can you declare that a class is abstract without using abstract 
+method? 
+18.Difference between interface and abstract class in Java 
+19.Performance implications of the interfaces over classes in abstract 
+20.In importing packing imports in Java, are the sub-packages also 
+imported? 
+21.Can you declare that the main method in Java of the class as a 
+private? 
+22.How can you able pass the argument to function through reference 
+instead of using pass by value 
+23.How does the object in Java serialize? 
+24.When you should use the serialization? 
+25.It is important that a Try Block should be followed by Catch Block 
+in terms of exception handling. 
+26.Is there a way on how you can skill the finally block of the 
+exception even though some of the exception is occurring in 
+exception block? 
+27.When constructor of class is invoke 
+28.Can class have many constructors? 
+29.Can you override the static methods of class? 
+30.Can you tell the output for public class superclass? 
+31.In Java, does a string is considered as data type? 
+32.In this sample, strings s1=” You are the Java expert”; how many 
+strings objects are being created? 
+33.Why strings are called immutable in Java? 
+34.Difference between vector and array 
+35.What is the meaning of multi-threading? 
+36.Why the runnable interface is being used in the Java? 
+37.Give the 2 ways in Java implementing multi-threading 
+38.When there are many changes that being required in the data, 
+which one should you used? StringBuffer or String 
+39.Give the purpose of using the break in every case of the switch 
+statement 
+40.There is garbage collection in Java, how it is being done? 
+41.How can you execute a code before the main method? 
+42.Can class become a sub-class and super class at the same time? If 
+yes, give example. 
+43.How can an object be created even though there is no any 
+constructor that is defined in class? 
+44.How you can make sure that a resource is not being used by 
+numerous threads simultaneously? 
+45.How can you call constructor of class? 
+46.If there are two classes and they are in same package. Can one of 
+the private members can be accessed by object of the other class? 
+47.Can you have 2 methods in class having the same name? 
+48.How can you make a copy of Java object? 
+49.What is the benefit of using an inheritance? 
+50.What will be the default access specifier for the methods and 
+variables of class? 
+51.Give example of using Pointers in the Java class. 
+52.How can you restrict inheritance in a class so that there will be no 
+class that will inherit from it? 
+53.What is the access scope of the protected access specifier? 
+54.Difference between queue and stack 
+55.How can you disallow the serialization of the variables in Java? 
+56.How can you use the data type primitive as objects? 
+57.Which types of the exceptions are being caught at the compile 
+time? 
+58.Tell about the different states of the thread 
+59.Can you use default constructor of class even if explicit 
+constructor is being defined? 
+60.Can you override the method with the use of same method 
+arguments and name with different types in return? 
+61.What is the output of public class operator Example? 
+62.If a person says that if he compiled a class in Java successfully 
+without using main method, it is possible to do it. 
+63.Can you call non-static method from a static method inside? 
+64.Give two environment variables that can run Java programs. 
+65.Can variables be used in the Java without any initialization? 
+66.Can class be inherited in Java from over 1 class? 
+67.Can a constructor have different name aside from its class name in 
+the Java? 
+68.Give the output of the ceil 3.7 and round 3.7. 
+69.Can you use go to in the Java in particular line? 
+70.Can dead thread started again? 
+71.In this class, public abstract final class test Class is correct? 
+72.Is JDK is being required on every machine in running the Java 
+program? 
+73.Difference of equals method to == operator? 
+74.It is possible to define a method in the Java class, however; give 
+its implementation in code of another language such as C. 
+75.How destructors are being defined in the Java? 
+76.Can a variable be static and local at the same time? 
+77.Can you have static methods in interface? 
+78.In class implementing of interface, can you change a value of any 
+of the variable that is defined in interface? 
+79.Because of feature of Java, which is garbage collection, does Java 
+does not go out of memory? 
+80.Can you have other return type aside from void? 
+81.If you want to re-reach an object that has been in garbage 
+collection, is it possible? 
+82.In the Java thread programming, what method should be 
+implemented in all threads? 
+83.How to use concept of the synchronization 
+84.How can manually throw the exception by the programmer? 
+85.How can you able to develop a class without accessing by other 
+class? 
+86.How the objects are being stored in the Java? 
+87.How can you find the actual size of object on heap?
+88.For example, three methods, four variables, no object and five 
+methods, 3 variable, no object. Which one has more memory? 
+89.In the exception is not being handled, what will happen? 
+90.If you have multiple constructors that is defined in class, can you 
+call constructor from another constructor? 
+91.What is the meaning of anonymous class? 
+92.Can you increase size of array after it is being declared? 
+93.If the application has many classes, can it have main method in 
+one class? 
+94.In persisting data objects, what will be the best approach? 
+95.Can you compare Stringbuffer and string in Java? 
+96.In operating objects, which API is being provided by Java? 
+97.Can you cast other type to the Boolean type through type casting? 
+98.Can you use different return types of methods when it is 
+overridden? 
+99.What will be the base class of all the exception classes? 
+100.What will be the order of the call of constructors in the 
+inheritance?

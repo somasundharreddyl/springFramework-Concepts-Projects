@@ -1,0 +1,43 @@
+1.
+@PutMapping -----> Delete & Rewrite
+                    {                                
+                      id:20,
+                      name : "Kumar"
+                    }
+ 
+
+
+                   {
+                    id:20,
+                    name:"Kumar"
+                    age:null
+                    phone:null
+                    }
+
+
+@PatchMapping --->  Replace Fields
+                   {                                
+                      id:20,
+                      name : "Kumar"
+                    }
+ 
+
+
+                   {
+                    id:20,
+                    name:"Kumar"
+                    age:35              
+                    phone:9087654321    
+                    }
+
+2.  @Data @Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
+
+3.  @RequiredArgsConstructor
+     @RestController
+   public class CustomerController{
+
+       private final CustomerService customerService;  
+    
+     //No need to write Constructor Injection
+
+  }

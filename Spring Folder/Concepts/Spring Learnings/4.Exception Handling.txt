@@ -1,0 +1,84 @@
+                                             Validations & Exception Handling
+                                           ------------------------------------
+1.Add Validation Dependency in pom.xml.
+
+a. These are all Java Validations.not Spring Validations.
+  @NotNull(message="Username should nor Null") --> id
+  @Email -->email
+  @NotBlank
+  @Pattern(regexp="^\\d{10}$"   ---> mobile
+  @min(18)
+  @max(65)
+ private int age;
+
+
+b.In customerController Class, Add @Valid in Specific Method whereever @RequestBody is Present.
+   public ResponseEntity<Customer> saveCustomer(@RequestBody @Valid Customer customer)
+
+                                                    @RestControllerAdvice
+c.If you want to reflect Defined Error,then Create class ApplicationExceptionController{
+ 
+//For Valid Inputs(Validations)
+
+
+@ExceptionHandler(MethodArgumentNotValidException.class)
+public ResponseEntity<Object> handleInvalidArgument(MethodArgumentNotValidException ex){
+Map<String,String> errorMap=new HashMap<>();
+ex.getBindingResult().getFieldError().forEach(error->{errorMap.put(error.getField(),eror.getDefaultMessage());
+});
+return new ResponseEntity<>(errorMap,HttpStatus.BAD_REQUEST);
+}
+
+//for Invalid customerId Number(customer not Found)
+
+@ResponseStatus(HttpStatus.INTERNAL_SERVER.ERROR)
+@ExceptionHandler(CustomerNotFoundException.class)
+public Map<String,String> handleCustomerNotFoundException(CustomerNotFoundException ex){
+Map<String,String> errorMap=new HashMap<>();
+errorMap.put("errorMessage",ex.getMessage());
+return errorMap;
+}
+
+}
+
+
+
+
+
+
+
+2.APIs must have exceptions handled properly for giving proper response back to Client.
+  @ControllerAdvice - Globally Handle all Exception
+  @ExceptionHandler - Handle specific Exception
+
+3.Processing Steps:
+  a.Create Exception Package and Class CustomerNotFoundException extends RuntimeException{}
+  b.Create 2 contructors super(message),super(String message,Throwable cause) inside.
+  c.Create class CustomerException {
+    private final String message;
+    private final Throwable throwable;
+    private final HttpStatus httpStatus;
+
+   //Constructor,get & set,toString
+     }
+
+       @ControllerAdvice   
+  d.create another class CustomerExceptionHandler or CustomerExceptionController{
+                  
+       @ExceptionHandler(value={CustomerNotFoundException})
+    public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException customerNotFoundException)
+     {
+      CustomerException customerException=new CustomerException(customerNotFoundException.getMessage(),
+           customerNotFoundException.getCause(),HttpStatus.NOT_FOUND);
+      }
+
+    }
+
+   e.Write Exceptions Logic in Service Layer
+      customerService Class{
+          getById(Integer id){
+           if(.isEmpty())
+           throw new CustomerNotFoundException("Requested Customer with Id Not Found");
+           }
+         }
+
