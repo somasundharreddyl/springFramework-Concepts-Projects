@@ -1,0 +1,238 @@
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.2.18.Final</version>
+</dependency>
+ <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.20</version>
+</dependency>
+  
+
+2.
+src/Main/java
+META-INF :
+
+<persistence
+    xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+            http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+
+    <persistence-unit name="PERSISTENCE">
+        <description>Hibernate JPA Demo</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.telusko.hibernetJPA.entity.Student</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" 
+                value="jdbc:mysql://localhost:3306/hibernate?allowPublicKeyRetrieval=true"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="Password123"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>         
+</persistence>
+
+
+
+
+
+3.Entity
+
+package com.telusko.hibernetJPA.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="student")
+public class Student {
+	@Id
+@Column(name="id")	
+private int id;
+	@Column(name="firstname")
+private String firstName;
+	@Column(name="lastname")
+private String lastName;
+	@Column(name="email")
+private String email;
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getFirstName() {
+	return firstName;
+}
+public void setFirstName(String firstName) {
+	this.firstName = firstName;
+}
+public String getLastName() {
+	return lastName;
+}
+public void setLastName(String lastName) {
+	this.lastName = lastName;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
+@Override
+public String toString() {
+	return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+}
+public Student(String firstName, String lastName, String email) {
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.email = email;
+}
+public Student() {
+	super();
+}
+
+
+}
+
+
+
+
+
+
+
+4.Util
+
+package com.telusko.hibernetJPA.util;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class JPAUtil {
+    private static final String PERSISTENCE_UNIT_NAME = "PERSISTENCE";
+    private static EntityManagerFactory factory;
+    
+    public static EntityManagerFactory buildEntityManagerFactory() {
+        if(factory == null) {
+            factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        }
+        
+        return factory;
+    }
+    
+    public static void shutDown() {
+        if(factory != null) {
+            factory.close();
+        }
+    }
+}
+
+
+
+5)APP.java :
+
+
+package com.telusko.hibernetJPA;
+
+
+import java.util.List;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+
+import com.telusko.hibernetJPA.entity.Student;
+import com.telusko.hibernetJPA.util.JPAUtil;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	EntityManager entityManager=JPAUtil.buildEntityManagerFactory().createEntityManager();
+    	   while(true) {
+    System.out.println("1.List all Student Details ");
+    System.out.println("2.List selected Student");
+    System.out.println("3.Add Student Details");
+    System.out.println("4.Update Student Details");
+    System.out.println("5.Delete Student details");
+    System.out.println("6.Exit");
+    System.out.println("Select the option :");
+    Scanner sc=new Scanner(System.in);
+    int i=sc.nextInt();
+    
+   switch(i) {
+   case 1:
+	   List<Student> list=entityManager.createQuery("from Student").getResultList();
+	   for(Student s:list) {
+		   System.out.println(s.toString());
+	   }
+	   break;
+   case 2:
+	   System.out.println("Enter the Student Id :");
+	   int id=sc.nextInt();
+	   Student s=entityManager.find(Student.class,id);
+	   System.out.println(s.toString());
+	   
+	   break;
+   case 3:
+	   System.out.println("Enter stud FirstName :");
+	   String fName=sc.next();
+	   System.out.println("Enter stud LastName :");
+	   String lName=sc.next();
+	   System.out.println("Enter stud Email :");
+	   String mail=sc.next();
+	   
+	   entityManager.getTransaction().begin();
+         Student student1 = new Student(fName,lName,mail);
+    entityManager.persist(student1);
+     entityManager.getTransaction().commit();
+     System.out.println("Employee Inserted Sucessfully");
+    // entityManager.getTransaction().close();
+	   break;
+   case 4:
+	   System.out.println("Enter StudId to update Profile :");
+	   int id1=sc.nextInt();
+	   entityManager.getTransaction().begin();
+	   Student student=(Student)entityManager.find(Student.class,id1);  
+        student.setFirstName("Rakesh");
+        student.setLastName("Khanna");
+        student.setEmail("987@gmail.com");
+        entityManager.getTransaction().commit();
+        System.out.println("Updated Successfully");
+        
+   case 5:
+	   System.out.println("Enter stud Id:");
+	   int id2=sc.nextInt();
+	   entityManager.getTransaction().begin();
+	   Student s1=entityManager.find(Student.class,id2);
+	   entityManager.remove(s1);
+	   entityManager.getTransaction().commit();
+	   System.out.println("Student Removed Successfully");
+        
+    case 6:
+    	sc.close();
+    	entityManager.close();
+    	System.exit(0);
+    JPAUtil.shutDown();
+}
+    	   }
+	   }
+}	   
+    
+	   
+        	
+        
+        	
+       
+
+

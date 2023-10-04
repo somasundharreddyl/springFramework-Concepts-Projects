@@ -1,0 +1,101 @@
+1.Panagram : string contains all 26 letters
+*Check prog is panagram or not?
+Logic : static boolean checkpanagram(String str){
+        if(str.length()<26)
+             return false;
+      
+
+       else{
+       for(char ch='a';ch<='z';ch++)
+           if(str.indexOf(ch)<0)
+             return false;
+
+    return true;
+ }
+
+str="What the fuck man"
+Sout(checkpanagram(str.toLowercase()));
+
+
+2.Intersection of elements in two Arrays
+*Check common elements in two Arrays?
+Logic : static void printIntersection(int[] arr1,int[] arr2){
+        Set<Integer> hs=new HashSet<>();
+        for(int i=0;i<arr1.length-1;i++)
+           hs.add(arr1[i]);
+ 
+       for(int j=0;j<arr2.length-1;j++){
+          if(hs.contains(arr2[j]))
+             sout(arr2[j])    }
+
+
+
+ 3.public static int[] twoSum(int[] nums, int target) {
+        for(int i=0;i<nums.length-2;i++){
+            for(int j=i+1;j<nums.length-1;j++){
+           if(target-nums[i]>0 && target-nums[i]==nums[j]) {
+               return new int[]{i,j};
+           }  
+        
+    
+    }
+}
+        
+      return new int[]{0};
+    }
+}
+
+
+
+
+4.  class Solution {
+    public int removeDuplicates(int[] nums) {
+     int count = 0;
+        // Loop for all the elements in the array
+        for (int i = 0; i < nums.length; i++) {
+            // If the current element is equal to the next element, we skip
+            if (i < nums.length - 1 && nums[i] == nums[i + 1]) {
+                continue;
+            }
+            // We will update the array in place
+            nums[count] = nums[i];
+            count++;
+        }
+        return count;
+      }
+    }
+
+
+
+5.class Solution {
+    public int removeElement(int[] nums, int val) {
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            if(val==nums[i]){
+                continue;
+            }
+            nums[count]=nums[i];
+                count++;
+        }
+        return count;
+    }
+}
+
+
+
+
+6.class Solution {
+    public int searchInsert(int[] nums, int target) {
+      for(int i=0;i<nums.length;i++){
+          if(target==nums[i]){
+              return i;
+          }
+          else if(target<nums[i]){
+              return i;
+          }
+         
+          } return 0;
+      }
+    
+       
+    }

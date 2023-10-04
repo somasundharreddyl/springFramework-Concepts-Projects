@@ -1,0 +1,1325 @@
+<!--
+JavaScript is an object-based scripting language which is lightweight and cross-platform.
+
+JavaScript is not a compiled language, but it is a translated language. The JavaScript Translator (embedded in the browser) is responsible for translating the JavaScript code for the web browser.
+
+JavaScript (js) is a light-weight object-oriented programming language which is used by several websites for scripting the webpages. It is an interpreted, full-fledged programming language that enables dynamic interactivity on websites when applied to an HTML document.
+
+There are following features of JavaScript:
+
+--All popular web browsers support JavaScript as they provide built-in execution environments.
+--JavaScript follows the syntax and structure of the C programming language. Thus, it is a structured programming language.
+--JavaScript is a weakly typed language, where certain types are implicitly cast (depending on the operation).
+--JavaScript is an object-oriented programming language that uses prototypes rather than using classes for inheritance.
+--It is a light-weighted and interpreted language.
+--It is a case-sensitive language.
+--JavaScript is supportable in several operating systems including, Windows, macOS, etc.
+--It provides good control to the users over the web browsers.
+
+
+JavaScript is used to create interactive websites. It is mainly used for:
+
+--****************************Client-side validation,
+--Dynamic drop-down menus,
+--Displaying date and time,
+--Displaying pop-up windows and dialog boxes (like an alert dialog box, confirm dialog box and prompt dialog box),
+--Displaying clocks etc.
+
+3 Places to put JavaScript code:::
+
+--Between the body tag of html
+--Between the head tag of html
+--In .js file (external javaScript)
+
+When an HTML document is loaded into a browser window, then it becomes a ""document object"". The document object stores the elements of an HTML document, such as HTML, HEAD, BODY, and other HTML tags as objects.
+
+class Emp
+{
+void get()
+{
+}
+}
+Emp e1=new Emp();
+e1.get();
+
+-->
+<body>
+<script language="javascript">
+//Printing
+document.write("Hello JavaScript");
+/*
+Author:Karpagam
+*/
+document.write("<font color=red><i>hello</i></font>");//embedding html tag in javascript
+salary=32000;
+name="devi";
+eno='Chennai';
+document.write("<p>"+salary+ " "+name + " "+eno);
+
+time123 = new Date();//built in class---Date Object
+time1 = time123.getHours();
+document.write("<p>Time: "+time123);
+document.write("<p>Hour: "+time1);
+if (time1 < 10) 
+{
+  document.write("<p>Good morning");
+}
+else
+{
+ document.write("<p>Good Noon");
+}
+switch(time1)
+{
+case 24:
+	document.write("24");
+	break;
+case 23:
+	document.write("23");
+	break;
+default:
+	document.write("<p>Invalid");
+
+}
+i=0;
+while (i<=5)
+{
+document.write("<p>"+i);
+i++;
+}
+i = 22;
+do
+{
+document.write("<p>"+i);
+i++;
+}while (i <= 25)
+for(i=30;i<=35;i++)
+{
+document.write("<p>"+i);
+}
+//window object is the default object in javascript
+alert("hello");
+window.alert("bye");//window object!!!
+alert("34"==34);
+alert(10*"55");
+alert(1==true);
+alert(1=="true");//false
+</script>
+</body>
+================================================================================================
+<!--
+Event::
+
+Javascript has events to provide a dynamic interface to a webpage. 
+
+onclick
+ondblclick
+onmouseover
+onmouseout
+onmousedown
+onmouseup
+onkeydown & onkeyup
+onfocus
+onsubmit
+onblur
+onchange 
+-->
+<head>
+<script>
+function dis()
+{
+window.alert("Hello World!!!!!!!!!");
+}
+function fun1(a)// a is a variable!
+{
+alert(a);
+}
+function my1()
+{
+return ("Hello Javascript!");
+}
+function mul(a,b)
+{
+return a*b;
+}
+</script>
+</head>
+<body>
+<input type="button" value="Click me!" ondblclick="dis()">
+<input type="button" value="Call" onclick="fun1('Hello')" >
+<script>
+dis();
+document.write("<h1>"+my1())
+document.write("<h1>"+mul(4,3));
+</script>
+</body>
+===========================================================================================
+<head>
+<script language="javascript">
+/*
+Window::alert,confirm,prompt
+The “var” keyword is used to declare a var type variable. The var type variable can be used to store a simple data type, a complex type, an anonymous type, or a user-defined type.
+*/
+function show1()
+{
+var r=window.confirm("Are you going to take up the test?");//here var keyword is optional!
+if (r==true)
+  {
+  alert("Yes");
+  }
+else
+  {
+  alert("No!Need some more time!");
+  }
+}
+function show2()
+{
+name=window.prompt("Please enter your name","Sundhar");//inputbox
+if (name!=null && name!="")
+{
+  document.write("Hello " + name + "! How are you today?");
+}
+}
+
+</script>
+</head>
+<body>
+
+<input type="button" onclick="show1()" value="Show a confirm box">
+<input type="button" onclick="show2()" value="Show prompt box">
+
+</body>
+===================================================================================
+<html>
+<body>
+<script language="javascript">
+//String Object and Date objects
+txt = new String("Hello World!");
+txt1="Java";
+txt2="Script";
+document.write("<p>Length: "+txt.length);//String Object.length
+document.write("<p>Big: " + txt.big());
+document.write("<p>Small: " + txt.small());
+document.write("<p>CharAt: " + txt.charAt(1));//extract a character in 1st position
+var txt3=txt1.concat(txt2);
+document.write("<p>Concat: " +txt3);
+document.write("<p>Bold: " + txt.bold());//<b>
+document.write("<p>Italic: " + txt.italics());
+document.write("<p>Index of: "+txt.indexOf("World"));
+var str1 = new String( "This is string one and again string" );
+document.write("<p>Last Index of: "+str1.lastIndexOf("string"));//backward searching
+document.write("<p>Split: "+str1.split(" ",4));
+document.write("<p>Fixed: " + txt.fixed());
+document.write("<p>Strike: " + txt.strike());
+
+document.write("<p>Fontcolor: " + txt.fontcolor("red"));
+document.write("<p>Fontsize: " + txt.fontsize(6));
+document.write("<p>Subscript: " + txt.sub());
+document.write("<p>Superscript: " + txt.sup());
+
+document.write("<p>Link: " + txt.link("https://www.zoho.com"));//<a>
+
+var d=new Date();//current system date
+var h=d.getHours();
+var m=d.getMinutes();
+var s=d.getSeconds();
+document.write("<p>Date: "+d);
+document.write("<p>Hours: "+h);
+document.write("<p>Minutes: "+m);
+document.write("<p>Seconds: "+s);
+document.write("<p>Date: " +d.getDay() + " "+d.getMonth()+ " " +d.getYear());
+
+ var dt = new Date( "01/22/2012 12:34:55" );
+   dt.setDate( 24 );//modify the configured date
+   document.write("<p>Setdate: "+ dt ); 
+</script>
+
+========================================================================================
+<body>
+<script language="javascript">
+/*
+images[] is a property of document object representing array of window objects .
+Each array element represents an object of type Image.
+*/
+function changer() 
+{
+document.roller1.src="mypictures/rose2.jpg"
+}
+
+
+</script>
+<img src="mypictures/rose1.jpg" height=100 width=100 onmouseover="document.bgColor='cornflowerblue'"
+onmouseout="document.bgColor='lightgreen'">
+
+<!-- this keyword refers the current image object -->
+<img name='roller1' src="mypictures/Penguins.jpg" onMouseOver="changer()" onMouseOut="this.src='mypictures/Lighthouse.jpg'" height=200 width=200> 
+
+<form name="f1">
+Change the background color:
+
+<!-- background.options[1].value-->
+
+<select name="backGround1" size="2" onChange=(document.bgColor=backGround1.options[backGround1.selectedIndex].value)>
+
+<option value="lightgreen">Green
+<option value="lightYellow">Yellowwwwwwwwwwwwww
+<option value="Brown">Brown
+<option value="Violet">Violet
+</select>
+</form>
+<a href="https://www.google.co.in" name="google">Google Groups</a>
+<a href="https://www.oracle.com" name="oracle">Oracle</a>
+<script>
+/*
+
+An Anchor contains link to another file (html or any other format like a video file) or a link to another section of the  
+same document.	
+Each <a> tag generates an anchor object in JavaScript. These objects can be accessed using anchors[] array, where  
+anchors[0] refers to the first anchor object with respect to that document.
+*/
+alert("The first Anchor Name is : " + document.anchors[0].name);
+alert("The second Anchor Name is : " + document.anchors[1].name);
+alert("Total anchor tag: " + document.anchors.length);
+alert("INNER HTML is : " + document.anchors[0].innerHTML);
+</script>
+
+
+</body>
+==========================================================================================
+<script language="javascript">
+document.write("Round: "+Math.round(2.5));
+document.write("Round: "+Math.round(2.2));
+document.writeln("Random:"+Math.random());
+document.writeln("Random:"+(Math.random()*11));
+document.writeln("Max: "+Math.max(45,76,23));
+document.writeln("Min: "+Math.min(37,94,87));
+document.writeln("PI: "+Math.PI);
+document.write("Pow: "+Math.pow(2,3));
+document.write("SQRT: "+Math.sqrt(81));
+
+//The isNaN() function determines whether a value is an illegal number (Not-a-Number).
+//This function returns true if the value is NaN, and false if not.
+document.write("<br><br><br>"+isNaN(123)+ "<br />");
+document.write(isNaN(-1.23)+ "<br />");
+document.write(isNaN(5-2)+ "<br />");
+document.write(isNaN(0)+ "<br />");
+document.write(isNaN("Hello")+ "<br />");
+document.write(isNaN("2005/12/12")+ "<br />");
+
+// 	=== and !== are used for stricter comparisons based on types.
+document.write("Strict Equalto: "+(2==='2')+ "<br />");
+document.write("Equalto: "+(true==1)+ "<br />");
+document.write("Strict Equalto: "+(true===1)+ "<br />");
+document.write("Strict Equalto: "+(true===true)+ "<br />");
+
+//it does not take object type into consideration in the comparison.
+document.write("Not Equalto: "+(50!='50')+ "<br />");//false
+document.write("Not Equalto: "+(50!=50)+ "<br />");
+
+document.write("Not Equalto: "+(10!=20)+ "<br />");
+
+/*
+The Javascript strict not equal comparison operator ( !== ) is used to check if the operand on the left is not equal to the  
+operand on the right, as well as evaluating their object types in the comparison. The expression created will then return  
+a value of either "true" or "false" to you.*/
+document.write("Strict Not Equalto: "+(50!=='50')+ "<br />");//true
+
+//The parseInt() function parses a string and returns an integer.This methods only //work properly when called on strings; all other types return NaN .
+var iNum1 = parseInt("1234blue");//returns 1234
+var iNum2 = parseInt("0xA");//returns 10
+var iNum3 = parseInt("22.5");//returns 22
+var iNum4 = parseInt("blue");//returns NaN
+var iNum5 = parseInt("AF", 16); //returns 175
+document.write("<br><br><b>"+iNum1+ " "+iNum2+ " "+iNum3+ " "+iNum4+ " "+iNum5);
+ 
+
+</script>
+======================================================================================================
+<script>
+/*
+----JavaScript arguments are passed by value:
+
+The function only gets to know the values, not the argument's locations.
+
+If a function changes an argument's value, it does not change the parameter's original value.
+
+Changes to arguments are not visible (reflected) outside the function.
+
+---Objects are Passed by Reference
+
+Changes to object properties are visible (reflected) outside the function.
+*/
+
+function square(x) 
+{
+    x = x * x;
+    return x;
+}
+var y = 10;
+var result = square(y);//copy the values to x 
+document.write("<p>Variable y(no change): "+y);
+document.write("<p>Variable result(change): "+result);
+</script>
+========================================================================================================
+<script>
+/*
+
+If a function is called with too many arguments (more than declared), these arguments can be reached using the arguments object.
+
+JavaScript functions have a special property called arguments, which contains an"" array of input parameters"""". Using the  
+"length" property of an array, you can iterate through the array for each parameter. This enables you to develop  
+functions that can change as their parameters do. 
+*/
+function calcAverage()
+{
+document.write("<p>Length: "+arguments.length);
+ var sum = 0;
+   for(var i=0; i<arguments.length; i++)
+      sum = sum + arguments[i];
+     return sum;
+}
+</script>
+<body text=blue>
+<script>
+document.write("<p>Sum = " + calcAverage(1,2,3));//3 args
+document.write("<p>Sum = " + calcAverage());//0 args
+document.write("<p>Sum = " + calcAverage(12,456,76,345,7,34,65,76,878,3));//10args
+</script>
+</body>
+=====================================================================================================
+
+
+
+
+
+
+<script language="javascript">
+//Array are objects in javascript
+//new keyword is used to create instance of array.
+var mycars = new Array();//dynamic array
+mycars[0] = "Saab";
+mycars[1] = "Volvo";
+mycars[2] = "BMW";
+
+var lang = new Array(2);//only 2 values are allowed
+lang[0] = "Java";
+lang[1] = "J2EE";
+
+for (i=0;i<mycars.length;i++)
+{
+document.write("   "+mycars[i]);
+}
+document.write("<br/>");
+/*
+for (variablename in object) 
+{
+statement or block to execute
+}
+*/
+/*
+iterable objects, which includes Map, Array, arguments, 
+for (variablename of iterable)
+{
+statement or block to execute
+}
+*/
+//for each loop
+for(x in lang)
+{
+document.writeln(lang[x]);
+}
+document.write("<br/>");
+//push()to automatically adds elements to the end of the array
+tour=new Array("mysore","coorg","ooty","kerela");//Array Initialization
+tour.push("moonar");
+tour.push("goa");
+//unshift to automatically adds elements to the beginning of the array
+tour.unshift("bangalore");
+for (x in tour)
+{
+document.writeln(tour[x]);
+}
+document.write("<br/>");
+//pop() to remove element from the end of the array 
+tour.pop();
+//shift() to remove element from the beginning of the array
+tour.shift();
+for (x in tour)
+{
+document.writeln(tour[x]);
+}
+var parents = ["Devi", "Daya"];//array literal. No new keyword. Good!!
+var children = ["Karpagam", "Raja"];
+var family = parents.concat(children);
+document.write("<p>"+family);
+document.write("<p>Sort: "+family.sort());
+
+/*
+Allows adding/removing from any index position
+splice(indexposition, numberOfItemsToDelete,[item(s) to be added]
+*/
+nums=new Array(3,4,5,6);
+nums.splice(2,1,1000);//modify
+document.write("<p>Splice: "+nums);
+
+var nums1=new Array(3,4,5,6);
+nums1.splice(1,2);//delete
+document.write("<p>Splice: "+nums1);
+
+nums2=new Array(3,4,5,6);
+nums2.splice(1,2,11,12,13);
+document.write("<p>Splice: "+nums2);
+
+var days = ["Monday", "Tuesday", "Wednesday", "Thursday"];//index starts from 0
+var lastday11 = days[days.length-1];//4-1--length starts from 1!
+document.write("<p>Last Array Value::"+lastday11);
+
+document.write("<p>");
+//"of" keyword not works with new Array();
+//"in" keyword works for new Array();
+for(a of days)//array literal 
+{
+   document.write("    "+a);
+}
+
+document.write("<p>");
+for(b in days) 
+{
+   document.write("    "+b);
+}
+/*
+JavaScript does not support arrays with named indexes.
+
+In JavaScript, arrays always use numbered indexes.  
+*/
+var person = [];//empty array literal
+person[0] = "Devi";
+person[1] = "Abi";
+person[2] = 2020;
+person[3] = "Thananya";
+//person["Name"] = "Abi";//undefined ,invalid
+
+document.write("<p>Array Values::: "+person[0]+ "   "+person[2]+ " Array Length:::   "+person.length);
+
+/*
+the typeof operator returns the data type of its operand in the form of a string. 
+The possible types that exists in javascript are:
+
+undefined
+Object
+boolean
+number
+string
+symbol
+function
+*/
+
+document.write("<p>typeof operator::"+typeof 25); 
+document.write("<p>typeof operator::"+typeof "Devi"); 
+document.write("<p>typeof operator::"+typeof person);
+document.write("<p>typeof operator::"+typeof days);
+document.write("<p>typeof operator::"+typeof(lang));
+document.write("<p>Strict Comparison:::"+(typeof 69 === 'number')); 
+document.write("<p>Strict Comparison:::"+(typeof true === 'boolean')); 
+
+/*
+The instanceof operator in JavaScript is used to check the type of an object at run time. It returns a boolean value if true then it indicates that the object is an instance of a particular class and if false then it is not.
+
+objectName instanceof objectType
+*/
+document.write("<p>instanceof operator::"+(person instanceof Array));//t 
+document.write("<p>instanceof operator::"+(person instanceof Object));//t
+document.write("<p>instanceof operator::"+(person instanceof String));//F
+
+/*
+The instanceof operator tests to see if the prototype property of a constructor appears anywhere in the prototype chain of an object. 
+*/
+//document.write("<p>instanceof operator::"+(person instanceof Math));//F
+
+var myDate = new Date(); 
+document.write("<p>instanceof operator::"+(myDate instanceof String));//F
+document.write("<p>instanceof operator::"+(myDate instanceof Date));//t
+document.write("<p>instanceof operator::"+(myDate instanceof Object));//t
+
+
+</script>
+====================================================================================
+<script>
+var marks = prompt('Enter your marks :');
+
+//ternary operator (alternative of if....else)
+//condition ? true expression1 : false expression2
+
+var result = (marks >= 40) ? 'pass' : 'fail';
+
+document.write("<p>You "+ result + " " +"the exam.");
+var scores = [43,58,28,69,38];
+for(i of scores) 
+{
+   document.write("    "+i);
+}
+for(i in scores) 
+{
+   document.write("    "+i);
+}
+
+</script>
+=====================================================================================
+<head>
+<script language="JavaScript">
+/*
+onkeypress event is also fired when you press a key but this event will give you the ""charcode"" of the key only.
+
+Keycode: This value just tells you which key on the keyboard user actually pressed.
+Charcode: This value is basically ascii value of the resulting character coming out of the key pressed.
+
+so for e.g. if i press 'a' or 'A', keycode value will remain same but charcode value will differ for both
+*/
+function onlyNumbers()
+{
+var e = event ;
+	var charCode = e.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57))
+{
+	alert("This field accepts numbers only.");        	
+	return false;
+}
+alert("Success");        	
+return true;
+}
+function onlyalph()
+{
+var e = event ;
+	var charCode = e.keyCode;
+if(((charCode >= '65') && (charCode<= '90')) || ((charCode >= '97') && (charCode <= '122'))) 
+{
+alert("Success");        	
+return true;  
+}
+else
+{
+	alert("This field accepts alphabets only.");        	
+return false;
+}
+}
+</script>
+</head>
+<body>
+Enter Only Numbers:
+<input type="text" onkeypress="return onlyNumbers()">
+Enter Only alphabets:
+<input type="text" onkeypress="return onlyalph()">
+</body>
+======================================================================================
+<script language="javascript">
+/*
+Id Attribute:
+    * Valid on any element
+    * Each Id should be unique
+    * Can be used as anchor reference in URL
+    * Is referenced in CSS or URL with # sign
+    * Is referenced in JS with getElementById()
+    * Shares same name space as name attribute
+    * Must begin with a letter
+    * Is case sensitive
+*/
+
+function function_demo()
+{
+var x=document.getElementById("u1").value;
+x+=" " +document.getElementById("p1").value;
+x+="Qualification: ";
+if(document.getElementById("c1").checked==true)
+{
+x+=document.getElementById("c1").value;
+}
+if(document.getElementById("c2").checked)//true
+{
+x+=document.getElementById("c2").value;
+}
+
+if(document.getElementById("c3").checked)//true
+{
+x+=document.getElementById("c3").value;
+}
+alert(x);
+}
+</script>
+
+<form name="form1" method=post onsubmit="function_demo()">
+Username:<input type=text id="u1"><p>
+Password:<input type=password id="p1"><p>
+Qualification:
+<input type=checkbox id="c1" value="M.C.A">M.C.A
+<input type=checkbox id="c2" value="M.B.A">M.B.A
+<input type=checkbox id="c3" value="M.SC">M.SC
+<p>
+<input type=submit value=Login>
+</form>
+========================================================================
+<head>
+<title>Hexaware-Chennai</title>
+<script type="text/javascript">
+//DOM MANIPULATION!
+function changeText()
+{
+	document.getElementById('data1').innerHTML = 'HTML,CSS,XML';
+}
+function changeText1()
+{
+	var userInput11= document.getElementById('userInput').value;
+	document.getElementById('data1').innerHTML = userInput11;
+alert("Title: "+ document.title);
+alert("URL:"+ document.URL);
+}
+</script>
+
+<p>
+<b id='data1'>Welcome to Javascript</b>
+ </p> 
+<input type='text' id='userInput' value='Enter Text Here' />
+
+<input type='button' onclick='changeText()' value='Change Text'/>
+<input type='button' onclick='changeText1()' value='Change Text AGAIN'/>
+===========================================================================================
+<script>
+/*
+The console. log() is a function in JavaScript which is used to print any kind of variables defined before in it or to just print any message that needs to be displayed to the user.
+*/
+console.log("Hi Good day to all!");
+/*
+Comparing objects:::
+
+In JavaScript, objects are a reference type. Two distinct objects are never equal, even if they have the same properties. Only comparing the same object reference with itself yields true.
+*/
+// Two variables, two distinct objects with the same properties
+var emp = {name: 'Devi'};
+var emp1 = {name: 'Devi'};
+console.log(emp == emp1); // return false
+console.log(emp === emp1);// return false
+
+// Two variables, a single object
+var fruit = {name: 'apple'};
+var fruit1 = fruit;  // Assign fruit object reference to fruit1
+// Here fruit and fruit1 are pointing to same object
+console.log(fruit == fruit1);// return true
+console.log(fruit === fruit1);// return true
+fruit.name = 'Mango';
+console.log(fruit1.name);
+console.log(fruit.name);
+
+</script>
+========================================================================================
+ExternalMyScript.js
+
+function popup()
+{
+window.alert("Bye");
+}
+
+========================================================================================
+<!--Loading the external javascript-->
+<html>
+<head>
+<script type="text/javascript" src="ExternalMyScript.js">
+</script>
+</head>
+<body bgcolor="lightgreen">
+<input type="button" value="Call External Script" onclick="popup()">
+</body>
+</html>
+=========================================================================================
+<script language="javascript">
+//form validation
+function verify1()
+{
+if(document.form1.u1.value=="")
+{
+alert("please enter username");
+document.form1.u1.focus();
+return false;
+}
+if(document.form1.p1.value=="")
+{
+alert("please enter password");
+document.form1.p1.focus();
+return false;
+}
+if(document.form1.p1.value.length < 6)
+{
+alert("Min password length is 6");
+document.form1.p1.focus();
+return false;
+}
+if(document.form1.p2.value=="" ||
+(document.form1.p2.value!=document.form1.p1.value))
+{
+alert("Please enter confirm password or both Password remains same");
+document.form1.p2.focus();
+return false;
+}
+var checked=false;
+for (i=0; i<document.form1.c1.length; i++)//4 checkboxes
+{
+if (document.form1.c1[i].checked)
+{
+checked=true;
+}
+}
+if(!checked)//true
+{
+alert('Please select your qualification');
+return false;
+}
+if((document.form1.g1[0].checked==false) && (document.form1.g1[1].checked==false))
+{
+alert ('Please choose your gender');
+return false;
+}
+if(document.form1.s1.selectedIndex==0)
+{
+alert('Please select your location');
+document.form1.s1.focus();
+return false;
+}
+var i;
+var numSelected = 0;
+for (i = 0;  i < document.form1.s1.length;  i++)
+{
+if (document.form1.s1.options[i].selected)
+numSelected++;
+}
+
+if (numSelected < 2)
+{
+alert("Please select atleast two locations");
+document.form1.s1.focus();
+return false;
+}
+if (numSelected >=3)
+{
+alert("Please select only two locations");
+document.form1.s1.focus();
+return false;
+}
+if(document.form1.y1.selectedIndex==0)
+{
+alert('Please select the FROM field');
+document.form1.y1.focus();
+return false;
+}
+
+if(document.form1.y2.selectedIndex==0)
+{
+alert('Please select the TO field');
+document.form1.y2.focus();
+return false;
+}
+// require that the To Field be greater than or equal to the From Field
+var chkVal = form1.y2.value;
+var chkVal2 = form1.y1.value;
+if (chkVal != "" && !(chkVal >= chkVal2))
+{
+alert("The \"To\" value must be greater than or equal to (>=) the \"From\" value.");
+form1.y2.focus;
+return (false);
+}
+if(document.form1.e1.value=="")
+{
+alert("Please enter your email id");
+document.form1.e1.focus();
+return false;
+}
+if(document.form1.t1.value=="")
+{
+alert("Please enter your address");
+document.form1.t1.focus();
+return false;
+}
+var x="Name: "+document.form1.u1.value;
+x+="Password: "+document.form1.p1.value;
+x+="Qualification: ";
+for (i=0; i<document.form1.c1.length; i++)
+{
+if (document.form1.c1[i].checked==true)
+{
+x+=" " + document.form1.c1[i].value;
+}
+}
+x+="Gender: ";
+for (i=0; i<document.form1.g1.length; i++)
+{
+if (document.form1.g1[i].checked==true)
+{
+x+=" " + document.form1.g1[i].value;
+}
+}
+x+="Locations: ";
+for (i=0;i<document.form1.s1.options.length;i++) 
+{
+    if (form1.s1.options[i].selected==true) 
+    {
+       x+= " "+document.form1.s1[i].value;
+    }
+}
+x+="From: "+document.form1.y1.value;
+x+="To: "+document.form1.y2.value;
+x+="Email id: "+document.form1.e1.value;
+x+="Address: "+document.form1.t1.value;
+alert(x);
+document.write(x);
+console.log(x);
+return true;//after all the validations are completed successfully, then return true!!!!
+}
+</script>
+
+<body>
+<form name="form1" method=post action="" onsubmit="return verify1()">
+Username:<input type=text name="u1"><p>
+Password:<input type=password name="p1"><p>
+Confirm Password:<input type=password name="p2"><p>
+Qualification:
+<input type=checkbox name="c1" value="M.C.A">M.C.A
+<input type=checkbox name="c1" value="M.B.A">M.B.A
+<input type=checkbox name="c1" value="M.SC">M.SC
+<input type=checkbox name="c1" value="M.E">M.E
+<p>
+Gender:
+<input type=radio name=g1 value="Male">Male
+<input type=radio name=g1 value="Female">Female
+<p>
+Location::
+<select name="s1"  multiple>
+<option value selected>-- SELECT --</option>
+<option value=Chennai>Chennai</option>
+<option value=Kerela>Kerela</option>
+<option value=Bangalore>Bangalore</option>
+<option value=Noida>Noida</option>
+<option value=Pune>Pune</option>
+<option value=Gurgaon>Gurgaon</option>
+</select>
+<p>
+Working Experience:
+From:
+<select name="y1">
+<option value selected>--SELECT--</option>
+<option value=2005>2005</option>
+<option value=2006>2006</option>
+<option value=2007>2007</option>
+<option value=2008>2008</option>
+<option value=2009>2009</option>
+<option value=2010>2010</option>
+<option value=2011>2011</option>
+<option value=2012>2012</option>
+</select>
+To:
+<select name="y2">
+<option value selected>--SELECT--</option>
+<option value=2005>2005</option>
+<option value=2006>2006</option>
+<option value=2007>2007</option>
+<option value=2008>2008</option>
+<option value=2009>2009</option>
+<option value=2010>2010</option>
+<option value=2011>2011</option>
+<option value=2012>2012</option>
+</select>
+<p>
+Email: <input type=email name="e1">
+</p>
+<p>
+Address:
+<textarea name="t1" rows=5 cols=25></textarea>
+<p>
+<input type="submit" value="Sign In">
+</form>
+</body>
+====================================================================================================
+<html>
+<head>
+<script>
+//All the variables that are not explicitly declared are global. 
+//Local variables are created using var inside the function
+total=0;//global
+function sum()
+{
+y=20;//global
+var x=10;//local
+total=x+y;
+}
+
+function display()
+{
+sum();
+alert(total);
+alert(y);
+alert(x);//error
+}
+</script>
+</head>
+
+<body>
+<script language="javascript">
+display();
+</script>
+</body>
+</html>
+===================================================================================================
+<script>
+/*
+In JavaScript, almost "everything" is an object.
+
+Booleans can be objects (if defined with the new keyword)
+Numbers can be objects (if defined with the new keyword)
+Strings can be objects (if defined with the new keyword)
+Dates are always objects
+Maths are always objects
+Regular expressions are always objects
+Arrays are always objects
+Functions are always objects
+Objects are always objects
+
+Objects are variables too. But objects can contain many values.
+
+The values are written as name : value pairs
+
+A JavaScript object is a collection of named values.
+
+The named values, in JavaScript objects, are called properties.
+*/
+//An object literal is a list of name:value pairs  inside curly braces {}.
+var person = {
+  Name : "Thananya",
+  Age     : 21,
+  Location: "Chennai"
+};
+//OBJECTNAME.PROPERTYNAME
+document.write("<p>Person::  "+person.Name + "  "+person.Age+ "   "+person.Location);
+
+//Using the JavaScript Keyword new
+//new keyword optional
+var person = new Object();
+person.Name = "Devi";
+person.Age = 30; 
+//LOCATION MISSING
+document.write("<p>Person(New)::  "+person.Name + "  "+person.Age+ "   "+person.Location);
+
+/*
+Objects are mutable: They are addressed by reference, not by value.
+Any changes to a copy of an object will also change the original.
+*/
+var a1=person;// This will not create a copy of person. It is person. Both a1 and person are the same object.
+a1.Age=100;//// This will change both a1.Age and person.Age
+
+document.write("<p>Person::  "+person.Name + "  "+person.Age+ "   "+person.Location);
+document.write("<p>Person===A1::  "+a1.Name + "  "+a1.Age+ "   "+a1.Location);
+
+//Object methods 
+//this refers to the current function or current object
+var emp = {
+  Name: "Abi",
+  City: "East Tambaram",
+  Country: "India",
+  Address : function() 
+{
+    return "Address::  "+this.City + " " + this.Country;
+  }
+};
+
+document.write("<p>Emp::  "+emp.Name + "  "+emp.Address());//objectname.functionname
+
+function student(id,name,marks)
+{  
+this.id=id;  
+this.name=name;  
+this.marks1=marks;  
+}
+//objectname is "e"  
+e=new student(103,"Kanishka",98);  
+  
+document.write("<p>Student:: "+e.id+" "+e.name+" "+e.marks1);  
+
+</script>
+=============================================================================================
+<script>
+/*
+(EcmaScript)
+ES6 introduced a new syntax for creating a class
+
+JavaScript Classes are templates for JavaScript Objects.
+Use the keyword class to create a class.
+
+Always add a constructor() method.
+
+Add any number of additional methods.
+*/
+/*
+The Constructor Method
+The constructor method is a special method:
+
+It has to have the exact name "constructor"
+It is executed automatically when a new object is created
+It is used to initialize object properties
+It if you do not define a constructor method, JavaScript will add an empty constructor method.
+*/
+class Person 
+{
+  constructor(name, year) 
+{
+    this.name1 = name;
+    this.year1 = year;
+
+  }
+disp()
+{
+alert(this.name1+ " "+this.year1);
+}
+  age() 
+{
+   let date = new Date();
+   return date.getFullYear() - this.year1;//2022-1995,2022-1991
+  }
+}
+
+let PersonObj = new Person("Thananya", 1995);//Object created,passing constructor values
+let PersonObj1 = new Person("Abi", 1991);//second Object created
+
+PersonObj.disp();
+PersonObj1.disp();
+
+alert("(FirstObject)Age:::"+PersonObj.age());
+alert("(SecondObject)Age:::"+PersonObj1.age());
+
+alert("TypeOf:::"+typeof Person); // function
+alert("InstanceOf:::"+(PersonObj instanceof Person)); // true
+
+/*
+classes can be defined inside another expression, passed around, returned, assigned, etc.
+If a class expression has a name, it’s visible inside the class only:
+*/
+let student = class MyClass {
+  sayHi() 
+{
+this.name="Karpagam";  
+alert(this.name);
+}
+};
+
+new student().sayHi(); // works, shows MyClass definition
+</script>
+==================================================================================================
+<script>
+/*
+A JavaScript constructor method is a special type of method which is used to initialize and create an object. It is called when memory is allocated for an object.
+
+The constructor keyword is used to declare a constructor method.
+The class can contain one constructor method only.
+JavaScript allows us to use parent class constructor through super keyword.
+*/
+class Product
+{  
+//no argument constructor
+  constructor()  
+  {  
+    this.product="Kurtis";  
+  }  
+} 
+//Inheritance 
+//extends is a keyword
+class Dealer extends Product 
+{ 
+//parameterized constructor 
+  constructor(a,b) 
+{  
+   super();//call parent class constructor  
+    this.price=a;  
+    this.quantity=b;  
+  }   
+}     
+var e = new Dealer(1000,4);//price,quantity  
+document.writeln("Product Details::: "+e.product+" "+e.price+" "+e.quantity);  
+</script>
+================================================================================================
+<script>
+let name = 'Thananya';//global
+
+function greeting() 
+{ 
+ let message = 'Hi';//local
+    document.write("<p>"+message + ' '+ name);
+}
+greeting();
+//document.write("<p>"+message + ' '+ name);//error-message not defined
+/*
+If you try to access the message variable outside the greeting() function, you will get an error.
+
+So the JavaScript engine uses the scope to manage the variable accessibility.
+
+According to lexical scoping, the scopes can be nested and the inner function can access the variables declared in its outer scope.
+*/
+/*
+Closures::
+
+A closure can be defined as a JavaScript feature in which the inner function has access to the outer function variable. 
+In other words, a closure gives you access to an outer function’s scope from an inner function. 
+
+The inner function will have access to the variables in the outer function scope, even after the outer function has returned.
+ closures are commonly used to give objects data privacy. Data privacy is an essential property that helps us program to an interface, not an implementation.
+
+A closure is a combination of a function and its ability to remember variables in the outer scope.
+*/
+function greeting1()
+ {
+    let message = 'Hi';
+
+    function sayHi()//inner function/closure
+ {
+document.write("<p>Inner function variable:: "+message); 
+    }
+
+    return sayHi;//returning inner function
+}
+let callfun = greeting1();
+callfun(); // still can access the message variable-() mandatory
+/*
+sayHi() function is a closure.
+
+A closure is a function that preserves the outer scope in its inner scope.
+*/
+function fun()  
+{  
+var a = 4; // 'a' is the local variable, created by the fun()  
+function innerfun() // inner function, or closure  
+{  
+return a;  
+}  
+return innerfun;//return closure function name  or inner function name
+}  
+var output =fun();//return another function called innerfun()  
+document.write("<p>First Closure(Local)Variable::"+output());  //() compulsory
+
+function fun1(a)  
+{  
+function innerfun1(b)//closure function
+{  
+return a*b;  //4*3,4*5
+}  
+return innerfun1;  //return closure
+}  
+var output1 =fun1(4); //a variable 
+//calling inner functions, executed outside of its lexical scope
+document.write("<p>Second Closure:::"+output1(3));//b variable  
+document.write("<p>Second Closure:::"+output1(5));//b variable  
+
+</script>
+===========================================================================================
+<script>
+/*
+In JavaScript, a callback is a function passed into another function as an argument to be executed later.
+*/
+var ages = [32, 33, 16, 40];//array object
+
+//checkAdult is a callback function
+function checkAdult(age)
+{
+console.log("Age?? "+age + " "+(age>=18));
+  return age >= 18;
+}
+/*
+When you pass a callback function into another function, you just pass the reference of the function i.e., the function name without the parentheses ().
+*/
+//filter is a built in function of Array object
+console.log("Age>18::   "+ages.filter(checkAdult));//callback used
+
+let numbers = [1, 2, 4, 7, 3, 5, 6];
+
+//callback function
+function isOddNumber(number)
+ {
+console.log("ISODD? "+number+ " "+number%2);
+    return number % 2;
+}
+let oddNumbers = numbers.filter(isOddNumber);//array.filter
+console.log("Odd: "+oddNumbers);
+</script>
+===================================================================================================
+<script>
+/*
+Template Literals
+String Interpolation=>${}
+*/
+var customer = { name: "Thananya" }
+var card = { amount: 7, product: "Laptop", unitprice: 99000 }
+var message = `Hello ${customer.name},want to buy ${card.amount} ${card.product} for a total of ${card.amount * card.unitprice} bucks?`
+alert(message)
+
+var arr = ['a', 'b', 'c'];
+//In ES5, you have the option of using the Array method forEach():
+
+arr.forEach(function (elem) {
+    console.log(elem);
+});
+
+//If you want both index and value of each array element, for-of has got the new Array method entries() and destructuring:
+
+for (let [index11, elem11] of arr.entries()) {
+    console.log(index11+'. '+elem11);
+}
+
+</script>
+========================================================================================
+<script>
+/*
+ If we want to execute a function right after the return of some other function, then callbacks can be used.
+*/
+function add(a, b , mycallback)
+{ 
+   console.log(`The sum of ${a} and ${b} is ${a+b}`); 
+   mycallback(); 
+   } 
+     
+   // mycallback() function is called just 
+   // after the ending of add() function  
+   function mycallback()
+{ 
+   console.log('This must be printed after addition'); 
+   } 
+     
+   // Calling add() function 
+   add(5,6,mycallback);//calling - 1
+    
+//anonymous function
+   add(10,10,function mycallback()//calling - 2
+{ 
+   console.log('Callback Loaded'); 
+   }); 
+
+</script>
+==============================================================================================
+<script>
+//JSON:Javascript Object Notation
+//JSON CANNOT CONTAIN FUNCTIONS
+//JSON FORMAT ACCEPTABLE BY //MANY PROGRAMMING LANGUAGES
+//language independent
+emp={
+"eno":1001,
+"name":"Devi",
+"dept":
+{
+"projectid":"10",
+"projectname":"Finance",
+"teamsize":40
+},
+"prg_stuffs":["Java","Dotnet","PHP"]
+}
+
+//accessing json object
+console.log(emp.eno);
+console.log(emp.name);
+console.log(emp.dept.projectname);
+console.log(emp["name"]);
+
+//convert JSON TO String
+g=JSON.stringify(emp);
+console.log(g);
+</script>
+===========================================================================================================

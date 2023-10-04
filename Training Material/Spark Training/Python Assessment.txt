@@ -1,0 +1,451 @@
+1.Write a program using a while loop that asks the user for a number, and prints a countdown from that number to zero.
+
+Program :
+x=int(input('Enter Countdown Number :'))
+i=0
+while (i<=x):
+    print(i,end=" ")
+    i+=1
+
+
+2.Implement python script to read person’s age from keyboard and display whether he is eligible for voting or not. 
+Program :
+age=int(input("Enter Your Age : "))
+if age>=18:
+    print("You are Eligible to Vote.")
+else :
+    print("You are not Eligible to Vote.")
+
+
+
+3.Finding the minimum and maximum elements in the lists. 
+list1=[20,21,30,25,15,9,19]
+print(min(list1))
+print(max(list1))
+
+
+4.Write a python program to create, append and remove lists in python. 
+list1=[]
+list1.append(20)
+list1.append(21)
+list1.append(23)
+list1.append(22)
+list1.append(25)
+print(list1)
+list1.remove(23)
+print(list1)
+
+
+5.Write a program to demonstrate working with tuples in python 
+tuple1=('C','C++','Java','Python')
+print(tuple1)
+
+tuple2='C','C++','Java','Python'
+print(tuple2)
+
+print(len(tuple1))
+print(tuple1[1:3])
+print(tuple)
+tuple3=(tuple1,tuple2)
+print(tuple3)
+list1=[1,2,3,4]
+print(tuple(list1))
+
+
+
+6.Write a python program to construct the following pattern using nested for loop:
+*
+**
+***
+****
+*****
+*****
+****
+***
+** 
+*
+Program:
+rows = 5
+for i in range(0, rows):
+    for j in range(0, i + 1):
+        print("*", end=' ')
+    print()
+
+for i in range(rows, 0, -1):
+    for j in range(0, i - 1):
+        print("*", end=' ')
+    print()
+
+
+
+
+
+7.Write a function nearly_equal to test whether two strings are nearly equal.Ex: Pearl,Perl(Nearly Equal),their,there(Not Nearly Equal)
+
+def equal(str1,str2):
+    count=0
+    i=j=0
+    while(i<len(str1) and j<len(str2)):
+        if(str1[i]!=str2[j]):
+            count=count+1
+            if(len(str1)>len(str2)):
+                i=i+1
+            elif(len(str1)==len(str2)):
+                pass
+            else:
+                i=i-1
+        if(count>1):
+            return False
+        i=i+1
+        j=j+1
+    if(count<2):
+            return True
+  
+str1=input("Enter first string::\n")
+str2=input("Enter second string::\n")
+boolean=equal(str1,str2)
+if(boolean):
+    print("Strings are nearly equal.")
+else:
+    print("Strings are not equal.")
+
+
+
+8.Program to reverse order of words.
+input: Learning Python is very Easy 
+output: Easy Very is Python Learning
+
+Prog:
+str = input('Enter String to Reverse the words :')
+s = str.split()[::-1]
+print(" ".join(s))
+
+
+9.Write a program to print characters at odd position and even position for the given String?
+
+Prog:
+str = input('Enter a string: ')
+even_char = []
+odd_char = []
+for i in range(len(str)):
+    if i % 2 == 0:
+        even_chars.append(given_string[i])
+    else:
+        odd_chars.append(given_string[i])
+print(odd_chars)
+print(even_chars)
+
+
+
+10.Write a program for the following requirement
+
+input: a4b3c2 
+output: aaaabbbcc
+
+Prog:
+str='a4b3c2'
+output=''
+for ch in str:
+    if ch.isalpha():
+        x=ch
+    else:
+        d=int(ch)
+        output=output+x*d
+print(output)
+
+
+11.Write a program to remove duplicate characters from the given input string?
+
+input: ABCDABBCDABBBCCCDDEEEF
+output: ABCDEF
+
+Prog:
+str="ABCDABBCDABBBCCCDDEEEF"
+p=""
+for char in str:
+	if char not in p:
+		p=p+char
+print(p)
+
+
+
+12.Write a program to find the number of occurrences of each character present in the given String?
+input: ABCABCABBCDE
+output: A-3,B-4,C-3,D-1,E-1
+
+Prog:
+str="ABCDABBCDABBBCCCDDEEEF"
+newstr=list(str)
+newlist=[]
+for j in newstr:
+     if j not in newlist:
+        newlist.append(j)
+        count=0
+        for i in range(len(newstr)):
+            if j==newstr[i]:
+                count+=1
+        print("{}-{}".format(j,count),end=',')
+
+
+13.Write a program to display unique vowels present in the given word?
+
+
+vowels =['a','e','i','o','u']
+word = input("Enter the word to search for vowels :")
+list1 = []
+for letter in word:
+    if letter in vowels:
+        if letter not in list1:
+            list1.append(letter)
+print("".join(list1))
+
+
+
+14.Write a program to take a tuple of numbers from the keyboard and print its sum and average?
+
+user_input = input('Enter space-separated integers: ')
+tuple1 = tuple(int(item) for item in user_input.split())
+sum=0
+n=len(tuple1)
+for j in tuple1:
+    sum=sum + j;
+avg=sum/n
+print(sum)
+print(avg)
+
+
+15.Write a program to eliminate duplicates present in the list?
+
+list1=[1,2,3,3,5,1,6]
+list2=[]
+for i in list1:
+    if i not in list2:
+        list2.append(i)
+print(list2)
+
+
+16.Write a python program to display a particular month of a year using calendar module.
+
+
+import calendar
+y = int(input("Enter year: "))
+m = int(input("Enter month: "))
+print(calendar.month(y, m))
+
+
+17.Write a python program to print all the months of given year.
+
+import calendar
+year = 2020
+print(calendar.calendar(year))
+
+
+18.Write a python program to print date, time for today and now.
+
+import datetime
+now = datetime.datetime.now()
+print ("Current date and time : ")
+print (now.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+
+19.Write a python program to add some days to your present date and print the date added.
+
+from datetime import timedelta
+from datetime import date
+
+today_date = date.today()
+print(today_date)
+update_date = today_date + timedelta(days=10)
+print("Updated date")
+print(update_date)
+
+
+
+20.Write a python program to print date, time using date and time functions
+
+import datetime
+dt = datetime.datetime.now()
+print(dt.strftime("%I"), ":", dt.strftime("%M"), " ", dt.strftime("%p"), sep="")
+print(dt.strftime("%d"), dt.strftime("%b"), dt.strftime("%y"), sep="-")
+
+
+21.Write a python program which accepts the radius of a circle from user and computes the area (use math module).
+
+from math import pi
+radius=int(input("Enter Radius : "))
+area=pi*radius*radius
+print(area)
+
+
+22.Write a Python program to check a list is empty or not.
+
+lis1 = []
+if len(lis1) == 0:
+	print("The list is empty")
+else:
+	print("List is not empty")
+
+
+
+23. Write a Python program to find those numbers which are divisible by 7 and multiple of 5, between 1500 and 2700 (both included).
+
+nl=[]
+for x in range(1500, 2701):
+    if (x%7==0) and (x%5==0):
+        nl.append(str(x))
+print (','.join(nl))
+
+
+24.Write a Python program to convert temperatures to and from celsius, fahrenheit.
+[ Formula : c/5 = f-32/9 [ where c = temperature in celsius and f = temperature in fahrenheit ] 
+Expected Output : 
+60°C is 140 in Fahrenheit
+45°F is 7 in Celsius
+
+#Celsius to Farenheit
+celsius = int(input('Enter Celsius : '))
+farenheit=((celsius/5)*9)+32
+print('farenheit :',farenheit)
+
+#farenheit to Celsius
+farenheit=int(input('Enter Farenheit : '))
+celsius=((farenheit-32)/9)*5
+print('celsius :',celsius)
+
+
+25.Write a Python program to count the number of even and odd numbers from a series of numbers.
+Sample numbers : numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9) 
+Expected Output : 
+Number of even numbers : 5
+Number of odd numbers : 4
+
+Prog:
+num=(1,2,3,4,5,6,7,8,9)
+even=0
+odd=0
+for i in num:
+    if i%2==0:
+        even+=1
+    else:
+        odd+=1
+print('Number of Even Numbers : ',even)
+print('Number of odd Numbers : ',odd)
+
+
+26.Write a Python program that prints all the numbers from 0 to 6 except 3 and 6.
+Note : Use 'continue' statement. 
+Expected Output : 0 1 2 4 5
+
+for i in range(0,6):
+    if i==3:
+        continue
+    print(i,end=' ')    
+
+
+27.Write a Python program that accepts a string and calculate the number of digits and letters.
+
+str = input("Enter String : ")
+digit=letter=0
+for ch in str:
+   if ch.isdigit():
+      digit=digit+1
+   elif ch.isalpha():
+      letter=letter+1
+   else:
+      pass
+print("Letters:", letter)
+print("Digits:", digit)
+
+
+
+28.Write a Python program to test whether a passed letter is a vowel or not.
+
+def fun(str):
+    vowel = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+
+    if str in vowel:
+
+        print ("It is a vowel")
+    else:
+        print ("it is not vowel")
+
+fun('a')
+fun('O')
+
+
+29.Write a Python program to add 'ing' at the end of a given string (length should be at least 3). If the given string is already ends with 'ing' then add 'ly' instead. If the string length of the given string is less than 3, leave it unchanged.
+Sample String : 'abc'
+
+Expected Result : 'abcing' 
+
+Sample String : 'string'
+
+Expected Result : 'stringly'
+
+Prog:
+def add_string(str):
+  length = len(str)
+
+  if length > 2:
+    if str[-3:] == 'ing':
+      str += 'ly'
+    else:
+      str += 'ing'
+
+  return str
+str=input('Enter the String: ')
+print(add_string(str))
+
+
+30.Write a Python program to determine whether a given year is a leap year.
+
+
+year = int(input('Enter Year : '))
+if (year % 400 == 0) and (year % 100 == 0):
+    print("{0} is a leap year".format(year))
+elif (year % 4 ==0) and (year % 100 != 0):
+    print("{0} is a leap year".format(year))
+else:
+    print("{0} is not a leap year".format(year))
+
+
+31.Write a Python program to get current time.
+Sample Format :  13:19:49.078205
+
+from datetime import datetime
+now = datetime.now().time()
+print("now =", now)
+
+32. Write a Python class which has two methods get_String and print_String. get_String accept a string from the user and print_String print the string in upper case.
+
+
+class IOString():
+    def __init__(self):
+        self.str1 = ""
+
+    def get_String(self):
+        self.str1 = input()
+
+    def print_String(self):
+        print(self.str1.upper())
+
+str1 = IOString()
+str1.get_String()
+str1.print_String()
+==================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

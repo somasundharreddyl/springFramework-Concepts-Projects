@@ -1,0 +1,336 @@
+
+                                JDBC TEMPLATE
+
+
+<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.28</version>
+    </dependency>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/springretaildb?allowPublicKeyRetrieval=true"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="Pass1234"></property>
+    </bean>
+    
+    <bean id="productDao" class="com.sample.demo.jdbcTemplate.dao.ProductsDaoImpl">
+        <property name="dataSource" ref="ds"></property>
+    </bean>
+</beans>
+
+
+
+
+
+
+
+
+Model :
+Products.java :
+
+package com.sample.demo.jdbcTemplate.model;
+
+/**
+ * model class for Products.
+ * @author Pallavi Prasad
+ *
+ */
+public class Products {
+    private int productId;
+    private String productName;
+    private String description;
+    private String brand;
+    private double price;
+    
+    public int getProductId() {
+        return productId;
+    }
+    
+    public String getProductName() {
+        return productName;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public String getBrand() {
+        return brand;
+    }
+    
+    public double getPrice() {
+        return price;
+    }
+    
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+    
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    @Override
+        public String toString() {
+            return "Product => Id: " + productId + ", Name: " + productName + ", Description: "
+                    + description + ", Brand: " + brand + ", Price: " + price;
+        }
+}
+
+
+dao :
+
+ProductsDao.java :
+
+package com.sample.demo.jdbcTemplate.dao;
+
+import java.util.List;
+
+import com.sample.demo.jdbcTemplate.model.Products;
+
+public interface ProductsDao {
+    public void save(Products product);
+    public List<Products> getAllProducts();
+    public Products getProductById(int id);
+    public void updateProduct(Products p);
+    public void deleteById(int id);
+    
+}
+
+
+
+
+package com.sample.demo.jdbcTemplate.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import com.sample.demo.jdbcTemplate.model.Products;
+
+public class ProductsDaoImpl implements ProductsDao{
+
+    private DataSource dataSource;
+    
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    
+    private Products getLastRow() {
+        String sql = "SELECT * FROM PRODUCTS ORDER BY PRODUCTID DESC LIMIT 1";
+        
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        
+        Products p = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Products.class));
+        return p;
+    }
+    
+    @Override
+    public void save(Products product) {
+        String sql = "INSERT INTO PRODUCTS (PRODUCTID, PRODUCTNAME, DESCRIPTION, BRAND, PRICE)VALUES (?, ?, ?, ?, ?)";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        Products p = getLastRow();
+        
+        int id = 101;
+        
+        if(p != null) {
+            id = p.getProductId() + 1;
+        }
+        
+        product.setProductId(id);
+        
+        Object[] args = {product.getProductId(), product.getProductName(), product.getDescription(), 
+                product.getBrand(), product.getPrice()};
+        
+        int res = jdbcTemplate.update(sql, args); // used for insert, update and delete
+        
+        if (res > 0) {
+            System.out.println("Product Details Inserted");
+        } else {
+            System.out.println("Unable to insert. Try later");
+        }
+        
+    }
+
+    @Override
+    public List<Products> getAllProducts() {
+        String sql = "SELECT * FROM PRODUCTS";
+        
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        
+        List<Products> list = new ArrayList<Products>();
+        
+//      List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+        
+        list = jdbcTemplate.query(sql, new RowMapper<Products>() {
+
+            @Override
+            public Products mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Products p = new Products();
+                p.setProductId(rs.getInt("PRODUCTID"));
+                p.setProductName(rs.getString("PRODUCTNAME"));
+                p.setDescription(rs.getString("DESCRIPTION"));
+                p.setBrand(rs.getString("BRAND"));
+                p.setPrice(rs.getDouble("PRICE"));
+                 
+                return p;
+            }
+            
+        });
+        
+        return list;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public Products getProductById(int id) {
+        String sql = "SELECT * FROM PRODUCTS WHERE PRODUCTID = " + id;
+        
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        
+//      Products product = jdbcTemplate.queryForObject(sql, new Object[]{id}, new RowMapper<Products>() {
+//          @Override
+//          public Products mapRow(ResultSet rs, int rowNum) throws SQLException {
+//              
+//              Products p = new Products();
+//              p.setProductId(rs.getInt("PRODUCTID"));
+//              p.setProductName(rs.getString("PRODUCTNAME"));
+//              p.setDescription(rs.getString("DESCRIPTION"));
+//              p.setBrand(rs.getString("BRAND"));
+//              p.setPrice(rs.getDouble("PRICE"));
+//               
+//              return p;
+//          }
+//      });
+        
+        Products product = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Products.class));
+        return product;
+    }
+
+    @Override
+    public void updateProduct(Products p) {
+        String sql = "UPDATE PRODUCTS SET PRICE = ? WHERE PRODUCTID = ?";
+        
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        
+        Object[] args = {p.getPrice(), p.getProductId()};
+        
+        int res = jdbcTemplate.update(sql, args);
+        if(res > 0) {
+            System.out.println("Product with Id: " + p.getProductId() +" updated");
+        } else {
+            System.out.println("Unable to update product with id: " + p.getProductId());
+        }
+        
+    }
+
+    @Override
+    public void deleteById(int id) {
+        String sql = "DELETE FROM PRODUCTS WHERE PRODUCTID = ?";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        
+        int res = jdbcTemplate.update(sql, id);
+        if(res > 0) {
+            System.out.println("Deleted product with id: " + id);
+        } else {
+            System.out.println("Unable to delete product with id " + id);
+        }
+        
+    }
+
+    
+}
+
+
+
+
+
+App.java :
+package com.sample.demo.jdbcTemplate;
+
+import java.util.List;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.sample.demo.jdbcTemplate.dao.ProductsDao;
+import com.sample.demo.jdbcTemplate.model.Products;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ProductsDao dao = ctx.getBean("productDao", ProductsDao.class);
+        
+//        List<Products> list = dao.getAllProducts();
+//        
+//        for(Products p: list) {
+//          System.out.println(p.toString());
+//        }
+        
+//        Products p1 = dao.getProductById(101);
+//        
+//        System.out.println(p1.toString());
+        
+        Products p = new Products();
+        p.setProductId(1);
+        p.setProductName("Sharpner");
+        p.setDescription("Pencil Sharpner");
+        p.setBrand("Camel");
+        p.setPrice(15.00);
+        
+        dao.save(p);
+    }
+}

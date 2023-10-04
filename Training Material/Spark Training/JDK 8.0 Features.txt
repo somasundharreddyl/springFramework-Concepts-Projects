@@ -1,0 +1,712 @@
+package mydemos;
+/*
+ * JDK 8 FEATURE::
+ * An Interface that contains exactly one abstract method is known as 
+ * functional interface. 
+   Functional Interface is also known as Single Abstract Method Interfaces 
+   or SAM Interfaces. 
+ ex:Comparator,Comparable,Runnable(run)
+*/
+//this is functional interface!
+interface proj2
+{  
+	void display();//public abstract void display();
+}
+interface proj3//non functional interface! 2 abstract methods!
+{
+	void test1();
+	void test2();
+}
+interface proj
+{
+	/*
+	 * error bcos no static and default!!!
+	 * void dis()
+	 
+	{
+		
+	}*/
+	 //we cannot override the static method in implementation classes
+	  /*
+	   * Important points about java interface static method:
+
+	  1.Java interface static method is part of interface, we can’t use it 
+	  for implementation class objects.
+	  2.Java interface static method helps us in providing security by not 
+	  allowing implementation classes to override them.
+	  /*
+	   * Suppose you want to provide some implementation in your interface and you 
+	   * don’t want this implementation 
+	   * to be overridden 
+	   * in the implementing class, then you can declare the method as static.
+	   */
+
+	static void show()
+	{
+		System.out.println("Proj Interface static method!");
+	}
+	/*
+	 *  If you have default method in an interface, it is not mandatory to 
+	 *  override (provide body) 
+	 *  it in the classes that are already implementing this interface.
+	 */
+	default void disp()
+    {  
+        System.out.println("Proj Interface Default Method Loaded!");  
+    }
+    default void disp12()
+    {  
+        System.out.println("Proj Interface Default Method Loaded!");  
+    }
+}
+//A normal interface can have 'N' number of abstract method!
+/*@FunctionalInterface
+interface demo344 extends proj3//proj3 contains 2 abstract methods so demo344 cannot be functional interface
+{
+	
+}*/
+//A functional interface can extends another interface only when 
+//it does not have any abstract method.
+/*
+* a functional interface(demo123) is extending to a non-functional interface(proj).
+*/
+
+@FunctionalInterface//only one abstract method
+interface demo123 extends proj//2 default,1 static,1 abstract
+{
+	void disp67();
+	//void show1();//invalid
+}
+public class FunctionalInterfacesDemo implements demo123
+{
+	@Override
+	public void disp67() {
+		System.out.println("Demo interface abstract method!");			
+	}
+	//we can override the default method in implementation classes but its optional!	
+	  @Override
+	public void disp12() 
+	{
+		System.out.println("Demo interface default method (overridden)!");		
+	}
+		//we cannot override the static method in implementation classes
+		/*
+		  @Override
+		public static void show() 
+		{
+			System.out.println("Demo interface abstract method (overridden)!");		
+		}*/
+
+	public static void main(String[] args) {
+		FunctionalInterfacesDemo obj1=new FunctionalInterfacesDemo();
+		obj1.disp67();//abstract method
+		obj1.disp();//default method
+		obj1.disp12();//default method
+		//since a static method is hidden, we can’t call it from the object of the implementing class.
+		//obj1.show();//error
+		proj.show();//interfacename.staticmethodname
+	
+	}
+
+}
+/*
+Demo interface abstract method!
+Proj Interface Default Method Loaded!
+Demo interface default method (overridden)!
+Proj Interface static method!
+*/
+======================================================================================
+package mydemos;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * Lambda expression::
+ * --jdk 8
+ * --By using lambda, we can directly provide the implementation to the 
+ * interface methods
+ * syntax:::
+ * () -> {  
+	//Body of no parameter lambda  
+	}  
+*/
+/*
+ *  * --Lambda expression are treated as a function, so the compiler
+ * does not create .class file!!!!!!!!!!!!!!!!
+
+ */
+/*
+ * Lambda expression can be used where a class implements a functional interface to 
+ * reduce the complexity of the code.
+
+An inner anonymous class is more powerful as we can use many methods as we want, 
+whereas lambda expression can only be used where an interface has only a single 
+abstract method.
+
+For Lambda Expression at the time of compilation, no .class file fill be generated.
+
+For the Anonymous Inner class at the time of compilation, a separate .class 
+file will be generated.
+
+The Performance of the lambda expression is better as it is pure compile-time 
+activity and doesn’t incur extra cost during runtime.
+
+However, the Performance of the anonymous inner class is lower as requires class 
+loading at runtime.
+
+If you are coding in Java 8 make sure you use lambda expression instead of anonymous
+ class for implementing Comparable, Comparator,  Runnable,  Callable,  
+ CommandListener,  ActionListener, and several other interfaces in Java, which got just one single method.
+ */
+@FunctionalInterface
+interface calc
+{
+	public int add(int a,int b);//abstract method
+	//public int add11(int a,int b);//abstract method=>INVALID 
+	default int sub(int x,int y)//default method
+	{
+		return x-y;
+	}	
+}
+//non functional interface
+interface calc11
+{
+	default int sub(int a1,int b1)
+	{
+		return a1-b1;
+	}
+}
+@FunctionalInterface
+interface mypi
+{
+	double getpi();
+}
+public class LambdaExpressionDemo {
+	public static void main(String[] args) {
+		//without implements keyword we r directly defining interface methods by using lambda
+		//NO @OVERRIDE ANNOTATION
+/*
+ * Java version 8, Lambda expressions 
+ * reduce the code length and code complexity to a greater extent. 
+ */
+		/*
+		 * Lambda expressions can operate only on 
+		 * functional interfaces (i.e. interface with only one abstract method).
+		 * calc11 d;
+		d=(r1,r2)->(r1-r2);
+		
+		 */
+		
+		calc a1;
+		a1=(a4,b6)->(a4+b6);//no return keyword. it is optional in lambda!
+		System.out.println("Add(Lambda syntax):: "+a1.add(12, 12));//calc add method
+
+		//datatypes are optional
+		calc a2=(a3,a5)->
+		{
+			return (a3+a5);
+		};
+		calc a3=(int a31,int a5)->
+		{
+			return (a31+a5);
+		};
+		System.out.println("Add(Lambda syntax):: "+a2.add(1, 12));//calc add method
+		System.out.println("Add(Lambda syntax):: "+a3.add(2, 12));//calc add method
+
+		List<String> obj =new ArrayList<>();
+		obj.add("Java");
+		obj.add("PHP");
+		obj.add("PYTHON");
+		obj.add("JSP");
+		System.out.println("Without Lambda::: ");
+		for(String a:obj)
+		{
+			System.out.println(a);
+		}
+		//DISPLAYING COLLECTION WITH LAMBDA
+		//shorten the code!
+
+		System.out.println("With Lambda::: ");
+		obj.forEach
+		(
+				(kkkkk)->System.out.println(kkkkk)
+		);
+
+		mypi k1;
+		k1=()->3.14d;
+		System.out.println("Area:: "+2*2*k1.getpi());
+	}
+
+}
+/*
+Add(Lambda syntax):: 24
+Add(Lambda syntax):: 13
+Add(Lambda syntax):: 14
+Without Lambda::: 
+Java
+PHP
+PYTHON
+JSP
+With Lambda::: 
+Java
+PHP
+PYTHON
+JSP
+Area:: 12.56
+*/
+=============================================================================
+package mydemos;
+/*
+ * Class String::
+ * --java.lang package
+ * --ALL String values are stored in a area called "String Pool"
+ * --String intern pool or String constant pool is one of the storage area in heap memory.
+ * --From Java 7 onwards, String pool values are eligible for GC process.
+ * --String a=new String("Chennai")=>String object created in non pool(heap) memory 
+ * but value will be moved into String pool memory
+ */
+/*
+ * Calling:::			Stack::					Heap(Contains StringPool)::
+ * Emp(int,String)		int i=100					Devi
+ * 						String b="Devi"				b object
+ */
+public class StringOperations {
+	public static void main(String[] args) {
+		String name="Abi";//String pool
+		String name1=new String("Abi");//Heap memory+StringPool
+		String name2="abi";//String pool
+		String name3="Abi";//String pool
+	
+		//equals=>(content/value comparison)check the value only not the address
+		System.out.println("Equals:::"+name.equals(name1));//T
+		System.out.println("Equals:::"+name1.equals(name3));//T
+		System.out.println("Equals:::"+name.equals(name3));//T
+		System.out.println("Equals:::"+name.equals(name2));//F
+		System.out.println("EqualsIgnoreCase:::"+name.equalsIgnoreCase(name2));//T
+		
+		//==:: Strict comparison operator
+		//Check the value +address(type of memory)
+		System.out.println("==:: "+(name==name1));//F
+		System.out.println("==:: "+(name1==name3));//F
+		System.out.println("==:: "+(name==name3));//T
+		System.out.println("==:: "+(name==name2));//F
+		
+
+		/*
+		 * Compareto::
+		 * Comparison based on Unicode value
+		 * <0	== the invoking string is less than str
+		 * >0 	==	the invoking string is greater than str
+		 * 0	==	strings are equal
+		 * A-Z 65-90,a-z 97-122
+		 */
+		System.out.println("Compareto::"+name.compareTo(name1));
+		System.out.println("Compareto::"+name1.compareTo(name3));
+		System.out.println("Compareto::"+name.compareTo(name3));
+		System.out.println("Compareto::"+name.compareTo(name2));
+		System.out.println("Compareto::"+name2.compareTo(name));
+
+		String dept="Training Finance Insurance Hr";
+		System.out.println("Contains:: "+dept.contains("Hr"));
+		System.out.println("Contains:: "+dept.contains("Pitstop"));
+
+		String a="Java";
+		String b="JSP" +a + "PHP"+ "Python";//3 values in string pool
+		String c=a+b;
+		System.out.println("Concat:: "+c);
+
+		System.out.println("Length:: "+a.length());
+		System.out.println("CharAt:: "+a.charAt(2));//starts from 0
+		System.out.println("Concat:: "+a.concat(b));
+
+		//convert any primitive to String
+		String i=String.valueOf(65656.545f);
+		String i1=String.valueOf(3343.6565d);
+		System.out.println("ValueOf():: "+i + " "+i1);
+
+		String lang="Java,Jsp,Servlets,Oracle,Mysql";
+		System.out.println("Before Split():: "+lang.length());
+		String[] list=lang.split(",");//
+		for(String s:list)
+		{
+			System.out.println(s);
+			System.out.println(s.length());
+		}
+		String dt = "01-23-2014";
+		String dateParts[] = dt.split("-");
+		String month  = dateParts[0];
+		String day  = dateParts[1];
+		String year = dateParts[2];
+		System.out.println(month + " "+day + " "+year);
+		System.out.println("StartsWith:: "+lang.startsWith("Java"));
+		System.out.println("StartsWith:: "+lang.startsWith("Jsp"));
+		System.out.println("EndsWith:: "+lang.endsWith("Java"));
+		System.out.println("Indexof()::"+lang.indexOf("S"));
+		System.out.println("Indexof()::"+lang.indexOf("a",5));//searching starts from 5th index
+		System.out.println("LastIndexof:: "+lang.lastIndexOf("r"));
+		//13 is the starting index
+		System.out.println("LastIndexof()::"+lang.lastIndexOf("s",13));// searching backward starting at the specified index. 
+
+		String addr="        Chennai         ";
+		System.out.println("Length:: "+addr.length());
+		System.out.println("Before Trim() :: "+addr);
+		String addr1=addr.trim();//remove leading and trailing blank spaces!
+		System.out.println("After Trim:: "+addr1);
+		System.out.println("After Trim Length :: "+addr1.length());
+
+
+		/*String is immutable (cannot be altered/MODIFIED ) by default!
+		 * 
+		 */
+		/*
+		 * If your text is not going to change frequently then use a String class
+		 * bcos String object is IMMUTABLE!!
+		 */
+		String str1="India";
+		str1.toUpperCase();//INDIA
+		System.out.println("String(Immutable):: "+str1);
+		System.out.println("String:: "+str1.toUpperCase());
+		System.out.println("String(Immutable):: "+str1);
+
+		String str2=str1.toUpperCase();
+		System.out.println(str2 + " "+str1);
+
+	}
+
+}
+/*
+Equals:::true
+Equals:::true
+Equals:::true
+Equals:::false
+EqualsIgnoreCase:::true
+==:: false
+==:: false
+==:: true
+==:: false
+Compareto::0
+Compareto::0
+Compareto::0
+Compareto::-32
+Compareto::32
+Contains:: true
+Contains:: false
+Concat:: JavaJSPJavaPHPPython
+Length:: 4
+CharAt:: v
+Concat:: JavaJSPJavaPHPPython
+ValueOf():: 65656.55 3343.6565
+Before Split():: 30
+Java
+4
+Jsp
+3
+Servlets
+8
+Oracle
+6
+Mysql
+5
+01 23 2014
+StartsWith:: true
+StartsWith:: false
+EndsWith:: false
+Indexof()::9
+Indexof()::20
+LastIndexof:: 19
+LastIndexof()::6
+Length:: 24
+Before Trim() ::         Chennai         
+After Trim:: Chennai
+After Trim Length :: 7
+String(Immutable):: India
+String:: INDIA
+String(Immutable):: India
+INDIA India
+*/
+=============================================================================
+package mydemos;
+/*
+ * --String Buffer and StringBuilder are MUTABLE(can be modified)!!!
+ * --text change(mutable) and will only be accessed from  a single thread, 
+ * use a String Builder(Unsynchronized)
+ * --text change(mutable) and will be accessed from multiple threads, use a 
+ * String Buffer(Synchronous)=>StringBuffer is synchronized i.e. thread safe. 
+ * It means two threads can't call the methods of StringBuffer simultaneously. 
+ 
+ StringBuilder is more efficient than StringBuffer.
+ */
+
+public class StringBuffer_StringBuilderDemo {
+	public static void main(String[] args) {
+		StringBuilder obj=new StringBuilder();
+		
+		obj.append("Java");
+		obj.append("Jsp");
+		obj.append("Python");
+		
+		System.out.println("SB:: "+obj);//toString()
+		String str1=obj.toString();//convert mutable(StringBuilder) to immutable(String)!
+		System.out.println("Convert SB TO String:: "+str1);
+
+		StringBuilder d1=new StringBuilder("Java");
+		d1.reverse();//changes happen in  the original object
+		System.out.println("After reverse(Mutable):: "+d1);
+
+		StringBuffer d11=new StringBuffer("Python");
+		d11.reverse();//changes happen in  the original object
+		System.out.println("After reverse(Mutable):: "+d11);
+
+	}
+}
+/*
+SB:: JavaJspPython
+Convert SB TO String:: JavaJspPython
+After reverse(Mutable):: avaJ
+After reverse(Mutable):: nohtyP
+*/
+==============================================================================================
+package myjunitdemos;
+/*
+ * JUNIT is an open-source testing framework for java programmers. 
+ * The java programmer can create test cases and test his/her own code.
+
+It is one of the unit testing framework. Current version is junit 4.
+ 
+ To perform unit testing, we need to create test cases. 
+ The unit test case is a code which ensures that the program logic works as expected.
+
+The org.junit package contains many interfaces and classes for junit testing such as Assert, Test, Before, 
+After etc.
+
+Types of unit testing:::::::::::::::
+There are two ways to perform unit testing: 1) manual testing 2) automated testing.
+
+1) Manual Testing
+If you execute the test cases manually without any tool support, it is known as 
+manual testing. 
+It is time consuming and less reliable.
+
+2) Automated Testing
+If you execute the test cases by tool support, it is known as automated testing. 
+It is fast and more reliable.
+
+The Junit 4.x framework is annotation based!!!!!!!!!!!!
+
+@Test annotation specifies that method is the test case method.
+ */
+/*
+ * org.hamcrest.core_1.3.0.v201303031735.jar  & junit-4.12.jar required!!!!!!!!!!!!!!!!!!! add to the buildpath. 
+ */
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+
+//NO PSVM!
+public class AssertionTestDemo {
+	@Test
+	public void mytest1()//test case method
+	{
+		String obj1="junit";//String pool memory
+		String obj2="junit";//String pool memory
+		String obj3=new  String("test");//Heap
+		String obj4="test";//Pool
+		String obj5=null;
+		int var1=1;
+		int var2=2;
+		int[] arithmetic1= {1,2,3,4,5};
+		int[] arithmetic2= {1,2,3,4,5};
+		//The assertEquals() method compares two objects for equality,
+		//using their equals() method. 
+		assertEquals(obj3,obj4);
+		assertEquals(obj1,obj2);
+		//Check if two object references point to the same object TYPE(stack/heap)
+		//assertSame(obj3,obj4);//failure  bcos one is heap and another one is pool!
+		assertSame(obj1,obj2);
+		//Check if two object references not point to the same object type
+		assertNotSame(obj3,obj4);//different memory returns true
+		//assertNotSame(obj1,obj2);//same memory returns false
+		//Check that an object isn't null
+		assertNotNull(obj1);
+		//Check that an object is null
+		assertNull(obj5);
+			//Check that a condition is true
+		assertTrue(var1 < var2);//1<2
+		//Check that a condition is false
+		assertFalse(var1 > var2);//1>2
+		// Check whether two arrays are 
+		//equal to each other.
+		assertArrayEquals(arithmetic1,arithmetic2);//5,5
+
+
+	}
+}
+================================================================
+package myjunitdemos;
+
+public class Division {
+	int num1,num2;
+	public Division(int num1, int num2)
+	{
+		super();
+		this.num1 = num1;
+		this.num2 = num2;
+	}
+	public int divide()
+	{
+		return num1/num2;
+	}
+}
+======================================================================
+package myjunitdemos;
+
+public class Student {
+	int sid;
+	String sname;
+	public int getSid() {
+		return sid;
+	}
+	public void setSid(int sid) {
+		this.sid = sid;
+	}
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
+
+
+
+}
+=============================================================================
+package myjunitdemos;
+
+public class MyCalc {
+	public int sum(int x,int y)
+	{
+		return x+y;
+	}
+}
+//Test case class:::::=>right click=>MyCalc.java=>new=>other->Java=>junit=>
+//junit test case=>junit 4 version=>select all lifecycle annotations
+===============================================================================
+package myjunitdemos;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+/*
+ * The @Ignore test annotation is used to ignore particular tests or group 
+ * of tests in order to skip the build failure.
+
+@Ignore annotation can be used in two scenarios as given below:
+
+    If you want to ignore a test method, use @Ignore along with @Test annotation.
+    If you want to ignore all the tests of class, use @Ignore annotation at 
+    the class level.
+
+ */
+
+//@Ignore//ignore all test cases!
+
+public class MyCalcTest {
+
+	int first;
+	int second;
+	int expectedresult;
+	MyCalc obj1;
+	/*
+	 @BeforeClass annotation specifies that method will be invoked only once,
+	  before starting all the tests.
+	 */
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		System.out.println("@RunOnceBeforeClass-Program Started");
+	}
+
+	//@AfterClass annotation specifies that method will be invoked only once,
+	//after finishing all the tests.
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		System.out.println("@RunOnceAfterClass-Program Ended");
+	}
+	//@Before annotation specifies that method will be invoked before each test case!
+	@Before
+	public void setUp() throws Exception {
+		System.out.println("@Before: start of the test case");
+		obj1=new MyCalc();
+		expectedresult=obj1.sum(12, 12);//24
+		System.out.println("@BeforeExpected:: "+expectedresult);
+	}
+
+	//@After annotation specifies that method will be invoked after each test.
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("@After: End of the test case");
+	}
+
+	//first test case!!!!!!!!!!!!!!!!!!!!
+	@Test//Testing the MyCalc.java
+	public void test() {
+		System.out.println("My First Test Case!");
+		MyCalc obj2=new MyCalc();
+		assertEquals(expectedresult,obj2.sum(12, 12));//24(expected),24(actual)=>success
+		//assertEquals(expectedresult,obj2.sum(12, 11));//24(expected),23(actual)=>failed
+	System.out.println("@Test(Expectedresult):: "+expectedresult);
+	}
+	//second test case
+	@Test//Student.java
+	public void test1()//passed
+	{
+		System.out.println("Student Test Case!");
+		Student s1=new Student();
+		s1.setSid(1001);
+		s1.setSname("Thananya");
+		//expectedresult,actualresult
+		assertEquals(1001,s1.getSid());
+		assertEquals("Thananya",s1.getSname());	
+	}
+	//third test case
+		Division obj=new Division(10,2);
+		Division obj4=new Division(10,0);
+		@Test//Division.java
+		public void test4()//passed
+		{
+			System.out.println("Division Test Case!");
+			assertEquals(5,obj.divide());//5,5
+			//assertEquals(5,obj4.divide());//failed
+		}
+		//fourth test case
+		@Test(expected=ArithmeticException.class)
+		public void test5()
+		{
+			System.out.println("Division Another Test Case!");
+			assertEquals(5,obj4.divide());//passed
+		//	assertEquals(5,obj.divide());//faiiled	=>expecting ArithmeticException
+			}
+		@Ignore//this test case alone ignored/skipped
+		//fifth test case
+		@Test(expected=Exception.class)
+		public void test6()
+		{
+			throw new NullPointerException();
+		}
+
+}
+===============================================================================================

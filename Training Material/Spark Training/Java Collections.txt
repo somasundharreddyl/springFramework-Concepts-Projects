@@ -1,0 +1,1298 @@
+
+package mydemos;
+interface A11
+{
+ void add();
+ void del();
+}
+abstract class ABC implements A11
+{
+ @Override
+ public void add() {
+  System.out.println("ABC::ADD()");   
+ }
+ /*@Override
+ public void del() {
+  // TODO Auto-generated method stub
+  
+ }*/ 
+}
+class XYZ extends ABC
+{
+ @Override
+ public void del() {
+  System.out.println("XYZ:del()");   
+ }
+}
+public class InterfaceDemos {
+ public static void main(String[] args) {
+  XYZ obj=new XYZ();
+  obj.add();
+  obj.del();
+
+ }
+
+}
+/*
+ * ABC::ADD()
+XYZ:del()
+*/
+=====================================================================================
+package mydemos;
+/*
+ * Anonymous can be created in two ways:
+
+Class(can also be Abstract)
+Interface
+*/
+/*
+ * Difference Between Regular and Anonymous Inner Class:::
+We can implement multiple numbers of interfaces by using normal class but, 
+with an anonymous inner class, we can only 
+implement one interface.
+
+With regular class we can extend a class and also implement multiple interfaces but, 
+with an anonymous inner class, we can either extend a class or implement an interface 
+but not both at the same time.
+ */
+/*
+ * AnonymousClasses$1.class
+ * AnonymousClasses$2.class
+ * AnonymousClasses$3.class
+ */
+abstract class Data1
+{
+ public abstract void show();
+ public abstract void show222();
+}
+interface inter1
+{
+ public void disp();
+}
+//inside a class also, we can create interfaces!!!!!!!!!!!!!!!!!!!!!!
+class Data2
+{
+ interface inter2
+ {
+  void calling();
+ }
+}
+public class AnonymousClasses {
+ public static void main(String[] args) {
+  //Data1 obj=new Data1();
+  //inter1 obj2 =new inter1();
+  //abstract class/interface  is instantiated by using ANONYMOUS SYNTAX!
+  /*
+   * A obj=new A()
+   * {
+   * };
+   */
+  //NO EXTENDS KEYWORD USED FOR ABSTRACT METHODS
+  Data1 obj=new Data1()
+  {
+   @Override
+   public void show() {
+    System.out.println("Anonymous type:: abstract class object!");  
+   }
+   @Override
+   public void show222() {
+    System.out.println("Anonymous type:: abstract class object!");  
+   }
+  };//closed
+  obj.show();
+  obj.show222();
+  //WITHOUT IMPLEMENTS KEYWORD, OVERRIDE THE INTERFACE METHODS USING ANONYMOUS SYNTAX!
+  inter1 obj1=new inter1()
+  {
+   @Override
+   public void disp() {
+    System.out.println("Anonymous type:: interface object");     
+   }
+  };
+  obj1.disp();
+  
+  Data2.inter2 s=new Data2.inter2()
+  {
+   @Override
+   public void calling() {
+    System.out.println("Class inside interface!"); 
+   }
+  };
+  s.calling();
+  
+ }
+
+}
+/*
+Anonymous type:: abstract class object!
+Anonymous type:: abstract class object!
+Anonymous type:: interface object
+*/
+================================================================================================
+package mydemos;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+//int a[]=new int[4];=>Homogenous
+/*
+* Collection interface(java.util)::
+* 
+ex:Emp obj->Integer(eno),String(ename),Float(salary),Date(dob)
+* --Heterogenous objects
+* --Everything stored as OBJECT rather than VALUE!
+* --grow DYNAMICALLY
+* --Purely ALGORITHM BASED FRAMEWORK
+* --READYMADE ARCHITECTURE API
+* --*easily do the DML(Update,insert,delete,select) Operations
+*/
+
+/*
+* Set  Interface::
+* --Unordered(Random order)(does not preserve the insertion order)
+* --unsorted
+* --does not allow DUPLICATE objects
+* --Set Interface Implementation classes::: HashSet(RANDOM),LinkedHashSet(ORDERED),
+* TreeSet(SORTED)
+*/
+public class Collection_Set1 {
+ //disable/hiding compilation warnings
+ @SuppressWarnings({"unchecked","rawtypes"})//Method level annotation
+ public static void main(String[] args) {
+  //Set s1=new Set();//interfaces cannot be instantiated
+  HashSet obj=new HashSet();//random order output
+  Set obj1=new HashSet(); //Polymorphic Object
+
+
+//NO INDEXING!
+  obj.add("Java");//String=>obj.add(new String("Java"));
+  obj.add(45454.545f);//Float WRAPPER CLASS=>obj.add(new Float(45454.5454f));
+  obj.add(54545.343d);//new Double(436343.56456d);
+  obj.add('A');//new Character('A');
+  obj.add('A');//NO DUPLICATES
+  obj.add(new Integer(4540450));//optional
+  obj.add(34234);
+ 
+  System.out.println("HashSet(Unordered::Randomorder):: "+obj);//obj.toString()
+  System.out.println("HashSet Size:: "+obj.size());//NUMBER OF OBJECT
+  System.out.println("HashSet Empty??:: "+obj.isEmpty());  
+
+  System.out.println("HashSet Objects:: ");
+  //Iterator is a built in interface. used for displaying heterogenous objects
+  //FOR LOOP=>HOMOGENEOUS
+  Iterator i1=obj.iterator();//obj is HashSet (random order )
+  while(i1.hasNext())
+  {
+   System.out.println(i1.next());//PRINT THE CURRENT ELEMENT
+  }
+  obj.clear();//all the OBJECTS removed
+  System.out.println("HashSet Empty??:: "+obj.isEmpty());
+
+  Set obj2=new LinkedHashSet();//valid
+  //LinkedHashSet obj21=new LinkedHashSet();//valid
+ obj2.add("Java");
+ obj2.add(3434.3434);
+ obj2.add("JSP");
+ obj2.add(453.431f);
+ obj2.add(453.431f);//no duplicates
+     
+ System.out.println("LinkedHashSet(Ordered):: "+obj2); 
+
+ //Sorted Collection(Homegenous data)
+ TreeSet t1=new TreeSet(); 
+ t1.add("Java");
+ t1.add("Ejb");
+ t1.add("Mainframe");
+ t1.add("ASP.NET");
+ t1.add("C++");
+ t1.add("33435.545");
+ t1.add("3434.334");
+ //t1.add(33435.545);//RUNTIME ERROR=>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Double
+ System.out.println("TreeSet(Sorted):: "+t1);
+
+ //SortedSet inherits Set interface
+ //SortedSet  implements TreeSet class!
+ //SUBSET AND TAILSET HEADSET WORKS based on """""TreeSet sorting results"""""""
+
+ SortedSet ts1=t1.subSet("C++", "Mainframe");//between operator in mysql,ORACLE,last one(Mainframe) is exclusive
+ System.out.println("SubSet:: "+ts1);
+ 
+ SortedSet ts11=t1.tailSet("Ejb");//After Ejb
+ System.out.println("TailSet:: "+ts11);
+ 
+ SortedSet ts12=t1.headSet("Java");//Before Java
+ System.out.println("HeadSet:: "+ts12);
+
+ }
+
+}
+/*
+HashSet(Unordered::Randomorder):: [Java, A, 4540450, 54545.343, 34234, 45454.547]
+HashSet Size:: 6
+HashSet Empty??:: false
+HashSet Objects:: 
+Java
+A
+4540450
+54545.343
+34234
+45454.547
+HashSet Empty??:: true
+LinkedHashSet(Ordered):: [Java, 3434.3434, JSP, 453.431]
+TreeSet(Sorted):: [33435.545, 3434.334, ASP.NET, C++, Ejb, Java, Mainframe]
+SubSet:: [C++, Ejb, Java]
+TailSet:: [Ejb, Java, Mainframe]
+HeadSet:: [33435.545, 3434.334, ASP.NET, C++, Ejb]
+*/
+==================================================================================================
+package mydemos;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+
+class Employees4
+{
+ int id;
+ String name;
+ float salary;
+ public Employees4(int id, String name, float salary) {
+  super();
+  this.id = id;
+  this.name = name;
+  this.salary = salary;
+ }
+ @Override
+ public String toString() 
+ {
+  return id +" "  + name + " "  + salary ;
+ }
+}
+public class Collection_Set2 {
+ //disable/hiding compilation warnings
+  @SuppressWarnings({"unchecked","rawtypes"})//Method level annotation
+  
+ public static void main(String[] args) {
+  HashSet hobj=new HashSet();//no size!
+  Employees4 obj=new Employees4(1,"Devi",40405.43f);
+  Employees4 obj1=new Employees4(6,"Abi",50405.43f);
+  Employees4 obj2=new Employees4(3,"Daya",80405.43f);
+  Employees4 obj3=new Employees4(2,"Kani",20405.43f);
+  Employees4 obj4=new Employees4(9,"Raja",96405.43f);
+
+  hobj.add(obj);//heterogenous objects
+  hobj.add(obj1);
+  hobj.add(obj2);
+  hobj.add(obj3);
+  hobj.add(obj4);
+  System.out.println("Size:: "+hobj.size());
+  System.out.println("HashSet::RANDOM ORDER::");
+  for(Object i:hobj)
+  {
+   System.out.println(i.toString());//Random order output
+  }
+
+  LinkedHashSet hobj1=new LinkedHashSet();//ordered
+hobj1.add(obj);//heterogenous objects=>eno 1 is ADDED/DISPLAYED by sure!
+  hobj1.add(obj1);
+  hobj1.add(obj2);
+  hobj1.add(obj3);
+  hobj1.add(obj4);
+  System.out.println("LinkedHashSet::ORDERED COLLECTION::");
+  
+  for(Object i:hobj1)
+  {
+   System.out.println(i);
+  }
+  
+ }
+
+}
+/*
+Size:: 5
+HashSet::RANDOM ORDER::
+1 Devi 40405.43
+2 Kani 20405.43
+9 Raja 96405.43
+3 Daya 80405.43
+6 Abi 50405.43
+LinkedHashSet::ORDERED COLLECTION::
+1 Devi 40405.43
+6 Abi 50405.43
+3 Daya 80405.43
+2 Kani 20405.43
+9 Raja 96405.43
+*/
+=====================================================================================================
+package mydemos;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * List interface:
+ * --Implementation classes are LinkedList and ArrayList
+ * --ordered collection(insertion order is maintained)
+ * --Allows duplicates
+
+ *  * ArrayList::
+ * --Dynamic array is implicitly implemented
+ * --DML operations is slow
+ * --Accessing data is fast!!!(index)
+*/
+public class Collection_List1 {
+ //disable/hiding compilation warnings
+ @SuppressWarnings({"unchecked","rawtypes"})//Method level annotation
+ public static void main(String[] args) {
+  List obj1=new ArrayList();//valid 
+  ArrayList obj=new ArrayList();
+  obj.add(3434);//0
+  obj.add("Java");//1
+  obj.add('A');//2
+  obj.add(43.54F);//3
+  obj.add("jsp");//4
+  obj.add("jsp");//duplicates allowed!//5
+
+  //insertion order is maintained!
+  System.out.println("ArrayList(Ordered collection): "+obj);//toString(arrays)
+  obj.add(3,"Python");//3rd index position
+  System.out.println("ArrayList: "+obj);
+  for(Object i :obj)
+  {
+   System.out.println(i);
+  }
+  System.out.println("Get:: "+obj.get(4));//retrieve
+  obj.set(3,"Ruby");//modify/update
+  System.out.println("ArrayList: "+obj); 
+  System.out.println("ArrayList: "+obj.contains("jsp"));//searching an element
+
+ }
+
+}
+/*
+ArrayList(Ordered collection): [3434, Java, A, 43.54, jsp, jsp]
+ArrayList: [3434, Java, A, Python, 43.54, jsp, jsp]
+3434
+Java
+A
+Python
+43.54
+jsp
+jsp
+Get:: 43.54
+ArrayList: [3434, Java, A, Ruby, 43.54, jsp, jsp]
+ArrayList: true
+*/
+=======================================================================================================
+package mydemos;
+
+import java.util.ArrayList;
+
+public class Collection_List2 {
+ public static void main(String[] args) {
+  Employees4 obj=new Employees4(1,"Devi",40405.43f);
+  Employees4 obj1=new Employees4(6,"Abi",50405.43f);
+  Employees4 obj2=new Employees4(3,"Daya",80405.43f);
+  Employees4 obj3=new Employees4(2,"Kani",20405.43f);
+  Employees4 obj4=new Employees4(9,"Raja",96405.43f);
+  
+  //ARRAY LIST INDEX STARTS FROM 0.....
+
+  //Non generic arraylist! heterogenous(any object)!
+  //ArrayList aobj=new ArrayList();//insertion order is maintained
+  ArrayList<Object> aobj=new ArrayList<Object>();//valid=>compiler happy!
+  aobj.add(obj);
+  aobj.add(obj1);
+  aobj.add(obj2);
+  aobj.add(obj3);
+  aobj.add(obj4);
+  aobj.add(new ExceptionPropagationDemo1());
+  for(Object i : aobj)
+  {
+   System.out.println(i.toString());
+  }
+  Object gobj=aobj.get(3);
+  System.out.println("Get(3):::"+gobj);
+
+  //generic arraylist! homogeneous(only EMPLOYEE4 OBJECT)
+  ArrayList<Employees4> aobj1=new ArrayList<Employees4>();//valid
+  ArrayList<Employees4> aobj3=new ArrayList<>();//valid:: LHS MANDATORY RHS OPTIONAL
+  aobj1.add(obj);//add method only allows Employees4 objects!!!!
+  aobj1.add(obj1);
+  aobj1.add(obj2);
+  aobj1.add(obj3);
+  aobj1.add(obj4);
+  //aobj1.add(new ExceptionPropagationDemo1());//COMPILE ERROR=>here it is not valid bcos aobj1 is generic(Employees4)!
+  System.out.println("Generic ArrayList:: ");
+  for(Employees4 i : aobj1)
+  {
+   System.out.println(i.toString());
+  }
+
+ }
+
+}
+/*
+1 Devi 40405.43
+6 Abi 50405.43
+3 Daya 80405.43
+2 Kani 20405.43
+9 Raja 96405.43
+mydemos.ExceptionPropagationDemo1@7852e922
+Get(3):::2 Kani 20405.43
+Generic ArrayList:: 
+1 Devi 40405.43
+6 Abi 50405.43
+3 Daya 80405.43
+2 Kani 20405.43
+9 Raja 96405.43
+*/
+===============================================================================================
+package mydemos;
+
+import java.util.LinkedList;
+
+/*
+ * LinkedList::
+ * --Ordered collection
+ * --internally uses DOUBLY LINKED LIST(previous node+data+next node) 
+ * to store the elements
+ * --DML operations are very fast compared to arraylist
+ * --class LinkedList implements List,""Queue(Interface)(Ticket counter)""
+ */
+public class Collection_List3 {
+ public static void main(String[] args) {
+  Employees4 obj=new Employees4(1,"Devi",40405.43f);
+  Employees4 obj1=new Employees4(6,"Abi",50405.43f);
+  Employees4 obj2=new Employees4(3,"Daya",80405.43f);
+  Employees4 obj3=new Employees4(2,"Kani",20405.43f);
+  Employees4 obj4=new Employees4(9,"Raja",96405.43f);
+  Employees4 obj5=new Employees4(19,"Thananya",209405.43f);
+
+  //non generic 
+  LinkedList aobj=new LinkedList();
+
+  //generic
+  LinkedList<Employees4> aobj1=new LinkedList<Employees4>();//valid
+
+  aobj1.add(obj);
+  aobj1.add(obj1);
+  aobj1.add(obj2);
+  aobj1.add(obj3);
+  aobj1.add(obj4);
+  aobj1.addFirst(obj5);//add in first position
+  for(Employees4 i : aobj1)
+  {
+   System.out.println(i.toString());
+  }
+  System.out.println("First Employee Object:: "+aobj1.getFirst());
+  System.out.println("Last Employee Object:: "+aobj1.getLast());
+
+ }
+
+}
+/*
+19 Thananya 209405.44
+1 Devi 40405.43
+6 Abi 50405.43
+3 Daya 80405.43
+2 Kani 20405.43
+9 Raja 96405.43
+First Employee Object:: 19 Thananya 209405.44
+Last Employee Object:: 9 Raja 96405.43
+*/
+==================================================================================================
+package mydemos;
+
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
+
+/*
+ * LinkedHashMap=>ordered collection
+ * TreeMap=>sorted
+ *  *  * Map interface implemented by another class HashTable!
+ * --HashTable(Synchronized METHODS i.e thread safe class)
+ * HashTable called as "LEGACY CLASS!"(OLD CLASS).
+ * --HashMap(Non synchronized METHODS)
+*/
+/*
+ * Hashtable:::
+A Hashtable is an array of a list.
+It contains unique elements.
+It doesn't allow null key or value.
+It is synchronized.
+ */
+public class Collection_Map2 {
+	public static void main(String[] args) {
+		LinkedHashMap<Integer,String> obj=new LinkedHashMap<>();//key,value
+		obj.put(3, "Devi");
+		obj.put(2, "Abi");
+		obj.put(6, "Sam");
+		System.out.println("LinkedHashMap(Ordered):: "+obj);
+
+		TreeMap<Integer,String> obj1=new TreeMap<>();
+		obj1.put(3, "Devi");//Based on keys records are sorted
+		obj1.put(2, "Abi");
+		obj1.put(6, "Sam");
+		System.out.println("TreeMap(Sorted):: "+obj1);
+
+		//similar to HashMap(random order)
+		//many synchronized methods!
+		Hashtable<Integer,String> obj2=new Hashtable<>();
+		obj2.put(3, "Devi");
+		obj2.put(2, "Abi");
+		obj2.put(6, "Sam");
+		System.out.println("HashTable(Unordered):: "+obj2);
+
+	}
+
+}
+/*
+LinkedHashMap(Ordered):: {3=Devi, 2=Abi, 6=Sam}
+TreeMap(Sorted):: {2=Abi, 3=Devi, 6=Sam}
+HashTable:: {6=Sam, 3=Devi, 2=Abi}
+*/
+===========================================================================================
+package mydemos;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+class Prods
+{
+	int pno;
+	String pname;
+	float price;
+	public int getPno() {
+		return pno;
+	}
+	public void setPno(int pno) {
+		this.pno = pno;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	public Prods(int pno, String pname, float price) {
+		super();
+		this.pno = pno;
+		this.pname = pname;
+		this.price = price;
+	}
+	@Override
+	public String toString() 
+	{
+		return pno + " " +pname + " " + price;
+	}
+}
+public class Collection_Map3 {
+	public static void main(String[] args) {
+		Prods p1=new Prods(11,"Laptop",90800);
+		Prods p2=new Prods(12,"Harddisk",9000);
+		Prods p3=new Prods(1,"RAM",9800);
+		Prods p4=new Prods(51,"SMPS",9500);
+
+		//key,value
+		HashMap<Integer,Prods> hobj=new HashMap<Integer,Prods>();//Random order
+		hobj.put(1001, p1);//key,productobj
+		hobj.put(2001, p2);
+		hobj.put(3001, p3);
+		hobj.put(4001, p4);
+		//hobj.put(5001, new Arrays1());//invalid
+		for(Map.Entry<Integer, Prods> s1: hobj.entrySet())
+		{
+		System.out.println("Key&Value:: "+s1.getKey() + " "+s1.getValue());
+		}
+		//updating
+		p2.setPname("Inverter");
+		p2.setPrice(34090.43f);
+		for(Map.Entry<Integer, Prods> s1: hobj.entrySet())
+		{
+			System.out.println("(Update)Key&Value:: "+s1.getKey() + " "+s1.getValue());
+		}
+		//Iterator cannot be used in directly MAP interface!
+		Iterator<Integer> i=hobj.keySet().iterator();//hobj.iterator()=>invalid
+		while(i.hasNext())
+		{
+			int key1=i.next();
+			System.out.println("Key:: "+key1 + " " + "Value:: "+hobj.get(key1));//get(1001),get(2001),get(3001),get(4001)
+		}
+
+	}
+
+}
+/*
+Key&Value:: 2001 12 Harddisk 9000.0
+Key&Value:: 4001 51 SMPS 9500.0
+Key&Value:: 1001 11 Laptop 90800.0
+Key&Value:: 3001 1 RAM 9800.0
+(Update)Key&Value:: 2001 12 Inverter 34090.43
+(Update)Key&Value:: 4001 51 SMPS 9500.0
+(Update)Key&Value:: 1001 11 Laptop 90800.0
+(Update)Key&Value:: 3001 1 RAM 9800.0
+Key:: 2001 Value:: 12 Inverter 34090.43
+Key:: 4001 Value:: 51 SMPS 9500.0
+Key:: 1001 Value:: 11 Laptop 90800.0
+Key:: 3001 Value:: 1 RAM 9800.0
+*/
+=======================================================================================
+package mydemos;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class Empss
+{
+	int eno;
+	String ename;
+	float salary;
+	public Empss(int eno, String ename, float salary) {
+		super();
+		this.eno = eno;
+		this.ename = ename;
+		this.salary = salary;
+	}
+	@Override
+	public String toString() {
+		return "Value:: "+getEno() + " "+getEname() + " "+ getSalary();
+	}
+	public int getEno() {
+		return eno;
+	}
+	public void setEno(int eno) {
+		this.eno = eno;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+	public float getSalary() {
+		return salary;
+	}
+	public void setSalary(float salary) {
+		this.salary = salary;
+	}
+}
+public class MapWithScanner {
+	public static int menu()
+	{
+	 System.out.println("Choose one option from following : ");
+	  	System.out.println("1) Add a new employee INTO MAP.");
+	  	System.out.println("2) List all employees from MAP.");
+	  	System.out.println("3) Exit.");
+	  	Scanner sc = new Scanner(System.in);
+	  	return sc.nextInt();
+	}
+	public static void main(String[] args) {
+	  	HashMap<Integer, Empss> employeesByKey = new HashMap<Integer, Empss>();
+	   	int menuStore = menu();//calling the static method menu()
+		while(menuStore != 3)
+		{
+			switch (menuStore)
+		  {
+		    case 1:
+		      Scanner input1 = new Scanner(System.in);
+	 	      System.out.println("Enter Eno: ");
+	 	      int str1 = input1.nextInt();
+	 	      input1.nextLine();
+		      System.out.println("Enter Name: ");
+		      String str2 = input1.nextLine();
+		      System.out.println("Enter Salary: ");
+		      float str3 = input1.nextFloat();
+
+		      Empss newEmp = new Empss(str1, str2, str3);
+	//ENO=>KEY,ENO,NAME,SALARY=>VALUE
+		      employeesByKey.put(newEmp.getEno(), newEmp);//((((((((important
+		       break;
+		    case 2:
+				for(Map.Entry<Integer, Empss> s1: employeesByKey.entrySet())
+				{
+					System.out.println("Key&Value:: "+s1.getKey() + " "+s1.getValue());
+				}
+				System.out.println("");
+				break;
+			  case 3:
+				  break;//exit the program
+		  }
+		  menuStore=menu();
+		}
+
+
+
+
+
+	}
+
+}
+/*
+Choose one option from following : 
+1) Add a new employee INTO MAP.
+2) List all employees from MAP.
+3) Exit.
+1
+Enter Eno: 
+11
+Enter Name: 
+Devi
+Enter Salary: 
+34939
+Choose one option from following : 
+1) Add a new employee INTO MAP.
+2) List all employees from MAP.
+3) Exit.
+1
+Enter Eno: 
+33
+Enter Name: 
+Abi
+Enter Salary: 
+32493
+Choose one option from following : 
+1) Add a new employee INTO MAP.
+2) List all employees from MAP.
+3) Exit.
+1
+Enter Eno: 
+49
+Enter Name: 
+Surya
+Enter Salary: 
+45343
+Choose one option from following : 
+1) Add a new employee INTO MAP.
+2) List all employees from MAP.
+3) Exit.
+2
+Key&Value:: 33 Value:: 33 Abi 32493.0
+Key&Value:: 49 Value:: 49 Surya 45343.0
+Key&Value:: 11 Value:: 11 Devi 34939.0
+
+Choose one option from following : 
+1) Add a new employee INTO MAP.
+2) List all employees from MAP.
+3) Exit.
+*/
+======================================================================================
+package mydemos;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+/*Unsorted::
+ * 2 devi 34000
+ * 1 abi  22000
+ * 5 daya 34230
+ * Sorted(based on salary)::
+ * 1 abi 22000
+ * 2 devi 34000
+ * 5 daya 34230
+ */
+/*
+ * java.lang.Comparable interface:
+ * --used to sort the objects
+ *  * --Only one method called compareTo(Object)(>0,<0,0)
+ * --String and Wrapper classes(Integer,Float,Byte....) implements Comparable interface!!!!
+ * --********************single column sorting either accno or name or years!
+*/
+
+class Bank_Acc  implements Comparable<Bank_Acc>
+{
+	int accno;
+	String accholdername;
+	int years; 
+	public Bank_Acc(int accno, String accholdername, int years) {
+		super();
+		this.accno = accno;
+		this.accholdername = accholdername;
+		this.years = years;
+	}
+	@Override
+	public String toString()
+	{
+		return accno + " "+ accholdername + " "+ years;
+	}
+	@Override
+	//public int compareTo(Object o) 
+	//sorting the records based on YEARS!
+	//Comparable interface affect the Original class
+	//**************one field sorting allowed!		
+		
+	public int compareTo(Bank_Acc b)
+	{
+		if(years==b.years)
+		{
+			return 0;
+		}
+		else if(years>b.years)
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+	
+	}
+	}
+public class Collection_Comparable1 {
+	public static void main(String[] args) {
+		Bank_Acc b1=new Bank_Acc(11,"Devi",6);
+		Bank_Acc b2=new Bank_Acc(13,"Abi",2);
+		Bank_Acc b3=new Bank_Acc(8,"Daya",7);
+		Bank_Acc b4=new Bank_Acc(4,"Raja",3);
+		Bank_Acc b5=new Bank_Acc(12,"Lakshmi",7);
+
+		ArrayList<Bank_Acc> obj=new ArrayList<Bank_Acc>();//ordered collection
+		obj.add(b1);
+		obj.add(b2);
+		obj.add(b3);
+		obj.add(b4);
+		obj.add(b5);
+		System.out.println("Before Sorting::");
+		for(Bank_Acc t:obj)
+		{
+			System.out.println(t);
+		}
+		//Collection is a BUILT IN interface,Collections is a BUILT IN class
+		Collections.sort(obj);//sort method expect Comparable interface to be implemented
+		System.out.println("After Sorting(Based on Years)::");
+		for(Bank_Acc t:obj)
+		{
+			System.out.println(t);
+		}
+
+	}
+
+}
+/*
+Before Sorting::
+11 Devi 6
+13 Abi 2
+8 Daya 7
+4 Raja 3
+12 Lakshmi 7
+After Sorting(Based on Years)::
+13 Abi 2
+4 Raja 3
+11 Devi 6
+8 Daya 7
+12 Lakshmi 7
+*/
+================================================================================================
+package mydemos;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+/*
+ * Comparable	Comparator
+1) Comparable provides a single sorting sequence. 
+In other words, we can sort the collection on the basis of a single element such 
+as id, name, and price.	
+The Comparator provides multiple sorting sequences. 
+In other words, we can sort the collection on the basis of multiple elements 
+such as id, name, and price etc.
+2) Comparable affects the original class, i.e., the actual class is modified.	
+Comparator doesn't affect the original class, i.e., the actual class is not modified.
+3) Comparable provides compareTo() method to sort elements.	
+Comparator provides compare() method to sort elements.
+4) Comparable is present in java.lang package.	
+A Comparator is present in the java.util package.
+5) We can sort the list elements of Comparable type by Collections.sort(List) method.	
+We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.
+ */
+class Item_Stuff
+{
+	int itemno;
+	String itemname;
+	int price;
+	public Item_Stuff(int itemno, String itemname, int price)
+	{
+		super();
+		this.itemno = itemno;
+		this.itemname = itemname;
+		this.price = price;
+	}
+	@Override
+	public String toString()
+	{
+		return itemno + " "+ itemname + " "+ price;
+	}
+}
+class HexaNameComparator implements Comparator<Item_Stuff>
+{
+	//public int compare(Object arg0, Object arg1)
+	@Override
+	public int compare(Item_Stuff i1, Item_Stuff i2)
+	{
+		return i1.itemname.compareTo(i2.itemname);//String compareTo()
+	}
+}
+class HexaPriceComparator implements Comparator<Item_Stuff>
+{
+	@Override
+	public int compare(Item_Stuff o1, Item_Stuff o2) 
+	{
+
+		if(o1.price==o2.price)
+		{
+			return 0;
+		}
+		else if (o1.price>o2.price)//ascending
+		{
+			return 1;
+		}
+		else 
+			return -1;
+	}	
+}
+class HexaPriceDescendingComparator implements Comparator<Item_Stuff>
+{
+	@Override
+	public int compare(Item_Stuff o1, Item_Stuff o2) 
+	{
+
+		if(o1.price==o2.price)
+		{
+			return 0;
+		}
+		else if (o1.price<o2.price)//descending
+		{
+			return 1;
+		}
+		else 
+			return -1;
+	}
+}
+
+public class Collection_Comparator1 {
+	public static void main(String[] args) {
+		ArrayList<Item_Stuff> obj=new ArrayList<>();
+		obj.add(new Item_Stuff(1001,"Kurtis",2000));
+		obj.add(new Item_Stuff(1003,"Tops",1000));
+		obj.add(new Item_Stuff(1002,"Chudis",2500));
+		obj.add(new Item_Stuff(1004,"Sarees",3000));
+		obj.add(new Item_Stuff(1005,"Shirts",2700));
+		System.out.println("Before Sorting::");
+		for(Item_Stuff t:obj)
+		{
+			System.out.println(t);
+		}
+		System.out.println("Sorting(Based on Itemname's)::");
+		//Collections.sort(objname,comparator classname)
+		Collections.sort(obj, new HexaNameComparator());//Implement Comparator Interface
+		for(Item_Stuff t:obj)
+		{
+			System.out.println(t);
+		}
+		System.out.println("Sorting(Based on ItemPrice Ascending)::");
+		Collections.sort(obj, new HexaPriceComparator());//Implement Comparator Interface}
+		for(Item_Stuff t:obj)
+		{
+			System.out.println(t);
+		}
+
+		System.out.println("Sorting(Based on ItemPrice in Descending)::");
+		Collections.sort(obj, new HexaPriceDescendingComparator());//Implement Comparator Interface
+		for(Item_Stuff t:obj)
+		{
+			System.out.println(t);
+		}
+
+	}
+}
+/*
+Before Sorting::
+1001 Kurtis 2000
+1003 Tops 1000
+1002 Chudis 2500
+1004 Sarees 3000
+1005 Shirts 2700
+Sorting(Based on Itemname's)::
+1002 Chudis 2500
+1001 Kurtis 2000
+1004 Sarees 3000
+1005 Shirts 2700
+1003 Tops 1000
+Sorting(Based on ItemPrice Ascending)::
+1003 Tops 1000
+1001 Kurtis 2000
+1002 Chudis 2500
+1005 Shirts 2700
+1004 Sarees 3000
+Sorting(Based on ItemPrice in Descending)::
+1004 Sarees 3000
+1005 Shirts 2700
+1002 Chudis 2500
+1001 Kurtis 2000
+1003 Tops 1000
+*/
+===============================================================================
+package mydemos;
+
+import java.util.PriorityQueue;
+
+/*
+ * A PriorityQueue is used when the objects are supposed to be processed based on the 
+ * priority. 
+ * It is known that a Queue follows the First-In-First-Out algorithm, but sometimes 
+ * the elements of the 
+ * queue are needed to be processed according to the priority, that’s when the 
+ * PriorityQueue comes into play. 
+ * The PriorityQueue is based on the priority heap. The elements of the priority 
+ * queue are ordered according to 
+ * the ""natural ordering(COMPARABLE)"", 
+ * or by a Comparator provided at queue construction time, depending on which 
+ * constructor is used.  
+ */
+class Employee implements Comparable<Employee>
+{
+	private String name;
+    private double salary;
+    public Employee (String name, double salary)
+    {
+        this.name = name;
+        this.salary = salary;
+    }
+    public String getName ()
+    {
+        return name;
+    }
+    public void setName (String name)
+    {
+        this.name = name;
+    }
+    public double getSalary ()
+    {
+        return salary;
+    }
+    public void setSalary (double salary)
+    {
+        this.salary = salary;
+    }
+    @Override 
+    public String toString ()
+    {
+        return "Employee{" + "name='" + name + '\'' + ", salary=" + salary + '}';
+    }
+    // Compare two employee objects by their salary
+    @Override public int compareTo (Employee employee)
+    {
+        if (this.getSalary () > employee.getSalary ())
+        {
+         return 1;
+        }
+        else if (this.getSalary () < employee.getSalary ())
+        {
+         return -1;
+        }
+        else
+        {
+         return 0;
+        }
+    }
+
+  }
+public class PriorityQueueDemo {
+	public static void main(String[] args) {
+        // Create a PriorityQueue
+        PriorityQueue<Employee> employeePriorityQueue = new PriorityQueue<>();
+        // Add items to the Priority Queue
+        employeePriorityQueue.add (new Employee ("Rajeev", 100000.00));
+        employeePriorityQueue.add (new Employee ("Chris", 145000.00));
+        employeePriorityQueue.add (new Employee ("Andrea", 115000.00));
+        employeePriorityQueue.add (new Employee ("Jack", 167000.00));
+        /*
+        The compareTo() method implemented in the Employee class is used to 
+        determine
+        in what order the objects should be dequeued.
+        (Low salary to High Salary(Ascending order))
+         */
+
+        while (!employeePriorityQueue.isEmpty ())
+        {
+         System.out.println ("Remove:::"+employeePriorityQueue.remove ());
+        }
+        System.out.println ("Size ?? "+employeePriorityQueue.size());
+
+	}
+
+}
+/*
+Remove:::Employee{name='Rajeev', salary=100000.0}
+Remove:::Employee{name='Andrea', salary=115000.0}
+Remove:::Employee{name='Chris', salary=145000.0}
+Remove:::Employee{name='Jack', salary=167000.0}
+Size ?? 0
+*/
+===============================================================================
+_____________________________________________________________________________________________________________________
+______________________________________________________________________________________________________________________
+
+
+1. Create a class called Worker. Write classes DailyWorker and SalariedWorker that inherit from
+Worker. Every worker has a name and a salaryrate. Write method Pay (int hours) to compute 
+the week pay of every worker.  A Daily worker is paid on the basis of the number of days 
+she/he works. The salaried worker gets paid the wage for 40 hours a week no matter what the
+actual hours are.  Test this program to calculate the pay of workers. 
+Include the  concept of Static block and instance of keyword!
+
+
+2.Create a Package called house. Create 2 classes namely Hall and Kitchen.
+
+1.1.  In the Hall class print the message “This is the first room while entering the house” without using the class name System explicitly in the println statement.
+2.1. In the Kitchen class create an array called appliances and initialize with values and print the same. 
+3.1. After printing copy that array into a different array.
+
+3.The following are the superclass Bank and its subclasses Saving and Current.
+Super class : Bank
+public class Bank 
+{
+String accNo;  //customer account number with Bank
+String custName; //customer name
+int custGender;  //customer gender 1 = Male, 2 =Female
+String custJob;  //customer job positions
+double curBal;  //customer balance in the bank account
+public String toString();
+public abstract double calcBalance();
+}
+
+Subclass : Saving
+public class Saving 
+{
+double savRate;  //percent interest rate per year
+}
+
+Subclass : Current
+public class Current
+{
+boolean fixedDep;  //whether the customer keeps the fixed// deposit with the bank of not
+double curRate;  //percent interest rate per year
+}
+
+The  above  classes  show  that  Bank  can  have  two  different  types  of  account  which  are Saving  and  Current  account.
+  The  balance amount  in the  bank for  each account  is basedon the following calculation :
+
+Saving :Balance =  current balance + (savRate * current balance)
+Current :Balance = current balance + (curRate * current balance)
+
+If the customer has a fixed deposit with the bank, then the bank will charge RM150for the service fee.  
+The amount will be deducted automatically yearly.
+
+a)  Write a method of calcBalance() for both subclasses.
+b)  Search  a  customer  based  on  the  account  number  entered  then  display  detailinformation  of  him/her.  If  the  customer  account  number  is  not  found,  display  anappropriate message.
+c)  Count how many customers that have the current account with the bank and the totalbalance.  
+
+4.Create two interfaces namely Drawable and Fillable. Create class called Line, Circle, Square and
+implement following methods through interface.
+
+<I>Drawable ------ drawingColor(), thickness ()
+<I>Fillable ---------- fillingColor (), size ()
+
+
+5. create a package called finance and within it create an interface called 
+Payable. It should define the getPayInfo () method that all the worker classes will implement.Now display the details of the monthly pay of the workers.
+
+Hint:: Use Worker,DailyWorker,SalariedWorker classes
+
+6. Write a program to demonstrate the InputMismatchException and StringIndexOutOfBoundsException.
+
+7.By using multiple catch blocks, write a class to demonstrate the order of the execution of the 
+catch blocks usingNegativeArraySizeException,ArrayIndexOutOfBoundsException, 
+StringIndexOutOfBoundsException, IndexOutOfBoundsException, NullPointerException,          
+ArithmeticException and print the stack trace for each exception.
+
+8.Create a class such that it resets the value of the objects it used to null after its usage in all 
+cases.(use finally)
+
+9.Create a class called Employee which asks the user to input the name and the age of a 
+employee. Raise a custom defined exception when the user enters an employee name 
+that has been already entered and raise another exception if the age is negative or less
+than 18 or greater than 60. 
+
+10.Create a class with following specifications.                                                                         
+Class Emp                                                                                                           
+           
+empId              int                   
+empName        string      
+designation      string             
+basic                double              
+hra                   double readOnly
+
+Methods
+printDET()
+printDET() methods will show details of the EMP.                                             
+calculateHRA() method will calculate HRA based on basic.
+
+There will 3 designations supported by the application.                                                                                            
+If designation  is “Manager”  - HRA will be 10% of BASIC
+if designation  is “TeamLeader”  - HRA will be 12% of BASIC
+if category is "HR"  - HRA will be 5% of BASIC
+
+Have constructor to which you will pass, empId, designation, basic and price.
+
+And checks whether the BASIC is less than 50000 or not. If it is less than 50000 raise a custom Exception as given below
+
+Create LowSalException class with proper user message to handle BASIC less than 50000.  
+
+
+11.Create a class by name Employee with members – Employee ID, Name andyear of birth. The Employee ID is a string that contains the ID in the formatyear-designation-number. The year is represented with the last two digits. Thedesignation is a single letter code - 'F' for faculty and 'S' for staff.
+
+The numberis a 3 digit number.(Example:81-F-112     79-S-254)
+
+Write a program to read the employee details and validate the employee code.If the employee code is incorrect throw a user-defined exception"InvalidEmployeeCode" else create the Employee object and display the detailsof the employee.
+
+12.Create a class called Tank that can be filled and emptied, and has a
+termination condition that it must be releaseTank when the object is cleaned up. Write a
+finalize( ) that verifies this termination condition. In main( ), test the possible scenarios
+that can occur when your Tank is used.
+
+13.Create an enum of the six types of paper currency. Loop through the values( ) and print each value. Write a switch statement for the enum.  For each
+   case, output a description of that particular currency.
+
+14.Create a class named MyTriangle that contains two static methods
+a) public static double area(double a, double b, double c)
+b) public static double perimeter(double a, double b, double c)
+to compute area and perimeter of a triangle respectively given three valid
+sides a, b and c.
+And add a static method
+/** Return true if the sum of any two sides is greater than the third side.
+**/
+c) public static boolean isValid(double a, double b, double c)
+In the main method of MyTriangle, test the three methods you write.
+1) Get a, b and c from the Console
+2) If a is -1, exit your program and print “Bye~”
+3) If a is not -1, use isValid to check the input
+4) If the input is valid, compute the area and perimeter and print them
+5) If the input is not valid, return false and print “The input is invalid.”
+6) Go to 1)
+
+15.Write a program that will accept 10 numbers from the user as input and store it in a collection. 
+ The numbers should not be duplicated. Also get the index position along with the number where it has to be stored.
+
+
+16.Create a collection that will contain the names of the days in a week. Print the collection. 
+Display the length of the collection and convert the collection into an array and print it.
+
+
+17.Design a class that acts as a library for the following kinds of media: book, video, and 
+newspaper. Provide one version of the class that uses generics and one that does not.
+The class should be with add and retrieve methods in order to add and retrieve values 
+from the library.
+==========================================================================================================

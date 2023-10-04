@@ -1,0 +1,722 @@
+HTMLCSSDemos1.html
+
+<!--
+CSS:
+CSS is the language we use to style an HTML document.
+CSS describes how HTML elements should be displayed.
+CSS stands for Cascading Style Sheets
+CSS saves a lot of work. It can control the layout of multiple web pages all at once
+External stylesheets are stored in CSS files
+A CSS rule consists of a selector TAG and a declaration block.
+
+Types of selector::
+1.class selector
+2.group selector
+3.id selector
+
+EX:
+p 
+{
+  color: red;
+}
+color is a built in css property and red is a built in css value
+Types  of css::
+*inline css(.html)=>SINGLE HTML TAG
+*internal css(.html)=>SINGLE HTML PAGE
+*external css(.css)->SEPERATE CSS FILE
+
+dotted - Defines a dotted border
+dashed - Defines a dashed border
+solid - Defines a solid border
+double - Defines a double border
+groove - Defines a 3D grooved border. The effect depends on the border-color value
+ridge - Defines a 3D ridged border. The effect depends on the border-color value
+inset - Defines a 3D inset border. The effect depends on the border-color value
+outset - Defines a 3D outset border. The effect depends on the border-color value
+none - Defines no border
+hidden - Defines a hidden border
+
+-->
+<html>
+<head>
+<!--internal css-->
+<!--MIME(Multipurpose Internet Mail Extensions) TYPE:: text/html,text/css,text/script,image/jpeg-->
+<style type="text/css">
+h1
+{
+background-color:yellow;
+text-align:center;
+color:green;
+text-decoration:underline dotted red;
+}
+p 
+{
+  color: red;
+  text-align: center;
+}
+p.cap
+{
+text-transform:capitalize;
+border:7px groove red;
+}
+p.cap1
+{
+text-transform:uppercase;
+word-spacing:30px;
+font-family:monotype corsiva;
+font-size:50;
+}
+h1.cap1
+{
+background-color:lightyellow;
+}
+ul.a 
+{
+list-style-image:url('mypictures/rose1.jpg');
+list-style-type:disc;
+}
+ul.b 
+{
+list-style-type:circle;
+}
+ul.c 
+{
+list-style-type:square;
+}
+ul.d 
+{
+list-style-type:none;
+}
+ol.e 
+{
+list-style-type:decimal;
+}
+ol.g 
+{
+list-style-type:lower-roman;
+}
+ol.h
+{
+list-style-type:lower-alpha;
+}
+h2,h3
+{
+color:cornflowerblue;
+}
+h3.hid
+{
+visibility:hidden;
+}
+h3.hid1
+{
+display:none;
+}
+#mycssstyle1
+{
+text-transform:uppercase;
+color:cornflowerblue;
+}
+.example 
+{    
+    text-align: center;    
+    color: red;    
+    font-size: 1cm;  
+}    
+.para
+{  
+font-family: Lucida Calligraphy;  
+text-shadow: 5px 8px 9px yellow;  
+}
+#a
+{
+color:green;
+}
+div
+ {
+  border: 10px dotted black;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+  background-color: lightblue;
+}
+#customers 
+{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th 
+{
+  border: 1px dotted red;
+  padding: 18px;
+}
+
+#customers tr:nth-child(even)
+{
+background-color: orange;
+}
+
+#customers tr:hover 
+{
+background-color:pink;
+}
+
+#customers th 
+{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+</style>
+
+</head>
+<body>
+<h1>My CSS web page!</h1>
+<h1>My CSS web page!</h1>
+<p>Good Afternoon to all!</p>
+<!-- class selector(.)-->
+<p class="cap">my css another web page</p>
+<p class="cap1">my css web page</p>
+<p>Good Day to all!</p>
+<h1 class="cap1">my another class selector</h1>
+<ul class="a">
+<li>Java</li>
+</ul>
+<ul class="b">
+<li>Java</li>
+</ul>
+<ul class="c">
+<li>Java</li>
+</ul>
+<ul class="d">
+<li>Java</li>
+</ul>
+<ol class="e">
+<li>Java</li>
+</ol>
+<ol class="g">
+<li>Java</li>
+</ol>
+<ol class="h">
+<li>Java</li>
+</ol>
+
+<h2>My CSS</h2>
+<h3>My CSS</h3>
+
+<!-- visibility:hidden- It is not visible but gets up it's original space whereas, 
+display:none- It is hidden and takes no space.-->
+<h3>This is a visible heading</h3>
+<h3 class="hid">Iam Hidden Header</h3>
+<h3>Next</h3>
+
+<h3>This is a visible heading</h3>
+<h3 class="hid1">Iam Hidden Header</h3>
+<h3>Next</h3>
+
+<!-- id selector #-->
+<p id="mycssstyle1">Hello</p>
+<h5 id="mycssstyle1">Hello</h5>
+<br><br>
+
+<br><br>
+<!--it is best practice to only use IDs if you want a style to apply to one 
+element on the web page, and to use classes if you want a style to apply to multiple elements. -->
+<h4 class="example para">This paragraph is red and center-aligned with a font-family "Lucida Calligraphy" and text-shadow.</p>    
+
+<br><br>
+<h5 id="a">Java Oracle Angular Framework</h1>
+<!--inline css contains more priority!-->
+
+<p style="background:lightgreen; color:yellow;">A new background and
+ font color with inline CSS A new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSA new background and
+ font color with inline CSSV</p>
+<br>
+<div>This div element has a top margin of 100px, a right margin of 150px, a bottom margin of 100px, and a left margin of 80px.</div>
+
+<table id="customers">
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>ZOHO</td>
+    <td>9789962180</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>APPLE</td>
+    <td>1800-454-3434</td>
+    <td>Sweden</td>
+  </tr>
+  <tr>
+    <td>Mindtree</td>
+    <td>1835-565-3434</td>
+    <td>Mexico</td>
+  </tr>
+  <tr>
+    <td>DXC</td>
+    <td>3423-454-3432</td>
+    <td>Austria</td>
+  </tr>
+</table>
+
+<!--
+ Pixels:
+       If you use pixels then, its an absolute measurement and will be rendered 
+irrespective of the browser's window size. 
+Percentage:
+       Percentage is a relative measurement which will be rendered with respect to the
+ browser's window size. 
+Note:
+If you want to show some element to always appear in a fixed size, then use pixels, 
+else use percentage. 
+
+Pixel is a static measurement, while percent and EM are relative measurements. 
+Percent depends on its parent font size. EM is relative to the current font size of the 
+element (2em means 2 times the size of the current font).
+-->
+</body>
+</html>
+===========================================================================================
+FloatCSSDemos1.html
+
+<!-- float: none|left|right|initial|inherit;-->
+
+<head>
+<style>
+img 
+{
+  float: right;
+}
+</style>
+</head>
+<body>
+
+<p>
+<img src="mypictures/Lighthouse.jpg" style="width:170px;height:170px;margin-left:185px;">
+The HyperText Markup Language, or HTML is the standard markup language for documents designed to be displayed in a web browser. It can be assisted by technologies such as Cascading Style Sheets (CSS) and scripting languages such as JavaScript.
+
+Web browsers receive HTML documents from a web server or from local storage and render the documents into multimedia web pages. HTML describes the structure of a web page semantically and originally included cues for the appearance of the document.
+
+HTML elements are the building blocks of HTML pages. With HTML constructs, images and other objects such as interactive forms may be embedded into the rendered page. HTML provides a means to create structured documents by denoting structural semantics for text such as headings, paragraphs, lists, links, quotes and other items. HTML elements are delineated by tags, written using angle brackets. Tags such as <img /> and <input /> directly introduce content into the page. Other tags such as <p> surround and provide information about document text and may include other tags as sub-elements. Browsers do not display the HTML tags, but use them to interpret the content of the page.
+
+HTML can embed programs written in a scripting language such as JavaScript, which affects the behavior and content of web pages. Inclusion of CSS defines the look and layout of content. The World Wide Web Consortium (W3C), former maintainer of the HTML and current maintainer of the CSS standards, has encouraged the use of CSS over explicit presentational HTML since 1997.
+</p>
+=================================================================================================
+CSSCursorDemos1.html
+
+<html>
+<head>
+<style>
+.alias {cursor: alias;}
+.all-scroll {cursor: all-scroll;}
+.auto {cursor: auto;}
+.cell {cursor: cell;}
+.context-menu {cursor: context-menu;}
+.col-resize {cursor: col-resize;}
+.copy {cursor: copy;}
+.crosshair {cursor: crosshair;}
+.default {cursor: default;}
+.e-resize {cursor: e-resize;}
+.ew-resize {cursor: ew-resize;}
+.grab {cursor: -webkit-grab; cursor: grab;}
+.grabbing {cursor: -webkit-grabbing; cursor: grabbing;}
+.help {cursor: help;}
+.move {cursor: move;}
+.n-resize {cursor: n-resize;}
+.ne-resize {cursor: ne-resize;}
+.nesw-resize {cursor: nesw-resize;}
+.ns-resize {cursor: ns-resize;}
+.nw-resize {cursor: nw-resize;}
+.nwse-resize {cursor: nwse-resize;}
+.no-drop {cursor: no-drop;}
+.none {cursor: none;}
+.not-allowed {cursor: not-allowed;}
+.pointer {cursor: pointer;}
+.progress {cursor: progress;}
+.row-resize {cursor: row-resize;}
+.s-resize {cursor: s-resize;}
+.se-resize {cursor: se-resize;}
+.sw-resize {cursor: sw-resize;}
+.text {cursor: text;}
+.w-resize {cursor: w-resize;}
+.wait {cursor: wait;}
+.zoom-in {cursor: zoom-in;}
+.zoom-out {cursor: zoom-out;}
+</style>
+</head>
+<body>
+
+<h1>The cursor Property</h1>
+<p>Mouse over the words to change the mouse cursor.</p>
+
+<p class="alias">alias</p>
+<p class="all-scroll">all-scroll</p>
+<p class="auto">auto</p>
+<p class="cell">cell</p>
+<p class="context-menu">context-menu</p>
+<p class="col-resize">col-resize</p>
+<p class="copy">copy</p>
+<p class="crosshair">crosshair</p>
+<p class="default">default</p>
+<p class="e-resize">e-resize</p>
+<p class="ew-resize">ew-resize</p>
+<p class="grab">grab</p>
+<p class="grabbing">grabbing</p>
+<p class="help">help</p>
+<p class="move">move</p>
+<p class="n-resize">n-resize</p>
+<p class="ne-resize">ne-resize</p>
+<p class="nesw-resize">nesw-resize</p>
+<p class="ns-resize">ns-resize</p>
+<p class="nw-resize">nw-resize</p>
+<p class="nwse-resize">nwse-resize</p>
+<p class="no-drop">no-drop</p>
+<p class="none">none</p>
+<p class="not-allowed">not-allowed</p>
+<p class="pointer">pointer</p>
+<p class="progress">progress</p>
+<p class="row-resize">row-resize</p>
+<p class="s-resize">s-resize</p>
+<p class="se-resize">se-resize</p>
+<p class="sw-resize">sw-resize</p>
+<p class="text">text</p>
+<p class="w-resize">w-resize</p>
+<p class="wait">wait</p>
+<p class="zoom-in">zoom-in</p>
+<p class="zoom-out">zoom-out</p>
+
+</body>
+</html>
+===========================================================================================
+WordWrapDemos1.html
+
+<!-- 
+The word-wrap property in CSS is used to break long word and wrap into the next line.
+
+The overflow-wrap property acts in the same way as the non-standard property word-wrap. The word-wrap property is now treated by browsers as an alias of the standard property.
+
+word-wrap: normal|break-word|initial|inherit;
+
+column-count: number|auto|initial|inherit;
+column-rule-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit;
+-->
+<style>
+div {
+  width: 150px; 
+  border: 1px dotted red;
+}
+div.a {
+  word-wrap: normal;
+}
+
+div.b {
+  word-wrap: break-word;
+}
+p.ne 
+{
+  column-count: 3;
+column-gap: 100px;
+column-rule-style: dotted;
+column-rule-width: 10px;
+}
+
+</style>
+
+
+
+
+<body>
+<h2>word-wrap: normal (default):</h2>
+<div class="a"> Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.Java is a high-level, class-based,object-oriented programminglanguagethatisdesignedtohaveasfew implementation dependencies as possible.</div>
+<br><br>
+<h2>word-wrap: break-word:</h2>
+<div class="b">Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.Java is a high-level, class-based, object-oriented programminglanguagethatisdesignedtohaveasfew implementation dependencies as possible.</div>
+<br><br>
+<p class="ne">
+Python is an interpreted high-level general-purpose programming language. Its design philosophy emphasizes code readability with its use of significant indentation. Its language constructs as well as its object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects.[30]
+
+Python is dynamically-typed and garbage-collected. It supports multiple programming paradigms, including structured (particularly, procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.[31]
+
+Guido van Rossum began working on Python in the late 1980s, as a successor to the ABC programming language, and first released it in 1991 as Python 0.9.0.[32] Python 2.0 was released in 2000 and introduced new features, such as list comprehensions and a garbage collection system using reference counting. Python 3.0 was released in 2008 and was a major revision of the language that is not completely backward-compatible. Python 2 was discontinued with version 2.7.18 in 2020.[33]
+
+Python consistently ranks as one of the most popular programming languages.
+</p>
+</body>
+====================================================================================================
+DivTagDemos1.html
+
+<!--
+Display css property::
+ 
+inline	Displays an element as an inline element (like <span>). Any height and width properties will have no effect	
+block	Displays an element as a block element (like <p>). It starts on a new line, and takes up the whole width	
+contents	Makes the container disappear, making the child elements children of the element the next level up in the DOM	
+flex	Displays an element as a block-level flex container	
+grid	Displays an element as a block-level grid container	
+inline-block	Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values	
+inline-flex	Displays an element as an inline-level flex container	
+inline-grid	Displays an element as an inline-level grid container	
+inline-table	The element is displayed as an inline-level table	
+list-item	Let the element behave like a <li> element	
+run-in	Displays an element as either block or inline, depending on context
+--><body>
+
+    <div style="text-align: center; color:yellow;">
+      <h1>Form Demo</h1>
+      <h2>Browser Demographics Survey</h2>
+      <form method="post" action="">
+        <div style="display:inline-block; text-align: left;color:green;">
+          <p>
+            <div style="float: left; margin: 2em; width: 10em;">
+              <p><label>As which gender<br />do you identify?</label></p>
+              <select name="gender" id="gender" required>
+                <option value="" selected disabled>Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div style="float: left; margin: 2em; width: 10em; color:orange;">
+              <p><label>To which age group<br />do you belong?</label></p>
+              <select name="age" id="age" required>
+                <option value="" selected disabled>Age group</option>
+                <option value="UN18">Under 18</option>
+                <option value="1825">18-24 years old</option>
+                <option value="2534">25-34 years old</option>
+                <option value="3544">35-44 years old</option>
+                <option value="4554">45-54 years old</option>
+                <option value="5564">55-64 years old</option>
+                <option value="6574">65-74 years old</option>
+                <option value="75OO">75 or over</option>
+              </select>
+            </div>
+          </p>
+          <p>
+            <div style="float: left; margin: 2em; width: 10em;color:violet;">
+              <p><label>In which geographic<br />region do you live?</label></p>
+              <select name="region" id="region" required>
+                <option value="" selected disabled>Region</option>
+                <option value="Africa">Africa</option>
+                <option value="Asia">Asia</option>
+                <option value="Caribbean">Caribbean</option>
+                <option value="CAmerica">Central America</option>
+                <option value="Europe">Europe</option>
+                <option value="NAmerica">North America</option>
+                <option value="Oceania">Oceania</option>
+                <option value="SAmerica">South America</option>
+              </select>
+            </div>
+            <div style="float: left; margin: 2em; width: 10em;color:cornflowerblue;">
+              <p><label>Which Internet web<br />browsers do you use?</label></p>
+              <select name="browser" id="browser" required multiple size="4">
+                <option>Google Chrome</option>
+                <option>Internet Explorer</option>
+                <option>Microsoft Edge</option>
+                <option>Mozilla Firefox</option>
+                <option>Opera</option>
+                <option>Safari</option>
+              </select>
+            </div>
+          </p>
+        </div>
+        <p>
+          <input type="reset" value="Reset" style="margin: 0 2em;" />
+          <input type="submit" value="Submit" style="margin: 0 2em;" />
+        </p>
+      </form>
+    </div>
+
+  </body>
+</html>
+
+==================================================================================================
+ImageCSSDemos1.html
+
+<!-- Value	Description	Demo
+repeat	The background image is repeated both vertically and horizontally.  The last image will be clipped if it does not fit. This is default	
+repeat-x	The background image is repeated only horizontally	
+repeat-y	The background image is repeated only vertically	
+no-repeat	The background-image is not repeated. The image will only be shown once	
+space	The background-image is repeated as much as possible without clipping. The first and last image is pinned to either side of the element, and whitespace is distributed evenly between the images	
+round	The background-image is repeated and squished or stretched to fill the space (no gaps)	
+initial	Sets this property to its default value. 
+inherit	Inherits this property from its parent element. -->
+
+<style> 
+body 
+{
+            background-image: url("mypictures/LightHouse.jpg");
+            background-repeat: repeat-x;
+background-position: center;
+        
+}
+</style>
+<body>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+<h1>Background Image</h1>
+
+</body>
+=======================================================================================
+AnchorCSSDemos1.html
+
+<!--Here are the states you can change link color for with CSS:
+
+a:hover – when the mouse pointer hovers over it.
+a:active – when a user clicks the link.
+a:visited – visited link.
+
+By default, links have underlines. To remove underline from link with CSS, use the CSS text decoration property.
+
+It has four possible values: underline, overline, line-through, and none.
+-->
+
+<style>
+/*
+ anchor element signifies unvisited hyperlinks
+*/
+a:link {
+    text-decoration: none;
+color:blue;
+}
+/* A link that has been visited */
+a:visited {
+    text-decoration: none;
+
+}
+/* A link that is hovered on */
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+/* A link that is selected */
+a:active {
+    color: green;
+}
+</style>
+<body>
+<a href="https://www.zoho.com">Zoho Corporation</a>
+</body>
+=========================================================================================
+MyWebStyles.css
+
+/*
+External css: NO STYLE TAG
+*/
+body
+{
+ background-color: cornflowerblue;
+} 
+p#c1 
+{ 
+color: yellow; 
+} 
+h1#c1 
+{ 
+color: blue; 
+}
+h2.c2
+{
+color:red;
+}
+h3.c2
+{
+color:green;
+} 
+h3
+{ 
+color: white; 
+}
+
+h4
+{
+color:orange;
+}	
+i
+{
+color:yellow;
+}
+/*
+DESCENDANT SELECTOR
+*/
+
+p i
+{
+color:cyan; 
+}
+========================================================================================
+ExternalCSSDemos.html
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="MyWebStyles.css"/>
+</head>
+<body>
+<h3 class="c2"> A Header </h3>
+<h2 class="c2"> A Header </h3>
+<p id="c1"> paragraph </p>
+<p id="c1"> Another para with same id</p>
+<h1 id="c1">Iam another header</h1>
+<h4>Heading <i>Italics</i> Bye</h4>
+<p> Paragraph<i>Again Italics</i> Bye..</p>
+</body>
+=============================================================================================

@@ -1,0 +1,298 @@
+Maven is a powerful project management tool that is based on POM (project object model). It is used for projects build, dependency and documentation.
+
+Understanding the problem without Maven::
+
+There are many problems that we face during the project development. They are discussed below:
+
+1) Adding set of Jars in each project: In case of struts, spring, hibernate frameworks, we need to add set of jar files in each project. It must include all the dependencies of jars also.
+
+2) Creating the right project structure: We must create the right project structure in servlet, struts etc, otherwise it will not be executed.
+
+3) Building and Deploying the project: We must have to build and deploy the project so that it may work.
+
+What it does?
+Maven simplifies the above mentioned problems. It does mainly following tasks.
+--It makes a project easy to build
+--It provides uniform build process (maven project can be shared by all the maven projects)
+--It provides project information (log document, cross referenced sources, mailing list, dependency list, unit test reports etc.)
+--It is easy to migrate for new features of Maven
+
+Apache Maven helps to manage
+--Builds
+--Documentation
+--Reporing
+--SCMs
+--Releases
+--Distribution
+
+What is Build Tool?
+A build tool takes care of everything for building a process. It does following:
+--Generates source code (if auto-generated code is used)
+--Generates documentation from source code
+--Compiles source code
+--Packages compiled code into JAR of ZIP file
+--Installs the packaged code in local repository, server repository, or central repository
+
+A maven repository is a directory of packaged JAR file with pom.xml file. Maven searches for dependencies in the repositories. 
+There are 3 types of maven repository:
+--Local Repository
+--Central Repository
+--Remote Repository
+
+Maven searches for the dependencies in the following order:
+
+Local repository then Central repository then Remote repository.
+
+1) Maven Local Repository
+Maven local repository is located in your local system. It is created by the maven when you run any maven command.
+
+By default, maven local repository is %USER_HOME%/.m2 directory. For example: C:\Users\Dhaya\.m2.
+
+2)Maven Central Repository
+Maven central repository is located on the web. It has been created by the apache maven community itself.
+
+The path of central repository is: http://repo1.maven.org/maven2/.
+
+3)Maven Remote Repository
+
+Maven remote repository is located on the web. Most of libraries can be missing from the central repository such as JBoss library etc, so we need to define remote repository in pom.xml file.
+
+You can search any repository from Maven official website www.mvnrepository.com.
+
+POM:::::
+
+POM is an acronym for Project Object Model. The pom.xml file contains information of project and configuration information for the maven to build the project such as dependencies, build directory, source directory, test source directory, plugin, goals etc.
+
+Maven reads the pom.xml file, then executes the goal.
+
+Before maven 2, it was named as project.xml file. But, since maven 2 (also in maven 3), it is renamed as pom.xml.
+
+===============================================
+Create a maven project with maven-archetype-quickstart option.
+
+pom.xml
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>mydemosss</groupId>
+  <artifactId>HexaSepMaven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>HexaSepMaven</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+<!-- The cornerstone of the POM is its dependency list.
+External dependencies (library jar location) can be 
+configured in pom.xml 
+in same way as other dependencies.
+ -->
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.6</version>
+</dependency>
+    <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongo-java-driver</artifactId>
+    <version>3.6.0</version>
+</dependency>
+    
+  </dependencies>
+   <build>
+  <!-- www.mvnrepository.com -->
+         <!-- core  java jdk 8 version plugin -->
+    <!-- if i done any modification in pom.xml means
+    rightclick project->maven->update project
+     -->    
+    
+    <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+	</plugins>
+  </build>
+
+</project>
+
+=============================================================================================
+package mydemos;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class JDBCMYSQLMaven {
+	public static void main(String[] args) {
+		Connection con=null;
+		Statement st=null;
+		ResultSet rs=null;
+		try
+		{
+			//loading the mysql driver
+			//drivername is case sensitive
+			
+			//classname.methodname=>static method
+			//Class.forName("com.mysql.jdbc.Driver");  //type 4 mysql driver
+			
+			//3306-DEFAULT mysql port number
+			//hexafoundation:: database name
+			//username:root
+			//my password is empty
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hexasep2022","root","");
+			/*
+			 * mysql> SELECT host FROM mysql.user WHERE user = "root";
++-----------+
+| host      |
++-----------+
+| 127.0.0.1 |
+| ::1       |
+| localhost |
++-----------+
+3 rows in set (0.00 sec)
+			 */
+			
+			//con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hexafoundation","root","");
+			st=con.createStatement();//build sql statements
+			rs=st.executeQuery("select * from hexa_emps");//ResultSet means rows and columns
+			while(rs.next())//iterate the records one by one!
+			{		
+				//EITHER COLUMN NAME OR COLUMN POSITION INDEX 1,2,3....
+				int a=rs.getInt("eno");//column name
+				String b=rs.getString(2);//2nd column=>ename
+				float c=rs.getFloat("salary");//float c=rs.getFloat(3);
+				String d=rs.getString("dept");
+				System.out.println(a+ " "+b + " "+c + " "+d );
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) 
+					rs.close();
+				if(st!=null)
+					st.close();
+				if(con!=null)
+					con.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Finally Block::"+e);
+			}
+		}
+
+
+}
+
+}
+===========================================================================================
+package mydemos;
+
+import java.util.Scanner;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class JDBCMavenMONGODB {
+
+	public static void main(String[] args) {
+		try{  
+			// Connecting To MongoDB  
+			MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  
+			// Creating DataBase   
+			MongoDatabase db = mongoClient.getDatabase("hexa2022");  
+			// Creating Collection/Table  
+			MongoCollection<Document> table = db.getCollection("car"); //mongodb table name
+			//Preparing a document
+			Scanner s1=new Scanner(System.in);
+			System.out.println("Enter car id:: ");
+			int i=s1.nextInt();
+			s1.nextLine();
+			System.out.println("Enter car name:: ");
+			String si=s1.nextLine();
+			System.out.println("Enter car color:: ");
+			String si1=s1.nextLine();
+			
+		      Document document = new Document();
+		      document.append("_id", i);
+		      document.append("name",si);
+		      document.append("color",si1);
+		      //Inserting the document into the collection
+		      db.getCollection("car").insertOne(document);
+		      System.out.println("Record inserted successfully");
+			// Accessing Data
+			FindIterable<Document> data =  table.find();//retrieve from car table
+			// Traversing Data
+			for(Document record : data) {
+				System.out.println(record.toJson());//json format=>key:value
+			}
+			mongoClient.close();
+			
+		}catch(Exception e){  
+			System.out.println(e);  
+		}  
+
+	}
+
+}
+/*
+Oct 14, 2022 5:28:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Enter car id:: 
+Oct 14, 2022 5:28:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:6}] to localhost:27017
+Oct 14, 2022 5:28:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 23]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=8800720}
+5657
+Enter car name:: 
+Mercedes-AMG
+Enter car color:: 
+black
+Oct 14, 2022 5:29:10 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:2, serverValue:7}] to localhost:27017
+Record inserted successfully
+{ "_id" : 1.0, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "Germany", "speed" : 75.0 }
+{ "_id" : 2.0, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" : "Italy", "speed" : 60.0 }
+{ "_id" : 3.0, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountry" : "India", "speed" : 70.0 }
+{ "_id" : 4.0, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" : "Japan", "speed" : 65.0 }
+{ "_id" : 5.0, "name" : "Volkswagen", "color" : "JetBlue", "cno" : "H105", "mfdcountry" : "Rome", "speed" : 80.0 }
+{ "_id" : 6.0, "name" : "HondaCity", "color" : "Grey", "cno" : "H106", "mfdcountry" : "Sweden", "speed" : 45.0 }
+{ "_id" : 33, "name" : "Creta", "color" : "White" }
+{ "_id" : 1825, "name" : "Creta", "color" : "White" }
+{ "_id" : 6234, "name" : "Innova", "color" : "Grey" }
+{ "_id" : 5679, "name" : "BMW", "color" : "Blue" }
+{ "_id" : 5657, "name" : "Mercedes-AMG", "color" : "black" }
+Oct 14, 2022 5:29:10 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Closed connection [connectionId{localValue:2, serverValue:7}] to localhost:27017 because the pool has been closed.
+*/
+====================================================================================

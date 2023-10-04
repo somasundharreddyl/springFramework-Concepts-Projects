@@ -1,0 +1,83 @@
+cdSOMA SUNDHAR@Rajinikanth MINGW64 ~
+$ pwd
+/c/Users/SOMA SUNDHAR
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~
+$ cd onedrive
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive
+$ cd desktop
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop
+$ ls
+ Aadhar-copy.png
+ Demo/
+ EAadhaar_2052316932642820221101130351_0311202282936.pdf
+'GitHub Desktop.lnk'*
+'HTML CSS JS TOTORIAL.pdf'
+ MongoDBCompass.lnk*
+'Movie Lineups'/
+'My Learnings'/
+ ProdDb.txt
+ Singleton/
+'Soma - Chrome.lnk'*
+'Spark Training'/
+ Telegram.lnk*
+'Visual Studio Code.lnk'*
+ Webex.lnk*
+ desktop.ini
+'git-bash - Shortcut.lnk'*
+ nodejs_tutorial.pdf
+ workspace/
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop
+$ cd workspace
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace
+$ ls
+JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace
+$ cd JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7 (somasundhar)
+$ LS
+README.md  demoproject
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7 (somasundhar)
+$ cd demoproject
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/demoproject (somasundhar)
+$ ls
+pom.xml  src/  target/
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/demoproject (somasundhar)
+$ git add pom.xml
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/demoproject (somasundhar)
+$ git add src/*
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/demoproject (somasundhar)
+$ git commit -m"Added"
+[somasundhar 6807320] Added
+ 6 files changed, 558 insertions(+)
+ create mode 100644 demoproject/pom.xml
+ create mode 100644 demoproject/src/main/java/com/sample/demo/factory/ProductFactory.java
+ create mode 100644 demoproject/src/main/java/com/sample/demo/model/Products.java
+ create mode 100644 demoproject/src/main/java/com/sample/demo/persistence/ProductsDb.java
+ create mode 100644 demoproject/src/main/java/com/sample/demo/util/Mainclass.java
+ create mode 100644 demoproject/src/test/java/com/sample/demo/AppTest.java
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/demoproject (somasundhar)
+$ git push origin somasundhar
+Enumerating objects: 25, done.
+Counting objects: 100% (25/25), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (11/11), done.
+Writing objects: 100% (24/24), 5.31 KiB | 246.00 KiB/s, done.
+Total 24 (delta 0), reused 0 (delta 0), pack-reused 0
+To ssh://git-codecommit.us-east-2.amazonaws.com/v1/repos/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7
+ * [new branch]      somasundhar -> somasundhar
+
+SOMA SUNDHAR@Rajinikanth MINGW64 ~/onedrive/desktop/workspace/JAVA_ANG_FSD_NOV_BATCH1_PALLAVI_TEAM7/demoproject (somasundhar)
+$                           

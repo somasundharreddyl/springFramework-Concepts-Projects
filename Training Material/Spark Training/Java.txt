@@ -1,0 +1,4081 @@
+package mydemos;
+
+import java.lang.*;//default package in java. import all the classes packages...
+
+import java.lang.System;//import specific classes! improves the performance of the JVM!
+import java.lang.String;
+
+//package,import,class=>correct order
+
+/*
+ * Package:
+ * group of similar types  of classes , interfaces and sub-packages.
+ * --used for preventing naming conflicts!
+
+ * void::the particular method does not return any value
+ * main: entry point method for java 
+ * static::doesn't require any object! used for memory management!
+ * memory allocated by default by the JVM
+ */
+//Compiler :: convert the java code(.java) to byte code(.class)
+//Interpreter(JIT(JUST-IN-TIME COMPILER)):: convert the byte code to machine code
+
+//2 types of error:: compilation(silly programming mistakes) , runtime(logical mistakes) 
+
+//public access specifier:: filename and classname must be same!!
+//public class Sample12//Error =>
+
+//class default access specifier is "default"(package)!!!
+
+//Outer classes/top level classes cannot be private and protected
+
+//java.lang is the default package in java
+
+class Sample //Bytecode filename:: Sample.class 
+{
+	/*
+	 * class System
+	 * {
+	 * static PrintStream out;
+	 * }
+	 */
+
+	public static void main(String[] args) //Command line arguments(String array!)
+	{
+		//System is a built in java-class
+		//out is a STATIC reserved object of java.io.PrintStream class
+		//println is a method of PrintStream class
+
+		System.out.println("Hello Java!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+	}
+
+}
+========================================================================================
+package mydemos;
+
+/*
+ * Primitive data types::
+* 
+ * boolean(true or false)ex:boolean attendance;boolean result;
+ * byte(1 byte)
+ * short(2 byte)
+ * int (4 bytes) EX: int salary;
+ * long(8 bytes)
+ * float (4 bytes)
+ * double(8 bytes)
+ * char(2 bytes)->UNICODE CHARACTER SET->0 TO 65535(ASCII 0 to 255 c,c++)
+ */
+
+class DataTypes {
+	public static void main(String[] args) {
+		byte amount=50;
+		short amount1=565;
+		int salary=565699;
+		long score=545456465;//considering as a INT DATA TYPE
+		/*
+		 * int is the default integral datatype in java
+		 * If the value exceeds the int limit,then long
+		 * datatype expect suffix either L or l.
+		 */
+		long score1=45345435435L;//now its exactly as LONG!
+		long rating=4L;//long data type		
+					
+		boolean attendance=false;//absent
+		String name="Karpagavalli";//Built in class
+		String location="Tambaram" + " "+" Tamilnadu" + " "+" India";
+	
+		//C,C++=>ASCII CHARACTER SET, 1 bytes
+		//JAVA=>UNICODE CHARACTER SET , 2 BYTES , 0 TO 65535(stand alone application+enterprise(web) application)
+
+		char grade='A';
+
+		System.out.println("Attendance:: "+attendance);
+		System.out.println("Integral values:: "+amount + " "+amount1 + " "+salary+ " "+score + " "+rating + " "+score1);
+
+		System.out.println("Grade:: "+grade + " "+"Name:: "+name + " "+"Location:: "+location);
+
+		//default floating point is DOUBLE!!!
+		//suffix F or f is mandatory for float values!!
+		//double suffix D or d is optional!
+
+		float price=5600.50f;
+		double rate=56050.34;//d is optional
+		double rate1=56050.34D;//d is optional
+
+		float rate2=4545;//no decimal points so suffix f is not required
+		System.out.println("Floating point:: "+price+ " "+rate+ " "+rate1+ " "+rate2);
+
+		
+	}
+
+}
+/*
+ * Attendance:: false
+Integral values:: 50 565 565699 545456465 4 45345435435
+Grade:: A Name:: Karpagavalli Location:: Tambaram  Tamilnadu  India
+Floating point:: 5600.5 56050.34 56050.34 4545.0
+*/
+===============================================================================================
+package mydemos;
+/*
+ * In Java, there are two types of casting:
+
+Widening or implicit Casting (automatically) - converting a smaller type to a larger type size. 
+byte -> short -> char -> int -> long -> float -> double.
+
+Narrowing or explicitCasting (manually) - converting a larger type to a smaller size type. 
+double -> float -> long -> int -> char -> short -> byte.
+ */
+
+public class TypeConversion {
+	public static void main(String[] args) {
+		//implicit type conversion
+		int i=100;
+		long a=i;
+		float b=a;
+		System.out.println(i + " "+a + " "+b);	
+
+		int i1=34349958;
+		byte b1=(byte)i1;
+		//explicit type casting
+		System.out.println(i1 + " "+b1);//data truncated and lost!!!
+			
+		byte b2=55;
+		float f1=4343.43f;
+		float f2=b2*f1;//expression type promotion!!
+		System.out.println(b2 + " "+f1+ " "+f2);
+	
+		System.out.println(534535.453453);//by default it is Double
+		System.out.println((float)534535.453453);//convert  double to float
+		
+		//char hh=43.43f;//invalid
+		
+		//valid=>convert to UNICODE CHARACTER SET
+		//A-Z 65-90, a-z 97-122
+
+		char a3=65;
+		char b3=97;
+		System.out.println("Char:: "+a3+ " "+b3);
+
+		//Increment and decrement in char data type!
+		a3++;//66
+		b3++;//98
+		System.out.println("Char(++):: "+a3+ " "+b3);
+
+		a3--;
+		b3--;
+		System.out.println("Char(--):: "+a3+ " "+b3);
+
+		int n=90;
+		//char b11=n;//invalid
+		char b11=(char)n;
+		System.out.println("Char:: "+b11);
+}
+
+}
+/*
+ *
+ * 100 100 100.0
+34349958 -122
+55 4343.43 238888.66
+534535.453453
+534535.44
+Char:: A a
+Char(++):: B b
+Char(--):: A a
+Char:: Z
+
+*/
+===================================================================================================
+package mydemos;
+
+public class ConditionalStatements {
+	public static void main(String[] args) {
+		//RELATIONAL or COMPARISON OPERATORS::>,>=,<,<=,==,!=
+		if(12>2)
+		{
+			if(34<2)
+			{
+				System.out.println("Inner If block is bigger!");
+			}
+			else
+			{
+				System.out.println("Inner if..else block");
+			}
+		}
+		else
+		{
+			System.out.println("Over!!");
+		}
+
+		//while loop
+		int i=1;
+		while(i<=6)
+		{
+			System.out.print(i+ " ");
+			i++;
+		}
+
+		//dowhile loop
+		int j=100;
+		do
+		{
+			System.out.print("\n"+j);
+			j++;
+		}while(j>=150);
+		System.out.println();// newline
+
+		//for loop
+		for(int k=0;k<=5;k++)
+		{
+			System.out.print(" "+k);
+		}
+
+		System.out.println("For Loop Without Increment::");
+		int k=1;
+		for(k=2;k<=5;)
+		{
+			System.out.print(k+ " ");
+			k++;
+		}
+
+		System.out.println("\nFor Loop Contains SOP");
+		//{} IS MISSING INSTEAD OF THAT ;
+		for(int j1=1;j1<=5;System.out.println(j1++))
+			;
+		
+		System.out.println("Multiple for loop declarations::");
+		//&&-Logical AND operator
+		//T T=>T,T F=>F,F T=>F,F F=>F
+		for(int y1=-1,y2=51;y1<=5&&y2>0;y1++,y2--)
+		{
+			System.out.println(y1+ " "+y2);
+		}
+
+		System.out.println("Break Keyword::");
+		for(int u1=1;u1<=5;u1++)
+		{
+		if (u1==3)			
+		{
+			break;//terminate the current loop
+		}
+		System.out.print(u1 + " ");
+		}
+		System.out.println("Stop!");
+
+		System.out.println("Continue Keyword::");
+		for(int u1=1;u1<=5;u1++)
+		{
+		if (u1==3)			
+		{
+			continue;//skip the remaining part of the loop but continue the iteration
+		}
+		System.out.print(u1 + " ");
+		}
+		System.out.println("Done!");
+
+		//conditional operator or ternary operator(?:)
+		//alternative of if..else
+		int r=40,y=20;
+		String res=(r>y)?r+ " is bigger ":y+ " is smaller";
+		System.out.println("Ternary:: "+res);
+		
+		//nested ternary operator
+		int a4=78,b4=734,c4=400,largest;
+		largest=a4>b4?(a4>c4?a4:c4):(b4>c4?b4:c4);
+		System.out.println("Largest:"+largest);
+
+		/*
+		 * Switch case::
+		 * --Menu based model
+		 * --looks like if..else
+		 * --byte,short,int,char,String supported
+		 * --case value must be unique
+		 * --float and double are not supported
+		 * --default block is optional
+		 */
+		int no=10;
+		String rating="";
+		switch(no)
+		{
+		//default can be refer anywhere in switch case!
+		default:
+			System.out.println("Invalid option!");
+			break;
+		case 8:
+				rating="good";
+				break;
+		case 101:
+				rating="Excellent";
+				break;
+		//2 case contains same logic
+		//empty case!!!no break keyword
+		case 10:
+		case 20:
+				rating="Nice";
+				break;		
+		}
+		System.out.println("Rating:: "+rating);
+
+
+		
+	}
+
+}
+/*
+Inner if..else block
+1 2 3 4 5 6 
+100
+ 0 1 2 3 4 5For Loop Without Increment::
+2 3 4 5 
+For Loop Contains SOP
+1
+2
+3
+4
+5
+Multiple for loop declarations::
+-1 51
+0 50
+1 49
+2 48
+3 47
+4 46
+5 45
+Break Keyword::
+1 2 Stop!
+Continue Keyword::
+1 2 4 5 Done!
+Ternary:: 40 is bigger 
+Largest:734
+Rating:: Nice
+*/
+=================================================================================================
+
+package mydemos;
+
+import java.util.Scanner;
+
+//Read the input 
+public class Inputs {
+	public static void main(String[] args) {
+		Scanner s1=new Scanner(System.in);//in is a reserved object of InputStream(java.io)
+		System.out.println("Enter ENO:: ");
+		int eno=s1.nextInt();
+
+		s1.nextLine();
+
+		System.out.println("Enter Employeename:: ");
+		String name=s1.nextLine();
+		//String name=s1.next();//considered the spaces (only first value considered)!
+		
+		System.out.println("Enter Salary: ");
+		float salary=s1.nextFloat();
+
+		System.out.println("Emp::: " +eno+ " "+name+ " "+salary);
+		System.out.printf("%d %s %f", eno,name,salary);//similar to native c language
+		System.out.printf("%n %b",(13>45));//\n=>new line,b=>boolean
+
+
+	}
+
+}
+/*
+Enter ENO:: 
+33
+Enter Employeename:: 
+Lakshmi Prabha Sai
+Enter Salary: 
+34933
+Emp::: 33 Lakshmi Prabha Sai 34933.0
+33 Lakshmi Prabha Sai 34933.000000
+ false*/
+==================================================================================
+package mydemos;
+/*
+ * CommandLineArguments:
+ * -Passing some argument or input during the execution(runtime) of the program
+ * --Runtime input(Array of Strings)
+ * --default delimiter is white space!
+
+*/
+//Rightclick->Run as ->Run configurations->Click Arguments tab->In program arguments give value=>click run button!
+
+public class CommandLineArguments {
+	public static void main(String[] a) 
+	{
+		System.out.println("CmdLine Length:: "+a.length);//objectname.datamember
+		if(a.length==0)
+		{
+			System.out.println("No Inputs passed!");
+		}
+		else
+		{
+			for(int i=0;i<a.length;i++)
+			{
+				System.out.println("Argument["+i+"]:"+a[i]);
+			}
+			System.out.println("Add:: "+(a[0]+a[1]));//STRING CONCATENATION
+			/*
+			 * Primitive Type	Wrapper classes
+			 * 
+				boolean			Boolean
+				char			Character
+				byte			Byte
+				short			Short
+				int				Integer
+				long			Long
+				float			Float
+				double			Double
+			 */
+			//Integer Wrapper classes:: Convert String Object to Integer Object(int PRIMITIVE)
+			//parseInt is a static method
+			//NON STATIC METHOD :: OBJECTNAME.METHODNAME
+			//STATIC METHOD :: CLASSNAME.METHODNAME
+
+System.out.println("Add:: "+(((Integer.parseInt(a[0]))+(Integer.parseInt(a[1])))));//classname.methodname
+
+			
+		}
+
+	}
+
+}
+/*
+CmdLine Length:: 5
+Argument[0]:123
+Argument[1]:3450
+Argument[2]:chennai
+Argument[3]:45042
+Argument[4]:Java
+Add:: 1233450
+Add:: 3573
+*/
+=============================================================================================
+package mydemos;
+
+/*
+ *  A class is a group of objects which have common properties. 
+ *  It is a template or blueprint from which objects are created
+ *  A class is a user-defined type 
+ */
+ class Vendor {
+		//4 access specifier:: public,private,protected, default or package(invisible)
+	/*instance(object)(variable which is declared inside the class) 
+	 always have DEFAULT VALUES
+	*/
+		/*
+		 * int=0,float=0.0,boolean=false,String=null
+		 */
+
+	 private int vendorid;
+		public String vendorname;
+		String place;//default or package access specifier
+		int a,b;//0,0
+		//All These methods are called as "NON STATIC METHODS"
+		public void display()
+		{
+			System.out.println("My Java First Method Loaded!");
+		}
+		void add(int x,int y)//default access specifier, x and y are local variables 
+		{
+			a=x;
+			b=y;
+			System.out.println("Add:: "+(a+b));
+		}
+		private float multiply(float x)
+		{
+			return x*x;
+		}
+		public void showrecord()
+		{
+			System.out.println("Vendor:: "+vendorid+ " "+vendorname+ " "+place);
+		}
+		public static void main(String[] args) {
+			Vendor v1=new Vendor();
+			v1.showrecord();//objectname.methodname
+			v1.vendorid=1001;
+			v1.vendorname="Dell";
+			v1.place="Chennai";
+			v1.showrecord();
+
+			v1.display();
+			System.out.println("Before ADD():: "+v1.a + " "+v1.b);//0,0
+			v1.add(12, 10);//x,y
+			System.out.println("After ADD():: "+v1.a + " "+v1.b);//12,10
+
+			float result=v1.multiply(1.1F);
+			System.out.println("Mul:: "+result);
+			System.out.println("Mul:: "+v1.multiply(1.2f));
+
+			//dynamic memory allocation
+			System.out.println("Mul:: "+new Vendor().multiply(1.2f));
+			new Vendor().display();	
+			
+			//default values ONLY for instance variable
+			//local variable require explicit initialization
+			int c=1000;
+			System.out.println("Main Method(Local Variable)::: "+c);
+			
+
+	}
+
+}
+/*
+ * Vendor:: 0 null null
+Vendor:: 1001 Dell Chennai
+My Java First Method Loaded!
+Before ADD():: 0 0
+Add:: 22
+After ADD():: 12 10
+Mul:: 1.21
+Mul:: 1.44
+Mul:: 1.44
+My Java First Method Loaded!
+Main Method(Local Variable)::: 1000
+*/
+====================================================================================================
+package mydemos;
+/*Polymorphism(many forms)::
+ * Method Overloading(If a class has multiple methods having same name but different in parameters, 
+ * it is known as 
+ * Method Overloading)::
+ *--number of arguments
+  -- order of arguments
+  --data type of arguments
+  
+ Method overloading is not possible by changing the return type of the method
+only!!!!
+
+ */
+
+public class MethodOverloadingDemo {
+	String personname;
+	long contact1;
+	long contact2;
+	
+	int a,b;//instance variable
+	//this keyword=>refers current class instance variable or method
+	//this keyword eliminate confusion between instance and local variable names, 
+	//if same!
+
+	void calc(int a,int b)//local variable!//shadowing !
+	{
+		//LHS=>INSTANCE VARIABLE,RHS=>LOCAL VARIABLE
+		this.a=a;
+		this.b=b;
+		testing();	//one method calling another method		
+		this.testing();//optional but it is valid
+	}
+	void testing()
+	{
+		System.out.println("Testing Method loaded!");
+	}
+	void showrec(String x,long y)//2 args
+	{
+		//here this keyword is optional
+		this.personname=x;
+		this.contact1=y;
+		System.out.println("Res:: "+personname+ " "+contact1);
+	}
+	void showrec(String x,long y,long z)//3 args->datatypes are same. but order is different!
+	{
+		personname=x;
+		contact1=y;
+		contact2=z;
+		System.out.println("Res:: "+personname+ " "+contact1+ " "+contact2);
+	}
+	void showrec(long x,long y,String z)//3 args->datatypes are same. but order is different!
+	{
+		contact1=x;
+		contact2=y;
+		personname=z;
+		System.out.println("Res:: "+personname+ " "+contact1+ " "+contact2);
+	}
+	/*int showrec(long x,long y,String z)//3 args
+	{
+	}*/
+	public static void main(String[] args) {
+		MethodOverloadingDemo obj1=new MethodOverloadingDemo();
+		System.out.println("Before calc():: "+obj1.a + " "+obj1.b);
+		obj1.calc(12, 10);//calc() internally calls testing()!!
+		System.out.println("After calc():: "+obj1.a + " "+obj1.b);
+		obj1.showrec("Devi", 9789962180L,98404045003L);//2nd version	
+		obj1.showrec("Devi", 9789962180L);//1st version
+		obj1.showrec(9789962180l, 9840405003L, "Thananya");//3rd version
+		
+	}
+
+}
+/*
+Before calc():: 0 0
+Testing Method loaded!
+Testing Method loaded!
+After calc():: 12 10
+Res:: Devi 9789962180 98404045003
+Res:: Devi 9789962180
+Res:: Thananya 9789962180 9840405003
+*/
+==================================================================================================
+package mydemos;
+//A java file can have 'n' number of java classes
+//Only one java class(main()) can be declared as PUBLIC!
+
+
+//public class A//invalid
+class A
+{
+	
+}
+class B
+//public class B//invalid
+{
+	
+}
+class Test
+{
+	public int x;
+	private int data;
+	public int getData() {
+		return data;
+	}
+	public void setData(int data) {
+		this.data = data;
+	}
+	
+}
+public class DataAbstraction_EncapsulationDemo {
+	//store product details
+	int prodid;
+	String productname;
+	float price;	
+	
+	//Data hiding(Getters and Setters)::
+
+	//set-assign a value
+	//get - return or display the value
+	//Rightclick->Source->Generate Getters and Setters ->select all variables!
+
+	public int getProdid() {
+		return prodid;
+	}
+
+	public void setProdid(int prodid) {
+		this.prodid = prodid;
+	}
+
+	public String getProductname() {
+		return productname;
+	}
+
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public static void main(String[] args) {
+		DataAbstraction_EncapsulationDemo obj1=new DataAbstraction_EncapsulationDemo();
+		//obj1.prodid=100;//VALID BUT DONT DO LIKE THIS in realtime platform
+
+		obj1.setProdid(100);
+		obj1.setProductname("Laptop");
+		obj1.setPrice(90000.70f);
+
+		System.out.println("Product Details:: "+obj1.getProdid() + " "+obj1.getProductname() + " "+obj1.getPrice());
+
+		DataAbstraction_EncapsulationDemo obj2=new DataAbstraction_EncapsulationDemo();
+
+		obj2.setProdid(101);
+		obj2.setProductname("Bluetooth");
+		obj2.setPrice(9000.70f);
+
+		System.out.println("Product Details:: "+obj2.getProdid() + " "+obj2.getProductname() + " "+obj2.getPrice());
+		
+		Test t1=new Test();
+		t1.x=100;
+		//t1.data=3493;//not visible error!
+		//Private data member visible in another class bcos of PUBLIC SETTER AND GETTER
+
+		t1.setData(1000);
+		System.out.println("TEST::: "+t1.getData());
+
+	}
+
+}
+/*
+Product Details:: 100 Laptop 90000.7
+Product Details:: 101 Bluetooth 9000.7
+TEST::: 1000
+*/
+==========================================================================================
+package mydemos;
+
+import java.util.Scanner;
+
+/*
+ * Arrays::
+ * --Derived data type or non primitive data types(Objects)
+ * --Collection of similar type of values
+ * --Accessing element using index(STARTS FROM 0 TO N-1)
+ * --Stored in a contiguous memory location
+ * --Arrays are treated as Objects(new)!!
+ */
+//int a[10];=> c,c++ syntax
+
+public class Arrays1 {
+	public int[] disp()//Method returns Integer Array!
+	{
+		int a[]= {100,200,300};
+		//return a;
+		return new int[] {12,45,576};//valid
+		//return 100;//invalid
+	}
+	public static void main(String[] args) {
+		int salary[]=new int[10];//salary[0]-salary[9]=>0 to n-1
+		int[] salary1=new int[10];//valid=>FIXED SIZE ARRAY
+		salary1[0]=60500;
+		salary1[1]=84500;
+		salary1[2]=15500;
+		salary1[3]=56500;
+		salary1[4]=68500;
+		//LENGTH STARTS FROM 1
+		System.out.println("Salary:: "+salary1[3]+ " "+salary1[7]+ " Length:: "+salary1.length);
+
+		for(int i=0;i<salary1.length;i++)//calculate the array size
+		{
+			System.out.print(" "+salary1[i]);
+		}
+
+		//Dynamic array
+		System.out.println("\nEnter The Array Size:: ");
+		Scanner s1=new Scanner(System.in);
+		int arraysize=s1.nextInt();
+		System.out.println("Enter the "+arraysize + " values::");
+		int a[]=new int[arraysize];
+		System.out.println("Array Size:: "+a.length);
+
+		for(int i=0;i<a.length;i++)
+		{
+			a[i]=s1.nextInt();//a[0],a[1],a[2].....................
+		}
+		for(int i=0;i<a.length;i++)
+		{
+			System.out.print(a[i]+ " ");
+		}
+
+		//ArrayInitialization
+		System.out.println("\nArray Initialization:: ");
+		
+		String dept[]= {"IT","HR","Operations","Accounting","Pitstop"};//new keyword is missing.. it is optional
+
+		//String dept1[]= new String[5]{"IT","HR","Operations","Accounting","Pitstop"};//Cannot define dimension expressions when an array initializer is provided
+
+		String dept1[]= new String[]{"IT","HR","Operations","Accounting","Pitstop"};
+		for(int i=0;i<dept.length;i++)//TRADITIONAL FOR LOOP
+		{
+			System.out.print(dept[i]+ " ");
+		}
+		//special loop called "FOR EACH LOOP"
+		//Read only purpose
+		for(String s:dept)//NO INITIALIZATION,NO CONDITION,NO ITERTATION(NO INCREMENT)
+		{			
+		        	System.out.print(s+ " ");
+		}
+
+		System.out.println("\nFor Each Loop(Method):::");
+		Arrays1 obj=new Arrays1();
+		int s[]=obj.disp();
+		for(int i:s)
+		{
+			System.out.print(i + " ");
+		}
+		
+	}
+
+}
+/*
+Salary:: 56500 0 Length:: 10
+60500 84500 15500 56500 68500 0 0 0 0 0
+Enter The Array Size:: 
+2
+Enter the 2 values::
+Array Size:: 2
+44
+44
+44 44 
+Array Initialization:: 
+IT HR Operations Accounting Pitstop IT HR Operations Accounting Pitstop 
+For Each Loop(Method):::
+12 45 576 */
+================================================================================================
+package mydemos;
+//two dimensional array or multi dimensional array
+public class Arrays2 {
+
+	public static void main(String[] args) {
+		int[][] k= 
+			{
+				{1,2,4},
+				{56,87,45,576,76767},
+				{45,76,5656}				
+			};//row 3 column size vary!In array initialization,new keyword is optional
+
+		int[] k2[]= 
+			{
+				{1,2,4},
+				{56,87,45,576,76767},
+				{45,76,5656}				
+			};	//row 3 column size vary!In array initialization,new keyword is optional
+		int[][] k1= new int[][]
+				{
+			{1,2,4},
+			{56,87,45,576,76767},
+			{45,76,5656}				
+				};//row 3 column size vary!
+
+		//nested for loop
+		for(int i=0;i<k.length;i++)//row size==3
+		{
+							//k[0].length=3
+							//k[1].length=5
+							//k[2].length=3
+							for(int j=0;j<k[i].length;j++)//column size
+							{
+								System.out.print(k[i][j]+ " ");
+								
+							}
+							System.out.println();//next row							
+		}
+		//nested for each loop
+		System.out.println("2D array:: For each loop:: ");
+		for(int i[]:k1)//convert 2d to 1d
+		{
+			for(int j:i)//convert 1d to printing
+			{
+				System.out.print(j + " ");
+			}
+			System.out.println();//next row
+			
+		}
+	}
+
+}
+/*
+1 2 4 
+56 87 45 576 76767 
+45 76 5656 
+2D array:: For each loop:: 
+1 2 4 
+56 87 45 576 76767 
+45 76 5656 
+*/
+==================================================================================================
+package mydemos;
+
+/*
+JaggedArray::
+ --We can create 2D arrays but with variable number of columns in each row!
+
+ex: int a[][]=new int[2][3];//6 elements
+ex: int a[][]=new int[2][];
+*/
+public class JaggedArray {
+	public int[][] create2DArray()
+	{
+		int[][] s=new int[4][];//jagged array
+		s[0]=new int[4];//(0,0) (0,1) (0,2) (0,3)
+		s[1]=new int[2];//(1,0) (1,1)
+		s[2]=new int[3];//(2,0) (2,1) (2,2)
+		s[3]=new int[1];//(3,0)
+		//Only 10 elements stored in this array
+		for(int i=0;i<s.length;i++)//rowsize
+		{
+			for(int j=0;j<s[i].length;j++)//columnsize=>4,2,3,1
+			{
+				s[i][j]=j+1;
+			}
+		}
+		return s;//returning 2d array
+	}
+	public void dispArray()
+	{
+		int[][] g=create2DArray();//method called
+		for(int i=0;i<g.length;i++)
+		{
+			for(int j=0;j<g[i].length;j++)
+			{
+				System.out.print(g[i][j]+ " ");
+			}
+			System.out.println();//next row
+		}
+	}
+	public static void main(String[] args) {
+		new JaggedArray().dispArray();
+		
+	}
+
+}
+/*
+1 2 3 4 
+1 2 
+1 2 3 
+1 
+*/
+========================================================================================================
+package mydemos;
+
+import java.util.Scanner;
+
+class AccDetails
+{
+	int accid;
+	String acctype;
+	public int getAccid() {
+		return accid;
+
+	}
+	public void setAccid(int accid) {
+		this.accid = accid;
+	}
+	public String getAcctype() {
+		return acctype;
+	}
+	public void setAcctype(String acctype) {
+		this.acctype = acctype;
+	}
+}
+public class ArrayOfObjects {
+	public static void main(String[] args) {
+		AccDetails accob=new AccDetails();// only one
+		AccDetails accobj[]=new AccDetails[4];//array of objects
+
+		Scanner s1=new Scanner(System.in);
+		for(int i=0;i<accobj.length;i++)//4
+		{
+			System.out.println("Accno " +(i+1)+" :: ");
+			int t=s1.nextInt();
+			s1.nextLine();
+			System.out.println("Acctype " +(i+1)+ " :: ");
+			String t1=s1.nextLine();
+		
+			//accobj[0],accobj[1],accobj[2].....
+			accobj[i]=new AccDetails();//********************0th index,1st index,2nd......
+
+			accobj[i].setAccid(t);
+			accobj[i].setAcctype(t1);
+		}
+		for(int i=0;i<accobj.length;i++)
+		{
+			System.out.println("AccHolder Details:: "+accobj[i].getAccid() + " "+accobj[i].getAcctype());
+		}
+
+	}
+
+}
+/*
+Accno 1 :: 
+90
+Acctype 1 :: 
+CurrentAccount
+Accno 2 :: 
+29
+Acctype 2 :: 
+NRI Account
+Accno 3 :: 
+38
+Acctype 3 :: 
+FixedDeposit Account
+Accno 4 :: 
+359
+Acctype 4 :: 
+RecurringDeposit Account
+AccHolder Details:: 90 CurrentAccount
+AccHolder Details:: 29 NRI Account
+AccHolder Details:: 38 FixedDeposit Account
+AccHolder Details:: 359 RecurringDeposit Account
+*/
+====================================================================================================
+package mydemos;
+/*
+Constructor::
+--Used to initialize the data members and startup operations for your class!
+--No return type not even void but methods may or may not return a value
+--it is automatically invoked when an object is created!! but methods are
+invoked explicitly
+--classname+methodname is same=> constructor method
+--constructor name and classname must be same
+--Constructor are not inherited by subclasses!!but methods are automatically inherited by
+subclasses
+--There is always a default constructor(INSTANCE VARIABLE DEFAULT VALUES) provided by JVM compiler!!!
+--Like methods, Constructor can be overloaded!!!
+--Constructor cannot be abstract,static or final!!!!!!!!!!!!!!!!!!!!!
+(Methods can be defined as abstract,static,final)
+--2 types of constructor: 
+	--default or no argument constructor
+	--parameterized constructor
+*/
+/*
+ * class Abc
+ * {
+ * void Abc()
+ * {
+ * }
+ * Abc()
+ * {
+ * }
+ * float Abc(int x)
+ * {
+ * }
+ * }
+ */
+class Student_Details
+{
+	int studid;
+	String studname;
+	float marks;
+	void view()
+	{
+		System.out.println("Student Details:: "+studid+ " "+studname + " "+marks);
+	}	
+	Student_Details()//default constructor
+	{
+		System.out.println("NO Argument Constructor Loaded!");
+	}
+	//Constructor overloading
+	//Parameterized constructor
+	public Student_Details(int i,String x)
+	{
+		System.out.println("Para Constructor 1:::::");
+		studid=i;
+		studname=x;	
+	}
+	Student_Details(int i,String x,float y)
+	{
+		System.out.println("Para Constructor 2:::::");
+		studid=i;
+		studname=x;
+		marks=y;
+	}
+}//Student Over!
+class Demo
+{
+	//empty default constructor
+	Demo() 
+	{ 
+
+	}
+	public Demo(String a)
+	{
+		System.out.println("Demo Parameterized Constructor::  "+a);
+	}
+	void Demo()//methodname and classname can also be same!
+	{
+		System.out.println("Methodname and classname can also be same!");
+	}
+}
+public class ConstructorDemo {
+	public static void main(String[] args) {
+		Student_Details d1=new Student_Details();//call default constructor
+		Student_Details d2=new Student_Details(1001,"Thananya",90.0f);//int,string,float
+		Student_Details d3=new Student_Details(1002,"Abi");//int,string
+	
+		d1.view();//default values will be displayed
+		d2.view();
+		d3.view();
+	
+		Demo obj2=new Demo("JAVA");
+		obj2.Demo();//method invocation
+		/*
+		 * When we dont create a constructor java compiler creates a default
+		 * constructor.But when we create one or more constructors, it does not
+		 * create any default constructor!!!
+		 * So we have to implement the default constructor in the class to
+		 * avoid the compilation problem.
+		 */	
+
+		Demo obj3=new Demo();
+
+
+	}
+	
+
+}
+/*
+NO Argument Constructor Loaded!
+Para Constructor 2:::::
+Para Constructor 1:::::
+Student Details:: 0 null 0.0
+Student Details:: 1001 Thananya 90.0
+Student Details:: 1002 Abi 0.0
+Demo Parameterized Constructor::  JAVA
+Methodname and classname can also be same!
+*/
+=============================================================================================
+package mydemos;
+/*
+ * Inheritance::
+ *  * --Reusability of the code
+ * --one class acquires the properties of another class!
+ *  * --"is a relationship" ex: House  is a Building
+* class Building
+ * {
+ * }
+ * class House extends Building
+ * {
+ * }
+ * class Office extends Building
+ * {
+ * }
+ *  --unidirectional in nature!!!!!!
+*/
+//Hierarchical Inheritance(parent class is inherited by multiple subclasses)
+class Mobile
+{
+	int iemicode=6566;
+	public void operations()
+	{
+		System.out.println("Dial,Receive,Send Msg..");
+	}
+	public void show()
+	{
+		System.out.println("Mobile Class Show()");
+	}
+}
+class Samsung extends Mobile
+{
+	int iemicode=7968;
+	public void connectivity()
+	{
+		System.out.println("Samsung:: WIFI+GPS!");
+	}
+	public void camera()
+	{
+		System.out.println("Samsung::ReaR fLASH LEDS,Ambient Light Sensors!");
+	}
+	//method overriding(run time polymorphism)
+	//base class and derived class contain same method signature!!
+	//super keyword=>refer immediate super class
+	//this=> refers current class
+	public void show()	
+	{
+		super.show();//prevent method overriding!!!!!
+		System.out.println("Samsung class Show()");
+		System.out.println("IEMI CODE:: "+ " "+iemicode + " "+ this.iemicode + " "+super.iemicode);				
+	}
+}
+class Apple extends Mobile
+{
+	public void features()
+	{
+		System.out.println("Iphone::iMessage,Timestamps,Sleep timers,Screen timer!");
+	}
+}
+public class InheritanceDemo1 {
+	public static void main(String[] args) {
+		Samsung s1=new Samsung();
+		Apple a1=new Apple();
+		s1.operations();//base class method but called via derived class object
+		s1.camera();
+		s1.connectivity();
+		s1.show();//calls Mobile class show()
+		a1.operations();
+		a1.features();
+
+
+	}
+}
+/*
+Dial,Receive,Send Msg..
+Samsung::ReaR fLASH LEDS,Ambient Light Sensors!
+Samsung:: WIFI+GPS!
+Mobile Class Show()
+Samsung class Show()
+IEMI CODE::  7968 7968 6566
+Dial,Receive,Send Msg..
+Iphone::iMessage,Timestamps,Sleep timers,Screen timer!
+*/
+=======================================================================================================
+package mydemos;
+
+import java.util.Scanner;
+
+//Multilevel Inheritance
+//A class can also be derived from one class, which is already derived from another class. 
+class Student_X extends Object
+{
+    Scanner s=new Scanner(System.in);
+    int no;
+    String name;
+    void getdata()
+    {
+        System.out.println("enter no::");
+        no=s.nextInt();
+        System.out.println("enter name::");
+        name=s.next();
+    }
+    void putdata()
+    {
+        System.out.println("no is::"+no);
+        System.out.println("name is::"+name);
+    }
+}
+class Marks extends Student_X
+{
+    int sub1,sub2,sub3,total=0;
+    void getmarks()
+    {
+         System.out.println("enter marks of subject 1::");
+        sub1=s.nextInt();
+        System.out.println("enter marks of subject 2::");
+        sub2=s.nextInt();
+        System.out.println("enter marks of subject 3::");
+        sub3=s.nextInt();
+    }
+    void putmarks()
+    {
+        System.out.println("marks of subject 1 is::"+sub1);
+        System.out.println("marks of subject 2 is::"+sub2);
+        System.out.println("marks of subject 3 is::"+sub3);
+    }
+    void addition()
+    {    	
+        total=sub1+sub2+sub3;
+        System.out.println("value of addition is::"+total);
+    }
+}
+class Result extends Marks
+{
+    int avg;
+    void getd()
+    {
+        avg=(total)/3;
+        System.out.println("value of avg is::"+avg);
+    }
+}
+public class InheritanceWithScanner {
+	public static void main(String[] args) {
+        Result r=new Result();
+        r.getdata();
+        r.putdata();
+        r.getmarks();
+        r.putmarks();
+        r.addition();
+        r.getd();
+
+	}
+}
+/*
+enter no::
+1
+enter name::
+devi
+no is::1
+name is::devi
+enter marks of subject 1::
+65
+enter marks of subject 2::
+87
+enter marks of subject 3::
+7
+marks of subject 1 is::65
+marks of subject 2 is::87
+marks of subject 3 is::7
+value of addition is::159
+value of avg is::53
+*/
+==================================================================================================
+package mydemos;
+/*
+ * In the Multilevel inheritance, a derived class will inherit a base class and as well as the
+ *  derived class also act as the base class to other class.
+ */
+//Object is the super classes for all the classes in java!
+
+//Default constructor of base class is automatically loaded in derived class
+//Parameterized constructor of base class, CANNOT be inherited, 
+//So we have to use SUPER keyword!!!
+
+//Constructor order:: Base class to derived class
+
+//class Level1//valid
+class Level1 extends Object//valid
+{	
+	//Java enforces the super keyword must be ""first statement"" in constructor!
+	Level1()
+	{
+		super();//calls Object class default constructor=>OPTIONAL
+		System.out.println("Level1 Constructor()");
+		//super();//invalid=>
+	}
+}
+class Level2 extends Level1
+{
+	Level2()
+	{
+	super();//Calls Level1 Default constructor=>OPTIONAL
+	System.out.println("Level2 Constructor()");
+	}
+}
+class Level3 extends Level2
+{
+	Level3()
+	{
+		super();//Calls Level2 Default constructor=>OPTIONAL
+		System.out.println("Level3 Constructor()");
+	}
+}
+public class Inheritance2 {
+	public static void main(String[] args) {
+		Level3 obj=new Level3();
+	}
+
+}
+/*
+Level1 Constructor()
+Level2 Constructor()
+Level3 Constructor()
+*/
+==================================================================================================
+package mydemos;
+class Emp1
+{
+	public void work()
+	{
+		System.out.println("Employee Work Process Loaded!");
+	}
+	public void show()
+	{
+		System.out.println("Employee Show() Loaded!");	
+	}
+}
+class Manager1 extends Emp1
+{
+	public void work()//Overriding method
+	{
+		System.out.println("Managing teams!");
+		super.work();
+	}
+	public void services()
+	{
+		System.out.println("Generating reports,Client meetings etc.,");
+	}
+}
+public class PolymorphismDemo1 {
+	public static void main(String[] args) {
+		Manager1 ob=new Manager1();//ACCESS BOTH THE CLASS METHODS 
+
+		//Polymorphic object
+		Emp1 obj=new Manager1();//valid Manager  is also a employee
+		//Manager1 obj1=new Emp1();//invalid!But employee is not a manager
+
+		obj.work();//derived class method
+		obj.show();//base class method
+		//obj.services();//invalid/*
+		/*
+		* Upcasting: Upcasting is the typecasting of a child object to a parent object. 
+		 * Upcasting can be done implicitly. Upcasting gives us the flexibility to access the 
+		 * parent class members 
+		 * but it is not possible to access all the child class members using this feature. 
+		 * Instead of all the members, we can access some specified members of the child class.
+		 *  For instance, we can access the overridden methods.
+		Downcasting: Similarly, downcasting means the typecasting of a parent object to a 
+		child object. 
+		Downcasting cannot be implicit. If it’s not possible, the compiler throws a 
+		ClassCastException. 
+		 */
+		//((Emp1)obj).services();//invalid
+		((Manager1)obj).services();//Object casting mandatory::downcasting
+		((Manager1)obj).show();//Object casting is optional!
+		((Emp1)obj).show();//Object casting is optional!
+		((Manager1)obj).work();//Object casting is optional!
+		((Emp1)obj).work();//Object casting is optional!
+	}
+
+}
+/*
+Managing teams!
+Employee Work Process Loaded!
+Employee Show() Loaded!
+Generating reports,Client meetings etc.,
+Employee Show() Loaded!
+Employee Show() Loaded!
+Managing teams!
+Employee Work Process Loaded!
+Managing teams!
+Employee Work Process Loaded!
+*/
+=================================================================================
+package mydemos;
+class Test_3
+{
+	public void check1()
+	{
+		System.out.println("Test_3::: check1()");
+	}
+	public void check2()
+	{
+		System.out.println("Test_3::: check2()");
+	}
+}
+class Test_4 extends Test_3
+{
+	//NO SUPER KEYWORD!
+	public void check1()//method overriding
+	{
+		System.out.println("Test_4::: check1()");
+	}
+	public void check2()//method overriding
+	{
+		System.out.println("Test_4::: check2()");
+	}
+	//adding new methods in derived class
+	public void dummy1()
+	{
+		System.out.println("Test_4::dummy1()");
+	}
+	public void dummy2()
+	{
+		System.out.println("Test_4::dummy2()");
+	}
+}
+public class PolymorphismDemo2 {
+	public static void main(String[] args) {
+		Test_3 ob=new Test_4();
+		//Array of object is possible only if the classes contain relationship!
+		//A single object (obj) connects to 2 classes
+
+		//Polymorphic array of objects
+
+		Test_3 obj[]= 
+			{
+				new Test_3(),//obj[0]
+				new Test_4()//obj[1]
+			};
+		obj[0].check1();
+		obj[0].check2();
+
+		obj[1].check1();
+		obj[1].check2();
+
+		//obj[1].dummy1();//invalid
+		((Test_4)obj[1]).dummy1();//Object casting
+		((Test_4)obj[1]).dummy2();
+
+		//getClass():: return the classname
+	System.out.println("Classname::: "+obj[0].getClass() + " "+obj[1].getClass());
+
+		
+	}
+
+}
+/*
+Test_3::: check1()
+Test_3::: check2()
+Test_4::: check1()
+Test_4::: check2()
+Test_4::dummy1()
+Test_4::dummy2()
+Classname::: class mydemos.Test_3 class mydemos.Test_4
+*/
+========================================================================================
+package mydemos;
+
+class A1 extends Object//optional
+{
+}
+class B1 extends Object//Optional
+{
+}
+class C1 extends A1
+{
+}
+class D extends A1
+{
+}
+public class InstanceOfDemo {
+	public static void main(String[] args) {
+		A1 a=new A1();
+		B1 b=new B1();
+		C1 c=new C1();
+		D d=new D();
+		/*
+		instanceof keyword::Check whether an object is an instance of a specific class
+		--boolean
+		*/
+		if (a instanceof A1)	//objectname instanceof classname
+		{
+		System.out.println("a is instanceof A");	
+		}
+		if (b instanceof B1)
+		{
+		System.out.println("b is instanceof B");	
+		}
+		if (c instanceof C1)
+		{
+		System.out.println("c is instanceof C");	
+		}
+		if (d instanceof D)
+		{
+		System.out.println("d is instanceof D");	
+		}
+		if (c instanceof A1)//C1(c) extends A1
+		{
+			System.out.println("c is ALSO instanceof A");	
+		}
+		A1 ob; //null=>REFERENCE OBJECT
+		ob = d; // A reference to d 
+		if(ob instanceof D) //class D extends A1
+			System.out.println("ob can be cast to D"); 
+			else 
+			System.out.println("ob cannot be cast to D"); 
+
+		//Object is the super class for all the classes in java!
+		if(a instanceof Object) 
+		System.out.println("a may be cast to Object"); 
+		if(b instanceof Object) 
+		System.out.println("b may be cast to Object"); 
+		if(c instanceof Object) 
+		System.out.println("c may be cast to Object"); 
+		if(d instanceof Object) 
+		System.out.println("d may be cast to Object"); 
+
+		//String name=null;//unused/unreferenced object=>eligible for Garbage collection process
+		//String name="Abi";//Valid=>REFERENCE OBJECT
+		String name=new String("Abi");//valid=>COMPLETE OBJECT
+		if(name instanceof String)
+		{
+			System.out.println("Correct");
+		}
+		else
+		{
+			System.out.println("Invalid");
+		}
+		if(name instanceof Object)
+		{
+			System.out.println("Correct");
+
+		}
+		else
+		{
+			System.out.println("Invalid");
+		}
+
+		A1 obj=new C1();//Polymorphic object
+		//if(obj instanceof A1)//valid
+		if(obj instanceof C1)//valid
+		{
+			C1 hobj=(C1)obj;
+			System.out.println("Downcasting success!");
+		}
+		else
+		{
+			System.out.println("down-casting NOT possible !!");
+		}
+
+	}
+
+}
+/*
+a is instanceof A
+b is instanceof B
+c is instanceof C
+d is instanceof D
+c is ALSO instanceof A
+ob can be cast to D
+a may be cast to Object
+b may be cast to Object
+c may be cast to Object
+d may be cast to Object
+Correct
+Correct
+Downcasting success!
+*/
+============================================================================================
+package mydemos;
+/*
+ * Static data member:
+ * ex: static int x;
+ * --Only a SINGLE copy is created and shared among all the objects
+ * --Gives importance to CLASS rather than OBJECT!
+ * --We can access static data member or method without OBJECT !
+ * --also called as "CLASS VARIABLE"
+ * --static data member default values are SAME as instance variables!!!
+ * 
+ * Non static data member::
+ * --Object is mandatory
+ * --also called as "INSTANCE VARIABLE"
+ * --gives more importance to OBJECT!!
+ * --Each object having their own COPY references!
+ */
+
+class Counter
+{
+	//int count;//non static data member=>default value is 0
+	
+	//static variable(class variable)
+	 static int count;//default value is 0
+	 public Counter()//DEFAULT CONSTRUCTOR
+	{
+		count++;
+	}
+	public int totalhits()
+	{
+		return count;
+	}
+}
+public class StaticDemo1 {
+	public static void main(String[] args) {
+		/*
+		 * Count:: 1
+		   Count:: 2
+		   Count:: 3
+		Counter c1=new Counter();	
+		System.out.println("Count:: "+c1.totalhits());
+		Counter c2=new Counter();
+		System.out.println("Count:: "+c2.totalhits());
+		Counter c3=new Counter();
+		System.out.println("Count:: "+c3.totalhits());
+	*/
+		Counter c1=new Counter();//1
+		Counter c2=new Counter();//2
+		Counter c3=new Counter();//3
+		Counter c4=new Counter();//4
+		Counter c5=new Counter();//5
+
+		System.out.println("Count:: "+c1.totalhits());
+		System.out.println("Count:: "+c2.totalhits());
+		System.out.println("Count:: "+c3.totalhits());
+		System.out.println("Count:: "+c4.totalhits());
+		System.out.println("Count:: "+c5.totalhits());
+
+	}
+
+}
+/*
+Count:: 5
+Count:: 5
+Count:: 5
+Count:: 5
+Count:: 5
+*/
+================================================================================================
+package mydemos;
+
+//NON STATIC->OBJECT, STATIC->CLASS
+class StaticDemo
+{
+	static void disp()
+	{
+		System.out.println("StaticDemo:::: disp()");
+	}
+}//completed
+
+public class Static2 {
+	int a=100;//non static variable
+	static int b=200;
+	static int c=300;
+	public void display()
+	{
+		System.out.println("Non static method:: ");
+		//non static method access both static and non static
+		System.out.println("Printing Both Static and Non-static:: "+a + " " + b + " "+ c);
+		test();//valid:: non static method calls static method
+	}
+	static void test()
+	{
+		System.out.println("Static Test Method!");
+	}
+	static void display1()
+	{
+		System.out.println("Static method:: ");
+		//display();;//invalid... we cannot call non static methods directly in static method
+		new Static2().display();
+		System.out.println("Printing Both Static and Non-static:: "+new Static2().a + " " +b + " "+ c);
+	}
+	public static void main(String[] args) {
+		Static2 obj=new Static2();
+		obj.display();
+		//display();//invalid - object is mandatory
+		test();//object is optional bcos static methods memory allocation happen by default
+		Static2.test();//classname.methodname. This signature valid for only STATIC METHODS
+		obj.test();//valid but it is not required
+	
+		//if the static method is present in another class then
+		//classname.methodname signature is compulsory
+
+		StaticDemo.disp();
+		//disp();//invalid
+	}
+
+}
+/*
+ * Non static method:: 
+Printing Both Static and Non-static:: 100 200 300
+Static Test Method!
+Static Test Method!
+Static Test Method!
+Static Test Method!
+StaticDemo:::: disp()
+*/
+=============================================================================================
+package mydemos;
+/*
+ *import static::
+ *--With the help of ""import static"", we can access the static methods 
+ *without a classname!
+ * 
+ */
+/*
+With the help of import, we are able to access classes and interfaces which are present 
+in any package.
+But using static import, we can access all the static members (variables and methods) 
+of a class directly without explicitly calling class name
+*/
+import static java.lang.Math.*;
+import static java.lang.System.*;
+public class ImportStaticDemo1 {
+	public static void main(String[] args) {
+		//sqrt is a static method(classname.methodname)
+		out.println("Sqrt(900):: "+Math.sqrt(900));//Here Math class is optional bcos of import static!
+		out.println("Sqrt(900):: "+sqrt(900));//ignoring Math class BCOS of IMPORT STATIC !
+	
+		//out is a static data member(present in System class!)
+		/*
+		 * class System
+		 * {
+		 * static PrintStream out;
+		 * }
+		 */
+		out.println("Hello Java!");//ignoring System class BCOS of IMPORT STATIC !
+		out.printf("Sqrt(900):: %.2f ",sqrt(900));
+	}
+}
+/*
+Sqrt(900):: 30.0
+Sqrt(900):: 30.0
+Hello Java!
+Sqrt(900):: 30.00 */
+================================================================================================
+package mydemos;
+/*
+ * final keyword::
+ * --final variable cannot be modified later!
+ * --One time initialization(improves the jvm performance)
+ *  *  * * --final classes cannot be inherited!
+ *  * --final method cannot be overridden in derived class
+
+*/
+//Object class is the super classes for all the classes in java!
+final class AdministratorLogin extends Object //final class can inherit other classes!
+{
+	void settings()
+	{
+		System.out.println("Administrator Login Settings!!!");
+	}
+}
+/* class StaffLogin extends AdministratorLogin//sub classes cannot inherit final base classes!
+{
+	
+}*/
+class X
+{
+	//final method
+	final void disp()//this method cannot be overridden in derived class
+	{
+		System.out.println("X class :: disp()");
+	}
+}
+class Y extends X
+{
+	/*
+	 *this method signature not allowed in derived class bcos it is declared as final in base class!
+	 * void disp()
+	 * {
+	 * }
+	 */
+	void disp2343()//non final method
+	{
+		System.out.println("Y class :: disp()");
+	}
+}
+
+public class Inheritance_Final {
+	public static void main(String[] args) {
+		//NO CONST KEYWORD IN JAVA
+		final char grade='A';
+		final int hoursformat=24;
+		//hoursformat++;//INVALID
+		System.out.println("Final data members:: "+grade+ " "+hoursformat);
+
+		AdministratorLogin obj=new AdministratorLogin();
+		obj.settings();
+		
+		Y y1 =new Y();
+		y1.disp();
+		y1.disp2343();
+
+	
+	}
+
+}
+/*
+Final data members:: A 24
+Administrator Login Settings!!!
+X class :: disp()
+Y class :: disp()
+*/
+=================================================================================================
+package mydemos;
+/*
+ * Protected::
+ * --Access in the same package of the subclasses +""other packages"" 
+ * with the help of inheritance
+ * Public::
+ * --Global access,same package +other packages
+ * Default or package::
+ * --Only in the same package. It cannot be accessed outside  the package!
+ * */
+
+public class AccessSpecifiers {
+	public  final int x=100;
+	protected int code=4600;
+
+	protected void disp()
+	{
+	System.out.println("Protected Method called!");	
+	}
+	public void show()
+	{
+		System.out.println("Public Method called!");	
+	}
+	private void show1()//Inside the same package also, you cannnot access private methods!
+	{
+		System.out.println("Private Method called!");	
+	}
+	//default or package access specifier
+	void send()////Inside the same package, you can access default methods! 
+	//NOT OUTSIDE THE PACKAGES!
+	{
+		System.out.println("Default Access Method called!");	
+	}
+	public static void main(String[] args) {
+		//empty
+		//no logic here!
+
+	}
+
+}
+===============================================================================================
+package myprograms;
+//import mydemos.AccessSpecifiers;
+public class AccessSpecificationTesting extends mydemos.AccessSpecifiers
+{
+
+	public static void main(String[] args) {
+		//AccessSpecifiers obj=new AccessSpecifiers();//valid but import statement is mandatory!
+
+	//packagename.classname
+	mydemos.AccessSpecifiers obj=new mydemos.AccessSpecifiers();//import statement is not required!
+	
+	obj.show();
+	//obj.send();//bcos it is default! not visible here		
+	//obj.show1();//bcos it is private method
+	
+	System.out.println("Public final data member:: "+obj.x);
+	//obj.disp();	
+
+	AccessSpecificationTesting obj1=new AccessSpecificationTesting();
+	obj1.disp();//protected method visible bcos inheritance
+	System.out.println("Protected data member:: "+obj1.code);
+	
+	//If you make any constructor protected, you cannot create the instance of 
+	//that class from outside the package.
+
+
+	}
+
+}
+/*
+Public Method called!
+Public final data member:: 100
+Protected Method called!
+Protected data member:: 4600
+*/
+=============================================================================================
+package mydemos;
+/*
+ * Static Block(Compiletime(WORKS FOR A CLASS NOT FOR A OBJECT)::
+ * --It will be AUTOMATICALLY executed when a class is first loaded into the JVM
+ * --static block is Used to initialize only the static data memeber!
+ * (constructors(Runtime)=>instance variables(NON STATIC))
+ * --Before the main method,STATIC BLOCK is loaded!
+ * --****************Executed only once in the lifetime of the class!
+ * --No arguments,no return types,no access specifier
+ */
+class Block1
+{
+	//Multiple static block gets executed in the order of top to bottom!
+	static
+	{
+		System.out.println("Static Block 1 in another class!");	
+	}
+	static
+	{
+		System.out.println("Static Block 2 in another class!");	
+	}
+	Block1()
+	{
+		System.out.println("Default Constructor of Block1 class!");
+	}
+}
+public class StaticBlockDemo {
+	static String ipaddress="192.168.4.657";
+	int a=100;//non static=>instance variable
+	//Multiple static block gets executed in the order of top to bottom!
+	static
+	{
+		System.out.println("Static Block :::: 1");
+		System.out.println("Ip:: "+ipaddress);
+		//System.out.println("Ip:: "+a);//invalid
+	}
+	//static block
+	static
+	{
+	System.out.println("Static Block :::: 2");
+	}
+	//static block
+	static
+	{
+	System.out.println("Static Block :::: 3");	
+	}
+	public static void main(String[] args) {
+		System.out.println("Hexaware Main Method Loaded now!!!!");
+	
+		//Before the object is created, static block will be loaded!
+		// static blocks are executed first, followed by constructors
+
+		Block1 obj=new Block1();//loading the class, so static block referred automatically
+		Block1 obj1=new Block1();//loading the class, so static block referred automatically
+		Block1 obj2=new Block1();//loading the class, so static block referred automatically
+	}
+}
+/*
+Static Block :::: 1
+Ip:: 192.168.4.657
+Static Block :::: 2
+Static Block :::: 3
+Hexaware Main Method Loaded now!!!!
+Static Block 1 in another class!
+Static Block 2 in another class!
+Default Constructor of Block1 class!
+Default Constructor of Block1 class!
+Default Constructor of Block1 class!
+*/
+==================================================================================================
+package mydemos;
+/*
+ * Object Class::
+ * 
+ * toString():::
+ * The toString() method converts the object into a string and returns it. 
+ */
+//class User extends Object
+class User
+{
+	String name;
+	String address;
+	//Rightclick=>Source=>Generate Constructor using fields=>select all fields->click ok.
+	public User(String name, String address) 
+	{
+		super();
+		this.name = name;
+		this.address = address;
+	}
+	//built in method of Object class
+	//Overriding toString() from Object Class
+	//Source->Generate toString()
+	/*
+	 * The @Override annotation indicates that the child class method is over-writing 
+	 * its base class method. The @Override annotation can be useful for two reasons. 
+	 * It extracts a warning from the compiler if the annotated method doesn't actually 
+	 * override anything.
+	 *  It can improve the readability of the source code
+	 */
+	@Override//Annotation starts with @symbol
+	//public String toString4444() //invalid
+	public String toString() {
+		//return "User [name=" + name + ", address=" + address + "]";
+		return "Happy Learning!";		
+	}
+}
+public class ObjectDemo {
+	public static void main(String[] args) {
+		User obj=new User("Thananya","Chennai");
+		System.out.println(obj.name + " "+obj.address);
+		//By default Object Class(toString()) will print the heap memory address(hashcode) of a class
+		System.out.println("Printing the object:: "+obj);//implicitly calling toString()
+		System.out.println("Printing the object:: "+obj.toString());//VALID	
+	
+	}
+}
+/*
+Thananya Chennai
+Printing the object:: Happy Learning!
+Printing the object:: Happy Learning!
+*/
+===================================================================================================
+
+package mydemos;
+//Hierarchical inheritance
+class Emps
+{
+	int eno;
+	String name;
+	//Rightclick->Source->Generate Constructor using fields!
+	public Emps(int eno, String name) {
+		super();
+		this.eno = eno;
+		this.name = name;
+	}
+	//no business logic
+		public int calcpay()
+		{
+			return 0;
+		}
+		public void comments()
+		{
+			System.out.println("Feedback noted!");
+		}
+}
+class SalariedEmployees extends Emps
+{
+	int net_sal;
+	/*
+	 * If there is any base class para constructor , we have to compulsory create a 
+	 * derived class constructor
+	 * then we have to refer base class para constructor with the help of super keyword!
+	 */
+
+	SalariedEmployees(int eno,String name,int net_sal)
+	{
+		//call to super constructor must be first line!
+		super(eno,name);//Emps(eno,name)
+		this.net_sal=net_sal;
+	}
+	/*
+	 @Override Annotation:: inform to the compiler or JVM:
+	 --Force the programmer to use same method 
+	 signature given in the parent class
+	 --Annotation always starts with @ symbol!
+	 */
+	//Method level annotation
+	@Override//will comes only in derived classes!
+	public int calcpay()
+	{
+		return net_sal*30;
+	}
+	@Override//will comes only in derived classes!
+	public void comments()
+	{
+		System.out.println("Good!");
+	}
+}
+class ContractEmployees extends Emps
+{
+	int wagesperday;
+	ContractEmployees(int eno,String name,int wagesperday)
+	{
+		super(eno,name);//calls base class para constructor ex: Emps(int eno,String name)
+		this.wagesperday=wagesperday;
+	}
+	@Override//will comes only in derived classes!
+	public int calcpay()
+	{
+		return wagesperday*7;//weekly calculation
+	}
+	@Override//will comes only in derived classes!
+	public void comments()
+	{
+		System.out.println("Excellent!");
+	}
+}
+public class PolymorphismDemo3 {
+	public static void main(String[] args) {
+		//Polymorphic array of objects
+		Emps obj[]= {
+				new SalariedEmployees(1001,"Thananya",50000),//obj[0]
+				new ContractEmployees(1002,"Abi",6000)//obj[1]
+					};
+		for(int i=0;i<obj.length;i++)
+		{
+			System.out.println(obj[i].getClass()+ " "+obj[i].eno + " "+obj[i].name + " "+obj[i].calcpay());
+			obj[i].comments();
+		}
+
+	}
+
+}
+/*
+class mydemos.SalariedEmployees 1001 Thananya 1500000
+Good!
+class mydemos.ContractEmployees 1002 Abi 42000
+Excellent!
+*/
+==================================================================================================
+package mydemos;
+
+class Parent
+{
+	//we cannot override the display() method  
+	public static void display()
+	{
+		System.out.println("Parent class static method!");
+	}
+	public void disp()
+	{
+		System.out.println("Parent class non-static method!");
+	}
+}
+class Child extends Parent
+{
+	//the same method also exists in the ParentClass  
+	//it does not override, actually it is method hiding  
+	//@Override//throws error.. cannot override static method!
+	public static void display()
+	{
+		//this and super keyword(associated with object(instance variable and method))
+		//cannot be used in static methods!
+		System.out.println("Child class static method!");
+	}
+	@Override
+	public void disp()
+	{
+		super.disp();
+		System.out.println("Child class non static method(Overridden)!");
+	}
+}
+public class StaticOverriding {
+	//STATIC METHODS CAN BE OVERLOADED! CANNOT BE OVERRIDDEN!
+	public static void main(String[] args) {
+		Child c1=new Child();
+		c1.display();
+		Child.display();
+		c1.disp();
+		/*
+		 * Can we override a static method?
+		No, we cannot override static methods because method overriding is based on 
+		dynamic binding at runtime 
+		and the static methods are bonded using static binding at compile time.
+		 So, we cannot override static methods.
+
+		The calling of method depends upon the type of object that calls the 
+		static method. It means:
+
+		--If we call a static method by using the parent class object, the original 
+		static method will be called 
+		from the parent class.
+		--If we call a static method by using the child class object, 
+		the static method of the child class will be 
+		called.
+		 */
+		Parent pc = new Child();//Polymorphic Object
+		pc.display();//Parent class bcos static
+		pc.disp();//Child class bcos non static
+}
+
+}
+/*
+Child class static method!
+Child class static method!
+Parent class non-static method!
+Child class non static method(Overridden)!
+Parent class static method!
+Parent class non-static method!
+Child class non static method(Overridden)!
+*/
+=======================================================================================================
+package mydemos;
+/*
+Enum::
+--user defined data type to store a fixed set of constants
+--enum constants can be used in conditional statements(if,switch..)
+--more type safe than java constants
+--constants defined in enum are public static and final
+--cannot create an instance of enum
+--***********can be defined within or outside the class.
+
+ int jan=0;
+ System.out.println(jan);=>0
+ int monday=1,tuesday=2;
+ System.out.println(monday);=>result:::monday
+*/
+enum OSTYPES
+{
+	WINDOWS,UNIX,LINUX,MAC,APPLE_IOS,android;
+}
+/*
+ * enum can contain a constructor and it is executed separately for 
+ * each enum constant at the time of enum class loading.
+We can’t create enum objects explicitly and hence we can’t invoke 
+enum constructor directly.
+ */
+enum Color 
+{
+    RED,GREEN,BLUE;
+    // enum constructor called separately for each constant
+    private Color()//ENUM CONSTRUCTOR
+    {
+        System.out.println("Constructor called for : "+ this.toString());
+    }
+    public void colorInfo()//ENUM METHOD
+    {
+        System.out.println("Universal Color");
+    }
+}
+public class EnumKeyword {
+	enum Dresssize
+	{
+		SMALL,MEDIUM,LARGE;
+	}
+	Dresssize d1;//ENUM REFERENCE VARIABLE
+	public EnumKeyword(Dresssize a)//constructor taking enum constant
+	{
+		this.d1=a;
+	}
+	public void placeorder()
+	{
+		switch(d1)//3 constants
+		{
+		//case "SMALL"://STRING=>invalid
+		case SMALL:	
+			System.out.println("Dresssize::Small");break;
+		case MEDIUM:
+			System.out.println("Dresssize::Medium");break;
+		case LARGE:
+			System.out.println("Dresssize::Large");break;
+		}
+		}
+
+	public static void main(String[] args) {
+		//Dresssize obj=new Dresssize();//invalid
+		System.out.println("Enum value:: "+OSTYPES.UNIX);//UNIX
+		System.out.println("Enum value:: "+OSTYPES.android);
+		System.out.println("Enum value:: "+Dresssize.MEDIUM);
+		OSTYPES[] obj=OSTYPES.values();
+		for(OSTYPES i:obj)//OSTYPES is a user defined data type
+		{
+			System.out.println(i);
+		}
+		Dresssize[] obj1=Dresssize.values();
+		for(Dresssize i:obj1)//DressSize is a user defined data type
+		{
+			System.out.println(i);
+		}
+		EnumKeyword obj2=new EnumKeyword(Dresssize.LARGE);
+		//EnumKeyword obj2=new EnumKeyword(OSTYPES.android);//INVALID
+		
+		obj2.placeorder();
+
+		Color c1 = Color.RED;
+        System.out.println("C1:::: "+c1);
+        c1.colorInfo();
+	}
+
+}
+/*
+Enum value:: UNIX
+Enum value:: android
+Enum value:: MEDIUM
+WINDOWS
+UNIX
+LINUX
+MAC
+APPLE_IOS
+android
+SMALL
+MEDIUM
+LARGE
+Dresssize::Large
+Constructor called for : RED
+Constructor called for : GREEN
+Constructor called for : BLUE
+C1:::: RED
+Universal Color
+*/
+====================================================================================================
+package mydemos;
+
+/*
+
+ * GarbageCollection::
+
+ * --calling or requesting the JVM to perform the GC explicitly
+
+ * --System.gc()(STATIC METHOD)=============Runtime.getRuntime().gc()(NON STATIC METHOD)
+
+How object can be unreferenced?
+
+By nullifying the reference
+
+By assigning a reference to another
+
+By anonymous object etc. ex: new Employee();
+
+ */
+
+/*
+
+ * finalize method::
+
+ * --java.lang.Object class
+
+ * --This method is just called before the object is going to get GC process!
+
+ * --this method cannot be invoked more than once by a JVM for any given object!
+
+ * --override this method to receive the NOTIFICATION from the JVM(GC)
+
+ * --dispose or cleanup the program resources!!
+
+ */
+
+public class GarbageCollectionDemo {
+
+ //JVM CALLS THIS FINALIZE METHOD BEFORE GC HAPPENS!
+
+ @Override
+
+ //protected void finalize() throws Throwable //valid
+
+ public void finalize() throws Throwable //valid
+
+ //void finalize() throws Throwable //invalid=>Cannot decrease the visibility of the method
+
+ {
+
+  System.out.println("GC Tool invoke in some few mins!!");
+
+  System.out.println("GC Tool calls object :::" +this.getClass());
+
+ }
+
+ public static void main(String[] args) {
+
+ GarbageCollectionDemo obj=new GarbageCollectionDemo();
+
+ GarbageCollectionDemo obj1=new GarbageCollectionDemo();
+
+ obj=null;//unused or unreferenced obj, eligible for GC process
+
+ System.gc();//Runs the garbage collector.
+
+ obj1=null;//unused or unreferenced obj, eligible for GC process
+
+ Runtime r1=Runtime.getRuntime();//An application cannot create its own instance of this class.
+
+ r1.gc();//Runs the garbage collector.
+
+ System.out.println("HELLO!");
+
+ }
+
+}
+
+/*
+
+GC Tool invoke in some few mins!!
+
+GC Tool calls object :::class mydemos.GarbageCollectionDemo
+
+HELLO!
+
+GC Tool invoke in some few mins!!
+
+GC Tool calls object :::class mydemos.GarbageCollectionDemo
+
+*/
+
+/*
+
+HELLO!
+
+GC Tool invoke in some few mins!!
+
+GC Tool calls object :::class mydemos.GarbageCollectionDemo
+
+GC Tool invoke in some few mins!!
+
+GC Tool calls object :::class mydemos.GarbageCollectionDemo
+
+*/
+
+====================================================================================================
+
+package mydemos;
+
+/*
+
+Initialisations blocks can be:
+
+  * Static
+
+  * Instance
+
+--Static Initialisation blocks run only once when the class is first loaded.
+
+Used to initialize only static variables.
+
+--Instance Initialisation blocks run each time BEFORE the object of the class
+
+is created. Used to initalize only instance variables.
+
+The Compiler copies instance initializer block into every constructor.
+
+Therefore, this can be used to share a block of code between multiple
+
+constructors.
+
+--The instance initializer block comes in the order in which they appear.
+
+ *CLASS ORDER::
+
+ *STATIC BLOCK=>INSTANCE BLOCK=>CONSTRUCTOR=>METHOD
+
+*/
+
+class Sites
+
+{
+
+ //instance block
+
+ {
+
+ System.out.println("Online Shopping Sites Loaded - PARENT CLASS INSTANCE BLOCK!!");
+
+ }
+
+ Sites()
+
+ {
+
+ System.out.println("ShoppersStop,Myntra,Faballey... - PARENT CLASS INSTANCE BLOCK");
+
+ }
+
+ static
+
+ {
+
+ System.out.println("Static Block Sites! - PARENT CLASS STATIC BLOCK");
+
+ }
+
+}
+
+class Purchase extends Sites
+
+{
+
+ //2 instance block
+
+ {
+
+ System.out.println("Before purchase read the terms&conditions-SUB CLASS INSTANCE BLOCK");
+
+ }
+
+ {
+
+ System.out.println("Timing,Charges and reporting to audit - SUB CLASS INSTANCE BLOCK");
+
+ }
+
+ Purchase(String pname)
+
+ {
+
+ System.out.println("Prod Name:: "+pname);
+
+ }
+
+ static
+
+ {
+
+ System.out.println("Shopping App Loaded - SUB CLASS STATIC BLOCK!!!");
+
+ }
+
+}
+
+public class InstanceBlockDemo {
+
+ InstanceBlockDemo()
+
+ {
+
+ System.out.println("Default Constructor Loaded!");
+
+ }
+
+ //instance block(NO NAME)
+
+ {
+
+ System.out.println("Preloading the object-FIRST INSTANCE BLOCK!");
+
+ }
+
+ {//instance block(NO NAME)
+
+ System.out.println("Preloading the object again - SECOND INSTANCE BLOCK!");
+
+ }
+
+ static//TOP HIGHER PRIORITY
+
+ {
+
+ System.out.println("Preloading the class - STATIC BLOCK!");
+
+ }
+
+ public static void main(String[] args) {
+
+ InstanceBlockDemo obj=new InstanceBlockDemo();
+
+ InstanceBlockDemo obj1=new InstanceBlockDemo();
+
+ InstanceBlockDemo obj2=new InstanceBlockDemo();
+
+ InstanceBlockDemo obj3=new InstanceBlockDemo();
+
+ /*
+
+  * 1.Parent class Static block then derived class static block
+
+  2.Parent class instance block,sub class instance block then DERIVED CLASS constructor
+
+  */
+
+ Purchase p1=new Purchase("Kurtis");
+
+ Purchase p2=new Purchase("Party wear dresses");
+
+ }
+
+}
+
+/*
+
+Preloading the class - STATIC BLOCK!
+
+Preloading the object-FIRST INSTANCE BLOCK!
+
+Preloading the object again - SECOND INSTANCE BLOCK!
+
+Default Constructor Loaded!
+
+Preloading the object-FIRST INSTANCE BLOCK!
+
+Preloading the object again - SECOND INSTANCE BLOCK!
+
+Default Constructor Loaded!
+
+Preloading the object-FIRST INSTANCE BLOCK!
+
+Preloading the object again - SECOND INSTANCE BLOCK!
+
+Default Constructor Loaded!
+
+Preloading the object-FIRST INSTANCE BLOCK!
+
+Preloading the object again - SECOND INSTANCE BLOCK!
+
+Default Constructor Loaded!
+
+Static Block Sites! - PARENT CLASS STATIC BLOCK
+
+Shopping App Loaded - SUB CLASS STATIC BLOCK!!!
+
+Online Shopping Sites Loaded - PARENT CLASS INSTANCE BLOCK!!
+
+ShoppersStop,Myntra,Faballey... - PARENT CLASS INSTANCE BLOCK
+
+Before purchase read the terms&conditions-SUB CLASS INSTANCE BLOCK
+
+Timing,Charges and reporting to audit - SUB CLASS INSTANCE BLOCK
+
+Prod Name:: Kurtis
+
+Online Shopping Sites Loaded - PARENT CLASS INSTANCE BLOCK!!
+
+ShoppersStop,Myntra,Faballey... - PARENT CLASS INSTANCE BLOCK
+
+Before purchase read the terms&conditions-SUB CLASS INSTANCE BLOCK
+
+Timing,Charges and reporting to audit - SUB CLASS INSTANCE BLOCK
+
+Prod Name:: Party wear dresses
+
+*/
+
+=====================================================================================
+
+package mydemos;
+
+/*
+
+ * --CheckedException(higher failure rate)=>inherits the classes from Exception class
+
+ * --UncheckedException(mostly programming mistakes)=>inherits the classes
+
+ * from RuntimeException
+
+ *
+
+ * --Error and all the subclasses are Unchecked exception
+
+ * */
+
+//try,catch,finally,throw,throws keywords
+
+public class ExceptionHandlingDemo1 {
+
+ public static void main(String[] args) {
+
+ //System.out.println("Divide:: "+(12/0));//WITHOUT EXCEPTION HANDLING=>//NO COMPILATION ERROR BUT RUNTIME ERROR WILL COME=>LEADS TO ABNORMAL TERMINATION
+
+ try
+
+ {
+
+  int a[]=new int[5];
+
+  a[1]=57050;//size out of bounds
+
+  System.out.println("Divide:: "+(12/0));
+
+ }
+
+ //only one catch block will get executed!
+
+ //Specific exception catch block contains more priority
+
+ //Multiple catch block order::: first specific exception classes, then super classes(Throwable,Exception)
+
+ catch(ArrayIndexOutOfBoundsException e)//specific exception class!!!valid!
+
+ {
+
+  System.out.println("Check the array index!");
+
+  e.printStackTrace();//looks like detailed JVM error msg
+
+ }
+
+ catch(Throwable e)//super class for all exception classes! valid! handle all the issues!
+
+ //catch(Exception e)//Common exception class! handle all the issues!
+
+ //catch(ArithmeticException e)//specific exception to he handled
+
+ {
+
+  System.out.println("Division By Zero issue!!!");
+
+  System.out.println("Exception object:: "+e);//e.toString()
+
+  System.out.println("Exception error message:: "+e.getMessage());
+
+ }
+
+ //optional block
+
+ //finally block always get executed! both success and failure scenarios!
+
+ finally//similar to static block
+
+ {
+
+ System.out.println("Finally Block:: DB Connection Close(),IO File Close(),signout()");
+
+ }
+
+ System.out.println("Program continues normally...!!!");
+
+ }
+
+}
+
+/*
+
+Division By Zero issue!!!
+
+Exception object:: java.lang.ArithmeticException: / by zero
+
+Exception error message:: / by zero
+
+Finally Block:: DB Connection Close(),IO File Close(),signout()
+
+Program continues normally...!!!
+
+*/
+
+========================================================================================
+
+package mydemos;
+
+//nested try and multiple catch blocks
+
+public class ExceptionHandlingDemo2 {
+
+ public static void main(String[] args) {
+
+ //outer try block
+
+ try
+
+ {
+
+  System.out.println("Outer Try Block::: ");
+
+  System.out.println("Divide:: "+(12/2));
+
+  //System.out.println("Divide:: "+(12/0));//if any error in outer try , it will goto outer catch block!
+
+  //inner try block
+
+  try
+
+  {
+
+  System.out.println("Inner Try Block!!");
+
+  System.out.println("Inner Try Block(Divide):: "+(12/2));
+
+  /*
+
+   * If inner try block encounters any error, if there is no matching
+
+   * inner catch block then
+
+   * automatically calls outer catch block!
+
+   */
+
+  int a[]=new int[6];
+
+  a[14]=549; //SIZE OUT OF BOUNDS
+
+  }
+
+  //In Java 7, we can catch multiple exceptions in a single catch block
+
+  //inner catch
+
+  //modern multiple catch block
+
+//catch(Exception | ArrayIndexOutOfBoundsException | ArithmeticException | NullPointerException e) //invalid
+
+//catch(ArrayIndexOutOfBoundsException | ArithmeticException | NullPointerException | Exception e)//invalid
+
+ catch(ArrayIndexOutOfBoundsException | ArithmeticException | NullPointerException e)//valid
+
+  //catch(ArithmeticException e)
+
+  {
+
+  System.out.println("Inner Catch Block:: "+e);
+
+  }
+
+  catch(Exception e)
+
+  {
+
+  System.out.println("General Exception");
+
+  }
+
+  finally
+
+  {
+
+  System.out.println("Inner Finally Block!!!!");
+
+  }
+
+ }//OUTER TRY CLOSED
+
+ //outer catch
+
+ catch(Exception e)
+
+ {
+
+  System.out.println("Outer Catch Block::: "+e);
+
+ }
+
+ finally
+
+ {
+
+  System.out.println("Outer Finally Block!!!!");
+
+ }
+
+ System.out.println("Program Continues!!!");
+
+ }
+
+}
+
+/*
+
+Outer Try Block:::
+
+Divide:: 6
+
+Inner Try Block!!
+
+Inner Try Block(Divide):: 6
+
+Inner Catch Block:: java.lang.ArrayIndexOutOfBoundsException: 14
+
+Inner Finally Block!!!!
+
+Outer Finally Block!!!!
+
+Program Continues!!!
+
+*/
+
+====================================================================================================
+
+package mydemos;
+
+import java.util.Scanner;
+
+/*
+
+Userdefined Exception::
+
+--class must inherit from either Throwable or Exception
+
+*/
+
+/*
+
+ * throw keyword::
+
+ * --throw followed by Object ex: throw new AgeRangeException
+
+ * --throw keyword is used within the method or block!
+
+ * --throw keyword cannot throw multiple exception
+
+ * ex: throw new AgeRangeException,NameValidationException //invalid!!1
+
+ *
+
+ */
+
+class HexawareNameFormatException extends Throwable
+
+{
+
+ public String toString()
+
+ {
+
+ return "Invalid Doctor Name Format!";//error msg
+
+ }
+
+}
+
+class HexawareAgeRangeException extends Exception
+
+{
+
+ public String toString()
+
+ {
+
+ return "Age must be between 21 to 50! Kindly reenter the age!";//error msg
+
+ }
+
+}
+
+class Doctor
+
+{
+
+ int docid;
+
+ String docname;
+
+ String specialization;
+
+ int age;
+
+ Doctor(int a,String dname,String d,int dage)
+
+ {
+
+ this.docid=a;
+
+ this.specialization=d;
+
+ int l,temp=0;
+
+ //CHECKING DOCTOR NAME!
+
+ l=dname.length();//length of a name
+
+ for(int i=0;i<l;i++)
+
+ {
+
+  char ch;
+
+  ch=dname.charAt(i);//extract a character one by one
+
+  if(ch < 'A' || ch > 'Z' && ch < 'a' || ch>'z')
+
+  {
+
+  temp=1;
+
+  }
+
+ }
+
+ try
+
+ {
+
+  if(temp==1)
+
+  {
+
+  //throw keyword:: throw or raise an user defined or built in exception explicitly
+
+  //You can throw only one exception with the help of throw keyword!
+
+  throw new HexawareNameFormatException();//lookup the catch block
+
+  }
+
+  else
+
+  {
+
+  this.docname=dname;//docname validation is correct
+
+  }
+
+ }
+
+ catch(HexawareNameFormatException e)
+
+ {
+
+ System.out.println("Name Error:: "+e);//e.toString()
+
+ }
+
+ //checking age
+
+ try
+
+ {
+
+  if(dage>=21 && dage<=50)
+
+  {
+
+  this.age=dage;//age is correct
+
+  }
+
+  else
+
+  {
+
+  throw new HexawareAgeRangeException();//lookup the catch block
+
+  }
+
+ }
+
+ catch(HexawareAgeRangeException e)
+
+ {
+
+  System.out.println("Age Error:: "+e);//toString()
+
+ }
+
+ }//CONSTRUCTOR CLOSED
+
+ void display()
+
+ {
+
+ System.out.println("Doctor details:: "+docid + " "+docname + " "+age+ " "+specialization);
+
+ }
+
+}
+
+public class UserDefinedException {
+
+ public static void main(String[] args) {
+
+ Scanner s1=new Scanner(System.in);
+
+ System.out.println("Docid:: ");
+
+ int a=s1.nextInt();
+
+ System.out.println("DocName:: ");
+
+ String b=s1.next();
+
+ System.out.println("DocAge:: ");
+
+ int age=s1.nextInt();
+
+ System.out.println("DocSpecialization:: ");
+
+ String s11=s1.next();
+
+ Doctor d1=new Doctor(a,b,s11,age);//calling parameterized constructor
+
+ d1.display();
+
+ }
+
+}
+
+/*
+
+Docid::
+
+10
+
+DocName::
+
+Devi
+
+DocAge::
+
+37
+
+DocSpecialization::
+
+heart
+
+Doctor details:: 10 Devi 37 heart
+
+*/
+
+/*
+
+Docid::
+
+13
+
+DocName::
+
+Devi@124
+
+DocAge::
+
+45
+
+DocSpecialization::
+
+heart
+
+Name Error:: Invalid Doctor Name Format!
+
+Doctor details:: 13 null 45 heart
+
+*/
+
+/*
+
+Docid::
+
+3
+
+DocName::
+
+Devi
+
+DocAge::
+
+3
+
+DocSpecialization::
+
+Heart
+
+Age Error:: Age must be between 21 to 50! Kindly reenter the age!
+
+Doctor details:: 3 Devi 0 Heart
+
+*/
+
+/*
+
+Docid::
+
+11
+
+DocName::
+
+Abi@2334
+
+DocAge::
+
+4
+
+DocSpecialization::
+
+Heart
+
+Name Error:: Invalid Doctor Name Format!
+
+Age Error:: Age must be between 21 to 50! Kindly reenter the age!
+
+Doctor details:: 11 null 0 Heart
+
+*/
+
+====================================================================================
+
+package mydemos;
+
+/*
+
+ * In the calling chain of method calls,ONLY unchecked exception are
+
+ * FORWARDED/PROPAGATED by default/AUTOMATICALLY!
+
+ */
+
+/*
+
+ * when an exception happens, Propagation is a process in which the exception is
+
+ * being dropped from to the
+
+ * top to the bottom of the stack. If not caught once, the exception again drops
+
+ * down to the previous method
+
+ * and so on until it gets caught or until it reach the very bottom of the call
+
+ * stack.
+
+ * This is called exception propagation and this happens in case of
+
+ * ""Unchecked Exceptions.""""
+
+ */
+
+public class ExceptionPropagationDemo1 {
+
+ void test3()//no try catch block in test3()
+
+ {
+
+ System.out.println(12/0);//unchecked exception--ArithmeticException
+
+ }
+
+ void test2()//no try catch block in test2()
+
+ {
+
+ test3();	//test2 calling test3()
+
+ }
+
+ void test1()
+
+ {
+
+ try
+
+ {
+
+  test2();//test1 calling test2()
+
+ }
+
+ catch(Exception e)
+
+ {
+
+  System.out.println("Exception handled only in test1()");
+
+  e.printStackTrace();//test3() problem handled here!
+
+ }	}
+
+ public static void main(String[] args) {
+
+ ExceptionPropagationDemo1 obj=new ExceptionPropagationDemo1();
+
+ obj.test1();
+
+ System.out.println("Program continue!");
+
+ }
+
+}
+
+/*
+
+Exception handled only in test1()
+
+java.lang.ArithmeticException: / by zero
+
+ at mydemos.ExceptionPropagationDemo1.test3(ExceptionPropagationDemo1.java:19)
+
+ at mydemos.ExceptionPropagationDemo1.test2(ExceptionPropagationDemo1.java:23)
+
+ at mydemos.ExceptionPropagationDemo1.test1(ExceptionPropagationDemo1.java:29)
+
+ at mydemos.ExceptionPropagationDemo1.main(ExceptionPropagationDemo1.java:38)
+
+Program continue!
+
+*/
+
+======================================================================================================
+
+package mydemos;
+
+import java.io.IOException;
+
+//In the calling chain of method calls, Checked Exception has to be
+
+//HANDLED COMPULSORY with the
+
+//help of throws keyword
+
+/*
+
+* Throws keyword::
+
+* --alternative of try---catch block
+
+* --throws followed by classnames!(NO NEW KEYWORD!)
+
+* --throws used in the METHOD SIGNATURES!NOT INSIDE THE METHOD BODY
+
+* --contains multiple exception also
+
+* ex:
+
+* public void disp() throws IOException,SQLException,ArithmeticException
+
+* {
+
+* }
+
+*/
+
+public class ExceptionPropagationDemo2 {
+
+ void test3()throws IOException//MANUALLY PROPAGATIONG
+
+ {
+
+ throw new IOException();//CheckedException generated
+
+ }
+
+ //void test2() throws IOException,Exception,Throwable//valid
+
+ void test2() throws Exception,Throwable,IOException//valid
+
+ //void test2()throws IOException
+
+ {
+
+ test3();
+
+ }
+
+ void test1()
+
+ {
+
+  try
+
+  {
+
+  test2();//test1 calling test2()
+
+  }
+
+  catch(Throwable e)
+
+  {
+
+  System.out.println("Exception handled only in test1()");
+
+  e.printStackTrace();//test3() problem handled here!
+
+  }	}
+
+ public static void main(String[] args) {
+
+ ExceptionPropagationDemo2 obj=new ExceptionPropagationDemo2();
+
+ obj.test1();
+
+ System.out.println("Program continue!");
+
+ }
+
+}
+
+/*
+
+Exception handled only in test1()
+
+java.io.IOException
+
+ at mydemos.ExceptionPropagationDemo2.test3(ExceptionPropagationDemo2.java:21)
+
+ at mydemos.ExceptionPropagationDemo2.test2(ExceptionPropagationDemo2.java:25)
+
+ at mydemos.ExceptionPropagationDemo2.test1(ExceptionPropagationDemo2.java:31)
+
+ at mydemos.ExceptionPropagationDemo2.main(ExceptionPropagationDemo2.java:40)
+
+Program continue!
+
+*/
+
+========================================================================================
+
+package mydemos;
+
+/*
+
+ * Interface::
+
+ * --encapsulation and data abstraction is implemented
+
+ * --**************Setting the protocol or contract to a class
+
+ * --contains only method signatures and variables! NO METHOD DEFINITIONS!!
+
+ * --By default::: Methods=>public and abstract,
+
+ * Variables=>public static and final
+
+ * Interfaces, objects cannot be created(NO IMPLEMENTATION/BUSINESSLOGIC)!
+
+ */
+
+//Rightclick=>new=>interface->Shopping
+
+public interface Shopping //byte code=>Shopping.class!
+
+{
+
+ //interface methods cannot have implementation
+
+  /*public void reviews()
+
+  {
+
+  }*/
+
+ /*
+
+  * In a class, you cannot declare any method but you can define any method!
+
+  * In a interface, you can declare the methods
+
+  */
+
+ public void discounts();//method declaration
+
+ void creditpoints();//public abstract void creditpoints();
+
+ public abstract void paymentgateway();//so here public and abstract is optional!
+
+}
+
+====================================================================================
+
+package mydemos;
+
+/*
+
+ * --extends=>inheritance(is a relationship:: association),
+
+ * --implements=>interfaces(has a relationship::aggregation)
+
+ * both the entities(classes and interfaces) can survive individually which means ending one entity
+
+ * will not affect the other entity!
+
+ * --Has a relationship like interface and class can exist independently!!!!
+
+ */
+
+//creating interface in the same class
+
+//public interface brands//throws error bcos already class is public! one public allowed in a single java file
+
+interface brands
+
+{
+
+ void dispbrands();
+
+ void dummy();
+
+}
+
+class Measurements
+
+{
+
+ //void disp();//method cannot be declared in a class
+
+ void calcsize()
+
+ {
+
+ System.out.println("Measurementchart:: S,M,L,XL");
+
+ }
+
+}
+
+//class compulsory override all interface methods!
+
+//Class can implement 'n' NUMBER OF INTERFACES!!!
+
+//class can inherit only ONE class at a time!
+
+//first extends,second implements!
+
+public class Interface_ClassDemo extends Measurements implements Shopping,brands
+
+{
+
+ public void delivery()//belong to class!
+
+ {
+
+ System.out.println("Home delivery available");
+
+ }
+
+ public static void main(String[] args) {
+
+ //Interface cannot be instantiated bcos no implementation(abstract)
+
+ //Shopping s1=new Shopping();
+
+ //brands b1=new brands();
+
+ Interface_ClassDemo obj=new Interface_ClassDemo();
+
+ obj.discounts();
+
+ obj.creditpoints();
+
+ obj.paymentgateway();
+
+ obj.delivery();//class Interface_ClassDemo method
+
+ obj.dispbrands();
+
+ obj.calcsize();//Measurements class method
+
+ Shopping obj2=new Interface_ClassDemo();//Polymorphic Object
+
+ obj2.discounts();
+
+ obj2.creditpoints();
+
+ obj2.paymentgateway();
+
+ //obj2.delivery();//invalid
+
+ //this method not exist in Shopping interface so object casting is required!
+
+ ((Interface_ClassDemo)obj2).delivery();
+
+ ((Interface_ClassDemo)obj2).calcsize();// class Measurements
+
+ brands b45=new Interface_ClassDemo();
+
+ b45.dispbrands();
+
+ //this method not exist in brands interface so object casting is required!
+
+ ((Interface_ClassDemo)b45).delivery();
+
+ }
+
+ @Override
+
+ public void discounts() {
+
+ System.out.println("20%-30% discount!");
+
+ }
+
+ @Override
+
+ public void creditpoints() {
+
+ System.out.println("1000 creditpoints added!");
+
+ }
+
+ @Override
+
+ //private void paymentgateway()//Cannot reduce the visibility of the inherited method from Shopping{
+
+ public void paymentgateway()
+
+ {
+
+ System.out.println("Paytm,Paypal,Razorpay Supported!");
+
+ }
+
+ @Override
+
+ public void dispbrands() {
+
+ System.out.println("Biba,Fabindia,Libas,Aurelia brands available!");
+
+ }
+
+ @Override
+
+ public void dummy() {
+
+ //empty implementation
+
+ }
+
+}
+
+/*
+
+20%-30% discount!
+
+1000 creditpoints added!
+
+Paytm,Paypal,Razorpay Supported!
+
+Home delivery available
+
+Biba,Fabindia,Libas,Aurelia brands available!
+
+Measurementchart:: S,M,L,XL
+
+20%-30% discount!
+
+1000 creditpoints added!
+
+Paytm,Paypal,Razorpay Supported!
+
+Home delivery available
+
+Measurementchart:: S,M,L,XL
+
+Biba,Fabindia,Libas,Aurelia brands available!
+
+Home delivery available
+
+*/
+
+==================================================================================================
+
+package mydemos;
+
+interface Process1
+
+{
+
+ int code=6565;//public static final int code=6565;
+
+ void startup();
+
+}
+
+interface Process2
+
+{
+
+ void shutdown();
+
+}
+
+//A class cannot inherit more than one class like below!
+
+//one interface inherits more than one interface!!!
+
+interface Process3 extends Process1, Process2
+
+{
+
+ void comments();
+
+}
+
+public class Interface_Class1 implements Process3
+
+{
+
+ public static void main(String[] args) {
+
+ //Process3 obj55=new Process3();//Interfaces cannot be directly instantiated!
+
+ Process3 obj4=new Interface_Class1();//Polymorphic Object
+
+ obj4.startup();
+
+ obj4.shutdown();
+
+ obj4.comments();
+
+ System.out.println("Interface data member:: "+code);
+
+ System.out.println("Interface data member:: "+Process3.code);//interfacename.staticdatamember
+
+ //objectname instanceof interfacename
+
+  if(obj4 instanceof Process1)
+
+  {
+
+  System.out.println("Yes!Process1");
+
+  }
+
+  if(obj4 instanceof Process2)
+
+  {
+
+  System.out.println("Yes!Process2");
+
+  }
+
+  if(obj4 instanceof Process3)
+
+  {
+
+  System.out.println("Yes!Process3");
+
+  }
+
+ }
+
+ @Override
+
+ public void startup()
+
+ {
+
+ System.out.println("Log files are created!");
+
+ }
+
+ @Override
+
+ public void shutdown() {
+
+ System.out.println("Log files are created!");
+
+ }
+
+ @Override
+
+ public void comments() {
+
+ System.out.println("Server Synchronized and Tuned!");
+
+ }
+
+}
+
+/*
+
+Log files are created!
+
+Log files are created!
+
+Server Synchronized and Tuned!
+
+Interface data member:: 6565
+
+Interface data member:: 6565
+
+Yes!Process1
+
+Yes!Process2
+
+Yes!Process3
+
+*/
+
+=====================================================================================================
+
+package mydemos;
+
+/*
+
+ * here are two ways to achieve or implement abstraction in java program.
+
+ * They are as follows:
+
+Abstract class (0 to 100%)
+
+Interface (100%)
+
+ */
+
+/*
+
+ * Final classes cannot be inhertied,
+
+ * Abstract classes cannot be instantiated/can be subclassed!!
+
+ */
+
+//Abstract class MAY OR MAY NOT include abstract methods
+
+//RESTRICTING OBJECT CREATION
+
+abstract class Admin57
+
+{
+
+ //non abstract method
+
+ void disp()
+
+ {
+
+ }
+
+}
+
+//RESTRICTING OBJECT CREATION
+
+abstract class Shopping1_4
+
+{
+
+ //void disp();//cannot declare methods in a NORMAL CLASS!
+
+ //non abstract method/concrete methods can be defined!
+
+ void offers()
+
+ {
+
+ System.out.println("10-30% discount");
+
+ }
+
+ abstract void paymentgateway();//no implementation=>abstract method
+
+ abstract void delivery();
+
+ /*
+
+ * We cannot create an object of abstract class but we can create an object of
+
+ * subclass of abstract class.
+
+ * When we create an object of subclass of an abstract class, it calls the
+
+ * constructor of subclass.
+
+This subclass constructor has super in the first line that calls constructor of an
+
+abstract class. Thus, the constructors of an abstract class are used from
+
+constructor of its subclass.
+
+ */
+
+ Shopping1_4()
+
+ {
+
+ System.out.println("Abstract class Default Constructor!");
+
+ }
+
+}
+
+//An abstract concept is not applicable to variables.
+
+//Abstract methods not to be implemented compulsory in sub classes!we can skip!
+
+//this class not eligible for Object creation
+
+abstract class Amazon extends Shopping1_4
+
+{
+
+ //skipped delivery method!!! so that my sub class is also declared as Abstract!!
+
+ @Override
+
+ void paymentgateway() {
+
+ System.out.println("Amazon::paytm,paypal!");
+
+ }
+
+ /*	@Override
+
+ void delivery() {
+
+ // TODO Auto-generated method stub
+
+ }*/
+
+}
+
+class Myntra1 extends Shopping1_4
+
+{
+
+ @Override
+
+ void paymentgateway() {
+
+ System.out.println("Myntra::paytm,paypal!");
+
+ }
+
+ @Override
+
+ void delivery() {
+
+ System.out.println("10days notice!");
+
+ }
+
+ void feedback()//belong to Myntra1
+
+ {
+
+ System.out.println("Good!");
+
+ }
+
+}
+
+//non abstract class/concrete class
+
+public class AbstractClassesDemo {
+
+ public static void main(String[] args) {
+
+ //abstract classes cannot be instantiated!
+
+ /*
+
+ Shopping1_4 obj=new Shopping1_4();
+
+ Amazon obj1=new Amazon();
+
+ */
+
+ Myntra1 obj=new Myntra1();//Non abstract class/concrete class!
+
+ obj.paymentgateway();
+
+ obj.delivery();
+
+ obj.feedback();
+
+ obj.offers();//..non abstract method...Shopping1_4
+
+ Shopping1_4 obj1=new Myntra1();//polymorphic object
+
+ obj1.paymentgateway();
+
+ obj1.delivery();
+
+ obj1.offers();//Shopping1_4
+
+ //obj1.feedback();//invalid
+
+ ((Myntra1)obj1).feedback();
+
+ }
+
+}
+
+/*
+
+Abstract class Default Constructor!
+
+Myntra::paytm,paypal!
+
+10days notice!
+
+Good!
+
+10-30% discount
+
+Abstract class Default Constructor!
+
+Myntra::paytm,paypal!
+
+10days notice!
+
+10-30% discount
+
+Good!
+
+*/
+
+============================================================================================
+Activity:::
+
+1.Write a program to add 8 to the number 2345 and then divide it by 3. Now, the modulus of the quotient is taken with 5 and then multiply the resultant value by 5. Display the final result.
+
+2.Now, solve the above question using assignment operators (eg. +=, -=, *=).
+
+3.The total number of students in a class are 90 out of which 45 are boys. If 50% of the total students secured grade 'A' out of which 20 are boys, then write a program to calculate the total number of girls getting grade 'A'.
+
+4.Take name, roll number and field of interest from user and print in the format below :
+Hey, my name is xyz and my roll number is xyz. My field of interest are xyz.
+
+5.A company decided to give bonus of 10% to employee if his/her year of service is more than 6 years.
+Ask user for their salary and year of service and print the net bonus amount.
+
+6.A school has following rules for grading system:
+a. Below 25 - F
+b. 25 to 45 - E
+c. 45 to 50 - D
+d. 50 to 60 - C
+e. 60 to 80 - B
+f. Above 80 - A
+Ask user to enter marks and print the corresponding grade.
+
+7.A student will not be allowed to sit in exam if his/her attendence is less than 70%.
+Take following input from user
+Number of classes held
+Number of classes attended.
+And print
+percentage of class attended
+Is student is allowed to sit in exam or not.
+
+8.Modify the above question to allow student to sit if he/she has medical cause. Ask user if he/she has medical cause or not ( 'Y' or 'N' ) and print accordingly.
+
+9.A shopkeeper sells three products whose retail prices are as follows: 
+Product 1 - 22.50
+              Product 2 - 44.50 
+              Product 3 - 9.98
+Write an application that reads a series of pairs of numbers as follows:
+ a) Product number 
+ b) Quantity sold
+
+                The application should use a switch statement to determine the retail price for each product. It 
+should calculate and display the total retail value of all products sold. 
+
+10. Consider user has N eggs. Then display the no of eggs in gross (144 eggs make one gross) and 
+no of eggs in dozen (12 eggs make one dozen) and the no of eggs that is left out remaining. 
+The total no of eggs can be got as input through command line. The program should display
+how many gross, how many dozen, and how many left over eggs the user has.
+
+Solution Guidance (if applicable): For example, if the input is 1342 eggs, then the program should respond with 
+        Your number of eggs is 9 gross, 3 dozen, and 10
+
+
+11. Create a class called Calculator which has 4 different methods add, diff, mul and div which 
+accepts two numbers as parameters. Create an object to access these methods and invoke 
+these methods with two numbers and display the result in the corresponding methods. 
+
+12.Create a class called Student with the following details: RollNo, StudName, MarksInEng, 
+MarksInMaths and MarksInScience. Write getters and setters for the all variables. RollNo
+should be automatically generated whenever a new student is added.
+a)To display the roll no and the name of the student who scored highest mark 
+in mathematics.public class
+
+13.Create a class called shape with the following methods
+1. area
+2. perimeter
+
+                    Overload the area and perimeter method to calculate for both square and rectangle.
+                    Create a main class and invoke the area method to calculate the area of the square and 
+rectangle. Also invoke the perimeter method to calculate the perimeter of the square 
+and rectangle.
+
+14.Write a program to construct an array with 10 elements and to find the number of    
+occurrences of each element in the Array.
+
+15.Write a program that prompts user for the mark (between 0-100 in int) of 3 students; 
+computes the average (in double); and prints the result rounded to 2 decimal places. 
+Your program needs to perform input validation. For examples,
+
+Enter the mark (0-100) for student 1: 56
+Enter the mark (0-100) for student 2: 101
+Invalid input, try again...
+Enter the mark (0-100) for student 2: -1
+Invalid input, try again...
+Enter the mark (0-100) for student 2: 99
+Enter the mark (0-100) for student 3: 45
+The average is: 66.67
+
+16.Create a class called Employee that includes three pieces of information as instance variables—a first name (type
+String), a last name (type String) and a monthly salary (type double). Your class should have a constructor that
+initializes the three instance variables. Provide a set and a get method for each instance variable. If the monthly
+salary is not positive, set it to 0.0. Write a test application named EmployeeTest that demonstrates class Employee’s
+capabilities. Create two Employee objects and display the yearly salary for each Employee. Then give each
+Employee a 10% raise and display each Employee’s yearly salary again
+
+17.Demonstrate Jagged array concept with real time example ex: ticket counter!!
+
+18.Create a class called Vehicle. Create subclasses like Truck, Bus, Car etc. Add common methods 
+in the base class and specific methods in the corresponding class. Create a class called Road 
+and create objects for the Truck, Car, Bus etc and display the appropriate message. 
+
+In the Vehicle class constructor initialize few variables like color, no of 
+wheels, model etc. Give appropriate values for these variables from the invoking subclass.  
+
+19.Create a package named org.animals. In that create various classes like Lion, Tiger, Deer, Monkey, Elephant and Giraffe. 
+In each class create data members like color, weight,age etc. Create methods like isVegetarian, canClimb, sound etc..
+Then Create a package called zoo and create a class called VandalurZoo and create objects for the animals that are existing
+ in zoo and print the characteristic of each animal.
+===========================================================================================

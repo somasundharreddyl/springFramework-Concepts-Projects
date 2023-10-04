@@ -1,0 +1,258 @@
+Admin :
+
+
+
+@GetMapping("/all")
+	public List<AdminResponseDto> getAllAdmins() {
+		List<Admin> list =  adminRepository.findAll();
+		List<AdminResponseDto> listDto = new ArrayList<>();
+		for(Admin a : list) {
+			AdminResponseDto dto = new AdminResponseDto(); //id,name -- //200X
+			dto.setId(a.getId());; //200X (id)
+			dto.setName(a.getName());;//200X (id,name)
+			listDto.add(dto); //[100X,200X]	
+		}
+		return listDto;
+	}
+
+
+
+
+Customer :
+
+
+@PutMapping("/status/{status}/{id}") //PENDING --> GRANTED, DENIED
+	public ResponseEntity<String> CustomerAccessStatusUpdate(@PathVariable("status") String status, 
+															 @PathVariable("id") Long empId) {
+		/* Convert status to Enum*/
+		CustomerAccessStatusEnum accessStatus= null;
+		try {
+			accessStatus = CustomerAccessStatusEnum.valueOf(status);
+		}
+		catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unknown Status");
+		}
+		/* Validate Customer ID and fetch Customer Details */
+		Optional<Customer> optional = customerRepository.findById(empId);
+		
+		if(!optional.isPresent())
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Customer ID is Invalid");
+		
+		Customer customer = optional.get();
+		
+		/* Update the status of this Customer */
+		customer.setAccessType(accessStatus);
+		
+		/*Save the Customer */
+		customerRepository.save(customer);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("Customer Status updated");
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+@GetMapping("/customerDetails")
+	public CustomerResponseDto getCustomerDetails(Principal principal) {
+		String username= principal.getName(); //Username of Customer
+		
+		
+		Customer c = customerRepository.getCustomerByUsername(username);
+		
+		/* Convert Customer into Dto */
+		
+		CustomerResponseDto dto = new CustomerResponseDto();
+		
+			dto.setId(c.getId());
+			dto.setCustomerFirstName(c.getCustomerFirstName());
+			dto.setCustomerLastName(c.getCustomerLastName());
+			dto.setPanNumber(c.getPanNumber());
+			dto.setPhone(c.getPhone());
+			
+		
+		return dto; 
+	}
+}
+
+
+
+
+
+
+
+
+
+Transaction:
+
+@GetMapping("/all")
+	public List<TransactionResponseDto> getAllTransaction(Principal principal) {
+		String username= principal.getName(); //Username of customer
+		
+		/* Convert status into enum */
+		//TransactionStatusEnum statusEnum = TransactionStatusEnum.valueOf(status); //PENDING
+		
+		List<Transaction> trans = transactionRepository.getAllTransactionByUsername(username);
+		
+		/* Convert leaves into Dto */
+		
+		List<TransactionResponseDto> listDto = new ArrayList<>();
+		for(Transaction t : trans) {
+			//convert l to dto
+			TransactionResponseDto dto = new TransactionResponseDto();
+			dto.setTransactionId(t.getTransactionId());
+			dto.setAmount(t.getAmount());
+			dto.setTransactionDate(t.getTransactionDate());
+			dto.setFromAccount(t.getFromAccount());
+			dto.setToAccount(t.getToAccount());
+			listDto.add(dto);
+
+					}
+		return listDto; 
+	}	
+	
+	
+
+
+
+
+
+	@PostMapping("/deposit")
+	public ResponseEntity<String> deposit(Principal principal, @RequestBody Transaction transaction) {
+		String username = principal.getName();
+		/* Fetch account details */
+		Account account = accountRepository.getAccountByUsername(username);
+		
+		/* Attach this Account to Transaction */
+		transaction.setAccount(account);
+		
+		TransactionStatusEnum state = TransactionStatusEnum.SUCCEED;
+		
+	//	/* Attach this state to transaction */
+	//	transaction.setStatus(state);
+		
+		transactionRepository.save(transaction);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("Deposit Successfully");
+	}
+
+
+
+_____________________________________________________________________________________________
+
+@Autowired	
+private TransactionRepository transactionRepository;
+@Autowired	
+private AccountRepository accountRepository;
+
+
+@GetMapping("/all")
+public List<TransactionResponseDto> getAllTransaction(Principal principal) {
+	String username= principal.getName(); //Username of customer
+	
+	/* Convert status into enum */
+	//TransactionStatusEnum statusEnum = TransactionStatusEnum.valueOf(status); //PENDING
+	
+	List<Transaction> trans = transactionRepository.getAllTransactionByUsername(username);
+	
+	/* Convert transaction into Dto */
+	
+	List<TransactionResponseDto> listDto = new ArrayList<>();
+	for(Transaction t : trans) {
+		//convert t to dto
+		TransactionResponseDto dto = new TransactionResponseDto();
+		dto.setTransactionId(t.getTransactionId());
+		dto.setAmount(t.getAmount());
+		dto.setTransactionDate(t.getTransactionDate());
+		dto.setFromAccount(t.getFromAccount());
+		dto.setToAccount(t.getToAccount());
+		listDto.add(dto);
+
+				}
+	return listDto; 
+}	
+
+@PostMapping("/deposit")
+public ResponseEntity<String> deposit(Principal principal, @RequestBody Transaction transaction) {
+	String username = principal.getName();
+	/* Fetch account details */
+	Account account = accountRepository.getAccountByUsername(username);
+	
+	/* Attach this Account to Transaction */
+	transaction.setAccount(account);
+	
+//	TransactionStatusEnum state = TransactionStatusEnum.SUCCEED;
+	
+//	/* Attach this state to transaction */
+//	transaction.setStatus(state);
+	
+	transactionRepository.save(transaction);
+	
+	return ResponseEntity.status(HttpStatus.OK).body("Deposit Successfully");
+}
+
+
+
+@PostMapping("/withdraw")
+public ResponseEntity<String> withdraw(Principal principal, @RequestBody Transaction transaction) {
+	String username = principal.getName();
+	/* Fetch account details */
+	Account account = accountRepository.getAccountByUsername(username);
+	
+	/* Attach this Account to Transaction */
+	transaction.setAccount(account);
+	
+	TransactionStatusEnum state = TransactionStatusEnum.SUCCEED;
+	
+//	/* Attach this state to transaction */
+//	transaction.setStatus(state);
+	
+	transactionRepository.save(transaction);
+	
+	return ResponseEntity.status(HttpStatus.OK).body("Withdraw Successfully");
+}
+
+
+
+
+
+
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.demo.BankSystem.dto.TransactionResponseDto;
+import com.demo.BankSystem.enums.TransactionStatusEnum;
+import com.demo.BankSystem.model.Account;
+import com.demo.BankSystem.model.Transaction;
+import com.demo.BankSystem.repository.AccountRepository;
+import com.demo.BankSystem.repository.TransactionRepository;
+----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

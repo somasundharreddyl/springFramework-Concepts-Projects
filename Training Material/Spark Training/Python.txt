@@ -1,0 +1,3223 @@
+print("Hello Python!")
+
+#variable assignment(NO DATATYPE!)
+studno=1002
+studno="Java"#overriding
+studentname="Thananya"
+print("Student Details:::",studno,studentname)
+#type() method returns class type of the argument(object) passed as parameter.
+print(type(studno))#str
+print(type(studentname))#str
+
+#multiple assignment
+a=b=c=100
+print("Multiple assignment: ",a,b,c)
+
+#Assigning multiple values to multiple variables
+a,b,c=500,100,150
+print("Multiple values and variables: ",a,b,c)
+
+#Using triple quotation marks(SIMILAR TO \N)
+name="""Abi
+Devi
+Lakshmi
+Thananya
+Rajan
+Daya"""
+print("Multi line string:",name)
+
+
+'''
+/* */=>java
+Multiline comment:::
+Arithmetic Operators:
+Operators  Description
+// Perform Floor division(gives integer value after division)
++  To perform addition
+-  To perform subtraction
+*  To perform multiplication
+/  To perform division
+%  To return remainder after division(Modulus)
+** Perform exponent(raise to power)'''
+
+a=10+20
+print("Arithmetic Operators: ")
+print("Res:",a)
+print(2*3)
+print(2**3)
+print(12%2)
+print(12%5)
+print(10/3)#with precision
+print(10//3)#whole number
+
+'''
+Relational Operators:
+Operators  Description
+<  Less than
+>  Greater than
+<= Less than or equal to
+>= Greater than or equal to
+== Equal to
+!= Not equal to
+<> Not equal to(similar to !=)
+'''
+print(12>20)
+print(12<20)
+print(5==6)
+print(5!=6)
+
+
+'''
+Assignment Operators and Shortcut:
+Operators  Description
+=  Assignment
+/= Divide and Assign
++= Add and assign
+-= Subtract and Assign
+*= Multiply and assign
+%= Modulus and assign
+**=    Exponent and assign
+//=    Floor division and assign
+i+=1 means i=i+1
+i-=1 means i=i-1
+'''
+print("Assignment operators:")
+c=100
+c-=5#c=c-5=100-5=95
+print(c)
+
+
+'''Logical Operators:
+and    Logical AND(When both conditions are true output will be true)
+or Logical OR (If any one condition is true output will be true)
+not    Logical NOT(Compliment the condition i.e., reverse)'''
+
+print("Logical operators:")
+print(5<4 and 6!=2)
+print(5<4 or 6!=2)
+print(5>4)
+print(not(5>4))
+
+#Boolean values respond to logical operators and / or
+print("Boolean:",True and False)
+print("Boolean:",False and True)
+print("Boolean:",True or False)
+print("Boolean:",False or True)
+
+#reading runtime input
+n1 = input("What's your name? ")
+qual = input("Your Qualification? ")
+salary = int(input("What's your salary?"))
+pf = int(input("What's your pf?"))
+
+print("My  name is " , n1)
+print("Qualification:", qual)
+print("Salary:", salary)
+print("NetPay: ",(salary+pf))
+
+#conditional statement
+#simple if statement
+#if is a keyword
+
+#indentation(no curly brackets)
+
+x = 10
+if x==10:
+    print("Hello If Statement")
+
+#if..else statement
+number=3
+if number%2==0:
+    print("Even Number")
+else:
+    print("Odd Number")
+
+#nested if
+a=100
+if a>=20:
+    print("First Condition is True")
+else:
+    if a<=15:
+        print("Second Condition is True")
+    else:
+        print ("All Conditions are false")
+
+'''
+The elif statement allows you to check multiple expressions for TRUE 
+and execute a block of code as soon as one of the conditions evaluates to TRUE.
+Similar to the else, the elif statement is optional. However, unlike else, 
+for which there can be at most one statement, there can be an arbitrary 
+number of elif statements following an if.
+Python does not provide switch or case statements as in other languages,
+ but we can use if..elif...statements to simulate switch case
+'''
+var = 2
+if var == 1:
+   print("First Case")
+   print("Res",var)
+elif var == 2:
+    print("Second Case")
+    print(var)
+elif var == 3:
+    print("Third Case")
+    print(var)
+else:#similar to default block in switch case!
+    print("Over!!!!")
+    print(var)
+
+'''
+The range() is an in-built function in Python. It returns a sequence of 
+numbers starting from zero and 
+increment by 1 by default and stops before the given number.
+'''
+
+#0,4
+for i in range(5):#IMPLICIT 0,5
+    print(i)
+print("Outside Loop Over!!!")
+
+for i in range(0,5):#0,5
+    print(i)
+print("Loop Overs!!!")
+
+for i in range(2,11):
+    print(i)
+
+for i in range(5):#(0,5)
+    print(i, end=" ")
+print()
+
+#ITERATION/STEP==2
+for i in range(0,15,2):
+    print(i, end=" ")
+print()
+
+X11=1,2,3
+print(X11)#DEFAULT=>tuple DATA TYPE
+print(type(X11))
+
+#ARRAY VARIABLE
+languages = ['C', 'C++',  'Java']
+print(*languages)
+
+print("Languages:")
+for i in languages:
+    print(i, end=" ")
+
+print()
+numbers = [1,2,3,4]
+sum = 0
+for i in numbers:
+    sum = sum + i
+print("Total: ",sum)
+
+'''
+100 is the start value, 0 is the stop value, and -10 is the 
+range,
+ so the loop begins at 100 and ends at 0, decreasing by 10 with each iteration.
+'''
+
+print()
+for i in range(100,0,-10):
+   print(i,end =" ")
+
+#for loop with if.. statement
+list1 = [1, 2, 3, 4, 6, 8, 12, 5, 17, 19, 20, 25, 28]
+print("\nEven numbers")
+for i in list1:
+          if i % 2 == 0:
+            print (i,end="  ")
+print("\nFor loop Over")
+
+print()
+
+#nested for loop
+#outer for loop
+for i in range(1,6):
+    #inner for loop
+    for j in range (1,i+1):
+        print(j,end="  ")
+    print()#move to the next row
+print("Nested Loop Over")
+
+
+'''
+We can convert one type value to another type. This conversion is called Typecasting or Type conversion.
+The following are various inbuilt functions for type casting.
+1. int()
+2. float()
+3. complex()
+4. bool()
+5. str()
+1.int():
+We can use this function to convert values from other types to int
+'''
+print(int(123.987))
+print(int(True))
+print(int(False))
+print(int("10"))
+#print(int("10.5"))#ValueError: invalid literal for int() with base 10: '10.5'
+
+print(float(10))
+print(float(True))
+print(float(False))
+print(float("10"))
+print(float("10.5"))
+#print(float("ten"))#ValueError: could not convert string to float: 'ten'
+
+print(bool(0))
+print(bool(1))
+print(bool(10))
+print(bool(10.5))
+
+
+
+
+print(float(10))
+print(float(True))
+print(float(False))
+print(float("10"))
+print(float("10.5"))
+#print(float("ten"))#ValueError: could not convert string to float: 'ten'
+
+print(bool(0))
+print(bool(1))
+print(bool(10))
+print(bool(10.5))
+
+#We can use this method to convert other type values to str type
+print(str(10))#"10"
+print(str(10.5))#"10.5"
+print(str(True))#"True"
+
+#We can use identity operators for address comparison.
+#We can use is operator for address comparison where as == operator for content comparison.
+'''
+Python id() function returns an identity of an object. 
+This is an integer which is guaranteed to be unique. This function takes an argument an object and 
+returns a 
+unique integer number which represents identity.
+'''
+a=20
+b=10
+print(a is b)
+print(id(a))
+print(id(b))
+
+a1="Java"
+a2=3434
+print(a1 is a2)
+print(id(a1))
+print(id(a2))
+
+'''
+Constants concept is not applicable in Python.
+But it is convention to use only uppercase characters if we don’t want to change value. MAX_VALUE=10
+It is just convention but we can change the value.
+'''
+
+'''
+Chaining of relational operators is possible. 
+In the chaining, if all comparisons returns True then only result is True. 
+If atleast one comparison returns False then the result is False
+'''
+print(10<20<30)
+print(10<20<30<40>50)
+
+#Ternary Operator:condition?true:false
+#x = firstValue if condition else secondValue
+#If condition is True then firstValue will be considered else secondValue will be considered.
+a,b=20,10
+x=30 if a<b else 40
+print(x)
+
+a=int(input("Enter First Number:"))
+b=int(input("Enter Second Number:"))
+min=a if a<b else b
+print("Minimum Value:",min)
+
+#Nesting of ternary operator is possible
+a=int(input("Enter First Number:"))
+b=int(input("Enter Second Number:"))
+c=int(input("Enter Third Number:"))
+max=a if a>b and a>c else b if b>c else c
+print("Maximum Value:",max)
+
+a=int(input("Enter First Number:"))
+b=int(input("Enter Second Number:"))
+print("Both numbers are equal" if a==b else "First Number is Less than Second Number" if
+a<b else "First Number Greater than Second Number")
+
+'''
+We can use Membership operators to check whether the given object present in 
+the given collection.(It may be String,List,Set,Tuple or Dict)
+
+in ➔ Returns True if the given object present in the specified Collection
+not in ➔ Returns True if the given object not present in the specified Collection
+'''
+
+x="hello learning Python is very easy!!!"
+print('h' in x)
+print('d' in x)
+
+'''
+A Module(Java=>Packages) is collection of functions, variables and classes etc.
+math is a module that contains several functions to perform mathematical 
+operations If we want to use any module in Python, first we have to import that module.
+Once we import a module then we can call any function of that module.
+'''
+import math
+print(math.sqrt(16))
+print(math.pi)
+
+print("JAVA" + "                  " + "ANDROID")
+
+#setting the alias for math module
+import math as m
+print(m.sqrt(81))
+print(m.pi)
+
+'''
+We can import a particular member of a module explicitly 
+If we import a member explicitly then it is not required to use module name while accessing.
+'''
+from math import sqrt,pi
+print(sqrt(16))
+print(pi)
+
+#eval(EVALUATE) Function take a String and evaluate the Result.
+x = eval("10+20+30")
+print(x)
+
+
+====================================================================================
+#By default output values are seperated by space.
+#If we want we can specify seperator by using "sep" attribute
+a,b,c=10,20,30
+print(a,b,c)
+print(a,b,c,sep=',')
+print(a,b,c,sep=':')
+
+#We can use break statement inside loops to break loop execution based on some condition.
+for i in range(10):
+    if i==7:
+         print("processing is enough..plz break")
+         break
+    print(i)
+
+#We can use continue statement to skip current iteration and continue next iteration.
+for i in range(10):
+    if i%2==0:
+         continue
+    print(i)
+
+cart=[10,20,500,700,50,60]
+for item in cart:
+    if item>=500:
+        print("We cannot process this item :",item)
+        continue
+    print(item)
+
+'''
+loops with else block:
+--Inside loop execution,if break statement not executed ,then only else part will be executed.
+--else means loop without break
+'''
+cart=[10,20,500,700,50,60]
+for item in cart:
+    if item>=500:
+        print("We cannot process this item :",item)
+        break
+    print(item)
+else:
+    print("Congrats ...all items processed successfully")
+
+'''
+While creating functions we can use 2 keywords
+1. def (mandatory)
+2. return (optional)
+'''
+
+def wish():
+    print("Good Day to All!")
+wish()#calling the function
+
+
+def squareIt(number1):
+    print("The Square of",number1,"is", number1*number1)
+squareIt(4)
+squareIt(5)
+#squareIt("devi")
+
+def add(x,y):
+    return x+y
+result=add(10,20)
+print("The sum is",result)
+print("The sum is",add(100,200))
+
+'''
+In other languages like C,C++ and Java, 
+function can return atmost one value. But in Python, a function can return ""any number of values""
+'''
+def sum_sub(a,b):
+    sum=a+b
+    sub=a-b
+    return sum,sub
+x,y=sum_sub(100,50)
+print("The Sum is :",x)
+print("The Subtraction is :",y)
+
+def calc(a,b):
+    sum=a+b
+    sub=a-b
+    mul=a*b
+    div=a/b
+    return sum,sub,mul,div
+t=calc(100,50)
+print(t)
+print("The Results are")
+for i in t:
+    print(i)
+========================================================================================
+
+#By default output values are seperated by space.
+
+#If we want we can specify seperator by using "sep" attribute
+
+a,b,c=10,20,30
+
+print(a,b,c)
+
+print(a,b,c,sep=',')
+
+print(a,b,c,sep=':')
+
+#We can use break statement inside loops to break loop execution based on some condition.
+
+for i in range(10):
+
+  if i==7:
+
+     print("processing is enough..plz break")
+
+     break
+
+  print(i)
+
+#We can use continue statement to skip current iteration and continue next iteration.
+
+for i in range(10):
+
+  if i%2==0:
+
+     continue
+
+  print(i)
+
+cart=[10,20,500,700,50,60]
+
+for item in cart:
+
+  if item>=500:
+
+    print("We cannot process this item :",item)
+
+    continue
+
+  print(item)
+
+'''
+
+loops with else block:
+
+--Inside loop execution,if break statement not executed ,then only else part will be executed.
+
+--else means loop without break
+
+'''
+
+cart=[10,20,500,700,50,60]
+
+for item in cart:
+
+  if item>=500:
+
+    print("We cannot process this item :",item)
+
+    break
+
+  print(item)
+
+else:
+
+  print("Congrats ...all items processed successfully")
+
+'''
+
+While creating functions we can use 2 keywords
+
+1. def (mandatory)
+
+2. return (optional)
+
+'''
+
+def wish():
+
+  print("Good Day to All!")
+
+wish()#calling the function
+
+def squareIt(number1):
+
+  print("The Square of",number1,"is", number1*number1)
+
+squareIt(4)
+
+squareIt(5)
+
+#squareIt("devi")
+
+def add(x,y):
+
+  return x+y
+
+result=add(10,20)
+
+print("The sum is",result)
+
+print("The sum is",add(100,200))
+
+'''
+
+In other languages like C,C++ and Java,
+
+function can return atmost one value. But in Python, a function can return ""any number of values""
+
+'''
+
+def sum_sub(a,b):
+
+  sum=a+b
+
+  sub=a-b
+
+  return sum,sub
+
+x,y=sum_sub(100,50)
+
+print("The Sum is :",x)
+
+print("The Subtraction is :",y)
+
+def calc(a,b):
+
+  sum=a+b
+
+  sub=a-b
+
+  mul=a*b
+
+  div=a/b
+
+  return sum,sub,mul,div
+
+t=calc(100,50)
+
+print(t)
+
+print("The Results are")
+
+for i in t:
+
+  print(i)
+
+'''
+
+slice means a piece
+
+[ ] operator is called slice operator,which can be used to retrieve parts of String.
+
+In Python Strings follows zero based index.
+
+The index can be either +ve or -ve.
+
++ve index means forward direction from Left to Right
+
+-ve index means backward direction from Right to Left
+
+'''
+
+s="Karpagavalli"
+
+print(s[0])
+
+print(s[4])
+
+print(s[-1])
+
+print(s[1:4])
+
+print(s[1:])
+
+print(s[:4])
+
+#s[bEginindex:endindex:step], The default value for step is 1
+
+print(s[1:7:3])
+
+print(len(s))
+
+print(s[::-1])#reversing a string
+
+'''
+
+Mathematical Operators for String:
+
++ operator for concatenation
+
+* operator for repetition
+
+1. To use + operator for Strings, compulsory both arguments should be str type
+
+2. To use * operator for Strings, compulsory one argument should be str and
+
+other argument should be int
+
+'''
+
+print("Angular"+"Framework")
+
+print("Angular"*2)
+
+'''
+
+1.rstrip()===>To remove spaces at right hand side
+
+2.lstrip()===>To remove spaces at left hand side
+
+3.strip() ==>To remove spaces both sides
+
+'''
+
+scity=input("Enter your city Name:")
+
+#scity=scity.strip()
+
+print(scity)
+
+sdata="Learning Python is very easy"
+
+print(sdata.find("Python"))#For forward direction:
+
+print(sdata.find("Java"))#For forward direction:not found(-1)
+
+print(sdata.find("r"))#For forward direction:
+
+print(sdata.rfind("r"))#For backward direction:
+
+'''
+
+By default find() method can search total string.We can also specify the boundaries to search.
+
+s.find(substring,bEgin,end)
+
+It will always search from bEgin index to end-1 index
+
+'''
+
+print(sdata.find('h',7,15))
+
+print(sdata.find('a',7,15))#RETURNS -1
+
+#index() method is exactly same as find() method except that if the
+
+# specified substring is not available then we will get ValueError.
+
+print(sdata.index('h',7,15))
+
+#print(sdata.index('a',7,15))#ValueERROR substring not found
+
+'''
+
+We can find the number of occurrences of substring present in the given string by using count() method.
+
+1. s.count(substring) ==> It will search through out the string
+
+2. s.count(substring, bEgin, end) ===> It will search from bEgin index to end-1 index
+
+'''
+
+s6="abcabcabcabcadda"
+
+print(s6.count('a'))
+
+print(s6.count('ab'))
+
+print(s6.count('a',3,7))
+
+'''
+
+Joining of Strings:
+
+We can join a group of strings(list or tuple) wrt the given seperator.
+
+s=seperator.join(group of strings)
+
+'''
+
+company=('ZOHO','CTS','FIS')
+
+print(company)
+
+print(type(company))
+
+sc='/'.join(company)
+
+print(sc)
+
+print(type(sc))
+
+'''
+
+1. upper()===>To convert all characters to upper case
+
+2. lower() ===>To convert all characters to lower case
+
+3. swapcase()===>converts all lower case characters to upper case and all upper case characters to lower case
+
+4. title() ===>To convert all character to title case. i.e first character
+
+in every word should be upper case and all remaining characters should be in lower case.
+
+5. capitalize() ==>Only first character will be converted to upper case and
+
+all remaining characters can be converted to lower case
+
+'''
+
+smsg='learning Python is very Easy'
+
+print(smsg.upper())
+
+print(smsg.lower())
+
+print(smsg.swapcase())
+
+print(smsg.title())
+
+print(smsg.capitalize())
+
+'''
+
+isalnum(): Returns True if all characters are alphanumeric( a to z , A to Z ,0 to 9 )
+
+2) isalpha(): Returns True if all characters are only alphabet symbols(a to z,A to Z)
+
+3) isdigit(): Returns True if all characters are digits only( 0 to 9)
+
+4) islower(): Returns True if all characters are lower case alphabet symbols
+
+5) isupper(): Returns True if all characters are upper case aplhabet symbols
+
+6) istitle(): Returns True if string is in title case
+
+7) isspace(): Returns True if string contains only spaces
+
+'''
+
+si=input("Enter any character:")#b
+
+if si.isalnum():
+
+  print("Alpha Numeric Character")
+
+  if si.isalpha():
+
+    print("Alphabet character")
+
+    if si.islower():
+
+      print("Lower case alphabet character")
+
+    else:
+
+      print("Upper case alphabet character")
+
+  else:
+
+    print("it is a digit")
+
+elif si.isspace():
+
+    print("It is space character")
+
+else:
+
+    print("Non Space Special Character")
+
+'''
+
+In Python,we can represent char values also by using str type and
+
+explicitly char type is not available.
+
+long Data Type is available in Python2 but not in Python3.
+
+In Python3 long values also we can represent by using int type only.
+
+'''
+
+c='a'
+
+print(type(c))
+
+
+
+#We can mix variable length arguments with positional arguments.
+
+#n1 is a mandatory argument,s is optional parameter
+
+def f1(n1,*s):
+
+  print(n1)
+
+  for s1 in s:
+
+    print(s1 ,"\t")
+
+  print()
+
+f1(10)#s is missing but it is valid!
+
+f1(10,20,30,40)
+
+f1(10,"A",30,"B")
+
+#f1()#invalid !n1 is missing mandatory parameter
+
+'''
+
+After variable length argument,if we are taking any other arguments
+
+then we should provide values as keyword arguments.
+
+'''
+
+def f1(*s,n1):
+
+  for s1 in s:
+
+    print(s1)
+
+  print(n1)
+
+f1("A","B",n1=10)
+
+#f1("A","B",10)#runtime error
+
+'''
+
+We can call this function by passing any number of keyword arguments.
+
+Internally these keyword arguments will be stored inside a dictionary.
+
+'''
+
+def display(**kwargs123):
+
+  for k,v in kwargs123.items():
+
+    print(k,"=",v,end=" ")
+
+display(n1=10,n2=20,n3=30)
+
+display(rno=100,name="Abi",marks=70,subject="Java")
+
+#display(34,3,423)#invalid
+
+'''
+
+Nested Functions:
+
+We can declare a function inside another function, such type of functions are called Nested functions.
+
+'''
+
+def outer():
+
+  print("outer function started")
+
+  def inner():
+
+    print("inner function execution")
+
+  print("outer function calling inner function")
+
+  inner()#inner function called within the scope of the outer function
+
+outer()
+
+#inner()#inner function cannot call outside of the outer function
+
+'''
+
+pass is a keyword in Python.
+
+In our programming syntactically if block is required
+
+which won't do anything then we can define that empty block with pass keyword.
+
+'''
+
+for i in range(10):
+
+  if i%2==0:
+
+    print(i)
+
+  else:pass
+
+for numb in range(1,5):
+
+  if numb==2:
+
+   pass
+
+  else:
+
+   print ("Present Number = {} ".format(numb))
+
+s = "ABCDKE"
+
+# Pass statement
+
+for i in s:
+
+  if i == 'K':
+
+    print('Pass executed')
+
+    pass
+
+  print(i)
+
+print()
+
+# Continue statement
+
+for i in s:
+
+  if i == 'K':
+
+    print('Continue executed')
+
+    continue
+
+  print(i)
+
+'''
+
+In the above example, when the value of i becomes equal to ‘k’, the pass statement did
+
+nothing and hence the letter ‘k’ is also printed. Whereas in the case of continue statement,
+
+the continue
+
+statement transfers the control to the beginning of the loop, hence the letter k is not printed.
+
+'''
+
+'''
+
+1.The continue statement is used to reject the remaining statements in the current iteration of
+
+the loop and moves the control back to the start of the loop.
+
+Pass Statement is used when a statement is required syntactically.
+
+2.It returns the control to the beginning of the loop.	When we execute the pass
+
+statements then nothing happens.
+
+3.It can be used with while loop and for loop.
+
+It is a null Operation.
+
+4.It is mainly used inside a condition in a loop.
+
+The pass statement is discarded during the byte-compile phase
+
+'''
+
+====================================================================================
+
+'''
+
+tuple data type is exactly same as list data type except that it is immutable.i.e we cannot change values.
+
+Tuple elements can be represented within parenthesis.
+
+tuple is the ""read only"" version of list
+
+If our data is fixed and never changes then we should go for Tuple.
+
+Insertion Order is preserved
+
+Duplicates are allowed
+
+Heterogeneous objects are allowed.
+
+We can represent Tuple elements within Parenthesis and with comma separator.
+
+ Parenthesis are optional but recommended to use.
+
+'''
+
+technologies=("Java","Python","Springboot","Oracle","MYSQL")
+
+print(type(technologies))
+
+print(technologies)
+
+print(len(technologies))
+
+list4=[10,20,30,40,50,60]#list type
+
+t1=tuple(list4)
+
+print("Converting List to tuple",t1)
+
+print(t1[-1])
+
+print(t1[::2])
+
+print(min(t1))#MIN VALUE OF TUPLE
+
+print(max(t1))#MAX VALUE OF TUPLE
+
+'''
+
+Tuple Packing and Unpacking:
+
+We can create a tuple by packing a group of variables.
+
+Tuple unpacking is the reverse process of tuple packing
+
+We can unpack a tuple and assign its values to different variables
+
+'''
+
+a6=10
+
+b6=20
+
+c6=30
+
+d6=40
+
+tx=a6,b6,c6,d6#By Default STORED IN THE FORM OF TUPLE
+
+print("Packing:: ",tx)
+
+print(type(tx))
+
+'''
+
+List and Tuple are exactly same except small difference:
+
+List objects are mutable,Square Brackets are mandatory where as Tuple objects are immutable.
+
+In both cases insertion order is preserved, duplicate objects are allowed,
+
+heterogeneous objects are allowed, index and slicing are supported.
+
+List Objects can not used as Keys for Dictionaries because Keys should be
+
+Hashable and Immutable.
+
+Tuple Objects can be used as Keys for Dictionaries because Keys should be
+
+Hashable and Immutable.
+
+'''
+
+#We can create a list of values with range data type
+
+i=list(range(10))
+
+print(i)
+
+'''
+
+set Data Type:
+
+If we want to represent a group of values without duplicates where order is not important
+
+then we should go for set Data Type.
+
+insertion order is not preserved
+
+2. duplicates are not allowed
+
+3. heterogeneous objects are allowed
+
+4. ***index and slice concept is not applicable
+
+5. **It is mutable collection
+
+6. Growable in nature
+
+7.We can represent set elements within curly braces and with comma separation
+
+'''
+
+flight={"Economyclass","Businessclass","Firstclass"}
+
+print(flight)#random order output
+
+print(type(flight))
+
+#print(flight[0])#TypeError: 'set' object does not support indexing
+
+flight.add("Premium Economy")
+
+#flight.add("Premium Economy")#duplicates not alllowed
+
+print(flight)
+
+sset={40,10,30,20}
+
+print(sset)
+
+print(sset.pop())
+
+print(sset)
+
+sset.remove(30)#If the specified element not present in the Set then we will get KeyError
+
+print(sset)
+
+sset.discard(300)#If the specified element not present in the set then we won't get any error.
+
+'''
+
+frozenset Data Type:
+
+It is exactly same as set except that it is immutable. Hence we cannot use add or remove functions.
+
+'''
+
+fs=frozenset(flight)
+
+print(fs)
+
+#fs.add("Premium Economy111")
+
+#'frozenset' object has no attribute 'add'
+
+#'frozenset' object has no attribute 'remove'
+
+print(type(fs))
+
+for i in fs:
+
+  print(i)
+
+===================================================================================
+
+order1.sort();
+
+print("After sort:: ",order1)
+
+'''
+
+pop() function:
+
+It removes and returns the last element of the list.
+
+This is only function which manipulates list and returns some element.
+
+If the list is empty then pop() function raises IndexError
+
+list,which follows LIFO(Last In First Out) order.
+
+'''
+
+n=[10,20,30,40,50,60]
+
+print(n.pop()) #60-->It returned removed element
+
+print(n.pop(1)) #20
+
+print("After POP:::",n)
+
+#The process of giving another reference variable to the existing list is called aliasing.
+
+'''
+
+The problem in this approach is by using one reference variable if we are changing content,
+
+then those changes will be reflected to the other reference variable.
+
+Shallow Copy or Shallow cloning in java!
+
+'''
+
+x6=[10,20,30,40]
+
+y6=x6
+
+y6[1]=777
+
+print(x6)
+
+print(y6)
+
+'''
+
+To overcome this problem we should go for cloning.
+
+The process of creating exactly duplicate independent object is called cloning.
+
+We can implement cloning by using slice operator or by using copy() function
+
+Deep copy and Deep cloning in java
+
+'''
+
+xq=[10,20,30,40]
+
+print(10 not in xq)
+
+y2=xq.copy()
+
+y2[1]=777
+
+print(xq)
+
+print(y2)
+
+xq.clear()
+
+print(xq)
+
+'''
+
+Nested Lists:
+
+Sometimes we can take one list inside another list. Such type of lists are called nested lists.
+
+'''
+
+nt=[10,20,[30,40]]
+
+print(nt)
+
+print(nt[0])
+
+print(nt[2])
+
+print(nt[2][0])
+
+print(nt[2][1])
+
+a = [1, 2, 3, 4, 5]
+
+# printing the list using * operator separated
+
+# by space
+
+print(*a)
+
+# printing the list using * and sep operator
+
+print("printing lists separated by commas")
+
+print(*a, sep=", ")
+
+# print in new line
+
+print("printing lists in new line")
+
+print(*a, sep="\n")
+
+para = "I am web Developer and SEO experts and web based application"
+
+print(para)
+
+position1 = (para.find("web"))#first occurence of web
+
+print(position1)
+
+position2 = (para.find("web",position1+1))#second occurence of web
+
+print (position2)
+
+print (para[position2: ])#begin index is 39
+
+print (para[39: ])#begin index is 39
+
+'''
+
+del is a keyword in Python.
+
+After using a variable, it is highly recommended to delete that variable if it is no longer required,
+
+so that the corresponding object is eligible for Garbage Collection.
+
+We can delete variable by using del keyword.
+
+After deleting a variable we cannot access that variable otherwise we will get NameError.
+
+'''
+
+u1=100
+
+print(u1)
+
+del u1
+
+#print(u1) #NameError: name 'u1' is not defined.
+
+f="Java"
+
+del f
+
+f="J2EE"
+
+print(f)
+
+'''
+
+But in the case of None assignment the variable won't be removed but the corresponding object is
+
+eligible for Garbage Collection(re bind operation).
+
+Hence after assigning with None value,we can access that variable.
+
+'''
+
+s1="Android"
+
+s1=None#null keyword
+
+print(s1)
+
+s1="Groovy"
+
+print(s1)
+
+#Here the order of arguments is not important but number of arguments must be matched.
+
+#We can pass argument values by keyword i.e by parameter name.
+
+def wish(name,msg):
+
+  print("Hello",name,msg)
+
+wish('Devi','Good day')#positional argument
+
+wish(name="Thananya",msg="Good Morning")#keyword argument
+
+wish(msg="Good Morning",name="Abi")
+
+'''
+
+We can use both positional and keyword arguments simultaneously. But first we have to take positional
+
+arguments and then
+
+keyword arguments,otherwise we will get syntaxerror.
+
+'''
+
+wish("Kanishka",msg="GoodMorning")#vallid, first positional argument then keyword argument is correct
+
+#wish(name="Priya","Good day")# invalid positional argument follows keyword argument
+
+#After default arguments we should not take non default arguments
+
+def wish1(name1="Guest"):
+
+  print("Hello",name1,"Good Morning")
+
+wish1("Abi")
+
+wish1()
+
+#def wish1(name="Guest",msg):#invalid
+
+#def wish1(name,msg="Good")#valid
+
+'''
+
+Sometimes we can pass variable number of arguments to our function,such type of arguments are called
+
+variable length arguments.
+
+We can declare a variable length argument with * symbol
+
+'''
+
+def sum(*n):
+
+  total=0
+
+  for n1 in n:
+
+    total=total+n1
+
+  print("The Sum=",total)
+
+sum()#zero arguments
+
+sum(1,2,3)
+
+sum(10,20,30,3,4,4,434,34,3,4,34)
+
+
+'''
+
+dict Data Type:
+
+Similar to Map interface in java!
+
+If we want to represent a group of values as key-value pairs then we should go for dict data type.
+
+Duplicate keys are not allowed but values can be duplicated.
+
+If we are trying to insert an entry with duplicate key then old value will be replaced with new value.
+
+dict is mutable and the order wont be preserved.
+
+indexing and slicing concepts are not applicable
+
+In C++ and Java Dictionaries are known as "Map" where as in Perl and Ruby it is known as "Hash"
+
+'''
+
+car={
+
+  "brand":"Skoda",
+
+  "model":"RapidTSI",
+
+  "fueltype":"Petrol",
+
+  "transmission":"Manual and Automatic",
+
+  "mileage":"18.97kmpl"
+
+}
+
+print(car)
+
+print(type(car))
+
+print(car.get("mileage"))#passing key
+
+print(car["mileage"])#passing key
+
+car["mileage"]="20.97kmpl"# dict is mutable so updated the key and value
+
+print(car)
+
+#We can create empty dictionary
+
+vehicle={}
+
+print(type(vehicle))
+
+vehicle["model1"]="Yamaha Fascino"
+
+vehicle["model2"]="TVS Jupiter"
+
+vehicle["model3"]="Honda Dio"
+
+print(type(vehicle))
+
+print(vehicle)#3 keys & values
+
+#print keys
+
+for x in vehicle:
+
+ print("Keys:: ",x)
+
+#print values
+
+for x in vehicle:
+
+ print("Values:: ",vehicle[x])
+
+for x in vehicle.values():
+
+ print("Values:: ",x)
+
+#Loop through both keys and values
+
+for x,y in vehicle.items():
+
+ print("Keys & Values:: ",x,y)
+
+print(vehicle.pop("model1"))
+
+print(vehicle)
+
+#It removes an arbitrary item(key-value) from the dictionaty and returns it.
+
+print(vehicle.popitem())
+
+print(vehicle)
+
+rec={}#empty dict
+
+n5=int(input("Enter number of students: "))
+
+i2=1
+
+while i2 <=n5:
+
+  name=input("Enter Student Name: ")
+
+  marks=input("Enter % of Marks: ")
+
+  rec[name]=marks#name is a key,marks is a value
+
+  i2=i2+1
+
+print("Name of Student","\t","% of marks")
+
+for xobj in rec:
+
+  print("\t",xobj,"\t\t",rec[xobj])
+
+import datetime
+
+#datetime formatting
+
+dateobj=datetime.datetime.now()
+
+print(dateobj)
+
+print("It's now:{:%d/%m/%Y %H:%M:%S}".format(dateobj))
+
+'''
+
+%i====>int
+
+%d====>int
+
+%f=====>float
+
+%s======>String type
+
+'''
+
+a=100
+
+s="Java"
+
+list5=[100,200,300]
+
+print("%i"%a)
+
+print("%s %s"%(s,list5))
+
+#print() with replacement operator {}
+
+name="Thananya"
+
+salary=500000
+
+dept="Testing"
+
+print("Eno:: {} Salary:: {} Dept:: {} ".format(name,salary,dept))
+
+print("Eno:: {0} Salary:: {1} Dept:: {2} ".format(name,salary,dept))
+
+print("Eno:: {x} Salary:: {y} Dept:: {z} ".format(x=name,y=salary,z=dept))
+
+#p12 is alias name of dictionary
+
+person={'age':4,'name':'Thananya'}
+
+print("{p12[name]} age is: {p12[age]}".format(p12=person))
+
+print("{name}'s age is: {age}".format(**person))
+
+'''
+
+Formatting Numbers::
+
+d--->Decimal IntEger
+
+f----->Fixed point number(float).The default precision is 6
+
+b-->Binary format
+
+o--->Octal Format
+
+x-->Hexa Decimal Format(Lower case)
+
+X-->Hexa Decimal Format(Upper case)
+
+'''
+
+print("The integer number is: {}".format(123))
+
+print("The integer number is: {:d}".format(123))
+
+print("The integer number is: {:5d}".format(123))
+
+print("The integer number is: {:05d}".format(123))
+
+print("The float number is: {:08.3f}".format(123.4567))
+
+print("The float number is: {:08.3f}".format(123.45))
+
+#[10,20,30,40]
+
+#{10,20,30,40}
+
+#(65,87)
+
+list=eval(input("Enter List or Set or tuple:"))
+
+print(list)
+
+sum=0
+
+for x in list:
+
+  sum=sum+x;
+
+print("The Sum=",sum)
+
+'''
+
+Python supports 2 types of variables.
+
+1. Global Variables
+
+2. Local Variables
+
+
+
+The variables which are declared outside of function are called global variables.
+
+These variables can be accessed in all functions of that module.
+
+Local Variables:
+
+The variables which are declared inside a function are called local variables.
+
+'''
+
+print()
+
+a=10# global variable
+
+def f1():
+
+  a1=100#local variable
+
+  print(a)
+
+  print(a1)
+
+def f2():
+
+  print(a)
+
+  #print(a1)#invalid
+
+f1()
+
+f2()
+
+'''
+
+Global keyword is a keyword that allows a user to modify a variable outside of the current scope.
+
+It is used to create global variables from a non-global scope i.e inside a function.
+
+Global keyword is used inside a function only
+
+when we want to do assignments or when we want to change a variable
+
+'''
+
+a=10
+
+def f1():
+
+  global a
+
+  a=777
+
+  print(a)#777
+
+def f2():
+
+  print(a)#777
+
+f1()
+
+f2()
+
+a=1000 #global variable
+
+def f1():
+
+  a=999 #local variable
+
+  print(a)#999
+
+  print(globals()['a'])#1000
+
+f1()
+
+#Exception handling:::Normal termination/Graceful Termination
+
+'''
+
+Every Exception in Python is a class.
+
+All exception classes are child classes of BaseException.i.e every exception class extends
+
+BaseException either directly or indirectly.
+
+Hence BaseException acts as root for Python Exception Hierarchy.
+
+'''
+
+print("Exception Handling")
+
+try:
+
+  print(10/0)
+
+except ZeroDivisionError:#no catch keyword in python
+
+  print("Inside Except block:: ArithmeticException")
+
+  print(10/2)
+
+print("Program Continue!Done!")
+
+try:
+
+  print(10/0)
+
+except ZeroDivisionError as msg:
+
+  print("exception raised and its description is:",msg)#toString()
+
+
+'''
+
+If try with multiple except blocks available then the order of these except blocks is important .
+
+Python interpreter will always consider from top to bottom until matched except block identified.
+
+'''
+
+try:
+
+  x=int(input("Enter First Number: "))
+
+  y=int(input("Enter Second Number: "))
+
+  print(x/y)
+
+except ZeroDivisionError:
+
+  print("Can't Divide with Zero")
+
+except ValueError:
+
+  print("please provide int value only")
+
+print("Over!")
+
+#Single except block that can handle multiple exceptions:
+
+try:
+
+  x = int(input("Enter First Number: " ))
+
+  y = int(input("Enter First Number: " ))
+
+  print(x/y)
+
+except(ZeroDivisionError,ValueError) as msg:
+
+  print("Plz Provide valid numbers only and problem is: ",msg)
+
+print("Finished!")
+
+'''
+
+We can use default except block to handle any type of exceptions.
+
+In default except block generally we can print normal error messages.
+
+'''
+
+'''
+
+If try with multiple except blocks available then default except block
+
+should be last,otherwise we will get SyntaxError.
+
+'''
+
+try:
+
+  x=int(input("Enter First Number: "))
+
+  y=int(input("Enter Second Number: "))
+
+  print(x/y)
+
+except ZeroDivisionError:
+
+  print("ZeroDivisionError:Can't divide with zero")
+
+except:
+
+  print("Default Except:Plz provide valid input only")
+
+'''
+
+finally block:
+
+1. It is not recommended to maintain clean up code(Resource Deallocating Code or Resource Releasing code)
+
+ inside try block because there is no guarantee for the execution of every statement inside try block always.
+
+2. It is not recommended to maintain clean up code inside except block, because if there is no exception
+
+then except block won't be executed.
+
+Hence we required some place to maintain clean up code which should be executed always irrespective
+
+of whether exception raised or not raised and whether exception handled or not handled.
+
+Such type of best place is nothing but finally block.
+
+Hence the main purpose of finally block is to maintain clean up code.
+
+try:
+
+  Risky Code
+
+except:
+
+  Handling Code
+
+finally:
+
+  Cleanup code
+
+The speciality of finally block is it will be executed always whether exception
+
+raised or not raised and whether exception handled or not handled.
+
+'''
+
+#If there is no exception
+
+try:
+
+  print("try")
+
+except:
+
+  print("except")
+
+finally:
+
+  print("finally")
+
+#If there is an exception raised but handled:
+
+try:
+
+  print("try")
+
+  print(10/0)
+
+except ZeroDivisionError:
+
+  print("except")
+
+finally:
+
+  print("finally")
+
+'''
+
+We can take try-except-finally blocks inside try or except or finally blocks.
+
+i.e nesting of try- except-finally is possible.
+
+General Risky code we have to take inside outer try block and too much risky code we have to take
+
+inside inner try block. Inside Inner try block if an exception raised then inner
+
+except block is responsible to handle. If it is unable to handle then outer except block is
+
+responsible to handle.
+
+'''
+
+try:
+
+  print("outer try block")
+
+  try:
+
+    print("Inner try block")
+
+    print(10/0)
+
+  except ZeroDivisionError:
+
+    print("Inner except block")
+
+  finally:
+
+    print("Inner finally block")
+
+except:
+
+  print("outer except block")
+
+finally:
+
+  print("outer finally block")
+
+import calendar
+
+# To take month and year input from the user
+
+yy = int(input("Enter year: "))
+
+mm = int(input("Enter month: "))
+
+# display the calendar
+
+print(calendar.month(yy, mm))
+
+print ("The calendar of year 2022 is : ")
+
+print (calendar.calendar(2022))
+
+'''
+
+w: This parameter controls the space between the columns in each month of the printed year.
+
+l: This parameter decides the spacing between the rows in each month of the printed year.
+
+This is a very sensitive parameter, optimal value is 1, increasing it can make the appearance
+
+of the calendar hard to read.
+
+c: Spacing between the columns of the whole calendar is decided by this parameter.
+
+m: By changing this parameter, you can change how many months are going to be in each row of the calendar.
+
+In our example, we chose the value equal to 6.
+
+'''
+
+ycalendar=calendar.calendar(2022,w=2,l=1,c=10,m=6)
+
+print(ycalendar)
+
+import time
+
+named_tuple = time.localtime() # get struct_time
+
+print(named_tuple)
+
+#The strftime() function is used to convert date and time objects to their string representation.
+
+time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
+
+print(time_string)
+
+'''
+
+D:\c\python-3.6.1-embed-win32\python.exe C:/Users/dhaya/PycharmProjects/HexaSep2022/SamplePrograms5.py
+
+Enter First Number: 2
+
+Enter Second Number: 2
+
+1.0
+
+Over!
+
+Enter First Number: 2
+
+Enter First Number: 2
+
+1.0
+
+Finished!
+
+Enter First Number: 22
+
+Enter Second Number: 2
+
+11.0
+
+try
+
+finally
+
+try
+
+except
+
+finally
+
+outer try block
+
+Inner try block
+
+Inner except block
+
+Inner finally block
+
+outer finally block
+
+Enter year: 2
+
+Enter month: 2
+
+   February 2
+
+Mo Tu We Th Fr Sa Su
+
+       1 2 3
+
+ 4 5 6 7 8 9 10
+
+11 12 13 14 15 16 17
+
+18 19 20 21 22 23 24
+
+25 26 27 28
+
+The calendar of year 2022 is :
+
+                 2022
+
+   January February March
+
+Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
+
+        1 2 1 2 3 4 5 6 1 2 3 4 5 6
+
+ 3 4 5 6 7 8 9 7 8 9 10 11 12 13 7 8 9 10 11 12 13
+
+10 11 12 13 14 15 16 14 15 16 17 18 19 20 14 15 16 17 18 19 20
+
+17 18 19 20 21 22 23 21 22 23 24 25 26 27 21 22 23 24 25 26 27
+
+24 25 26 27 28 29 30 28 28 29 30 31
+
+31
+
+    April May June
+
+Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
+
+       1 2 3 1 1 2 3 4 5
+
+ 4 5 6 7 8 9 10 2 3 4 5 6 7 8 6 7 8 9 10 11 12
+
+11 12 13 14 15 16 17 9 10 11 12 13 14 15 13 14 15 16 17 18 19
+
+18 19 20 21 22 23 24 16 17 18 19 20 21 22 20 21 22 23 24 25 26
+
+25 26 27 28 29 30 23 24 25 26 27 28 29 27 28 29 30
+
+             30 31
+
+    July August September
+
+Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
+
+       1 2 3 1 2 3 4 5 6 7 1 2 3 4
+
+ 4 5 6 7 8 9 10 8 9 10 11 12 13 14 5 6 7 8 9 10 11
+
+11 12 13 14 15 16 17 15 16 17 18 19 20 21 12 13 14 15 16 17 18
+
+18 19 20 21 22 23 24 22 23 24 25 26 27 28 19 20 21 22 23 24 25
+
+25 26 27 28 29 30 31 29 30 31 26 27 28 29 30
+
+   October November December
+
+Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
+
+        1 2 1 2 3 4 5 6 1 2 3 4
+
+ 3 4 5 6 7 8 9 7 8 9 10 11 12 13 5 6 7 8 9 10 11
+
+10 11 12 13 14 15 16 14 15 16 17 18 19 20 12 13 14 15 16 17 18
+
+17 18 19 20 21 22 23 21 22 23 24 25 26 27 19 20 21 22 23 24 25
+
+24 25 26 27 28 29 30 28 29 30 26 27 28 29 30 31
+
+31
+
+                                          2022
+
+   January February March April May June
+
+Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
+
+        1 2 1 2 3 4 5 6 1 2 3 4 5 6 1 2 3 1 1 2 3 4 5
+
+ 3 4 5 6 7 8 9 7 8 9 10 11 12 13 7 8 9 10 11 12 13 4 5 6 7 8 9 10 2 3 4 5 6 7 8 6 7 8 9 10 11 12
+
+10 11 12 13 14 15 16 14 15 16 17 18 19 20 14 15 16 17 18 19 20 11 12 13 14 15 16 17 9 10 11 12 13 14 15 13 14 15 16 17 18 19
+
+17 18 19 20 21 22 23 21 22 23 24 25 26 27 21 22 23 24 25 26 27 18 19 20 21 22 23 24 16 17 18 19 20 21 22 20 21 22 23 24 25 26
+
+24 25 26 27 28 29 30 28 28 29 30 31 25 26 27 28 29 30 23 24 25 26 27 28 29 27 28 29 30
+
+31 30 31
+
+    July August September October November December
+
+Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
+
+       1 2 3 1 2 3 4 5 6 7 1 2 3 4 1 2 1 2 3 4 5 6 1 2 3 4
+
+ 4 5 6 7 8 9 10 8 9 10 11 12 13 14 5 6 7 8 9 10 11 3 4 5 6 7 8 9 7 8 9 10 11 12 13 5 6 7 8 9 10 11
+
+11 12 13 14 15 16 17 15 16 17 18 19 20 21 12 13 14 15 16 17 18 10 11 12 13 14 15 16 14 15 16 17 18 19 20 12 13 14 15 16 17 18
+
+18 19 20 21 22 23 24 22 23 24 25 26 27 28 19 20 21 22 23 24 25 17 18 19 20 21 22 23 21 22 23 24 25 26 27 19 20 21 22 23 24 25
+
+25 26 27 28 29 30 31 29 30 31 26 27 28 29 30 24 25 26 27 28 29 30 28 29 30 26 27 28 29 30 31
+
+                                             31
+
+time.struct_time(tm_year=2022, tm_mon=10, tm_mday=6, tm_hour=12, tm_min=51, tm_sec=19, tm_wday=3, tm_yday=279, tm_isdst=0)
+
+10/06/2022, 12:51:19
+
+Process finished with exit code 0
+
+'''
+
+==================================================================================================
+
+'''
+
+Write a program to accept student name and marks from the keyboard and creates a dictionary.
+
+Also display student marks by taking student name as input?
+
+'''
+
+n=int(input("Enter the number of students"))
+
+d={}
+
+for i in range(n):
+
+  name=input("Enter Student name::")
+
+  marks = input("Enter Student marks::")
+
+  d[name]=marks
+
+while True:
+
+  name=input("Enter Student Name to get marks::")
+
+  marks=d.get(name,-1)
+
+  if marks==-1:
+
+    print("Student Not found!")
+
+  else:
+
+    print("The marks of " ,name, " are ",marks)
+
+  option=input("Do u want to find another student marks[Yes][No]")
+
+  if option=="No":
+
+    break
+
+print("Thanks!")
+
+'''
+
+D:\c\python-3.6.1-embed-win32\python.exe C:/Users/dhaya/PycharmProjects/HexaSep2022/SamplePrograms6.py
+
+Enter the number of students4
+
+Enter Student name::Devi
+
+Enter Student marks::100
+
+Enter Student name::Abi
+
+Enter Student marks::90
+
+Enter Student name::Kanishka
+
+Enter Student marks::99
+
+Enter Student name::Thananya
+
+Enter Student marks::100
+
+Enter Student Name to get marks::Abi
+
+The marks of Abi are 90
+
+Do u want to find another student marks[Yes][No]Yes
+
+Enter Student Name to get marks::Ka
+
+Student Not found!
+
+Do u want to find another student marks[Yes][No]Yes
+
+Enter Student Name to get marks::Kanishka
+
+The marks of Kanishka are 99
+
+Do u want to find another student marks[Yes][No]Yes
+
+Enter Student Name to get marks::Devi
+
+The marks of Devi are 100
+
+Do u want to find another student marks[Yes][No]No
+
+Thanks!
+
+Process finished with exit code 0
+
+'''
+
+============================================================================================
+
+'''
+A class is a user-defined blueprint or prototype from which objects are created.
+Classes provide a means of bundling data and functionality together.
+Class creates a user-defined data structure, which holds its own data members and member functions,
+which can be accessed and used by creating an instance of that class.
+A class is like a blueprint for an object.
+A single class may have any number of instances.
+'''
+'''
+Self variable:
+self is the default variable which is always pointing to current object (like this keyword in Java)
+By using self we can access instance variables and instance methods of object.
+Note:
+1. self should be first parameter inside constructor
+2. self should be first parameter inside instance methods
+'''
+
+class Student:
+    # def disp():#invalid
+    def disp(self):
+        print("Success!")
+s11=Student()#no new keyword
+s11.disp()
+
+'''
+Constructor is a special method in python.
+☕ The name of the constructor should be __init__ (self)
+☕ Constructor will be executed automatically at the time of object creation.
+☕ The main purpose of constructor is to declare and initialize instance variables.
+☕ Per object constructor will be executed only once.
+☕ Constructor can take atleast one argument(atleast self)
+☕ Constructor is optional and if we are not providing any constructor then 
+python will provide default constructor.
+
+'''
+'''
+We can declare instance variables inside a constructor by using self keyword. 
+Once we creates object, automatically these variables will be added to the object.
+'''
+'''
+There are 3 types of variables are allowed.
+1. Instance Variables (Object Level Variables) and Instance Methods
+2. Static Variables (Class Level Variables) and Static Methods
+3. Local variables (Method Level Variables) and Local Methods
+'''
+
+class Student1:
+    # name and age is a instance variable
+    # name12 and age12 is a local variable of constructor
+    def __init__(self, name12, age12):# parameterized constructor
+        print("Constructor Executed")
+        self.name = name12
+        self.age = age12
+    def displayInfo(self):  # class method
+        print('Student Name: ', self.name, ', Age: ', self.age)
+        print("Student Name:{}\nAge:{} ".format(self.name, self.age))
+
+std = Student1('Abi', 25)
+std.displayInfo()
+std1 = Student1('Thananya', 21)
+std1.displayInfo()
+'''
+Class and Static Variable
+✓ Class or static variables are shared by all objects.
+✓ Instance or non-static variables are different for different objects
+✓ Static keyword is not required to be mentioned.
+✓ All variables which are assigned a value in class declaration are class variables.
+✓ And variables which are assigned values inside methods are instance variables.
+'''
+class Vendor:
+    #class variable or static variable(access everywhere)!
+    tollfreeno="453-3453-453"
+    def __init__(self):#default constructor
+        #instance variable(object is mandatory)
+        self.vendorname="Dell"
+        self.location="Chennai"
+m1=Vendor()
+m2=Vendor()
+m3=Vendor();
+print(m1.vendorname,m1.location,m1.tollfreeno)
+print(m2.vendorname,m2.location,m2.tollfreeno)
+print(m3.vendorname,m3.location,m3.tollfreeno)
+m1.vendorname="ZOHO"
+Vendor.tollfreeno="525-53-56"#static variable
+print(m1.vendorname,m1.location,m1.tollfreeno)
+print(m2.vendorname,m2.location,m2.tollfreeno)
+print(m3.vendorname,m3.location,m3.tollfreeno)
+
+# Class/Static variables can be accessed using class name
+print(Vendor.tollfreeno)
+#print(Vendor.vendorname)#invalid! Outside the function, instance variable cannt be accessible!
+
+import sys
+class Customer:
+    ''''' Customer class with bank operations.. '''
+    bankname='XYZBANK'#static variable or class variable
+    def __init__(self,name,balance=0.0):
+        self.name=name
+        self.balance=balance
+    def deposit(self,amt):#adding the amount
+        self.balance=self.balance+amt
+        print('Balance after deposit:',self.balance)
+    def withdraw(self,amt):#subtracting the amount
+        if amt>self.balance:
+            print('Insufficient Funds..cannot perform this operation')
+            sys.exit()
+        self.balance=self.balance-amt
+        print('Balance after withdraw:',self.balance)
+print('Welcome to',Customer.bankname)
+name=input('Enter Your Name:')
+c=Customer(name)#Object creation of Customer Class
+while True:
+    print('d-Deposit \nw-Withdraw \ne-exit')
+    option=input('Choose your option:')
+    if option=='d' or option=='D':
+        amt=float(input('Enter amount:'))
+        c.deposit(amt)
+    elif option=='w' or option=='W':
+        amt=float(input('Enter amount:'))
+        c.withdraw(amt)
+    elif option=='e' or option=='E':
+        print('Thanks for Banking')
+        sys.exit()
+    else:
+        print('Invalid option..Plz choose valid option')
+
+'''
+D:\c\python-3.6.1-embed-win32\python.exe C:/Users/dhaya/PycharmProjects/HexaSep2022/OOPSDemos1.py
+Success!
+Constructor Executed
+Student Name:  Abi , Age:  25
+Student Name:Abi
+Age:25 
+Constructor Executed
+Student Name:  Thananya , Age:  21
+Student Name:Thananya
+Age:21 
+Dell Chennai 453-3453-453
+Dell Chennai 453-3453-453
+Dell Chennai 453-3453-453
+ZOHO Chennai 525-53-56
+Dell Chennai 525-53-56
+Dell Chennai 525-53-56
+525-53-56
+Welcome to XYZBANK
+Enter Your Name:Devi
+d-Deposit 
+w-Withdraw 
+e-exit
+Choose your option:d
+Enter amount:10000
+Balance after deposit: 10000.0
+d-Deposit 
+w-Withdraw 
+e-exit
+Choose your option:d
+Enter amount:10000
+Balance after deposit: 20000.0
+d-Deposit 
+w-Withdraw 
+e-exit
+Choose your option:w
+Enter amount:9000
+Balance after withdraw: 11000.0
+d-Deposit 
+w-Withdraw 
+e-exit
+Choose your option:w
+Enter amount:2000
+Balance after withdraw: 9000.0
+d-Deposit 
+w-Withdraw 
+e-exit
+Choose your option:t
+Invalid option..Plz choose valid option
+d-Deposit 
+w-Withdraw 
+e-exit
+Choose your option:e
+Thanks for Banking
+
+Process finished with exit code 0
+
+'''
+============================================
+#advantages of inheritance(is a relationship): reusability of the code
+'''
+Inheritance is unidirectional! NO BI-DIRECTIONAL!
+class Building
+{
+}
+class office extends Building
+{
+}
+class School extends Building
+{
+}
+class House extends Building
+{
+}
+'''
+#single inheritance
+class P:#parent class
+    def m1(self):
+        print("Parent Method")
+class C(P):#child class
+    def m2(self):
+        print("Child Method")
+cobj=C()
+cobj.m1()#parent class method
+cobj.m2()#sub class method
+
+#multi level inheritance
+class P:
+    def m1(self):
+        print("Parent Method")
+class C(P):# Class C inherits Class P
+    def m2(self):
+        print("Child Method")
+class CC(C):# Class CC inherits another derived class called C
+    def m3(self):
+         print("Sub Child Method")
+c=CC()
+c.m1()
+c.m2()
+c.m3()
+
+#MULTIPLE INHERITANCE
+class P1:
+    def m1(self):
+        print("Parent1 Method")
+class P2:
+    def m2(self):
+        print("Parent2 Method")
+class C(P1,P2):
+    def m3(self):
+        print("Child2 Method")
+c=C()
+c.m1()
+c.m2()
+c.m3()
+
+#The main advantage of Has-A Relationship is Code Reusability.
+class Engine:
+    a=10
+    def __init__(self):#DEFAULT CONSTRUCTOR
+        self.b=20
+    def m1(self):
+         print('Engine Specific Functionality')
+class Car:
+    def __init__(self):#DEFAULT CONSTRUCTOR
+        self.engine12=Engine()#creating object for Engine class!
+    def m2(self):
+        print('Car using Engine Class Functionality')
+        print(self.engine12.a)
+        print(self.engine12.b)
+        self.engine12.m1()
+c=Car()
+c.m2()
+
+class Person:
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+    def eatndrink(self):
+        print('Eat Healthy Snacks')
+class Employee(Person): #inheritance Person is a parent class, Employee is a sub class
+    def __init__(self,name,age,eno,esal):
+        super(). __init__(name,age) #calling base class para constructor
+        self.eno=eno
+        self.esal=esal
+    def work(self):
+        print("Coding Python is very easy!")
+    def empinfo(self):
+        print("Employee Name:",self.name)
+        print("Employee Age:",self.age)
+        print("Employee Number:",self.eno)
+        print("Employee Salary:",self.esal)
+e=Employee('Thananya', 22, 1001, 890000)
+e.eatndrink()#calling parent class method
+e.work()#calling child class method
+e.empinfo()#calling child class method
+
+#From Overriding method of child class,we can call parent class method also by using super() method.
+
+class P:
+    def addemp(self):
+        print('Employee Added')
+    def disemp(self):
+        print('Employee Displayed')
+class C(P):
+    def disemp(self):#method overriding(SAME METHOD NAME AND SAME METHOD SIGNATURE EXISTS IN PARENT AND DERIVED CLASS)
+        super().disemp()#preventing method overriding
+        #disemp(); #invallid
+        print("Employee Selected!")
+c = C()
+c.addemp()
+c.disemp()
+'''
+
+
+Parent Method
+Child Method
+Parent Method
+Child Method
+Sub Child Method
+Parent1 Method
+Parent2 Method
+Child2 Method
+Car using Engine Class Functionality
+10
+20
+Engine Specific Functionality
+Eat Healthy Snacks
+Coding Python is very easy!
+Employee Name: Thananya
+Employee Age: 22
+Employee Number: 1001
+Employee Salary: 890000
+Employee Added
+Employee Displayed
+Employee Selected!
+'''
+================================================================================
+'''
+Inner classes:
+Sometimes we can declare a class inside another class,such type of classes are called inner classes.
+Without existing one type of object if there is no chance of existing another type of object,
+then we should go for inner classes.
+Example: Without existing Car object there is no chance of existing Engine object.
+Hence Engine class should be part of Car class.
+class Car:
+.....
+class Engine:
+......
+Example: Without existing university object there is no chance of existing
+Department object class University:
+.....
+class Department:
+......
+eg3:
+Without existing Human there is no chance of existing Head. Hence Head should be part of Human.
+class Human: class Head:
+Note: Without existing outer class object there is no chance of existing inner class object.
+Hence inner class object is always associated with outer class object.
+'''
+class Outer:
+    def __init__(self):
+        print("outer class object creation")
+    class Inner:
+        def __init__(self):
+            print("inner class object creation")
+        def m1(self):
+            print("inner class method")
+outerobj=Outer()#OUTER CLASS OBJECT
+#i=Inner();#Inner class object cannot be stand alone
+i=outerobj.Inner()#INNER CLASS OBJECT
+i.m1()
+
+class Person:#outer class
+    def __init__(self):
+        self.name='durga'
+        self.dbobj=self.Dob()#innerclass object creation in outer class AREA!
+    def display(self):
+        print('Name:',self.name)
+    class Dob:#inner class
+        def __init__(self):
+            self.dd=10
+            self.mm=5
+            self.yy=1947
+        def display(self):
+            print('Dob={}/{}/{}'.format(self.dd,self.mm,self.yy))
+pobj=Person()#OUTER CLASS OBJECT
+pobj.display()
+x=pobj.dbobj
+x.display()#INNER CLASS METHOD
+
+'''
+How to Define and Raise Customized Exceptions:
+Every exception in Python is a class that extends Exception class either directly or indirectly.
+We can raise exception by using raise keyword
+'''
+class TooHighException(Exception):
+    pass
+class TooLowException(Exception):
+    pass
+try:
+        salary=int(input("Enter salary::"))
+        if salary>100000:
+            raise TooHighException #raising user defined exception
+        elif salary<100000:
+            raise TooLowException #raising user defined exception
+except TooHighException:
+        print("Salary Range is Good!")
+        print()
+except TooLowException:
+        print("Salary Range is Low!")
+        print()
+print("Done!")
+===================================================================================
+'''
+There are 2 types of files
+1. Text Files:
+Usually we can use text files to store character data eg: abc.txt
+2. Binary Files:
+Usually we can use binary files to store binary data like images,video files, audio files etc...
+The allowed modes in Python are
+1. r → open an existing file for read operation. The file pointer is positioned at the beginning of the file.
+If the specified file does not exist then we will get FileNotFoundError.This is default mode.
+2. w → open an existing file for write operation. If the file already contains some data then it will be
+overridden. If the specified file is not already avaialble then this mode will create that file.
+3. a → open an existing file for append operation. It won't override existing data.If the specified file is not
+ already available then this mode will create a new file.
+4. r+ → To read and write data into the file. The previous data in the file will not be deleted.The file pointer
+is placed at the beginning of the file.
+5. w+ → To write and read data. It will override existing data.
+6. a+ → To append and read data from the file.It wont override existing data.
+7. x → To open a file in exclusive creation mode for write operation. If the file already exists then
+ we will get FileExistsError.
+Note: All the above modes are applicable for text files.
+If the above modes suffixed with 'b' then these represents for binary files.
+Eg: rb,wb,ab,r+b,w+b,a+b,xb
+f = open(filename, mode)
+
+Various properties of File Object:
+Once we opened a file and we got file object,we can get various details related to that file by using its properties.
+name → Name of opened file
+mode → Mode in which the file is opened
+closed → Returns boolean value indicates that file is closed or not
+readable()→ Returns boolean value indicates that whether file is readable or not writable()→ Returns boolean value indicates that whether file is writable or not.
+'''
+#f=open("C:/Users/dhaya/PycharmProjects/HexaSep2022/Training.txt",'w') #valid
+
+#f=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'w') #valid
+f=open("Training.txt",'w') #valid
+print("File Name: ",f.name)
+print("File Mode: ",f.mode)
+print("Is File Readable: ",f.readable())
+print("Is File Writable: ",f.writable())
+print("Is File Closed : ",f.closed)
+f.write("Devi\n")
+list=["Abi\n","Daya\n","Rajan\n","Thananya"]
+f.writelines(list)
+f.close()
+print("Is File Closed : ",f.closed)
+
+
+print("File Read Operation 1::::::::::::::")
+f1=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'r')
+data=f1.read()
+print(data)
+
+print("File Read Operation 2::::::::::::::")
+
+f2=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'r')
+lines=f2.readlines()
+for line in lines:
+    print(line,end='')
+f.close()
+=======================================================================================
+
+'''
+There are 2 types of files
+1. Text Files:
+Usually we can use text files to store character data eg: abc.txt
+2. Binary Files:
+Usually we can use binary files to store binary data like images,video files, audio files etc...
+The allowed modes in Python are
+1. r → open an existing file for read operation. The file pointer is positioned at the beginning of the file.
+If the specified file does not exist then we will get FileNotFoundError.This is default mode.
+2. w → open an existing file for write operation. If the file already contains some data then it will be
+overridden. If the specified file is not already avaialble then this mode will create that file.
+3. a → open an existing file for append operation. It won't override existing data.If the specified file is not
+ already available then this mode will create a new file.
+4. r+ → To read and write data into the file. The previous data in the file will not be deleted.The file pointer
+is placed at the beginning of the file.
+5. w+ → To write and read data. It will override existing data.
+6. a+ → To append and read data from the file.It wont override existing data.
+7. x → To open a file in exclusive creation mode for write operation. If the file already exists then
+ we will get FileExistsError.
+Note: All the above modes are applicable for text files.
+If the above modes suffixed with 'b' then these represents for binary files.
+Eg: rb,wb,ab,r+b,w+b,a+b,xb
+f = open(filename, mode)
+
+Various properties of File Object:
+Once we opened a file and we got file object,we can get various details related to that file by using its properties.
+name → Name of opened file
+mode → Mode in which the file is opened
+closed → Returns boolean value indicates that file is closed or not
+readable()→ Returns boolean value indicates that whether file is readable or not writable()→ Returns boolean value indicates that whether file is writable or not.
+'''
+#f=open("C:/Users/dhaya/PycharmProjects/HexaSep2022/Training.txt",'w') #valid
+
+#f=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'w') #valid
+f=open("Training.txt",'w') #valid
+print("File Name: ",f.name)
+print("File Mode: ",f.mode)
+print("Is File Readable: ",f.readable())
+print("Is File Writable: ",f.writable())
+print("Is File Closed : ",f.closed)
+f.write("Devi\n")
+list=["Abi\n","Daya\n","Rajan\n","Thananya"]
+f.writelines(list)
+f.close()
+print("Is File Closed : ",f.closed)
+
+
+print("File Read Operation 1::::::::::::::")
+f1=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'r')
+data=f1.read()
+print(data)
+
+print("File Read Operation 2::::::::::::::")
+
+f2=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'r')
+lines=f2.readlines()
+for line in lines:
+    print(line,end='')
+f.close()
+
+print("\nFile Read Operation 3::::::::::::::")
+f1=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt",'r')
+data=f1.read(10)#read only first 10 characters
+print(data)
+
+'''
+The with statement can be used while opening a file.
+We can use this to group file operation statements 
+within a block.
+The advantage of with statement is it will take care closing of file,after completing all operations 
+automatically even in the case of exceptions also, and we are not required to close explicitly.
+
+'''
+with open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\Training.txt","a") as f123:
+    f123.write("PHP\n")
+    f123.write("DJANGO\n")
+    f123.write("MachineLearning\n")
+    print("Is File Closed: ",f123.closed)
+print("Is File Closed: ",f123.closed)
+
+'''
+tell():
+==>We can use tell() method to return current position of the cursor(file pointer) 
+from beginning of the file. 
+We can use seek() method to move cursor(file pointer) to specified location
+'''
+data="All Trainees are Good"
+f14=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\abc.txt","w")
+f14.write(data)
+
+
+with open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\abc.txt","r+") as f14:
+    text=f14.read()
+    print(text)
+    print("The Current Cursor Position: ",f14.tell())#EOF=>END OF THE FILE
+    f14.seek(17)
+    print("The Current Cursor Position: ",f14.tell())
+    f14.write("GEMS!!!")
+    f14.seek(0)#moving the cursor pointer to the beginning of the file
+    text=f14.read()
+    print("Data After Modification:")
+    print(text)
+
+# program to create a text file and add data
+fileobject=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\abc2.txt","a")
+while True:
+ data= input("Enter data to save in the text file: ")
+ fileobject.write(data)
+ ans=input("Do you wish to enter more data?(y/n): ")
+ if ans=='n': break
+fileobject.close()
+
+#read file
+fileobject=open("C:\\Users\\dhaya\\PycharmProjects\\HexaSep2022\\abc2.txt","r")
+str = fileobject.readline()
+while str:
+ print(str)
+ str=fileobject.readline()
+fileobject.close()
+============================================================================================
+'''
+If your script requires simple command-line arguments, you can go with sys.argv.
+'''
+'''
+ex:ping 192.168.3.500
+
+Command line arguments are nothing but simply arguments that are specified after the name of the 
+program in the system's command line, 
+and these argument values are passed on to your program during program execution.
+'''
+
+#rightclick->modify run configuratioCn->parameter...
+
+import sys
+
+# total arguments
+n = len(sys.argv)
+print("Total arguments passed:", n)
+print(type(sys.argv))
+# Arguments passed
+print("\nName of Python script:", sys.argv[0])#filename
+
+print("\nArguments passed:", end=" ")
+for i in range(1, n):
+    print(sys.argv[i], end=" ")
+
+# Addition of numbers
+Sum = 0
+for i in range(1, n):
+    Sum += int(sys.argv[i])
+
+print("\n\nResult:", Sum)
+
+'''
+D:\c\python-3.6.1-embed-win32\python.exe C:/Users/dhaya/PycharmProjects/HexaSep2022/CommandLineArguments.py 1 2 234 42 55 35 5 356 45 6 45 6 46
+Total arguments passed: 14
+<class 'list'>
+
+Name of Python script: C:/Users/dhaya/PycharmProjects/HexaSep2022/CommandLineArguments.py
+
+Arguments passed: 1 2 234 42 55 35 5 356 45 6 45 6 46 
+
+Result: 878
+
+Process finished with exit code 0
+
+'''
+===========================================================================================
+class Student3:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+    def display(self):
+        print('Hi',self.name)
+        print('Your Marks are:',self.marks)
+    def grade(self):
+        if self.marks>=60:
+            print('You got First Grade')
+        elif self.marks>=50:
+            print('You got Second Grade')
+        elif self.marks>=35:
+            print('You got Third Grade')
+        else:
+            print('You are Failed')
+n=int(input('Enter number of students:'))
+for i in range(n):
+    name=input('Enter Name:')
+    marks=int(input('Enter Marks:'))
+    s= Student3(name,marks)
+    s.display()
+    s.grade()
+    print()
+
+''''    
+Passing members of one class to another class:
+We can access members of one class inside another class.
+'''
+class Employee:
+    def __init__(self,eno,ename,esal):
+        self.eno=eno
+        self.ename=ename
+        self.esal=esal
+    def display(self):
+        print('Employee Number:',self.eno)
+        print('Employee Name:',self.ename)
+        print('Employee Salary:',self.esal)
+class Test:
+    def modify(emp):#taking the object of Employee class!
+        emp.esal=emp.esal+20000
+        emp.display()
+e=Employee(100,'Thananya',10000)
+e.display()
+Test.modify(e)#passing the Employee Object to Test class
+
+'''
+D:\c\python-3.6.1-embed-win32\python.exe C:/Users/dhaya/PycharmProjects/HexaSep2022/OOPSDemos4.py
+Enter number of students:2
+Enter Name:devi
+Enter Marks:48
+Hi devi
+Your Marks are: 48
+You got Third Grade
+
+Enter Name:abi
+Enter Marks:92
+Hi abi
+Your Marks are: 92
+You got First Grade
+
+Employee Number: 100
+Employee Name: Thananya
+Employee Salary: 10000
+Employee Number: 100
+Employee Name: Thananya
+Employee Salary: 30000
+
+Process finished with exit code 0
+
+'''
+=================================================================================================
+'''
+The word polymorphism means having many forms.
+In programming, polymorphism means the same function name (but different signatures)
+being used for different types.
+ The key difference is the data types and number of arguments used in function.
+'''
+'''
+This is particularly useful in cases where the method inherited from the parent class doesn’t 
+quite fit the child class. In such cases, we re-implement the method in the child class. 
+This process of re-implementing a method in the child class is known as Method Overriding.  
+'''
+class Bird:
+    def intro(self):
+        print("There are many types of birds.")
+    def flight(self):
+        print("Most of the birds can fly but some cannot.")
+class sparrow(Bird):
+    def flight(self):#method overriding
+        print("Sparrows can fly.")
+class ostrich(Bird):
+    def flight(self):#method overriding
+        print("Ostriches cannot fly.")
+obj_bird = Bird()
+obj_spr = sparrow()
+obj_ost = ostrich()
+
+obj_bird.intro()
+obj_bird.flight()
+obj_spr.intro()
+obj_spr.flight()
+obj_ost.intro()
+obj_ost.flight()
+
+
+class India():
+    def capital(self):
+        print("New Delhi is the capital of India.")
+    def language(self):
+        print("Many languages are spoken in India.")
+    def type(self):
+        print("India-Unity in diversity.")
+class USA():
+    def capital(self):
+        print("Washington, D.C. is the capital of USA.")
+    def language(self):
+        print("English is the primary language of USA.")
+    def type(self):
+        print("Transcontinental country.")
+def func(obj):#obj replaced by obj_ind,obj_usa(2 objects)
+    obj.capital()
+    obj.language()
+    obj.type()
+obj_ind = India()#Object for India class
+obj_usa = USA()#Object for USA Class
+func(obj_ind)
+func(obj_usa)
+
+'''
+D:\c\python-3.6.1-embed-win32\python.exe C:/Users/dhaya/PycharmProjects/HexaSep2022/Polymorphosm.py
+There are many types of birds.
+Most of the birds can fly but some cannot.
+There are many types of birds.
+Sparrows can fly.
+There are many types of birds.
+Ostriches cannot fly.
+New Delhi is the capital of India.
+Many languages are spoken in India.
+India-Unity in diversity.
+Washington, D.C. is the capital of USA.
+English is the primary language of USA.
+Transcontinental country.
+
+Process finished with exit code 0
+
+'''
+====================================================================================================
+Training.txt
+
+Devi
+Abi
+Daya
+Rajan
+ThananyaPHP
+DJANGO
+MachineLearning
+=============================================================================================
+abc.txt
+
+All Trainees are GEMS!!!
+=============================================================================================
+abc2.txt
+
+javaphppythonchennaidjangoApachetomcatJBOSSGlasssfishserver
+============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

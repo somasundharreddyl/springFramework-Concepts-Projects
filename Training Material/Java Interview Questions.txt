@@ -1,0 +1,405 @@
+1.What is Java?
+
+Java is a full-featured general-purpose programming language that is used for developing platform-independent software (applications) running on desktop computers, mobile devices and servers.
+
+It is a simple, object-oriented, distributed, interpreted, secure, robust, architecture neutral, portable, high performance, multithreaded, and dynamic programming language.
+
+
+
+2.Applets:Applets are typically used to display data provided by the server, handle user input, or provide simple functions, such as a loan calculator. They also allow some functionality to be moved from the server to the client.
+          In the beginning days of Java, applets were a vital part of Java programming. But over time they became less important. At last, applet support was completely removed by JDK 11.
+
+  
+3.Features:
+  
+  *Distributed:Java is designed to support the distributed environment of the Internet because it handles TCP/IP and UDP protocols.
+                Using Java, we can make a program to get information and can distribute it on various computers on a network. Java also supports Remote Method Invocation (RMI) feature that enable a program to distribute methods across a network.
+
+  *Robust:The meaning of Robust is “strong”. This means that Java programs are strong because they do not crash easily like C or C++ programs. There are mainly three reasons to be robust.
+          
+          Firstly, Java has an excellent inbuilt feature named exception handling. An exception is an abnormal condition or error that occurs at run time.
+          If an exception occurs in a java program, the program terminates abruptly and rises to problems like loss of data.
+          To overcome such types of problems, we can use exception handling mechanism. This means that even though an exception occurs in a program, no harm (i.e. loss of data) will happen.
+
+          Second reason is that Java has a robust memory management feature. Most of the C and C++ programs crash in the middle because of not allocating sufficient space in the memory for a program.
+          Such problems will not occur in Java because we do not need to allocate or deallocate the memory in Java. Everything is taken care of by JVM only. For example, JVM allots the required memory by a Java program.
+
+          Third reason is that Java supports an error checking feature at various stages: Early checking at compile-time and dynamic checking at run time.
+
+  *Secure:Since Java supports the distributed environment of the internet, it also provides multiple security features. Security problems like tampering, impersonation, and virus threats can be eliminated or reduced by using Java on Internet
+
+  *System independence (Architecture neutral):Java compiler compiles the source code into byte code that is independent of any machine architecture.
+
+                      In other words, the byte code of Java program is not machine-dependent. It can be run on any system machine with any processor and any operating system that implements Java Virtual Machine.
+                      The goal of JavaSoft was to “write once; run anywhere, any time, forever”. To a great extent, JavaSoft accomplished this goal.
+
+  *Portability:If a program gives the same result on every system machine, that program is called portable. Java programs are portable.
+
+  *Interpreted:During compilation, Java compiler converts the source code of the program into byte code. This byte code can be executed on any system machine with the help of Java interpreter in JVM.
+               If we take any other programming language, only a compiler or an interpreter is used to run programs. But in Java, we use both compiler and interpreter for the execution of the program
+  
+  *High Performance:The speed of interpreter inside JVM to execute a program is slow. To overcome this problem, JavaSoft team has introduced JIT (Just In Time) compiler which improves the performance of interpreting byte code by caching interpretations.
+                    Due to which the speed of execution of java program is enhanced. So, both interpreter and JIT compiler in JVM work together to run the program.
+
+  *Multithreaded:Java supports multi-threading programming that allows to write programs to do several works simultaneously. A thread is an individual process to execute a group of statements.
+                 JVM utilizes multiple threads to execute different blocks of code. Creating multiple threads is called ‘multithreaded’ in Java.
+  
+  *Dynamic:Before the development of Java, only static text was displayed in the browser. But using applet program, we can also create animation dynamically on the Internet.
+
+a.how Java was made simple?
+  *Feature of pointers that is very difficult for both learners and programmers. Therefore, this feature had been completely eliminated from Java.
+  *JavaSoft team maintained the same syntax of C and C++ in Java so that a programmer who knows C or C++ will find Java already familiar and require very little effort in learning.
+
+ 
+  b.Why Pointer feature is eliminated from Java?
+   * use of Pointer feature can break security because harmful programs like virus and other hacking programs can be developed using pointer.
+
+
+4.Object-oriented:
+  *Java is a purely object-oriented programming language (OOP). This means that Java program is developed by using classes and objects. In other words, to write a program in java, we need at least a class or an object.
+   
+  a.what is an object in java?
+    An object is anything that exists in the real world. For example, every human being, a book, a tree, pen, pencil, and so on.
+    Every object has properties and shows certain behavior (action). Let us understand this statement with the help of an example.
+
+   Consider a dog. The properties of a dog are name, height, color, age, etc. These properties are represented by variables in java. The object dog has several behaviors (actions) such as running, barking, eating, sleeping, etc.
+   These behaviors or actions are represented by various methods (functions) in java programming. So, we can say that an object contains variables and methods.
+ 
+   
+  b.what is a class in Java?
+    A class in java can be defined as a model or a blueprint for creating objects.A class defines the name of a group given to several objects having the same properties and behaviors (actions).
+    
+    It means that a class can be defined as a model in the creation of objects. A class also contains properties and actions, i.e. variables and methods like objects.
+    
+    Consider a mobile. A mobile can be the brand name of Samsung, Nokia, Motorola, and Vivo. All these four mobiles show the same behaviors like messaging, calling, surfing, etc.
+    Hence, they will belong to the same group called mobile. So, the class name is mobile that contains four objects.
+
+    Let us understand one more example. Flower is a class but if we consider Lily, Rose, Jasmine then all these are objects of class Flower. The class flower does not exist physically but its objects such as Lily, Rose, Jasmine exist physically in the world.
+
+
+
+Note: C++ is not a pure object-oriented programming language because it is possible to write programs in C++ without using a class or an object.
+
+
+5.Java Platform:A platform is a software or hardware environment in which a program executes or runs. Some of the most platforms are Microsoft Windows, Linux, Mac, and Solaris.
+  Java platform is only a software-based platform that runs on top of other hardware-based platforms such as Microsoft Windows, Linux, and Mac.
+
+  *Java Development Kit (JDK):Java Development Kit (JDK) is a software development environment that is developed and distributed by Oracle. It is used for building (developing) java software applications and applets.
+   In simple words, it is used to write java programs by programmers.
+
+  *Java Runtime Environment (JRE): It is an environment that is required for running (executing) a java application. It cannot be used for the development of Java applications. It is used only for executing the application program.
+                                   Java Runtime Environment is a collection of programs that contain JVM (Java Virtual Machine), Java APIs (Application Programming Interface), and Java Class Libraries that help in the development of Java application programs.
+
+  *Java Development Tools: It consists of Java compiler, JAR tool, class file disassembler, debugger, JRE builder, etc. Java Development Tools provides everything for compiling, running, monitoring, debugging, and documenting applications.
+
+  
+6.Java Compiler:
+  Java compiler is a program that is implemented in C and C++ with the name javac.exe. javac is short for java compiler. It is platform-independent. It is responsible for the following tasks that are as follows:
+a) Java compiler checks the syntaxial error (Syntax error).
+b) It converts source code into byte code with the help of Java Virtual Machine (JVM). Bytecode is just like machine code, but it is not for a specific processor or platform. It cannot be directly executed.
+c) Java compiler also adds the additional code to your program if required.
+
+
+7.Java Interpreter:
+Java interpreter is a program that is implemented in C and C++ with the name java.exe. It is platform-dependent. It is responsible for the following tasks. They are as follows:
+a) Java interpreter converts the byte code into the native code line by line.
+b) It executes the program on your system.
+
+Functions of Java Interpreter
+Java interpreter is responsible for the following functions that are as follows:
+1. The main function of interpreter is to convert the bytecode instruction to machine code line by line at runtime, without changing the sequence.
+2. It performs all the activities of Java runtime system.
+3. It runs application programs by reading and interpreting bytecode files.
+
+8.Bytecode in Java is a highly optimized set of instructions for the Java Virtual Machine (JVM) that reads and interprets to run the java program.
+  A bytecode is a binary program code that can only run on JVM. In other words, it is a machine language (code) for JVM in the form of .class file, but it is not machine specific because it is not a native code.
+  In simple words, it is not machine language (machine instructions) for any specific hardware processor.
+  Byte code acts as an intermediate language that is platform (machine) independent. It is generated by Java interpreter that can be directly run by a real machine.
+
+  *Difference between Bytecode vs Machine code
+  The main difference between the byte code and machine code is that byte code can be run only on JVM whereas machine code is a set of instructions in machine language that can be directly run by the CPU.
+
+
+9.Components of Java Runtime Environment (JRE)
+JRE consists of the following main components that are as follows:
+a.Java API (Application Programming Interface) : Java API is a large collection of already defined classes, interfaces, and methods in the form of Java packages.
+Example:Java.lang,Java.io,Java.util
+b.Class Loader : When we write a program in java, the program is placed in memory by the class loader before it can be executed.
+Java Class loader takes .class file containing bytecode and transfers it to the memory. It loads the .class file from a disk on your system or over a network.
+After loading of class, it is passed to the bytecode verifier.
+c.Bytecode verifier : The bytecode verifier verifies that byte codes are valid or not without breaching any of Java’s security rules. It gives special attention to checking the type of all the variables and expressions in the code.
+Bytecode verifier ensures that there is no unauthorized access to memory. Once the code is successfully verified, it is transferred to Java Virtual Machine (JVM) for interpretation.
+d.Java Virtual Machine (Interpreter)
+
+
+10.In JVM, class loader sub system is a module or program that performs the following functions:
+
+a) First of all, the class loader sub system loads .class file into the memory.
+b) Then bytecode verifier verifies whether all byte code instructions are proper or not. If it finds any instruction suspicious, the further execution process is rejected immediately.
+c) If byte code instructions are proper, it allots the necessary memory to execute the program.
+
+This memory is divided into 5 separates parts that is called run-time data areas. It contains the data and results during the execution of the program. These areas are as follows:
+
+1. Class (Method) Area:
+Class (Method) area is a block of memory that stores the class code, code of variables, and methods of the Java program. Here methods mean functions declared in the class.
+
+2. Heap:
+This is the runtime data area where objects are created. When JVM loads a class, a method and a heap area are immediately built in it.
+
+3. Stacks:
+Method code is stored in the Method area. But during the execution of a method, it requires some more memory to store the data and results. This memory is allocated on Java stacks.
+Java stacks are those memory areas where Java methods are executed. In Java stacks, a separate frame is created where the method is executed.
+Each time a method is called, a new frame is created into the stack. When method invocation is completed, a frame associated with it is destroyed.
+JVM always creates a separate thread (or process) to execute each method.
+
+4. PC Register:
+PC (Program Counter) registers are those registers (memory areas) that contain the memory address of JVM instructions currently being executed.
+
+5. Native Method Stack:
+Methods of Java program are executed on Java stacks. Similarly, native methods used in the program or application are executed on Native method stacks.
+Generally, to execute the native methods, Java native method libraries are needed. These header files are located and connected to JVM by a program, known as Native method interface.
+
+
+*adaptive optimizer:JVM implementation uses both interpreter and JIT compiler simultaneously to convert byte code into machine code. This technique is called adaptive optimizer.
+
+
+Difference between C vs Java :
+1. Invention:
+C was invented by Dennis M. Ritchie in 1972 at Bell Lab of USA.
+Java was invented by James Gosling in 1995.
+
+2. Types of language:
+C is a structural and procedural programming language.
+Java is a purely object-oriented programming language because everything in java is an object. All the program code and data remain within classes and objects.
+
+3. Language level:
+C is a middle-level programming language because it combines both machine-level and high-level languages.
+Java is a high-level programming language because the translation of program source code takes place into machine language using compiler or interpreter.
+
+4. Approach:
+C language follows the top-down approach to design the application program.
+Java language follows the bottom-up approach to design the application program.
+
+5. Translation:
+C is considered a compiled language because it converts the code into machine language so that it could be understood by the machine or system.
+Java is an interpreted language because the source code is first converted into bytecode by the compiler and then that bytecode is then executed by the JVM (Java Virtual Machine).
+
+6. Platform Dependency:
+C is platform-dependent or system-dependent.
+Java is platform-independent. Program source code can be easily moved from one computer system to another, anywhere, and anytime.
+
+7. Keywords:
+There are 32 keywords in the C language.
+Java has 50 keywords.
+
+8. OOPs Concepts:
+C does not follow OOPs concepts mechanism.
+Java follows OOPs concepts mechanism.
+
+9. File Extension:
+Source code file is saved with the extension .c.
+In Java, source code file is saved with the extension .java.
+
+10. Variable Declaration:
+In C programming, variables are declared at the beginning of the block.
+We can declare variables anywhere in Java programming.
+
+11. Security:
+C is not secure.
+Java is a fully secured language.
+
+12. Overloading:
+C does not support overloading functionality.
+Java supports method overloading concept that helps in code readability.
+
+13. Pointers:
+Pointer concept is supported by the C programming language.
+Java does not support pointers.
+
+14. Call by value and Call by reference:
+C supports both call by value and call by reference.
+Java supports only call by value.
+
+15. Robust:
+C is not robust.
+Java is robust.
+
+16. Exception handling:
+Exception handling concept is not supported by C language.
+Java supports exception handling concept.
+
+17. Inheritance:
+There is no inheritance concept present in the C language.
+Java supports inheritance that helps in code reusability.
+
+18. Threading:
+There is no concept of threading in C language.
+Java programming language supports the concept of threading.
+
+19. Memory Management:
+C programming language does not maintain memory, internally.
+Java maintains memory, internally.
+
+20. Preprocessors:
+C language supports Preprocessors.
+Java does not support Preprocessors.
+
+21. Union and Structure:
+Union and structure data types are supported by C.
+Whereas Java does not support union and structure data types.
+
+22. Storage classes:
+C supports the storage classes.
+Whereas Java technology does not support the storage classes.
+
+23. Virtual keywords:
+C language supports virtual keywords.
+Whereas virtual keywords are not supported by Java.
+
+24. Go-to statements:
+Go-to statements are supported by C language.
+Whereas Java does not supports go-to statements.
+
+25. Default members:
+Default members of C are public whereas default members of Java are private.
+
+26. Applications:
+C programming language is mainly used to develop system applications and firmware.
+Whereas Java programming language is mainly used to develop enterprise applications and web-based applications.
+
+
+
+Key Difference between C++ and Java:
+a) C++ uses compiler only whereas Java uses both compiler and interpreter.
+b) C++ supports both operator overloading and method overloading whereas Java only supports method overloading, not operator overloading.
+c) C++ has manual object management with the help of new and delete keywords while Java has automatic built-in garbage collection.
+d) C++ supports structures and unions whereas Java doesn’t support structures and unions.
+e) C++ supports pointers while Java doesn’t support pointers.
+
+
+Q1) Which one is better C++ or Java?
+Ans: Perhaps, it is difficult to say which is better. Both C++ and Java have their own features, merits, and demerits.
+C++ is a highly evolved language and is mostly good for system programming with advanced features like templates and containers. In fact, C++ can do anything in systems development from enterprise to gaming. We cannot do it with Java.
+Java is the most widely used to develop desktop applications, gaming, web servers, and client-side web applications. It is also known as a native language of the Android operating system that operates on Android phones and tablets.
+
+
+
+Types of Tokens :
+Java language contains five types of tokens that are as follows:
+1.Reserved Keywords 
+Keywords in Java are predefined words that have specific meanings to the compiler and that meanings cannot be changed.
+* 50 words as keywords.
+
+a.Data Type:
+byte
+short
+int
+long
+float
+double
+char
+boolean
+
+b) Access Modifiers:private,protected,public
+
+c) Control Statement :
+else
+switch
+case
+default
+for
+while
+do
+continue
+break
+goto [reserved but not in used]
+if
+
+
+
+2.Identifiers : 
+ 1.Java identifier is a sequence of characters that consists of letters, digits, underscores (_), and dollar signs ($).
+
+ 2. It must start with a letter, an underscore (_), or a dollar sign ($). It cannot begin with a digit.
+
+ 3. It cannot be a reserved word.
+
+ 4. It cannot be true, false, or null.
+
+ 5. It can be of any length.
+3.Literals:
+4.Operators:
+5.Separators:
+
+
+
+In Java, there are different types of classes that exist in various packages. Some common type of class in Java is as follows:
+Wrapper class
+Mutable class
+Abstract class
+Final class
+Anonymous class
+String class
+System class, etc.
+
+
+*Creating an object means allocating memory to store the data of variables temporarily. i.e. we create an object of a class to store data temporarily.
+*College myCollege = new College();
+where,
+College ➝ Name of the class.
+myCollege ➝ Object reference variable which stores the address of the object in the stack memory.
+new ➝ keyword that stores the object in the heap memory.
+College() ➝ Constructor of the class.
+
+*Hash Code Number
+When an object of class is created, the memory is allocated in the heap area to store instance variables. After the creation of an object, JVM produces a unique reference number (address) for that object. This unique reference number is called hash code number.
+
+
+There are several ways to create an object of class in Java. They are as follows.
+*Using the new keyword
+*Using Class.forName
+*Using Clone.
+*Using Object Deserialization.
+*Using ClassLoader.
+
+
+What is System.out.println()
+1. System is a class that is pre-defined by the Sun Microsystem.
+2. out is a variable declared in System class of type PrintStream.
+3. println is a method defined in PrintStream class.
+
+
+*Object Declaration in Java :
+The process of defining a variable along with its data type and name is called the declaration of state of an object.
+ Ex : String name;
+
+*Object Initialization in Java
+The process of assigning a value of the variable is called initialization of state of an object.
+Ex:String name = "PIET";
+
+
+*An object which has no reference variable is called anonymous object in Java.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

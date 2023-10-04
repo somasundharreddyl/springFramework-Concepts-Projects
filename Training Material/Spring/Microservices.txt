@@ -1,0 +1,129 @@
+1.
+EurekaMicroservice project :
+dev tools
+eureka
+
+properties :
+
+#service port
+server.port=3822
+
+#application props
+spring.application.name=eureka-service-discovery
+eureka.instance.hostname=localhost
+
+#eureka client fetch
+eureka.client.ftech-registry=false
+eureka.client.register-with-eureka=false
+
+
+Application:
+@SpringBootApplication
+@EnableEurekaServer
+public class
+
+
+-start server-run prog
+-localhost:3822 in browser.get eureka dashboard.
+
+
+---------------------------------------------------------------
+2.
+OrderMicroService project :
+spring web
+dev tools
+eureka
+
+Application:
+@SpringBootApplication
+@EnableDiscoveryClient
+public class
+
+properties :
+server.port=8322
+
+#application props
+spring.application.name=order-service
+eureka.instance.hostname=localhost
+
+#eureka Server URL
+eureka.client.serviceUrl.defaultZone=http://localhost:3822/eureka/
+
+
+controller Package:
+@RestController
+@RequestMapping("/api/order")
+public class orderController{
+@GetMapping("/hello")
+public String sayHello(){
+return "Hello order service"
+}
+}
+
+______________________________________________
+3.
+paymentService proj :
+
+Eureka Discovery Client
+Spring boot 
+spring web
+
+@EnableDiscoveryClient
+public class
+
+
+properties :
+server.port=2283
+
+#application props
+spring.application.name=payment-service
+eureka.instance.hostname=localhost
+
+#eureka Server URL
+eureka.client.serviceUrl.defaultZone=http://localhost:3822/eureka/
+
+
+
+
+controller package:
+@RestController
+@RequestMapping("/api/payment")
+public class paymentController{
+@GetMapping("/hello")
+public String sayHello(){
+return "Hello payment service"
+}
+}
+
+---------------------------------------------------------
+4.
+gatewayService :
+devtools,discvery client,gateway
+
+@EnableDiscoveryClient
+public class
+
+properties :
+server.port=2238
+
+#application props
+spring.application.name=gateway-service
+eureka.instance.hostname=localhost
+
+#eureka Server URL
+eureka.client.serviceUrl.defaultZone=http://localhost:3822/eureka/
+
+
+#gatewaySettngs
+spring.cloud.discovery.locator.enabled=true
+spring.cloud.gateway.discovery.lower-case-service-id=true
+
+#gateway routesetting to microservice
+spring.cloud.gateway.routes[0].id=order-service
+spring.cloud.gateway.route[0].uri=lb://order-service
+spring.cloud.gateway.route[0].predicates[0]=path=/order-service/**
+
+#payment microservice config
+spring.cloud.gateway.routes[1].id=order-service
+spring.cloud.gateway.route[1].uri=lb://payment-service
+spring.cloud.gateway.route[1].predicates[0]=path=/payment-service/**

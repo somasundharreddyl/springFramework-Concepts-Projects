@@ -1,0 +1,755 @@
+> db.employees.insertMany([
+...   {empId: 1, name: 'Clark', dept: 'Sales' },
+...   {empId: 2, name: 'Dave', dept: 'Accounting' },
+...   {empId: 3, name: 'Ava', dept: 'Sales' }
+... ]);
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("625c4c5d4e47db1968a69aba"),
+                ObjectId("625c4c5d4e47db1968a69abb"),
+                ObjectId("625c4c5d4e47db1968a69abc")
+        ]
+}
+> db.employees.find()
+{ "_id" : ObjectId("625c4c5d4e47db1968a69aba"), "empId" : 1, "name" : "Clark", "
+dept" : "Sales" }
+{ "_id" : ObjectId("625c4c5d4e47db1968a69abb"), "empId" : 2, "name" : "Dave", "d
+ept" : "Accounting" }
+{ "_id" : ObjectId("625c4c5d4e47db1968a69abc"), "empId" : 3, "name" : "Ava", "de
+pt" : "Sales" }
+
+> db.employees.drop()
+true
+> db.employees.find()
+> var empdata =
+... [
+...  {
+...  name: "Thananya",
+...  details: { age: "26", location: "Chennai" },
+...  salary: [ { netpay: 49640, incentive: 10000 } ],
+...  dept: "HR"
+...  },
+...  {
+...  name: "Abi",
+...  details: { age: "23", location: "Chennai" },
+...  salary: [ { netpay: 99640, incentive: 20000 } ],
+...  dept: "Testing"
+...  },
+...  {
+...  name: "Lakshmi",
+...  details: { age: "21", location: "Chennai" },
+...  salary: [ { netpay: 90640, incentive: 30000 } ],
+...  dept: "Training"
+...  }
+...  ];
+> db.hex_emps.insert(empdata);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.hex_emps.find()
+{ "_id" : ObjectId("62642c898d19c19b0218127c"), "name" : "Thananya", "details" :
+ { "age" : "26", "location" : "Chennai" }, "salary" : [ { "netpay" : 49640, "inc
+entive" : 10000 } ], "dept" : "HR" }
+{ "_id" : ObjectId("62642c898d19c19b0218127d"), "name" : "Abi", "details" : { "a
+ge" : "23", "location" : "Chennai" }, "salary" : [ { "netpay" : 99640, "incentiv
+e" : 20000 } ], "dept" : "Testing" }
+{ "_id" : ObjectId("62642c898d19c19b0218127e"), "name" : "Lakshmi", "details" :
+{ "age" : "21", "location" : "Chennai" }, "salary" : [ { "netpay" : 90640, "ince
+ntive" : 30000 } ], "dept" : "Training" }
+> db.hex_emps.find().pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127c"),
+        "name" : "Thananya",
+        "details" : {
+                "age" : "26",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 49640,
+                        "incentive" : 10000
+                }
+        ],
+        "dept" : "HR"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127d"),
+        "name" : "Abi",
+        "details" : {
+                "age" : "23",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 99640,
+                        "incentive" : 20000
+                }
+        ],
+        "dept" : "Testing"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : "21",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+
+> db.hex_emps.find({dept:{$eq:"Training"}})
+{ "_id" : ObjectId("62642c898d19c19b0218127e"), "name" : "Lakshmi", "details" :
+{ "age" : "21", "location" : "Chennai" }, "salary" : [ { "netpay" : 90640, "ince
+ntive" : 30000 } ], "dept" : "Training" }
+
+> db.hex_emps.find({"salary.netpay":90640})
+{ "_id" : ObjectId("62642c898d19c19b0218127e"), "name" : "Lakshmi", "details" :
+{ "age" : "21", "location" : "Chennai" }, "salary" : [ { "netpay" : 90640, "ince
+ntive" : 30000 } ], "dept" : "Training" }
+> db.hex_emps.find({"salary.netpay":{$eq:90640}})
+{ "_id" : ObjectId("62642c898d19c19b0218127e"), "name" : "Lakshmi", "details" :
+{ "age" : "21", "location" : "Chennai" }, "salary" : [ { "netpay" : 90640, "ince
+ntive" : 30000 } ], "dept" : "Training" }
+> db.hex_emps.find({"salary.netpay":{$eq:90640}}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : "21",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+
+> db.hex_emps.find({"salary.netpay":{$lt:90640}}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127c"),
+        "name" : "Thananya",
+        "details" : {
+                "age" : "26",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 49640,
+                        "incentive" : 10000
+                }
+        ],
+        "dept" : "HR"
+}
+
+> db.hex_emps.find({name:{$in:["Thananya","Abi"]}}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127c"),
+        "name" : "Thananya",
+        "details" : {
+                "age" : "26",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 49640,
+                        "incentive" : 10000
+                }
+        ],
+        "dept" : "HR"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127d"),
+        "name" : "Abi",
+        "details" : {
+                "age" : "23",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 99640,
+                        "incentive" : 20000
+                }
+        ],
+        "dept" : "Testing"
+}
+>
+
+> db.hex_emps.find({$and:[{"dept":"HR"},{"details.age":"26"}]}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127c"),
+        "name" : "Thananya",
+        "details" : {
+                "age" : "26",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 49640,
+                        "incentive" : 10000
+                }
+        ],
+        "dept" : "HR"
+}
+> db.hex_emps.find({$nor:[{"dept":"HR"},{"details.age":"26"}]}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127d"),
+        "name" : "Abi",
+        "details" : {
+                "age" : "23",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 99640,
+                        "incentive" : 20000
+                }
+        ],
+        "dept" : "Testing"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : "21",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+> db.hex_emps.find({$or:[{"dept":"HR"},{"details.age":"21"}]}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127c"),
+        "name" : "Thananya",
+        "details" : {
+                "age" : "26",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 49640,
+                        "incentive" : 10000
+                }
+        ],
+        "dept" : "HR"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : "21",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+> db.hex_emps.findOne({"name":"lakshmi"});
+null
+> db.hex_emps.findOne({"name":"Lakshmi"});
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : "21",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+
+> db.hex_emps.find({name:{$nin:["Thananya","Abi"]}}).pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : "21",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+
+
+> db.hex_emps.update({'name':'Lakshmi'},{$set:{'details.age':29}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.hex_emps.find().pretty()
+{
+        "_id" : ObjectId("62642c898d19c19b0218127c"),
+        "name" : "Thananya",
+        "details" : {
+                "age" : "26",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 49640,
+                        "incentive" : 10000
+                }
+        ],
+        "dept" : "HR"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127d"),
+        "name" : "Abi",
+        "details" : {
+                "age" : "23",
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 99640,
+                        "incentive" : 20000
+                }
+        ],
+        "dept" : "Testing"
+}
+{
+        "_id" : ObjectId("62642c898d19c19b0218127e"),
+        "name" : "Lakshmi",
+        "details" : {
+                "age" : 29,
+                "location" : "Chennai"
+        },
+        "salary" : [
+                {
+                        "netpay" : 90640,
+                        "incentive" : 30000
+                }
+        ],
+        "dept" : "Training"
+}
+
+MongoDB creates an id field automatically if not specified by the user in the query.
+
+> db.car.insert(
+...  [
+...  { _id:1,name:"Audi",color:"Red",cno:"H101",mfdcountry:"Germany",speed:75 },
+
+...  { _id:2,name:"Swift",color:"Black",cno:"H102",mfdcountry:"Italy",speed:60 }
+,
+...
+...  { _id:3,name:"Maruthi800",color:"Blue",cno:"H103",mfdcountry:"India",speed:
+70 },
+...  { _id:4,name:"Polo",color:"White",cno:"H104",mfdcountry:"Japan",speed:65 },
+
+...  { _id:5,name:"Volkswagen",color:"JetBlue",cno:"H105",mfdcountry:"Rome",spee
+d:80 }
+...   ]
+...   );
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 5,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+
+===============================================================================================
+> db.car.find().pretty()
+{
+        "_id" : 1,
+        "name" : "Audi",
+        "color" : "Red",
+        "cno" : "H101",
+        "mfdcountry" : "Germany",
+        "speed" : 75
+}
+{
+        "_id" : 2,
+        "name" : "Swift",
+        "color" : "Black",
+        "cno" : "H102",
+        "mfdcountry" : "Italy",
+        "speed" : 60
+}
+{
+        "_id" : 3,
+        "name" : "Maruthi800",
+        "color" : "Blue",
+        "cno" : "H103",
+        "mfdcountry" : "India",
+        "speed" : 70
+}
+{
+        "_id" : 4,
+        "name" : "Polo",
+        "color" : "White",
+        "cno" : "H104",
+        "mfdcountry" : "Japan",
+        "speed" : 65
+}
+{
+        "_id" : 5,
+        "name" : "Volkswagen",
+        "color" : "JetBlue",
+        "cno" : "H105",
+        "mfdcountry" : "Rome",
+        "speed" : 80
+}
+While inserting it is not mandatory for user to provide all the fields in the query. Now lets see how the insert works when some of the fields are not specified.
+
+> db.car.insert(
+... [
+...  { _id:6,name:"HondaCity",color:"Grey",cno:"H106",mfdcountry:"Sweden",speed:
+45 },
+...  {name:"Santro",color:"Pale Blue",cno:"H107",mfdcountry:"Denmark",speed:55 }
+,
+...  { _id:8,name:"Zen",speed:54 }
+...  ]
+...  );
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+Note that the id is automatically generated by MongoDB for the car “Santro”. For id 8 – only name and speed fields are inserted.
+> db.car.find().pretty()
+{
+        "_id" : 1,
+        "name" : "Audi",
+        "color" : "Red",
+        "cno" : "H101",
+        "mfdcountry" : "Germany",
+        "speed" : 75
+}
+{
+        "_id" : 2,
+        "name" : "Swift",
+        "color" : "Black",
+        "cno" : "H102",
+        "mfdcountry" : "Italy",
+        "speed" : 60
+}
+{
+        "_id" : 3,
+        "name" : "Maruthi800",
+        "color" : "Blue",
+        "cno" : "H103",
+        "mfdcountry" : "India",
+        "speed" : 70
+}
+{
+        "_id" : 4,
+        "name" : "Polo",
+        "color" : "White",
+        "cno" : "H104",
+        "mfdcountry" : "Japan",
+        "speed" : 65
+}
+{
+        "_id" : 5,
+        "name" : "Volkswagen",
+        "color" : "JetBlue",
+        "cno" : "H105",
+        "mfdcountry" : "Rome",
+        "speed" : 80
+}
+{
+        "_id" : 6,
+        "name" : "HondaCity",
+        "color" : "Grey",
+        "cno" : "H106",
+        "mfdcountry" : "Sweden",
+        "speed" : 45
+}
+{
+        "_id" : ObjectId("626436f48d19c19b0218127f"),
+        "name" : "Santro",
+        "color" : "Pale Blue",
+        "cno" : "H107",
+        "mfdcountry" : "Denmark",
+        "speed" : 55
+}
+{ "_id" : 8, "name" : "Zen", "speed" : 54 }
+> db.car.insert({_id:6,name:"Innova"})
+WriteResult({
+        "nInserted" : 0,
+        "writeError" : {
+                "code" : 11000,
+                "errmsg" : "E11000 duplicate key error collection: hexa_demos.ca
+r index: _id_ dup key: { : 6.0 }"
+        }
+})
+
+===================================================================================================
+> db.car.find().pretty()
+{
+        "_id" : 1,
+        "name" : "Audi",
+        "color" : "Red",
+        "cno" : "H101",
+        "mfdcountry" : "Germany",
+        "speed" : 75
+}
+{
+        "_id" : 2,
+        "name" : "Swift",
+        "color" : "Black",
+        "cno" : "H102",
+        "mfdcountry" : "Italy",
+        "speed" : 60
+}
+{
+        "_id" : 3,
+        "name" : "Maruthi800",
+        "color" : "Blue",
+        "cno" : "H103",
+        "mfdcountry" : "India",
+        "speed" : 70
+}
+{
+        "_id" : 4,
+        "name" : "Polo",
+        "color" : "White",
+        "cno" : "H104",
+        "mfdcountry" : "Japan",
+        "speed" : 65
+}
+{
+        "_id" : 5,
+        "name" : "Volkswagen",
+        "color" : "JetBlue",
+        "cno" : "H105",
+        "mfdcountry" : "Rome",
+        "speed" : 80
+}
+{
+        "_id" : 6,
+        "name" : "HondaCity",
+        "color" : "Grey",
+        "cno" : "H106",
+        "mfdcountry" : "Sweden",
+        "speed" : 45
+}
+{
+        "_id" : ObjectId("626436f48d19c19b0218127f"),
+        "name" : "Santro",
+        "color" : "Pale Blue",
+        "cno" : "H107",
+        "mfdcountry" : "Denmark",
+        "speed" : 55
+}
+{ "_id" : 8, "name" : "Zen", "speed" : 54 }
+> db.car.remove({_id:8})
+WriteResult({ "nRemoved" : 1 })
+> db.car.remove({name:"Santro"})
+WriteResult({ "nRemoved" : 1 })
+> db.car.find().pretty()
+{
+        "_id" : 1,
+        "name" : "Audi",
+        "color" : "Red",
+        "cno" : "H101",
+        "mfdcountry" : "Germany",
+        "speed" : 75
+}
+{
+        "_id" : 2,
+        "name" : "Swift",
+        "color" : "Black",
+        "cno" : "H102",
+        "mfdcountry" : "Italy",
+        "speed" : 60
+}
+{
+        "_id" : 3,
+        "name" : "Maruthi800",
+        "color" : "Blue",
+        "cno" : "H103",
+        "mfdcountry" : "India",
+        "speed" : 70
+}
+{
+        "_id" : 4,
+        "name" : "Polo",
+        "color" : "White",
+        "cno" : "H104",
+        "mfdcountry" : "Japan",
+        "speed" : 65
+}
+{
+        "_id" : 5,
+        "name" : "Volkswagen",
+        "color" : "JetBlue",
+        "cno" : "H105",
+        "mfdcountry" : "Rome",
+        "speed" : 80
+}
+{
+        "_id" : 6,
+        "name" : "HondaCity",
+        "color" : "Grey",
+        "cno" : "H106",
+        "mfdcountry" : "Sweden",
+        "speed" : 45
+}
+> db.car.find().limit(3)
+{ "_id" : 1, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "G
+ermany", "speed" : 75 }
+{ "_id" : 2, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" :
+ "Italy", "speed" : 60 }
+{ "_id" : 3, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountr
+y" : "India", "speed" : 70 }
+==========================================================
+> db.car.find().limit(3).skip(2)
+{ "_id" : 3, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountr
+y" : "India", "speed" : 70 }
+{ "_id" : 4, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" :
+"Japan", "speed" : 65 }
+{ "_id" : 5, "name" : "Volkswagen", "color" : "JetBlue", "cno" : "H105", "mfdcou
+ntry" : "Rome", "speed" : 80 }
+================================================================
+> db.car.find().limit(5).sort({"speed":-1});
+{ "_id" : 5, "name" : "Volkswagen", "color" : "JetBlue", "cno" : "H105", "mfdcou
+ntry" : "Rome", "speed" : 80 }
+{ "_id" : 1, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "G
+ermany", "speed" : 75 }
+{ "_id" : 3, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountr
+y" : "India", "speed" : 70 }
+{ "_id" : 4, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" :
+"Japan", "speed" : 65 }
+{ "_id" : 2, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" :
+ "Italy", "speed" : 60 }
+======================================================================
+> db.car.find().limit(5).sort({"speed":1});
+{ "_id" : 6, "name" : "HondaCity", "color" : "Grey", "cno" : "H106", "mfdcountry
+" : "Sweden", "speed" : 45 }
+{ "_id" : 2, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" :
+ "Italy", "speed" : 60 }
+{ "_id" : 4, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" :
+"Japan", "speed" : 65 }
+{ "_id" : 3, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountr
+y" : "India", "speed" : 70 }
+{ "_id" : 1, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "G
+ermany", "speed" : 75 }
+===========================================================================
+> // -1 means descending order, 1 means ascending order
+> db.car.find().limit(5).sort({"speed":1});
+{ "_id" : 6, "name" : "HondaCity", "color" : "Grey", "cno" : "H106", "mfdcountry
+" : "Sweden", "speed" : 45 }
+{ "_id" : 2, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" :
+ "Italy", "speed" : 60 }
+{ "_id" : 4, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" :
+"Japan", "speed" : 65 }
+{ "_id" : 3, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountr
+y" : "India", "speed" : 70 }
+{ "_id" : 1, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "G
+ermany", "speed" : 75 }
+> date()
+2022-09-29T12:13:49.071+0530 E QUERY    [thread1] ReferenceError: date is not de
+fined :
+@(shell):1:1
+> Date()
+Thu Sep 29 2022 12:13:56 GMT+0530 (India Standard Time)
+> new Date()
+ISODate("2022-09-29T06:44:08.850Z")
+> typeof(Date())
+string
+> typeof(new Date())
+object
+> var date=new Date()
+> date.getFullYear()
+2022
+> date.getHours()
+12
+> db.dateDemo.insertOne({"StudentName":"John","StudentAge":26,"AdmissionDate":ne
+w ISODate("2022-06-07")});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("63353f68c78e42d0d73e6985")
+}
+> db.dateDemo.find().pretty();
+{
+        "_id" : ObjectId("63353f68c78e42d0d73e6985"),
+        "StudentName" : "John",
+        "StudentAge" : 26,
+        "AdmissionDate" : ISODate("2022-06-07T00:00:00Z")
+}
+> db.cakeSales.insertMany( [
+...    { _id: 0, type: "chocolate", orderDate: new ISODate("2020-05-18T14:10:30Z
+") },
+...    { _id: 1, type: "strawberry", orderDate: new ISODate("2021-03-20T11:30:05
+Z") },
+...    { _id: 2, type: "vanilla", orderDate: new ISODate("2021-01-15T06:31:15Z")
+ }
+... ] );
+{ "acknowledged" : true, "insertedIds" : [ 0, 1, 2 ] }
+> db.cakeSales.find().pretty();
+{
+        "_id" : 0,
+        "type" : "chocolate",
+        "orderDate" : ISODate("2020-05-18T14:10:30Z")
+}
+{
+        "_id" : 1,
+        "type" : "strawberry",
+        "orderDate" : ISODate("2021-03-20T11:30:05Z")
+}
+{
+        "_id" : 2,
+        "type" : "vanilla",
+        "orderDate" : ISODate("2021-01-15T06:31:15Z")
+}
+> db.cakeSales.find( { orderDate: { $lt: ISODate("2021-02-25T10:03:46.000Z") } }
+ )
+{ "_id" : 0, "type" : "chocolate", "orderDate" : ISODate("2020-05-18T14:10:30Z")
+ }
+{ "_id" : 2, "type" : "vanilla", "orderDate" : ISODate("2021-01-15T06:31:15Z") }
+=====================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+

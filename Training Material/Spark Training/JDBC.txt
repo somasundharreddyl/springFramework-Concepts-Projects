@@ -1,0 +1,1690 @@
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+/*
+ * mysql> select * from hexa_emps;
++------+------------+--------+------------+
+| eno  | ename      | salary | dept       |
++------+------------+--------+------------+
+| 1001 | Devi       | 110000 | HR         |
+| 1002 | Abi        | 108000 | Operations |
+| 1003 | Raja       | 177320 | HR         |
+| 1004 | Thananya   |   NULL | Accounting |
+| 1005 | Kanishka   | 158905 | HR         |
+| 1006 | Dhayanithi | 178320 | Training   |
+| 1007 | Surya      |   NULL | Testing    |
+| 1008 | Sara       | 107000 | Training   |
+| 1001 | Devi       | 110000 | HR         |
+| 8001 | Priya      | 167000 | Operations |
+| 2201 | Sara       | 144288 | Operations |
+| 2202 | Sanesh     | 190288 | Operations |
+|  454 | Saravana   |   NULL | NULL       |
++------+------------+--------+------------+
+13 rows in set (0.13 sec)
+
+mysql> select @@port;
++--------+
+| @@port |
++--------+
+|   3306 |
++--------+
+1 row in set (0.00 sec)
+
+mysql>
+
+ */
+
+/*
+ * Database Drivers Types:::
+ * 
+Type 1 JDBC ODBC Bridge + ODBC Driver
+Type 2 Native API / Partly Java technology enabled driver
+Type 3 Pure Java Driver for Database Middleware
+Type 4 Direct to Database Pure Java Driver::
+		--Native protocol 100% Java
+		--Converts JDBC calls into the vendor specific DBMS protocol
+		--Client applications communicate directly with the database server	
+		--Best performance
+		--Need a different driver for each database
+ */
+/*
+ * JDBC::
+ * --java.sql packaage
+ * --Type 4 driver is used!
+ * 1.Establish the DB connection
+ * 2.Execute SQL statements
+ * 3.Retrieve the results
+ * 4.Close DB CONNECTION
+ */
+
+//FRONTEND(JAVA)+BACKEND(MYSQL) INTEGRATION::::
+/*
+* Connection - Interface
+* DriverManager - java Class
+* Statement - Interface
+* ResultSet - Interface
+* 
+*/
+//*************download mysql-connector-java-5.1.16.jar add to the project
+//Right click project->build path->configure build path->libraries tab->add external jars->add the jar file 
+//Referenced Libraries folder will be automatically created in eclipse project
+
+public class JDBC_MYSQLDemo {
+	public static void main(String[] args) {
+		Connection con=null;
+		Statement st=null;
+		ResultSet rs=null;
+		try
+		{
+			//loading the mysql driver
+			//drivername is case sensitive
+			
+			//classname.methodname=>static method
+			//Class.forName("com.mysql.jdbc.Driver");  //type 4 mysql driver
+			//3306-DEFAULT mysql port number
+			//hexasep2022:: mysql database name
+			//username:root
+			//my password is empty
+//con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hexasep2022","root","");
+	/*
+	 * mysql> SELECT host FROM mysql.user WHERE user = "root";
++-----------+
+| host      |
++-----------+
+| 127.0.0.1 |
+| ::1       |
+| localhost |
++-----------+
+3 rows in set (0.26 sec)
+
+	 */
+con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hexasep2022","root","");
+			
+			st=con.createStatement();//build sql statements
+rs=st.executeQuery("select * from hexa_emps");//ResultSet means rows and columns
+while(rs.next())//iterate the records one by one!
+{		
+	//EITHER COLUMN NAME OR COLUMN POSITION INDEX 1,2,3....
+	int a=rs.getInt("eno");//column name
+	String b=rs.getString(2);//2nd column=>ename
+	float c=rs.getFloat("salary");//float c=rs.getFloat(3);
+	String d=rs.getString("dept");
+	System.out.println(a+ " "+b + " "+c + " "+d );
+}
+		}
+		catch(Exception e)//SQLException is a checked exception
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) 
+					rs.close();
+				if(st!=null)
+					st.close();
+				if(con!=null)
+					con.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Finally Block::"+e);
+			}
+		}
+
+	}
+
+}
+/*
+1001 Devi 110000.0 HR
+1002 Abi 108000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 110000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+2202 Sanesh 190288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+*/
+===========================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+//CRUD OPERATION(CREATE(INSERT),READ(SELECT),UPDATE,DELETE)
+public class JDBC_MYSQL_INSERTDemo 
+{
+	//SQLException is a checked exception!
+	public static void main(String[] args) throws Exception
+	{
+
+		//loading the mysql driver
+		//drivername is case sensitive
+		
+		//classname.methodname=>static method
+		Class.forName("com.mysql.jdbc.Driver");  //type 4 mysql driver
+		//3306-DEFAULT mysql port number
+		//hexasep2022:: mysql database name
+		//username:root
+		//my password is empty
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hexasep2022","root","");
+Scanner s1=new Scanner(System.in);
+System.out.println("Eno:: ");
+int a=s1.nextInt();
+s1.nextLine();
+System.out.println("Name:: ");
+String b=s1.nextLine();
+/*
+ * float nextFloat()
+ * {
+ * }
+ */
+System.out.println("Salary:: ");
+float c=s1.nextFloat();
+System.out.println("Dept:: ");
+String d=s1.next();
+
+		//RUNTIME INPUT
+		//DML,DQL(SELECT)=>PreparedStatement Interface
+		/*
+		 * A PreparedStatement is a pre-compiled SQL statement
+		 * ******************The PreparedStatement interface is a subinterface of Statement. 
+		 * It is used to execute RUNTIME parameterized query.
+		 */
+String query1="insert into hexa_emps values(?,?,?,?)";//? is a runtime placeholder for runtime sql values!
+PreparedStatement ps1=con.prepareStatement(query1);//SQL 1
+ps1.setInt(1, a); //1 refers first question marks
+ps1.setString(2, b);
+ps1.setFloat(3,c);
+ps1.setString(4,d);
+
+//EXECUTEUPDATE METHOD MAINLY FOR DML(INSERT,UPDATE,DELETE) COMMANDS=>Int
+//EXECUTEQUERY METHOD MAINLY FOR DML(SELECT) COMMANDS=>RESULTSET
+
+int rows=ps1.executeUpdate();
+System.out.println(rows+ " Record inserted!");
+
+PreparedStatement ps11=con.prepareStatement("select * from hexa_emps");//SQL 2
+ResultSet rs=ps11.executeQuery();
+while(rs.next())
+{
+	int a1=rs.getInt("eno");
+	String b1=rs.getString(2);//2nd column=>ename
+	float c1=rs.getFloat("salary");
+	String d1=rs.getString(4);//dept
+	System.out.println(a1+ " "+b1 + " "+c1+ " "+d1);
+}	
+rs.close();
+con.close();//release DB connection
+
+
+	}
+
+}
+/*
+Eno:: 
+493
+Name:: 
+Deepa
+Salary:: 
+349429
+Dept:: 
+HR
+1 Record inserted!
+1001 Devi 110000.0 HR
+1002 Abi 108000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 110000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+2202 Sanesh 190288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+*/
+===============================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+public class JDBC_UpdateDemo {
+
+	public static void main(String[] args)throws Exception {
+		//getting the db connection from external file
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		//update hexa_emps set salary=salary+10000 where eno=1001;
+		Scanner s1=new Scanner(System.in);
+		System.out.println("Eno:: ");
+		int a=s1.nextInt();
+		s1.nextLine();
+		System.out.println("Incentive:: ");
+		float c=s1.nextFloat();
+		
+		String query1="update hexa_emps set salary=salary+? where eno=?";
+		PreparedStatement ps1=con.prepareStatement(query1);
+		ps1.setFloat(1, c);//1 refers first question mark
+		ps1.setInt(2, a); 
+		int rows=ps1.executeUpdate();//either 0 or any value
+		if(rows>=1)
+		{
+			System.out.println("Record Exist!");
+			System.out.println(rows+ " Record Updated!");
+		}
+		else
+		{
+			System.out.println("Record Not Exist!");
+		System.out.println(rows+ " Record Updated!");			
+		}		
+
+
+PreparedStatement ps11=con.prepareStatement("select * from hexa_emps");//SQL 2
+ResultSet rs=ps11.executeQuery();
+while(rs.next())
+{
+	int a1=rs.getInt("eno");
+	String b1=rs.getString(2);//2nd column=>ename
+	float c1=rs.getFloat("salary");
+	String d1=rs.getString(4);//dept
+	System.out.println(a1+ " "+b1 + " "+c1+ " "+d1);
+}	
+rs.close();
+con.close();//release DB connection
+
+	}
+
+}
+/*
+DB Connection success!
+Eno:: 
+1001
+Incentive:: 
+10000
+Record Exist!
+2 Record Updated!
+1001 Devi 120000.0 HR
+1002 Abi 128000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 120000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+*/
+/*
+DB Connection success!
+Eno:: 
+454356
+Incentive:: 
+3
+Record Not Exist!
+0 Record Updated!
+1001 Devi 120000.0 HR
+1002 Abi 128000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 120000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+*/
+======================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+public class JDBC_DeleteDemo {
+
+	public static void main(String[] args) throws Exception{
+	
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		//delete from hexa_emps where eno=1001;
+		Scanner s1=new Scanner(System.in);
+		System.out.println("Eno:: ");
+		int a=s1.nextInt();
+		String query1="delete from hexa_emps where eno=?";
+		PreparedStatement ps1=con.prepareStatement(query1);
+		ps1.setInt(1, a);//1 refers first question marks
+		int rows=ps1.executeUpdate();
+		if(rows>=1)
+		{
+			System.out.println("Record Exist!");
+			System.out.println(rows+ " Record Deleted!");
+		}
+		else
+		{
+			System.out.println("Record Not Exist!");
+		System.out.println(rows+ " Record Deleted!");			
+		}		
+		PreparedStatement ps11=con.prepareStatement("select * from hexa_emps");//SQL 2
+		ResultSet rs=ps11.executeQuery();
+		while(rs.next())
+		{
+			int a1=rs.getInt("eno");
+			String b1=rs.getString(2);//2nd column=>name
+			float c1=rs.getFloat("salary");
+			String d1=rs.getString(4);//dept
+			System.out.println(a1+ " "+b1 + " "+c1+ " "+d1);
+		}	
+		rs.close();
+		con.close();//release DB connection
+
+
+	}
+
+}
+/*
+DB Connection success!
+Eno:: 
+2202
+Record Exist!
+1 Record Deleted!
+1001 Devi 110000.0 HR
+1002 Abi 128000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 110000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+*/
+/*
+DB Connection success!
+Eno:: 
+453656
+Record Not Exist!
+0 Record Deleted!
+1001 Devi 110000.0 HR
+1002 Abi 128000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 110000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+*/
+====================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+/*
+mysql> CREATE TABLE universities(university_name varchar(40),university_code int primary key);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE students(student_id int primary key,full_name varchar(20),gender varchar (10),university_id int,CONSTRAINT FK_university_id FOREIGN KEY (university_id)REFERENCES universities(university_code));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE contacts(
+	    ->       contact_id int(10),
+	    ->       mobile_number int(20),
+	    ->       email_address varchar (50),
+	    ->       student_id int,
+	    ->       CONSTRAINT FK_student_id FOREIGN KEY (student_id)
+	    ->       REFERENCES students(student_id));
+	Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO universities(university_code, university_name)
+    ->       VALUES(101, 'SRM University'),
+    ->       (1002, 'Amity University'),
+    ->       (1003, 'Anna University'),
+    ->       (1004, 'Hindustan University');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO students(student_id, full_name, gender, university_id) VALUES     
+->       (201,'Noor Khan', 'Male', 101),
+->       (202, 'Avneesh Mishra', 'Male', 1002),
+->       (203,'Monika Singh', 'Female', 1003),
+->       (204, 'Aaliya Khan', 'Female', 1004),
+->       (205, 'Sunil Kumar', 'Male', 1004),
+->       (206, 'Mamta Gupta', 'Female', 1004),    
+->       (207, 'Rapson Jani', 'Male', 101),
+->       (208, 'Kundan Bharti', 'Male', 101),
+->       (209, 'Manmohan Singh', 'Male', 1004),
+->       (210,'Manisha Chaudhry', 'Female', 101);
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO contacts(contact_id, mobile_number, email_address, student_id) VALUES     
+->       (51, 222, 'aaaa222@gmail.com', 201),
+->       (52, 555, 'bbbb555@gmail.com', 202),
+->       (53, 777, 'cccc666@gmail.com', 203),
+->       (54, 888, 'dddd888@gmail.com', 204),
+->       (55, 101, 'eeee101@gmail.com', 204),
+->       (56, 121, 'ffff121@gmail.com', 204),    
+->       (57, 131, 'gggg121@gmail.com', 205),
+->       (58, 141, 'iiii121@gmail.com', 206),
+->       (59, 151, 'jjjj151@gmail.com', 207);
+Query OK, 9 rows affected (0.00 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+*/
+
+/*
+ * mysql> SELECT students.full_name, students.gender, contacts.mobile_number, conta
+cts.email_address, universities.university_name
+    ->     FROM universities
+    ->            LEFT JOIN students ON universities.university_code = students.
+university_id
+    ->            LEFT JOIN contacts ON students.student_id = contacts.student_i
+d;
++------------------+--------+---------------+-------------------+---------------
+-------+
+| full_name        | gender | mobile_number | email_address     | university_nam
+e      |
++------------------+--------+---------------+-------------------+---------------
+-------+
+| Noor Khan        | Male   |           222 | aaaa222@gmail.com | SRM University
+       |
+| Rapson Jani      | Male   |           151 | jjjj151@gmail.com | SRM University
+       |
+| Kundan Bharti    | Male   |          NULL | NULL              | SRM University
+       |
+| Manisha Chaudhry | Female |          NULL | NULL              | SRM University
+       |
+| Avneesh Mishra   | Male   |           555 | bbbb555@gmail.com | Amity Universi
+ty     |
+| Monika Singh     | Female |           777 | cccc666@gmail.com | Anna Universit
+y      |
+| Aaliya Khan      | Female |           888 | dddd888@gmail.com | Hindustan Univ
+ersity |
+| Aaliya Khan      | Female |           101 | eeee101@gmail.com | Hindustan Univ
+ersity |
+| Aaliya Khan      | Female |           121 | ffff121@gmail.com | Hindustan Univ
+ersity |
+| Sunil Kumar      | Male   |           131 | gggg121@gmail.com | Hindustan Univ
+ersity |
+| Mamta Gupta      | Female |           141 | iiii121@gmail.com | Hindustan Univ
+ersity |
+| Manmohan Singh   | Male   |          NULL | NULL              | Hindustan Univ
+ersity |
++------------------+--------+---------------+-------------------+---------------
+-------+
+12 rows in set (0.07 sec)
+
+mysql>
+
+
+ */
+public class JDBC_MYSQLJOINS {
+	public static void main(String[] args) throws Exception
+	{
+		//fetching the db connection from the external file!
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		Statement s1=con.createStatement();
+		String query1="SELECT students.full_name, students.gender, contacts.mobile_number, contacts.email_address, universities.university_name\r\n" + 
+				"    FROM universities\r\n" + 
+				"           LEFT JOIN students ON universities.university_code = students.university_id\r\n" + 
+				"           LEFT JOIN contacts ON students.student_id = contacts.student_id";
+	
+		ResultSet rs=s1.executeQuery(query1);
+		System.out.println("Name\t Gender\t MobNo \t Email \t University");
+		while(rs.next())
+		{
+			System.out.print(rs.getString(1) + "\t");
+			System.out.print(rs.getString(2) + "\t");
+			System.out.print(rs.getInt(3) + "\t");
+			System.out.print(rs.getString(4) + "\t");
+			System.out.println(rs.getString(5) + "\t");
+			}
+		rs.close();
+		con.close();//release DB connection
+
+	}
+
+}
+/*
+DB Connection success!
+Name	 Gender	 MobNo 	 Email 	 University
+Noor Khan	Male	222	aaaa222@gmail.com	SRM University	
+Rapson Jani	Male	151	jjjj151@gmail.com	SRM University	
+Kundan Bharti	Male	0	null	SRM University	
+Manisha Chaudhry	Female	0	null	SRM University	
+Avneesh Mishra	Male	555	bbbb555@gmail.com	Amity University	
+Monika Singh	Female	777	cccc666@gmail.com	Anna University	
+Aaliya Khan	Female	888	dddd888@gmail.com	Hindustan University	
+Aaliya Khan	Female	101	eeee101@gmail.com	Hindustan University	
+Aaliya Khan	Female	121	ffff121@gmail.com	Hindustan University	
+Sunil Kumar	Male	131	gggg121@gmail.com	Hindustan University	
+Mamta Gupta	Female	141	iiii121@gmail.com	Hindustan University	
+Manmohan Singh	Male	0	null	Hindustan University	
+*/
+======================================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+/*
+execute() returns a boolean value and is used to execute SQL statements written 
+as a String object
+
+executeUpdate() returns an int value pertaining to the number of rows affected and is used to
+execute ,DML,DDL SQL statements
+
+executeQuery() returns a ResultSet object and is used to execute SELECT SQL statements
+*/
+
+public class JDBC_Execute {
+	public static void main(String[] args) throws Exception{
+		//fetching the db connection from the external file!
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		Statement s1=con.createStatement();
+		//execute() method allows us to execute any kind of query like select, update. 
+		//execute=>DDL,DML(RETURN TYPE IS BOOLEAN!)
+		//boolean b1=s1.execute("select * from hexa_emps");//valid
+		boolean b1=s1.execute("select eno,ename,salary from hexa_emps");//valid
+		
+		if(b1)//true
+		{
+			ResultSet rs=s1.getResultSet();//calling the ResultSet Interface
+			while(rs.next())
+			{
+				int a=rs.getInt("eno");
+				String b=rs.getString(2);//2nd column=>ename
+				float c=rs.getFloat("salary");
+				//ignoring the dept column here!
+				System.out.println(a+ " "+b + " "+c);
+			}
+		}
+		con.close();
+	}
+}
+/*
+ * DB Connection success!
+1001 Devi 120000.0
+1002 Abi 128000.0
+1003 Raja 177320.0
+1004 Thananya 0.0
+1005 Kanishka 158905.0
+1006 Dhayanithi 178320.0
+1007 Surya 0.0
+1008 Sara 107000.0
+1001 Devi 120000.0
+8001 Priya 167000.0
+2201 Sara 144288.0
+454 Saravana 0.0
+493 Deepa 349429.0
+*/
+
+==============================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+public class JDBCMetaDataDemos {
+
+	public static void main(String[] args) throws Exception {
+		// fetching the db connection from the external file!
+		Connection con = DBConnectionFactory_MYSQL.mydbconnect_123();
+		PreparedStatement ps1 = con.prepareStatement("select * from hexa_emps");
+		ResultSet rs = ps1.executeQuery();
+		// --ResultSetMetaData interface is useful because it provides methods to get
+		// metadata from the ResultSet object.
+
+		ResultSetMetaData rsobj = rs.getMetaData();// similar to desc command in mysql +oracle
+		int cols = rsobj.getColumnCount();// 4
+		// 1 refers 1st column in the table
+		System.out.println("Total Columns:: " + rsobj.getColumnCount());
+		System.out.println("1st ColumnName:: " + rsobj.getColumnName(1));// 1st column(Eno)
+		System.out.println("1st Column datatype:: " + rsobj.getColumnTypeName(1));// datatype
+
+		for (int i = 1; i <= cols; i++) {
+			String colName = rsobj.getColumnName(i);
+			String colType = rsobj.getColumnTypeName(i);
+			System.out.println(colName + " of type " + colType);
+		}
+
+		// DatabaseMetaData interface provides methods to get meta data of a database
+		// such as database product name,
+		// database product version, driver name..
+		DatabaseMetaData dbmd = con.getMetaData();
+		System.out.println("Driver Name: " + dbmd.getDriverName());
+		System.out.println("Driver Version: " + dbmd.getDriverVersion());
+		System.out.println("UserName: " + dbmd.getUserName());
+		System.out.println("Database Product Name: " + dbmd.getDatabaseProductName());
+		System.out.println("Database Product Version: " + dbmd.getDatabaseProductVersion());
+
+	}
+
+}
+/*
+DB Connection success!
+Total Columns:: 4
+1st ColumnName:: eno
+1st Column datatype:: INT
+eno of type INT
+ename of type VARCHAR
+salary of type FLOAT
+dept of type VARCHAR
+Driver Name: MySQL-AB JDBC Driver
+Driver Version: mysql-connector-java-5.1.16 ( Revision: ${bzr.revision-id} )
+UserName: root@localhost
+Database Product Name: MySQL
+Database Product Version: 5.5.21
+*/
+=================================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+/*
+ * mysql>  create table person_records(pid int ,pname varchar(20),
+    ->  dob date,doj date);
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> desc person_records;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int(11)     | YES  |     | NULL    |       |
+| pname | varchar(20) | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| doj   | date        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.26 sec)
+
+mysql> insert into person_records values(10,'Devi','2000/4/18','2021/3/19');
+Query OK, 1 row affected (0.38 sec)
+
+mysql> insert into person_records values(11,'Abi','2000/8/28','2021/2/20');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>   insert into person_records values(13,'Rajan','2000/1/8','2021/4/29');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into person_records values(14,'Kanishka','2000/11/12','2021/4/2');
+
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  select * from person_records;
++------+----------+------------+------------+
+| pid  | pname    | dob        | doj        |
++------+----------+------------+------------+
+|   10 | Devi     | 2000-04-18 | 2021-03-19 |
+|   11 | Abi      | 2000-08-28 | 2021-02-20 |
+|   13 | Rajan    | 2000-01-08 | 2021-04-29 |
+|   14 | Kanishka | 2000-11-12 | 2021-04-02 |
++------+----------+------------+------------+
+4 rows in set (0.00 sec)
+
+ */
+public class JDBC_DateDemos_MYSQL {
+	public static void main(String[] args) throws Exception{
+		//fetching the db connection from the external file!
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		Scanner s1=new Scanner(System.in);
+		System.out.println("Person No:: ");
+		int id=s1.nextInt();
+		s1.nextLine();
+		System.out.println("PersonName:: ");
+		String name=s1.nextLine();
+		System.out.println("Enter DOB(YYYY-MM-DD-MYSQL):: ");
+		String dob1=s1.next();
+		System.out.println("Enter DOJ(YYYY-MM-DD-MYSQL):: ");
+		String doj1=s1.next();
+
+		/*
+		 * Date.valueof()::
+		 * accepts a string value and converts the given string value
+		 * into DATE object!
+		 * JDBC DATE FORMAT:: yyyy-mm-dd
+		 */
+		Date sqdob=Date.valueOf(dob1);
+		Date sqdoj=Date.valueOf(doj1);
+		
+		String query1="insert into person_records values(?,?,?,?)";
+		PreparedStatement ps1=con.prepareStatement(query1);
+		ps1.setInt(1, id);
+		ps1.setString(2, name);
+		ps1.setDate(3, sqdob);//Date object 
+		ps1.setDate(4, sqdoj);//Date object 
+		int rows=ps1.executeUpdate();//EITHER 0 OR 1
+		System.out.println(rows+ " Record inserted!");
+
+		PreparedStatement ps2=con.prepareStatement("select * from person_records");
+		ResultSet rs=ps2.executeQuery();
+		System.out.println("Pno\tPname\tDOB\tDOJ");				
+		//java.text package
+		SimpleDateFormat sformat=new SimpleDateFormat("dd/MMM/yyyy");//MMM-Month in 3 letters ex: aug,sep
+		while(rs.next())
+		{	
+			System.out.print(rs.getInt(1) + "\t");
+			System.out.print(rs.getString(2) + "\t");
+			Date d1=rs.getDate(3);//default=>yyyy/mm/dd
+			String r=sformat.format(d1);//applying the different date format to DOB
+			System.out.print(r + "\t");
+			System.out.println(rs.getDate(4) + "\t");//default=>yyyy/mm/dd
+		}
+PreparedStatement ps3=con.prepareStatement("select * from person_records where doj=?");
+		System.out.println("Enter DOJ:: ");
+		String do5=s1.next();
+		Date sqw=Date.valueOf(do5);//convert string doj to date doj object
+		ps3.setDate(1, sqw);//1 question mark
+		ResultSet rs1=ps3.executeQuery();
+		System.out.println("Pno\tPname\tDOB\tDOJ");
+		while(rs1.next())
+		{	
+			System.out.print(rs1.getInt(1) + "\t");
+			System.out.print(rs1.getString(2) + "\t");
+			Date d1=rs1.getDate(3);//applying the date format to DOB
+			String r=sformat.format(d1);//applying the date format
+			System.out.print(r + "\t");
+			System.out.println(rs1.getDate(4) + "\t");
+		}
+	con.close();
+	}
+}
+
+/*
+DB Connection success!
+Person No:: 
+83
+PersonName:: 
+Janani
+Enter DOB(YYYY-MM-DD-MYSQL):: 
+2003-04-29
+Enter DOJ(YYYY-MM-DD-MYSQL):: 
+2022-01-23
+1 Record inserted!
+Pno	Pname	DOB	DOJ
+10	Devi	18/Apr/2000	2021-03-19	
+11	Abi	28/Aug/2000	2021-02-20	
+13	Rajan	08/Jan/2000	2021-04-29	
+14	Kanishka	12/Nov/2000	2021-04-02	
+83	Janani	29/Apr/2003	2022-01-23	
+Enter DOJ:: 
+2021-02-20
+Pno	Pname	DOB	DOJ
+11	Abi	28/Aug/2000	2021-02-20	
+*/
+========================================================================================
+package myjdbcprograms;
+/*
+ * POJO:: Plain Old Java Object
+ * 
+ *--contains GETTER and SETTER METHODS
+ *--NO MAIN METHOD
+ *
+ */
+//POJO CLASS
+public class Employee_POJO {
+	int empno;
+	String empname;
+	float empsalary;
+	String empdept;
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getEmpname() {
+		return empname;
+	}
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
+	public float getEmpsalary() {
+		return empsalary;
+	}
+	public void setEmpsalary(float empsalary) {
+		this.empsalary = empsalary;
+	}
+	public String getEmpdept() {
+		return empdept;
+	}
+	public void setEmpdept(String empdept) {
+		this.empdept = empdept;
+	}
+
+}
+
+==========================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+//(JDBC)MYSQL+COLLECTION
+public class JDBC_CollectionDemo {
+	public static void main(String[] args)throws Exception {
+		//fetching the db connection from the external file!
+		
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		Statement s1=con.createStatement();
+		ResultSet rs=s1.executeQuery("select * from hexa_emps");
+		ArrayList<Employee_POJO> obj1=new ArrayList<Employee_POJO>();
+		while(rs.next())
+		{
+			Employee_POJO e1=new Employee_POJO();//pojo class object
+			
+			e1.setEmpno(rs.getInt(1));
+			e1.setEmpname(rs.getString(2));
+			e1.setEmpsalary(rs.getFloat(3));
+			e1.setEmpdept(rs.getString(4));
+			obj1.add(e1);//adding MYSQL table records to arraylist
+		}
+		System.out.println("Eno\tName\tSalary");
+		for(Employee_POJO obj:obj1)//passing arraylist object
+		{
+	System.out.println(obj.getEmpno() + " "+obj.getEmpname() + " "+obj.getEmpsalary() + " "+obj.getEmpdept());
+			
+		}
+		System.out.println("Arraylist Size:: "+obj1.size());
+
+	}
+
+}
+/*
+DB Connection success!
+Eno	Name	Salary
+1001 Devi 120000.0 HR
+1002 Abi 128000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 120000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+Arraylist Size:: 13
+*/
+=======================================================================================
+package myjdbcprograms;
+
+import java.util.List;
+import java.util.Set;
+
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+/*
+ * >  show dbs;
+admin        0.000GB
+config       0.000GB
+hexa2022     0.000GB
+hexa_demos   0.000GB
+hexasep2022  0.000GB
+local        0.000GB
+sae          0.000GB
+> use hexasep2022;
+switched to db hexasep2022
+> show tables
+cakeSales
+car
+dateDemo
+hex_emps
+students
+ */
+/*
+ * /*
+ * mongo-java-driver-3.4.2.jar
+ * mongo.jar
+ */
+
+public class JDBCMONGODB {
+	public static void main(String[] args) {
+		try {
+            
+            //MongoClient mongoClient = new MongoClient("localhost", 27017);
+MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+         	List<String> databases = mongoClient.getDatabaseNames();
+             
+            for (String dbName : databases) {
+                System.out.println("- Database: " + dbName);
+                 
+                DB db = mongoClient.getDB(dbName);
+                 
+                Set<String> collections = db.getCollectionNames();
+                for (String colName : collections) {
+                    System.out.println("\t + Collection(TABLE): " + colName);
+                }
+            }
+             
+            mongoClient.close();
+             
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+	}
+
+}
+/*
+Oct 14, 2022 3:58:29 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[127.0.0.1:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: No server chosen by ReadPreferenceServerSelector{readPreference=primary} from cluster description ClusterDescription{type=UNKNOWN, connectionMode=SINGLE, serverDescriptions=[ServerDescription{address=127.0.0.1:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:2}] to 127.0.0.1:27017
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 23]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=5328039}
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:2, serverValue:3}] to 127.0.0.1:27017
+- Database: admin
+Oct 14, 2022 3:58:31 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Closed connection [connectionId{localValue:2, serverValue:3}] to 127.0.0.1:27017 because the pool has been closed.
+	 + Collection(TABLE): system.version
+- Database: config
+	 + Collection(TABLE): system.sessions
+- Database: hexa2022
+	 + Collection(TABLE): car
+	 + Collection(TABLE): hex_emps
+	 + Collection(TABLE): student
+- Database: hexa_demos
+	 + Collection(TABLE): car
+	 + Collection(TABLE): hex_emps
+	 + Collection(TABLE): student
+- Database: hexasep2022
+	 + Collection(TABLE): cakeSales
+	 + Collection(TABLE): car
+	 + Collection(TABLE): dateDemo
+	 + Collection(TABLE): hex_emps
+	 + Collection(TABLE): students
+- Database: local
+	 + Collection(TABLE): startup_log
+- Database: sae
+	 + Collection(TABLE): employees
+	 + Collection(TABLE): student
+*/
+=============================================================================================
+package myjdbcprograms;
+
+import java.util.Scanner;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+/*
+ * > use hexasep2022;
+switched to db hexasep2022
+> show tables
+cakeSales
+car
+dateDemo
+hex_emps
+students
+> db.car.find().pretty()
+{
+        "_id" : 1,
+        "name" : "Audi",
+        "color" : "Red",
+        "cno" : "H101",
+        "mfdcountry" : "Germany",
+        "speed" : 75
+}
+{
+        "_id" : 2,
+        "name" : "Swift",
+        "color" : "Black",
+        "cno" : "H102",
+        "mfdcountry" : "Italy",
+        "speed" : 60
+}
+{
+        "_id" : 3,
+        "name" : "Maruthi800",
+        "color" : "Blue",
+        "cno" : "H103",
+        "mfdcountry" : "India",
+        "speed" : 70
+}
+{
+        "_id" : 4,
+        "name" : "Polo",
+        "color" : "White",
+        "cno" : "H104",
+        "mfdcountry" : "Japan",
+        "speed" : 65
+}
+{
+        "_id" : 5,
+        "name" : "Volkswagen",
+        "color" : "JetBlue",
+        "cno" : "H105",
+        "mfdcountry" : "Rome",
+        "speed" : 80
+}
+{
+        "_id" : 6,
+        "name" : "HondaCity",
+        "color" : "Grey",
+        "cno" : "H106",
+        "mfdcountry" : "Sweden",
+        "speed" : 45
+}
+>
+
+ */
+public class JDBCMongoDB2 {
+	public static void main(String[] args) {
+		try{  
+			// Connecting To MongoDB  
+			MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  
+			// Creating DataBase   
+			MongoDatabase db = mongoClient.getDatabase("hexasep2022");//mongodb database name
+			// Creating Collection/Table  
+	MongoCollection<Document> table = db.getCollection("car"); //mongodb table name
+			//Preparing a document
+			Scanner s1=new Scanner(System.in);
+			System.out.println("Enter car id:: ");
+			int i=s1.nextInt();
+			s1.nextLine();
+			System.out.println("Enter car name:: ");
+			String si=s1.nextLine();
+			System.out.println("Enter car color:: ");
+			String si1=s1.nextLine();
+			
+		      Document document = new Document();
+		      document.append("_id", i);
+		      document.append("name",si);
+		      document.append("color",si1);
+		      //Inserting the document into the collection
+		      db.getCollection("car").insertOne(document);
+		      System.out.println("Record inserted successfully");
+			// Accessing Data
+			FindIterable<Document> data =  table.find();//retrieve from car table
+			// Traversing Data
+			for(Document record : data) {
+				System.out.println(record.toJson());//json format=>key:value
+			}
+			mongoClient.close();
+			
+		}catch(Exception e){  
+			System.out.println(e);  
+		}  
+
+	
+	}
+
+}
+/*
+Oct 14, 2022 4:04:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Enter car id:: 
+Oct 14, 2022 4:04:24 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:4}] to localhost:27017
+Oct 14, 2022 4:04:24 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 23]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=1634295}
+113
+Enter car name:: 
+Ferrari Testarossa
+Enter car color:: 
+Blue
+Oct 14, 2022 4:04:47 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:2, serverValue:5}] to localhost:27017
+Record inserted successfully
+{ "_id" : 1.0, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "Germany", "speed" : 75.0 }
+{ "_id" : 2.0, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" : "Italy", "speed" : 60.0 }
+{ "_id" : 3.0, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountry" : "India", "speed" : 70.0 }
+{ "_id" : 4.0, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" : "Japan", "speed" : 65.0 }
+{ "_id" : 5.0, "name" : "Volkswagen", "color" : "JetBlue", "cno" : "H105", "mfdcountry" : "Rome", "speed" : 80.0 }
+{ "_id" : 6.0, "name" : "HondaCity", "color" : "Grey", "cno" : "H106", "mfdcountry" : "Sweden", "speed" : 45.0 }
+{ "_id" : 113, "name" : "Ferrari Testarossa", "color" : "Blue" }
+Oct 14, 2022 4:04:47 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Closed connection [connectionId{localValue:2, serverValue:5}] to localhost:27017 because the pool has been closed.
+*/
+========================================================================================package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+/*
+ * mysql>  create table person_records(pid int ,pname varchar(20),
+    ->  dob date,doj date);
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> desc person_records;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int(11)     | YES  |     | NULL    |       |
+| pname | varchar(20) | YES  |     | NULL    |       |
+| dob   | date        | YES  |     | NULL    |       |
+| doj   | date        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.26 sec)
+
+mysql> insert into person_records values(10,'Devi','2000/4/18','2021/3/19');
+Query OK, 1 row affected (0.38 sec)
+
+mysql> insert into person_records values(11,'Abi','2000/8/28','2021/2/20');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>   insert into person_records values(13,'Rajan','2000/1/8','2021/4/29');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into person_records values(14,'Kanishka','2000/11/12','2021/4/2');
+
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  select * from person_records;
++------+----------+------------+------------+
+| pid  | pname    | dob        | doj        |
++------+----------+------------+------------+
+|   10 | Devi     | 2000-04-18 | 2021-03-19 |
+|   11 | Abi      | 2000-08-28 | 2021-02-20 |
+|   13 | Rajan    | 2000-01-08 | 2021-04-29 |
+|   14 | Kanishka | 2000-11-12 | 2021-04-02 |
++------+----------+------------+------------+
+4 rows in set (0.00 sec)
+
+ */
+public class JDBC_DateDemos_MYSQL {
+	public static void main(String[] args) throws Exception{
+		//fetching the db connection from the external file!
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		Scanner s1=new Scanner(System.in);
+		System.out.println("Person No:: ");
+		int id=s1.nextInt();
+		s1.nextLine();
+		System.out.println("PersonName:: ");
+		String name=s1.nextLine();
+		System.out.println("Enter DOB(YYYY-MM-DD-MYSQL):: ");
+		String dob1=s1.next();
+		System.out.println("Enter DOJ(YYYY-MM-DD-MYSQL):: ");
+		String doj1=s1.next();
+
+		/*
+		 * Date.valueof()::
+		 * accepts a string value and converts the given string value
+		 * into DATE object!
+		 * JDBC DATE FORMAT:: yyyy-mm-dd
+		 */
+		Date sqdob=Date.valueOf(dob1);
+		Date sqdoj=Date.valueOf(doj1);
+		
+		String query1="insert into person_records values(?,?,?,?)";
+		PreparedStatement ps1=con.prepareStatement(query1);
+		ps1.setInt(1, id);
+		ps1.setString(2, name);
+		ps1.setDate(3, sqdob);//Date object 
+		ps1.setDate(4, sqdoj);//Date object 
+		int rows=ps1.executeUpdate();//EITHER 0 OR 1
+		System.out.println(rows+ " Record inserted!");
+
+		PreparedStatement ps2=con.prepareStatement("select * from person_records");
+		ResultSet rs=ps2.executeQuery();
+		System.out.println("Pno\tPname\tDOB\tDOJ");				
+		//java.text package
+		SimpleDateFormat sformat=new SimpleDateFormat("dd/MMM/yyyy");//MMM-Month in 3 letters ex: aug,sep
+		while(rs.next())
+		{	
+			System.out.print(rs.getInt(1) + "\t");
+			System.out.print(rs.getString(2) + "\t");
+			Date d1=rs.getDate(3);//default=>yyyy/mm/dd
+			String r=sformat.format(d1);//applying the different date format to DOB
+			System.out.print(r + "\t");
+			System.out.println(rs.getDate(4) + "\t");//default=>yyyy/mm/dd
+		}
+PreparedStatement ps3=con.prepareStatement("select * from person_records where doj=?");
+		System.out.println("Enter DOJ:: ");
+		String do5=s1.next();
+		Date sqw=Date.valueOf(do5);//convert string doj to date doj object
+		ps3.setDate(1, sqw);//1 question mark
+		ResultSet rs1=ps3.executeQuery();
+		System.out.println("Pno\tPname\tDOB\tDOJ");
+		while(rs1.next())
+		{	
+			System.out.print(rs1.getInt(1) + "\t");
+			System.out.print(rs1.getString(2) + "\t");
+			Date d1=rs1.getDate(3);//applying the date format to DOB
+			String r=sformat.format(d1);//applying the date format
+			System.out.print(r + "\t");
+			System.out.println(rs1.getDate(4) + "\t");
+		}
+	con.close();
+	}
+}
+
+/*
+DB Connection success!
+Person No:: 
+83
+PersonName:: 
+Janani
+Enter DOB(YYYY-MM-DD-MYSQL):: 
+2003-04-29
+Enter DOJ(YYYY-MM-DD-MYSQL):: 
+2022-01-23
+1 Record inserted!
+Pno	Pname	DOB	DOJ
+10	Devi	18/Apr/2000	2021-03-19	
+11	Abi	28/Aug/2000	2021-02-20	
+13	Rajan	08/Jan/2000	2021-04-29	
+14	Kanishka	12/Nov/2000	2021-04-02	
+83	Janani	29/Apr/2003	2022-01-23	
+Enter DOJ:: 
+2021-02-20
+Pno	Pname	DOB	DOJ
+11	Abi	28/Aug/2000	2021-02-20	
+*/
+========================================================================================
+package myjdbcprograms;
+/*
+ * POJO:: Plain Old Java Object
+ * 
+ *--contains GETTER and SETTER METHODS
+ *--NO MAIN METHOD
+ *
+ */
+//POJO CLASS
+public class Employee_POJO {
+	int empno;
+	String empname;
+	float empsalary;
+	String empdept;
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getEmpname() {
+		return empname;
+	}
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
+	public float getEmpsalary() {
+		return empsalary;
+	}
+	public void setEmpsalary(float empsalary) {
+		this.empsalary = empsalary;
+	}
+	public String getEmpdept() {
+		return empdept;
+	}
+	public void setEmpdept(String empdept) {
+		this.empdept = empdept;
+	}
+
+}
+
+==========================================================================================
+package myjdbcprograms;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import dbconnectionutilities.DBConnectionFactory_MYSQL;
+
+//(JDBC)MYSQL+COLLECTION
+public class JDBC_CollectionDemo {
+	public static void main(String[] args)throws Exception {
+		//fetching the db connection from the external file!
+		
+		Connection con=DBConnectionFactory_MYSQL.mydbconnect_123();
+		Statement s1=con.createStatement();
+		ResultSet rs=s1.executeQuery("select * from hexa_emps");
+		ArrayList<Employee_POJO> obj1=new ArrayList<Employee_POJO>();
+		while(rs.next())
+		{
+			Employee_POJO e1=new Employee_POJO();//pojo class object
+			
+			e1.setEmpno(rs.getInt(1));
+			e1.setEmpname(rs.getString(2));
+			e1.setEmpsalary(rs.getFloat(3));
+			e1.setEmpdept(rs.getString(4));
+			obj1.add(e1);//adding MYSQL table records to arraylist
+		}
+		System.out.println("Eno\tName\tSalary");
+		for(Employee_POJO obj:obj1)//passing arraylist object
+		{
+	System.out.println(obj.getEmpno() + " "+obj.getEmpname() + " "+obj.getEmpsalary() + " "+obj.getEmpdept());
+			
+		}
+		System.out.println("Arraylist Size:: "+obj1.size());
+
+	}
+
+}
+/*
+DB Connection success!
+Eno	Name	Salary
+1001 Devi 120000.0 HR
+1002 Abi 128000.0 Operations
+1003 Raja 177320.0 HR
+1004 Thananya 0.0 Accounting
+1005 Kanishka 158905.0 HR
+1006 Dhayanithi 178320.0 Training
+1007 Surya 0.0 Testing
+1008 Sara 107000.0 Training
+1001 Devi 120000.0 HR
+8001 Priya 167000.0 Operations
+2201 Sara 144288.0 Operations
+454 Saravana 0.0 null
+493 Deepa 349429.0 HR
+Arraylist Size:: 13
+*/
+=======================================================================================
+package myjdbcprograms;
+
+import java.util.List;
+import java.util.Set;
+
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+/*
+ * >  show dbs;
+admin        0.000GB
+config       0.000GB
+hexa2022     0.000GB
+hexa_demos   0.000GB
+hexasep2022  0.000GB
+local        0.000GB
+sae          0.000GB
+> use hexasep2022;
+switched to db hexasep2022
+> show tables
+cakeSales
+car
+dateDemo
+hex_emps
+students
+ */
+/*
+ * /*
+ * mongo-java-driver-3.4.2.jar
+ * mongo.jar
+ */
+
+public class JDBCMONGODB {
+	public static void main(String[] args) {
+		try {
+            
+            //MongoClient mongoClient = new MongoClient("localhost", 27017);
+MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017"));
+         	List<String> databases = mongoClient.getDatabaseNames();
+             
+            for (String dbName : databases) {
+                System.out.println("- Database: " + dbName);
+                 
+                DB db = mongoClient.getDB(dbName);
+                 
+                Set<String> collections = db.getCollectionNames();
+                for (String colName : collections) {
+                    System.out.println("\t + Collection(TABLE): " + colName);
+                }
+            }
+             
+            mongoClient.close();
+             
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+	}
+
+}
+/*
+Oct 14, 2022 3:58:29 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[127.0.0.1:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: No server chosen by ReadPreferenceServerSelector{readPreference=primary} from cluster description ClusterDescription{type=UNKNOWN, connectionMode=SINGLE, serverDescriptions=[ServerDescription{address=127.0.0.1:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:2}] to 127.0.0.1:27017
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 23]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=5328039}
+Oct 14, 2022 3:58:30 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:2, serverValue:3}] to 127.0.0.1:27017
+- Database: admin
+Oct 14, 2022 3:58:31 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Closed connection [connectionId{localValue:2, serverValue:3}] to 127.0.0.1:27017 because the pool has been closed.
+	 + Collection(TABLE): system.version
+- Database: config
+	 + Collection(TABLE): system.sessions
+- Database: hexa2022
+	 + Collection(TABLE): car
+	 + Collection(TABLE): hex_emps
+	 + Collection(TABLE): student
+- Database: hexa_demos
+	 + Collection(TABLE): car
+	 + Collection(TABLE): hex_emps
+	 + Collection(TABLE): student
+- Database: hexasep2022
+	 + Collection(TABLE): cakeSales
+	 + Collection(TABLE): car
+	 + Collection(TABLE): dateDemo
+	 + Collection(TABLE): hex_emps
+	 + Collection(TABLE): students
+- Database: local
+	 + Collection(TABLE): startup_log
+- Database: sae
+	 + Collection(TABLE): employees
+	 + Collection(TABLE): student
+*/
+=============================================================================================
+package myjdbcprograms;
+
+import java.util.Scanner;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+/*
+ * > use hexasep2022;
+switched to db hexasep2022
+> show tables
+cakeSales
+car
+dateDemo
+hex_emps
+students
+> db.car.find().pretty()
+{
+        "_id" : 1,
+        "name" : "Audi",
+        "color" : "Red",
+        "cno" : "H101",
+        "mfdcountry" : "Germany",
+        "speed" : 75
+}
+{
+        "_id" : 2,
+        "name" : "Swift",
+        "color" : "Black",
+        "cno" : "H102",
+        "mfdcountry" : "Italy",
+        "speed" : 60
+}
+{
+        "_id" : 3,
+        "name" : "Maruthi800",
+        "color" : "Blue",
+        "cno" : "H103",
+        "mfdcountry" : "India",
+        "speed" : 70
+}
+{
+        "_id" : 4,
+        "name" : "Polo",
+        "color" : "White",
+        "cno" : "H104",
+        "mfdcountry" : "Japan",
+        "speed" : 65
+}
+{
+        "_id" : 5,
+        "name" : "Volkswagen",
+        "color" : "JetBlue",
+        "cno" : "H105",
+        "mfdcountry" : "Rome",
+        "speed" : 80
+}
+{
+        "_id" : 6,
+        "name" : "HondaCity",
+        "color" : "Grey",
+        "cno" : "H106",
+        "mfdcountry" : "Sweden",
+        "speed" : 45
+}
+>
+
+ */
+public class JDBCMongoDB2 {
+	public static void main(String[] args) {
+		try{  
+			// Connecting To MongoDB  
+			MongoClient mongoClient = new MongoClient( "localhost" , 27017 );  
+			// Creating DataBase   
+			MongoDatabase db = mongoClient.getDatabase("hexasep2022");//mongodb database name
+			// Creating Collection/Table  
+	MongoCollection<Document> table = db.getCollection("car"); //mongodb table name
+			//Preparing a document
+			Scanner s1=new Scanner(System.in);
+			System.out.println("Enter car id:: ");
+			int i=s1.nextInt();
+			s1.nextLine();
+			System.out.println("Enter car name:: ");
+			String si=s1.nextLine();
+			System.out.println("Enter car color:: ");
+			String si1=s1.nextLine();
+			
+		      Document document = new Document();
+		      document.append("_id", i);
+		      document.append("name",si);
+		      document.append("color",si1);
+		      //Inserting the document into the collection
+		      db.getCollection("car").insertOne(document);
+		      System.out.println("Record inserted successfully");
+			// Accessing Data
+			FindIterable<Document> data =  table.find();//retrieve from car table
+			// Traversing Data
+			for(Document record : data) {
+				System.out.println(record.toJson());//json format=>key:value
+			}
+			mongoClient.close();
+			
+		}catch(Exception e){  
+			System.out.println(e);  
+		}  
+
+	
+	}
+
+}
+/*
+Oct 14, 2022 4:04:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Enter car id:: 
+Oct 14, 2022 4:04:24 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:4}] to localhost:27017
+Oct 14, 2022 4:04:24 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 23]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=1634295}
+113
+Enter car name:: 
+Ferrari Testarossa
+Enter car color:: 
+Blue
+Oct 14, 2022 4:04:47 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:2, serverValue:5}] to localhost:27017
+Record inserted successfully
+{ "_id" : 1.0, "name" : "Audi", "color" : "Red", "cno" : "H101", "mfdcountry" : "Germany", "speed" : 75.0 }
+{ "_id" : 2.0, "name" : "Swift", "color" : "Black", "cno" : "H102", "mfdcountry" : "Italy", "speed" : 60.0 }
+{ "_id" : 3.0, "name" : "Maruthi800", "color" : "Blue", "cno" : "H103", "mfdcountry" : "India", "speed" : 70.0 }
+{ "_id" : 4.0, "name" : "Polo", "color" : "White", "cno" : "H104", "mfdcountry" : "Japan", "speed" : 65.0 }
+{ "_id" : 5.0, "name" : "Volkswagen", "color" : "JetBlue", "cno" : "H105", "mfdcountry" : "Rome", "speed" : 80.0 }
+{ "_id" : 6.0, "name" : "HondaCity", "color" : "Grey", "cno" : "H106", "mfdcountry" : "Sweden", "speed" : 45.0 }
+{ "_id" : 113, "name" : "Ferrari Testarossa", "color" : "Blue" }
+Oct 14, 2022 4:04:47 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Closed connection [connectionId{localValue:2, serverValue:5}] to localhost:27017 because the pool has been closed.
+*/
+========================================================================================
+===

@@ -1,0 +1,210 @@
+                                        HIBERNATE 
+                                        ---------
+POM.XML :
+
+<dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.28</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>6.1.0.Final</version>
+    </dependency>
+
+
+hibernate.cfg.xml :
+
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/hibernateDb?useSSL=false</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">Pass1234</property>
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="com.sample.demo.hibernate.entity.Student"/>
+    </session-factory>
+</hibernate-configuration>
+
+
+Package entity :
+
+package com.sample.demo.hibernate.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "student")
+public class Student {
+    @Id
+//  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+    
+    @Column(name = "firstname")
+    private String firstName;
+    
+    @Column(name = "lastname")
+    private String lastName;
+    
+    @Column(name = "email")
+    private String email;
+    
+    public Student() {
+        
+    }
+    
+    public Student(String fName, String lName, String em) {
+        this.firstName = fName;
+        this.lastName = lName;
+        this.email = em;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+    }
+    
+    
+}
+
+
+
+
+
+
+
+Package Util:
+
+package com.sample.demo.hibernate.util;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+public class HibernateUtil {
+    private static StandardServiceRegistry registry;
+    private static SessionFactory factory;
+    
+    public static SessionFactory getSessionFactory() {
+        if(factory == null) {
+            try {
+                registry = new StandardServiceRegistryBuilder().configure().build();
+                
+                MetadataSources sources = new MetadataSources(registry);
+                
+                Metadata data = sources.getMetadataBuilder().build();
+                
+                factory = data.getSessionFactoryBuilder().build();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                
+                if(registry != null) {
+                    StandardServiceRegistryBuilder.destroy(registry);
+                }
+            }
+        }
+        
+        return factory;
+    }
+}
+
+
+App.java :
+package com.sample.demo.hibernate;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.sample.demo.hibernate.entity.Student;
+import com.sample.demo.hibernate.util.HibernateUtil;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+//      Student student = new Student("Pavan", "Kumar", "pk@gm.com");
+//      
+//      Transaction tx = null;
+//      
+//      try {
+//          Session session = HibernateUtil.getSessionFactory().openSession();
+//          
+//          tx = session.beginTransaction();
+//          session.save(student);
+//          
+//          tx.commit();
+//
+//      } catch (Exception e) {
+//          System.out.println("Transaction Failed");
+//      }
+        
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+            List<Student> list = session.createQuery("from Student", Student.class).list();
+            
+            for(Student s: list) {
+                System.out.println(s.toString());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+
+
+

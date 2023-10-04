@@ -1,0 +1,1024 @@
+package myjunitdemos;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
+import junit.framework.TestResult;
+import junit.framework.TestSuite;
+
+public class TestingData {
+
+	public static void main(String[] args) {
+		Result rs=JUnitCore.runClasses(MyCalcTest.class);//used to run the test method classes at command prompt
+		for(Failure fa:rs.getFailures())
+		{
+			System.out.println("Failures:: "+fa);
+			//This will print message only in case of failure
+			System.out.println(fa.getMessage());
+			
+		}
+		if (rs.wasSuccessful()) {
+	        System.out.println("All tests finished successfully...");
+	    }
+		System.out.println("Success?? "+rs.wasSuccessful());
+		System.out.println("RunCount?? "+rs.getRunCount());//how  many test cases @Test
+
+		/*
+		 * TestSuite can be run in 2 ways:: 1. TestSuite class 2. Annotation based
+		 */
+		//A test suite is a collection of one or more test cases. 
+		TestSuite suiteobj=new TestSuite(AssertionTestDemo.class,MyCalcTest.class);//1+5=6
+		//2 testing classes(5+1 test case methods)
+		TestResult result11 =new TestResult();
+		suiteobj.run(result11);//running multiple test cases
+		System.out.println("Test Suite---RunCount?? "+result11.runCount());//2 testing classes
+
+
+	}
+
+}
+==================================================================================================
+package myjunitdemos;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+/*
+ * In Junit, test suite allows us to aggregate all test cases from multiple classes in one place 
+ * and run it together. 
+ * To run the suite test, you need to annotate a class using below-mentioned annotations: 
+ * @Runwith(Suite.class)
+ */
+//A test suite is a collection of one or more test cases. 
+@RunWith(Suite.class)
+@SuiteClasses
+(
+		{
+			AssertionTestDemo.class,
+			MyCalcTest.class
+		}
+)
+//JUNIT WINDOW
+public class TestSuiteDemo {
+
+}
+============================================================================================
+package myjunitdemos;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListDemo {
+	private List<String> employees = new ArrayList<String>();  
+
+	public void add_1(String name) 
+	{  
+        employees.add(name);  
+    }  
+    public void removeAll_1()
+    {  
+        employees.clear();  
+    }  
+    public int sizeOfEmployee_1() 
+    {  
+        return employees.size();  
+    }	
+    public void remove_1(String name) 
+    {  
+        employees.remove(name);  
+    }  
+
+}
+
+============================================================================================
+package myjunitdemos;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class ArraylistTestingDemo {
+	ArrayListDemo obj=new ArrayListDemo();
+	@Test  
+    public void testAdd()
+	{  
+        obj.add_1("Devi");  
+        obj.add_1("Abi");  
+        obj.add_1("Thananya");  
+        obj.add_1("Raja");  
+        assertEquals("Adding 4 employee to list", 4, obj.sizeOfEmployee_1());  //4,4
+    }    
+	 @Test  
+	    public void testSize() {  
+	       obj.add_1("Devi");  
+	        obj.add_1("Abi");  
+	        obj.add_1("Thananya");  
+	        assertEquals("Checking size of List", 3, obj.sizeOfEmployee_1());  
+	    }        
+	 @Test  
+	    public void testRemove() {  
+	        obj.add_1("Devi");  
+	        obj.add_1("Abi");  
+	        obj.remove_1("Devi");  
+	        assertEquals("Removing 1 student from list", 1, obj.sizeOfEmployee_1());  
+	    }        
+	 @Test  
+	    public void removeAll() {  
+	        obj.removeAll_1();  //clear all values!
+	        assertEquals( 0, obj.sizeOfEmployee_1());  
+	    }     
+
+}
+
+==================================================================================================
+package mydemos;
+/*
+ * Inner classes:
+ * --logically group the classes in one place
+ * --part of nested classes
+ */
+//top level classes/main classes/outer classes must be PUBLIC OR DEFAULT SCOPE!
+//top level classes/main classes/outer classes cannot be PRIVATE OR PROTECTED SCOPE!
+
+//abstract public class InnerClass_NestedClass//valid 
+final public class InnerClass_NestedClass//valid 
+{
+	private String pname="Thananya";
+	String email="xyz@gmail.com";
+	void disp()
+	{
+		//inner class datas are accessible in outer class non static methods!
+		System.out.println(new Parents().father+ " "+new Parents().mother);
+		//System.out.println(father+ " "+mother);//invalid
+		System.out.println(pname+ " "+email);
+	}
+	static void dummy()
+	{
+		System.out.println("Outer class static method!");
+		//System.out.println(new Parents().father+ " "+new Parents().mother);//invalid
+	}
+	//inner class started
+	//inner classes can be private,protected,final,default,public
+	//inner class access all the members of outer class including PRIVATE!
+	//TOP LEVEL CLASSES CANNOT BE PRIVATE AND PROTECTED!	
+	//Non static nested classes are called as inner classes!
+	protected class Parents//NON STATIC INNER CLASS=>valid
+	//private class Parents//NON STATIC INNER CLASS=>valid
+	{
+		String father="Daya";
+		String mother="Devi";
+		public void innershow()//INNER CLASS METHOD
+		{
+			System.out.println("Inner class:: "+father+ " "+mother);
+			disp();//outer class non static method
+			dummy();//static method from outer class
+			System.out.println("Outer class(inner class)::"+email);
+		}
+		//generally static is independent,so static method not allowed in non static inner classes!
+		/*
+		static void testing1()
+		{
+					
+		}*/
+	}//closing of inner class
+	public static void main(String[] args) {
+		InnerClass_NestedClass obj=new InnerClass_NestedClass();
+		obj.disp();
+		dummy();
+		//**OUTER CLASS OBJECT CANNOT ACCESS INNER CLASS METHODS!
+		//obj.innershow();//invalid
+
+		//inner class object
+		//outerclassname.innerclassname
+		//TIGHTLY COUPLED!
+						
+		//Parents p1=new Parents();//invalid
+		//Syntax:1
+		//InnerClass_NestedClass$Parents.class=========>Bytecode for INNER CLASS
+	InnerClass_NestedClass.Parents p11=new InnerClass_NestedClass().new Parents();
+	p11.innershow();//CALLING INNER CLASS METHOD
+	//p11.disp();//INNER CLASS OBJECT CANNOT ACCESS OUTER CLASS METHODS
+				
+	//Syntax:2
+	InnerClass_NestedClass.Parents p2=obj.new Parents();//outer class object name 
+	p2.innershow();
+
+		}
+
+}
+/*
+Daya Devi
+Thananya xyz@gmail.com
+Outer class static method!
+Inner class:: Daya Devi
+Daya Devi
+Thananya xyz@gmail.com
+Outer class static method!
+Outer class(inner class)::xyz@gmail.com
+Inner class:: Daya Devi
+Daya Devi
+Thananya xyz@gmail.com
+Outer class static method!
+Outer class(inner class)::xyz@gmail.com
+*/
+=================================================================================================
+package mydemos;
+
+//static cannot be applied to TOP LEVEL CLASSES!
+
+//static public class StaticInnerClass //invalid
+public class StaticInnerClass
+{
+	void dummy()
+	{
+		System.out.println("Outer class dummy()");
+	}
+	static void calling()
+	{
+		System.out.println("Outer class static method!");
+	}
+	//static inner class access only the static types from 
+	//the outer class
+
+	//STATIC CLASS IS A INDEPENDENT CLASS(not tightly copuled with outer class)
+	//static class defines STATIC +NON STATIC METHODS!
+	private static class static_inner//STATIC INNER CLASSES
+	{
+			void show()
+			{
+				calling();//outer class static method
+				//dummy();//non static method cannot be accessible in static class
+				new StaticInnerClass().dummy();
+			}
+			static void demo1()
+			{
+				calling();//outer class static method
+			}
+		}//closing of static class
+	public static void main(String[] args) {
+		StaticInnerClass obj1=new StaticInnerClass();//outer class object
+		
+		//StaticInnerClass$static_inner.class==================>Bytecode
+
+		//StaticInnerClass.static_inner s2=obj1.new static_inner();//invalid bcos independent class
+		static_inner s1=new static_inner();//valid bcos STATIC IS A independent class
+		obj1.dummy();
+		obj1.calling();
+		
+		s1.show();
+		s1.demo1();
+	
+
+		
+	}
+
+}
+/*
+Outer class dummy()
+Outer class static method!
+Outer class static method!
+Outer class dummy()
+Outer class static method!
+*/
+==================================================================================================
+package mydemos;
+/*
+ * LocalInnerClass::
+ * --A class is created inside a METHOD!
+ * --local inner classes cannot be invoked from outside 
+ * the method scope
+ */
+
+public class LocalInnerClass {
+	 int code1=100;
+	 void dummy()
+	 {
+		 System.out.println("Class method:: dummy()");
+	 }
+	 void display()
+	 {
+		 int code2=200;
+		 //local inner class can be abstract and final modifiers or default!
+		 //public,private,protected not allowed for local inner class!
+		 //static class Inner1//wrong
+		 class Inner1//local inner class
+		 {
+			 Inner1()
+			 {
+				 System.out.println("Local Inner class Constructor");
+			 }
+			 void inner1()
+			 {
+				dummy();//accessing outer method
+				System.out.println("Add:: "+(code1+code2));
+			 }		
+		 }//closing local inner class
+		 //local inner class object can be created INSIDE A METHOD ITSELF!
+		 //Local inner class object scope is very much LIMITED!
+		 Inner1 obj=new Inner1();
+		 obj.inner1();
+	 }//closing method
+	 //local inner class created inside a STATIC METHOD!
+	 static void testing()
+	 {
+		 int x=100;
+		 class Inner2
+		 {
+			 void add()
+			 {
+				 System.out.println("Static(Local):: "+(x+x));
+			 }
+		 }//local inner class closing
+		 Inner2 j=new Inner2();
+		 j.add();
+	 }
+	public static void main(String[] args) {
+	// TODO Auto-generated method stub
+		LocalInnerClass g=new LocalInnerClass();
+		g.dummy();
+		g.display();//=>local inner class
+		testing();//=>local inner class
+
+		//Inner2 j=new Inner2();//local inner class object cannot be created outside the method
+
+	}
+
+}
+/*
+Class method:: dummy()
+Local Inner class Constructor
+Class method:: dummy()
+Add:: 300
+Static(Local):: 200
+*/
+=====================================================================================================
+package mydemos;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
+
+/*
+ * With Java 8, a new Date-Time API is introduced to cover the following 
+ * drawbacks of old date-time API.
+
+1. Not thread safe - java.util.Date is not thread safe, thus developers have to deal with concurrency issue 
+while using date. The new date-time API is immutable and does not have setter methods.
+
+2.Poor design - Default Date starts from 1900, month starts from 1, and day 
+starts from 0, so no uniformity.
+ The old API had less direct methods for date operations.
+  The new API provides numerous utility methods for such operations.
+
+3.Difficult time zone handling - Developers had to write a lot of code to deal 
+with timezone issues. 
+The new API has been developed keeping domain-specific design in mind.
+
+Java 8 introduces a new date-time API under the package java.time. 
+Following are some of the important classes introduced in java.time package.
+
+Local - Simplified date-time API with no complexity of timezone handling.
+
+Zoned - Specialized date-time API to deal with various timezones.
+
+LocalDate/LocalTime and LocalDateTime classes simplify the development 
+where timezones are not required. 
+ */
+
+public class DateTimeDemos {
+	public static void main(String[] args) {
+		// Get the current date and time
+	      LocalDateTime currenttime = LocalDateTime.now();
+	      System.out.println("Current DateTime: " + currenttime);
+
+	      //get the date only
+	      LocalDate date1 = currenttime.toLocalDate();
+	      System.out.println("Date::: " + date1);
+			
+	      Month month = currenttime.getMonth();
+	      int day = currenttime.getDayOfMonth();
+	      
+	      System.out.println("Month: " + month  + " " + "Day: " + day);
+
+	      Month m = date1.getMonth();  
+	      int mv = m.getValue();  
+	      System.out.println("Specific Month is:" + m);  
+	      System.out.println("Specific Month in Numbers is:" + mv);  
+
+	      /*
+	       * February has a minimum length of 28 days. 
+	       * February has a maximum length of 29 days
+	       */
+
+	      int minl = m.minLength();  
+	      int maxl = m.maxLength();  
+	      System.out.println("Minimum Days of Specific Month is:" + minl);  
+	      System.out.println("Maximum Days of Specific Month is:" + maxl);  
+
+	      LocalDateTime date2 = currenttime.withDayOfMonth(28).withYear(2024);
+	      System.out.println("Date: " + date2);
+
+	      //LocalDate date3 = LocalDate.of(2021, Month.DECEMBER, 48);//Invalid value for DayOfMonth (valid values 1 - 28/31): 48
+	      //The day must be valid for the year and month, 
+	      //otherwise an exception will be thrown.
+
+	      LocalDate date3 = LocalDate.of(2021, Month.DECEMBER, 25);
+	      System.out.println("Date: " + date3);
+
+	      //Get the current date
+	      LocalDate today = LocalDate.now();
+	      System.out.println("Current date: " + today);
+	  	
+	      /*
+	       * java.time.temporal.ChronoUnit enum is added in Java 8 to 
+	       * replace the integer values 
+	       * used in old API to represent day, month,
+	       */
+	      //add 2 weeks(14days) to the current date
+	      LocalDate nextWeek = today.plus(2, ChronoUnit.WEEKS);
+	      System.out.println("Next week: " + nextWeek);
+
+	      //add 1 month to the current date
+	      LocalDate nextMonth = today.plus(1, ChronoUnit.MONTHS);
+	      System.out.println("Next month: " + nextMonth);
+
+	      //add 1 year to the current date
+	      LocalDate nextYear = today.plus(1, ChronoUnit.YEARS);
+	      System.out.println("Next year: " + nextYear);
+
+	      LocalDate yest = LocalDate.now().minusDays(1);  
+	      LocalDate tomm = LocalDate.now().plusDays(1);  
+	      System.out.println("Yesterday Day was :" + yest);  
+	      System.out.println("Tomorrow will be :" + tomm); 
+	      
+	      /*
+		     
+	      Period - It deals with date based amount of time.
+
+	      */
+	      LocalDate fd = LocalDate.of(2020, 12, 27);  
+	      LocalDate sd = LocalDate.of(2021, 6, 8);  
+	      Period p = Period.between(fd, sd);  
+	      int d = p.getDays();  
+	      int m11 = p.getMonths();  
+	      int y = p.getYears();  
+	      System.out.println("Difference in Days is:" + d);  
+	      System.out.println("Difference in Months is:" + m11);  
+	      System.out.println("Difference in Years is:" + y); 
+	      
+	      Instant timeStamp= Instant.now();
+	      System.out.println("Machine Time Now:" + timeStamp);
+
+	      ZoneId zone = ZoneId.systemDefault();     
+	      System.out.println("Default Zone Id:: "+zone);  
+	      System.out.println("Zone Country Name::"+ zone.getDisplayName(TextStyle.FULL, Locale.ROOT));  
+
+	      //timeStamp in zone - "America/Los_Angeles"
+	      ZonedDateTime LAZone= timeStamp.atZone(ZoneId.of("America/Los_Angeles"));
+	      System.out.println("In Los Angeles(America) Time Zone:"+ LAZone);
+
+	        ZonedDateTime zonedDT = ZonedDateTime.now();
+
+	        System.out.println("ZonedDateTime     : " + zonedDT);
+	        System.out.println("DayOfMonth        : " + zonedDT.getDayOfMonth());
+	        System.out.println("MonthValue        : " + zonedDT.getMonthValue());
+	        System.out.println("Year              : " + zonedDT.getYear());
+	        System.out.println("Hour              : " + zonedDT.getHour());
+	        System.out.println("Minute            : " + zonedDT.getMinute());
+	        System.out.println("Second            : " + zonedDT.getSecond());
+	        System.out.println("Nano              : " + zonedDT.getNano());
+	        System.out.println("DayOfWeek         : " + zonedDT.getDayOfWeek());
+	        System.out.println("Month             : " + zonedDT.getMonth());
+	        System.out.println("DayOfYear         : " + zonedDT.getDayOfYear());
+	        System.out.println("DAY_OF_MONTH      : " + zonedDT.get(ChronoField.DAY_OF_MONTH));        
+	        System.out.println("MONTH_OF_YEAR     : " + zonedDT.get(ChronoField.MONTH_OF_YEAR));
+	        System.out.println("YEAR              : " + zonedDT.get(ChronoField.YEAR));
+	        System.out.println("HOUR_OF_DAY       : " + zonedDT.get(ChronoField.HOUR_OF_DAY));        
+	        System.out.println("MINUTE_OF_HOUR    : " + zonedDT.get(ChronoField.MINUTE_OF_HOUR));
+	        System.out.println("SECOND_OF_MINUTE  : " + zonedDT.get(ChronoField.SECOND_OF_MINUTE));
+	        System.out.println("MINUTE_OF_DAY     : " + zonedDT.getLong(ChronoField.MINUTE_OF_DAY));
+	        System.out.println("SECOND_OF_DAY     : " + zonedDT.getLong(ChronoField.SECOND_OF_DAY));
+	        System.out.println("Chronology        : " + zonedDT.getChronology()); 
+	        System.out.println("toEpochSecond()   : " + zonedDT.toEpochSecond());
+	        System.out.println("toInstant()       : " + zonedDT.toInstant());
+	        System.out.println("toLocalDate()     : " + zonedDT.toLocalDate());
+	        System.out.println("toLocalDateTime() : " + zonedDT.toLocalDateTime());
+	        System.out.println("toLocalTime()     : " + zonedDT.toLocalTime());
+	        System.out.println("toOffsetDateTime(): " + zonedDT.toOffsetDateTime());
+
+
+
+
+
+
+
+	}
+
+}
+=================================================================================================
+package mydemos;
+//No GOTO statement but Label concept available
+public class LabelDemo {
+	public static void main(String[] args) {
+		for(int i=1;i<=3;i++)
+		{
+			for(int j=1;j<=4;j++)
+			{
+				if (j==3)
+				{
+					break;//break the current inner for loop
+				}
+				System.out.println("Value i:: "+i + " "+ "Value j:: "+j);
+			}
+			System.out.println("Outside Inner For Loop");
+		}//outer for loop completion
+		System.out.println("Completed!");
+
+		System.out.println();
+		for(int i=1;i<=3;i++)
+		{
+			for(int j=1;j<=4;j++)
+			{
+				if (j==3)
+				{
+					continue;
+				}
+				System.out.println("Value i:: "+i + " "+ "Value j:: "+j);
+			}
+			System.out.println("Outside Inner For Loop");
+		}//outer for loop completion
+		System.out.println("Completed!");
+
+		System.out.println();
+		
+		//No GOTO statement but Label concept available
+		HEXAWARE://label name of the outer for loop
+		for(int i=1;i<=3;i++)
+		{
+			for(int j=1;j<=4;j++)
+			{
+				if (j==3)
+				{
+					break HEXAWARE;
+				}
+				System.out.println("Value i:: "+i + " "+ "Value j:: "+j);
+			}
+			System.out.println("Outside Inner For Loop");
+		}//outer for loop completion
+		System.out.println("Completed!");
+
+		System.out.println();
+
+
+		System.out.println("CONTINUE WITH LABEL:::::::::::");
+
+		HEXAWARE1://label name of the outer for loop
+		for(int i=1;i<=3;i++)
+		{
+			for(int j=1;j<=4;j++)
+			{
+				if (j==3)
+				{
+					continue HEXAWARE1;
+				}
+				System.out.println("Value i:: "+i + " "+ "Value j:: "+j);
+			}
+			System.out.println("Outside Inner For Loop");
+		}//outer for loop completion
+		System.out.println("Completed!");
+
+
+	}
+
+}
+/*
+Value i:: 1 Value j:: 1
+Value i:: 1 Value j:: 2
+Outside Inner For Loop
+Value i:: 2 Value j:: 1
+Value i:: 2 Value j:: 2
+Outside Inner For Loop
+Value i:: 3 Value j:: 1
+Value i:: 3 Value j:: 2
+Outside Inner For Loop
+Completed!
+
+Value i:: 1 Value j:: 1
+Value i:: 1 Value j:: 2
+Value i:: 1 Value j:: 4
+Outside Inner For Loop
+Value i:: 2 Value j:: 1
+Value i:: 2 Value j:: 2
+Value i:: 2 Value j:: 4
+Outside Inner For Loop
+Value i:: 3 Value j:: 1
+Value i:: 3 Value j:: 2
+Value i:: 3 Value j:: 4
+Outside Inner For Loop
+Completed!
+
+Value i:: 1 Value j:: 1
+Value i:: 1 Value j:: 2
+Completed!
+
+CONTINUE WITH LABEL:::::::::::
+Value i:: 1 Value j:: 1
+Value i:: 1 Value j:: 2
+Value i:: 2 Value j:: 1
+Value i:: 2 Value j:: 2
+Value i:: 3 Value j:: 1
+Value i:: 3 Value j:: 2
+Completed!
+*/
+=====================================================================================================
+package mydemos;
+
+import java.util.HashSet;
+/*
+ * /*
+ * The equals() and hashcode() are the two important methods provided by the Object 
+ * class for comparing objects. 
+ * equals():::
+--The java equals() is a method of lang.Object class, and it is used to 
+compare two objects.
+--To compare two objects that whether they are the same, 
+it compares the values of both the object's attributes.
+--By default, two objects will be the same only if stored in the 
+same memory location.
+ 
+ The hashcode() method returns the same hash value when called on two objects, 
+ which are equal according to the equals() method. 
+ And if the objects are unequal, it usually returns different hash values.
+ 
+ If two objects are the same as per the equals(Object) method, 
+ then if we call the hashCode() method on each of the two objects, 
+ it must provide the same integer result.
+ 
+ As per the Java documentation, both the methods should be overridden 
+ to get the complete equality mechanism; using equals() alone is not sufficient. 
+ It means, if we override the equals(), we must override the hashcode() method.
+ */
+
+ 
+class Student62
+{
+	int id;
+	String name;
+	public Student62(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	//COMPARING SIMILAR OR DISTINCT OBJECTS
+	//OVERRIDING ""EQUALS METHOD and hashcode method FROM OBJECT CLASS""
+	//SOURCE->GENERATE HASHCODE AND EQUALS->SELECT ID AND NAME
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student62 other = (Student62) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() 
+	{
+		return id +  " "+ name;
+	}
+
+}
+public class Equals_HashCodeDemo {
+	public static void main(String[] args) {
+		Student62 s1=new Student62(1,"devi");
+		Student62 s2=new Student62(1,"devi");
+		Student62 s3=new Student62(2,"abi");
+		Student62 s4=new Student62(3,"rajan");
+		Student62 s5=new Student62(31,"rajan");
+		Student62 s6=new Student62(31,"rajan");
+
+		HashSet<Student62> obj=new HashSet<>();//unordered collection
+		obj.add(s1);//custom object s1 and s2 address are different but values are same!!!
+		obj.add(s2);
+		obj.add(s3);
+		obj.add(s4);
+		obj.add(s5);
+		obj.add(s6);
+		
+		System.out.println("Size:: "+obj.size());
+		for(Student62 i:obj)
+		{
+			System.out.println(i);
+		}
+		System.out.println("S1 EQUALS S2:: "+s1.equals(s2));
+		System.out.println("S1 EQUALS S3:: "+s1.equals(s3));
+System.out.println("Hashcode:: "+s1.hashCode() + " "+s2.hashCode() +" " + s3.hashCode());	
+	
+if(s1.hashCode()==s2.hashCode())
+{
+	if(s1.equals(s2))
+	{
+		System.out.println("Both Objects are equal");
+	}
+	else
+	{
+		System.out.println("Both objects are not equal");
+	}
+}
+else
+{
+	System.out.println("May or may not equal");
+}
+
+
+
+	}
+
+}
+/*BEFORE OVERRIDING EQUALS AND HASHCODE METHOD::
+Size:: 6
+1 devi
+3 rajan
+31 rajan
+2 abi
+1 devi
+31 rajan
+S1 EQUALS S2:: false
+S1 EQUALS S3:: false
+Hashcode:: 2018699554 1311053135 118352462
+May or may not equal
+*/
+/*AFTER OVERRIDING EQUALS AND HASHCODE METHOD::
+Size:: 4
+3 rajan
+2 abi
+1 devi
+31 rajan
+S1 EQUALS S2:: true
+S1 EQUALS S3:: false
+Hashcode:: 3080916 3080916 97383
+Both Objects are equal
+
+*/
+=====================================================================================================
+package mydemos;
+/*
+ * JDK 8:: Method References::
+ * If you already have some other API or class who has similar implementation as 
+ * what functional interface needs, 
+ * then you can simply pass on method reference of that already implemented method 
+ * to functional interface. 
+ * With this, 
+ * whenever method is called on functional interface object it will delegate it to 
+ * that "method reference"".
+ */
+//Method references & Lambda expressions both can only be used in context of Functional Interfaces. 
+@FunctionalInterface
+interface code1
+{
+	void hexashow();	
+	//void show1();//only one abstract method(public and abstract)
+}
+@FunctionalInterface
+interface code3
+{
+	int hexafindMax(int a, int b);	
+}
+@FunctionalInterface
+interface code4
+{
+	int hexastringLength();
+}
+@FunctionalInterface
+interface code2
+{
+	void hexashow1(String a,String v);
+}
+public class MethodReferencesDemo {
+	MethodReferencesDemo(){	}
+	MethodReferencesDemo(String a,String b)
+	{
+		System.out.println("Constructor:: "+a + " "+b);
+	}
+	 public void myMethod1()
+	 {
+			System.out.println("Non Static Method");  	 
+	 }
+	 public static void myMethod()
+	 {
+			System.out.println("Static Method");  
+	 }  
+	public static void main(String[] args) {
+		MethodReferencesDemo object1=new MethodReferencesDemo();
+		//DONT GIVE PARENTHESES FOR METHOD REFERENCES!
+		//NO IMPLEMENTS , NO @OVERRIDE
+		code1 ob11=object1::myMethod1;//only for functional interfaces!
+		ob11.hexashow();
+		//code1 ob111=object1::myMethod;//static not applicable to interface method
+	
+		// Referring static method using reference  
+		code1 ob=MethodReferencesDemo::myMethod;//classname::methodname
+		ob.hexashow();
+
+		//we are referring a static method of Math class. 
+		code3 ob7=Math::max;
+		int result=ob7.hexafindMax(34, 324);
+		System.out.println("Max:: "+result);
+
+		/*
+		 * Here, we are referring length(), an instance method of String class from the stringLength() method 
+		 * of JavaInterface. 
+		 * The length() method is a built-in method of String that we are referring to here by our own method.
+		 */
+		code4 ob46="Java"::length;
+		int result1=ob46.hexastringLength();
+		System.out.println("Length:: "+result1);
+
+
+		/*
+		 * You can refer a constructor by using the new keyword. 
+		 * Here, we are referring constructor with the help of functional interface.
+		 */
+		code2 ob5=MethodReferencesDemo::new;//para constructor taking 2 string arguments
+		//ob5.hexashow1("Java");//MethodReferencesDemo(String) not here!
+		ob5.hexashow1("Java","JSP");//MethodReferencesDemo(String,String)  here!
+
+	}
+
+}
+/*
+Non Static Method
+Static Method
+Max:: 324
+Length:: 4
+Constructor:: Java JSP
+*/
+========================================================================================================
+package mydemos;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+/*
+ * Older approach to close the resources:::
+ * 
+This is an older approach that we used to handle file related operations.
+Notice, we manually closed the resource using close() method.
+ */
+/*JDK 8 FEATURE::
+ * a try with resources is a feature of Java which was added into Java 7. 
+ * It helps to close all the resources declared within try block. 
+ * It automatically closes the resources after being used. 
+ * A resource can be any file or a database connection.
+For example, if we are working with File handing then after opening a file, 
+it requires to be closed after reading or writing data. 
+In early versions of Java, we have to explicitly close the resource, 
+but from Java 7, we don’t need to worry about to close the resources.
+
+What type of resources can be handled automatically?
+
+Java says, any object that implements java.lang.AutoCloseable interface 
+and java.io.Closeable interface, can be used as a resource.
+ */
+/*
+ * AutoCloseable is a functional interface that defines only one method: close(). 
+ */
+class Door implements AutoCloseable
+{
+	public void swing() {
+	     System.out.print("The door is swinging. ");
+	   }
+
+	@Override
+	public void close() throws Exception {
+	    System.out.print("Now the door is closed. ");		
+	}	
+}
+public class TryWithResources {
+
+	public static void main(String[] args) {
+	/*	Scanner s1=new Scanner(System.in);//Resource leak: 's1' is never closed
+		System.out.println("Enter ENO::");
+		int eno=s1.nextInt();
+		System.out.println("Eno: "+eno);
+		s1.close();
+		*/
+		System.out.println("TRY WITH RESOURCE(FILE,DATABASE)::");
+		/*
+		 * 1.Objects declared in a try with resources statement have scope within the 
+		 * try block, 
+		 * but not the catch and finally blocks.
+		   2.The close() method of objects declared in a try with resources 
+		   block is invoked regardless of whether an exception is thrown 
+		   during execution.
+		 */
+		/*
+		 * The try-with-resources statement does automatic resource management. 
+		 * We need not explicitly close the resources as JVM automatically closes them. 
+		 * This makes the code more readable and easier to write.
+		 */
+		try(Scanner s11=new Scanner(System.in))
+		{
+			System.out.println("Enter Salary::");
+			int s133=s11.nextInt();
+			System.out.println("Salary: "+s133);	
+		     //s11.close(); No need to close manually		   
+		}
+		/*
+		 * 1.In a try-with-resources statement, catch or finally block executes 
+		 * after closing of the declared resources.
+		 2.You can use catch and finally blocks with try-with-resources statement 
+		 just like an ordinary try statement.
+		 */
+		catch(Exception e)
+		{
+		System.out.println("Catch Block::"+e);	
+		}
+		//Prior to Java 7 version, only finally block is used to 
+		//ensure that a resource is closed properly.
+		finally
+		{
+			System.out.println("Finally Block!!!");	
+			}
+	
+		/*
+		 * Notice, we used multiple resources inside it 
+		 * that means it can handle multiple resources as well.
+		 */
+		try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hexasep2022","root","");  
+            Statement stmt=con.createStatement();  
+            ResultSet rs=stmt.executeQuery("select * from hexa_emps");  
+            )
+        {  
+            while(rs.next())
+            {    
+                System.out.println(rs.getInt(1)+""+rs.getString(2)+""+rs.getString(4)+ " "+rs.getFloat(3));    
+            }  
+        }  
+        catch(Exception e)
+		{    
+            System.out.println(e);  
+        }
+		finally
+		{
+			System.out.println("Done!");
+		}
+		/*
+		 * 1.The developer creates and initializes the Door instance in the 
+		 * try with resources block.
+
+2.The developer explicitly invokes the swing() method.
+
+3.The JVM implicitly calls the close() method after the try block completes.
+
+4.The close() method is always invoked, regardless of whether a checked or 
+unchecked exception is thrown in one of the try, catch or finally blocks. 
+
+5.This simplifies resource management code and makes the application more effective.
+
+6.The resource referenced by the AutoCloseable object will always be closed 
+if a try with resources statement is used, and potential memory leaks commonly 
+caused by a misallocation of resources are eliminated.
+		 */
+		 try (Door door = new Door()) 
+		 {
+		       door.swing();
+		 } 
+		 catch (Exception e) { /* do something */ }
+		 finally { /* do something */ }
+		 
+	}
+
+}
+====================================================================================================

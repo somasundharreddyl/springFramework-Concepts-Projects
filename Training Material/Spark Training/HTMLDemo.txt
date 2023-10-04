@@ -1,0 +1,141 @@
+<!--HTML CLIENT SIDE WEB LANGUAGE-->
+<!--combination of built-in tags and attributes CLient side web language-->
+<html>
+<head>
+<title>
+Hexaware
+</title>
+</head>
+<body bgcolor=lightyellow text=green>
+<h1>My First Heading</h1>
+<h2>My First Heading</h2>
+<h3>My First Heading</h3>
+<h4>My First Heading</h4>
+<h5>My First Heading</h5>
+<h6>My First Heading</h6>
+<hr color=red size=10 width=900/>
+<p>My first paragraph.</p>
+<font color=blue size=7 face="Arial">
+Nice day
+</font>
+<!--a:: anchor tag-->
+<a href="http://www.zoho.com">Zoho Corporation</a>
+<a href="http://www.microsoft.com" target="_blank">Microsoft</a>
+<br><br>
+<b>hai</b>
+<i>hai</i>
+<u>hai</u>
+log<sub> 10</sub>
+a<sup>2</sup>
+<pre>
+						for i = 1 to 10
+		     print i
+next i
+</pre>
+<img src="mypictures/Lighthouse.jpg" width="104" height="142" alt="image not available" hspace=1000 />
+<img src="mypictures/rose1.jpg" width="104" height="142" alt="image not available" />
+<br><br>
+<a href="Tips.txt">
+<img  border =5 src="mypictures/Lighthouse.jpg" alt="picture" width="32" height="32" />
+</a>
+<br>
+<h4>An Unordered List:</h4>
+<ul>
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ul>
+<h4>Disc bullets list:</h4>
+<ul type="disc">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ul>  
+
+<h4>Circle bullets list:</h4>
+<ul type="circle">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ul>  
+
+<h4>Square bullets list:</h4>
+<ul type="square">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ul>  
+<h4>Numbered list:</h4>
+
+<ol>
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ol>  
+
+<h4>Letters list:</h4>
+<ol type="A">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ol>  
+
+<h4>Lowercase letters list:</h4>
+<ol type="a">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ol>  
+
+<h4>Roman numbers list:</h4>
+<ol type="I">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ol>  
+
+<h4>Lowercase Roman numbers list:</h4>
+<ol type="i">
+ <li>Apples</li>
+ <li>Bananas</li>
+ <li>Lemons</li>
+ <li>Oranges</li>
+</ol>  
+<h4>A nested List:</h4>
+<ul>
+  <li>Coffee</li>
+  <li>Tea
+    <ul>
+    <li>Black tea</li>
+    <li>Green tea</li>
+    </ul>
+  </li>
+  <li>Milk</li>
+</ul>
+<table border=13 bordercolor=red bgcolor=orange cellpadding=13 cellspacing=4>
+<caption>Employee Details</caption>
+<th>Eno</th><th>Name</th><th>Salary</th>
+<tr>
+<td>1001</td><td>Devi</td><td>45040</td>
+</tr>
+<tr>
+<td>1001</td><td>Devi</td><td>45040</td>
+</tr>
+<tr>
+<td>1001</td><td>Devi</td><td>45040</td>
+</tr>
+<tr>
+<td>1001</td><td>Devi</td><td>45040</td>
+</tr>
+</table>
+<!--Cellpadding basically defines the space present between a table cell's border and the content present in it. 
+Cellspacing basically defines the space present between individual adjacent cells. -->
+</body>
+</html>

@@ -1,0 +1,274 @@
+                                  SpringJDBC
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.28</version>
+    </dependency>
+ 
+
+application-context.xml :
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/springretaildb?useSSL=false"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="Pass1234"></property>
+    </bean>
+    
+    <bean id="productDao" class="com.sample.demo.jdbc.dao.ProductsDaoImpl">
+        <property name="ds" ref="ds"></property>
+    </bean>
+</beans>
+
+
+ProductDao.java  :
+
+package com.sample.demo.jdbc.dao;
+
+import com.sample.demo.jdbc.model.Products;
+import java.util.List;
+
+/**
+ * dao interface for CRUD operations
+ * @author Pallavi Prasad
+ *
+ */
+public interface ProductsDao {
+    public void save(Products product);
+    public List<Products> getAll();
+    public Products getById(int id);
+    public void update(Products product);
+    public void deleteById(int id);
+}
+
+
+
+
+
+
+
+
+
+
+ProductDaoImpl.java :
+
+package com.sample.demo.jdbc.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.sample.demo.jdbc.model.Products;
+
+public class ProductsDaoImpl implements ProductsDao{
+
+    private DataSource ds;
+    
+    public void setDs(DataSource ds) {
+        this.ds = ds;
+    }
+    
+    
+    private int getLastRow() {
+        String sql = "SELECT PRODUCTID FROM PRODUCTS ORDER BY PRODUCTID DESC LIMIT 1";
+        
+        int id = 0;
+        
+        try {
+            Connection con = ds.getConnection();
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()) {
+                id = rs.getInt("PRODUCTID");
+            }
+            
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return id;
+    }
+    
+    @Override
+    public void save(Products product) {
+        String sql = "INSERT INTO PRODUCTS VALUES (?, ?, ?, ?, ?)";
+        
+        int id = getLastRow();
+        
+        if (id == 0) {
+            id = 101;
+        } else {
+            ++id;
+        }
+        
+        try {
+            Connection con = ds.getConnection();
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(2, product.getProductName());
+            ps.setString(3, product.getDescription());
+            ps.setString(4, product.getBrand());
+            ps.setDouble(5, product.getPrice());
+            
+            ps.executeUpdate();  //only for insert, update and delete
+            
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+
+    @Override
+    public List<Products> getAll() {
+        String sql = "SELECT * FROM PRODUCTS";
+        List<Products> list = new ArrayList<Products>();
+        
+        Connection con = null;
+         try {
+             con = ds.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(sql);
+             
+             while(rs.next()) {
+                 Products p = new Products();
+                 p.setProductId(rs.getInt("PRODUCTID"));
+                 p.setProductName(rs.getString("PRODUCTNAME"));
+                 p.setDescription(rs.getString("DESCRIPTION"));
+                 p.setBrand(rs.getString("BRAND"));
+                 p.setPrice(rs.getDouble("PRICE"));
+                 
+                 list.add(p);
+             }
+             
+         } catch (SQLException e) {
+             System.out.println(e.getMessage());
+         } finally {
+             try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+         }
+        
+        return list;
+        
+    }
+
+    @Override
+    public Products getById(int id) {
+        Products p = new Products();
+        
+        String sql = "SELECT * FROM PRODUCTS WHERE PRODUCTID = ?";
+        
+        try {
+            Connection con = ds.getConnection();
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                p.setProductId(rs.getInt("PRODUCTID"));
+                p.setProductName(rs.getString("PRODUCTNAME"));
+                p.setDescription(rs.getString("DESCRIPTION"));
+                p.setBrand(rs.getString("BRAND"));
+                p.setPrice(rs.getDouble("PRICE"));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return p;
+    }
+
+    @Override
+    public void update(Products product) {
+        
+        
+    }
+
+    @Override
+    public void deleteById(int id) {
+        
+        
+    }
+
+}
+
+
+
+App.java :
+
+package com.sample.demo.jdbc;
+
+import java.util.List;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.sample.demo.jdbc.dao.ProductsDao;
+import com.sample.demo.jdbc.model.Products;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("application-context.xml");
+        ProductsDao dao = ctx.getBean("productDao", ProductsDao.class);
+        
+        List<Products> list = dao.getAll();
+        
+        for(Products p: list) {
+            System.out.println(p.toString());
+        }
+        
+        ctx.close();
+    }
+}
+
+
+
+
+   
