@@ -1,0 +1,130 @@
+                                              Lombok
+                                             ---------
+
+Lombok is a popular Java library that simplifies the development of Java applications by providing a 
+set of annotations to automatically generate boilerplate code, such as getters, setters, constructors, and more.
+ These annotations help reduce the verbosity of Java code and improve code readability. Here are some commonly used Lombok annotations:
+
+1. `@Getter` and `@Setter`:
+   - `@Getter`: Automatically generates getter methods for fields.
+   - `@Setter`: Automatically generates setter methods for fields.
+
+   Example:
+   ```java
+   import lombok.Getter;
+   import lombok.Setter;
+
+   public class MyClass {
+       @Getter @Setter
+       private String name;
+   }
+   ```
+
+2. `@ToString`:
+   - Generates a `toString()` method for the class, providing a human-readable representation of the object's state.
+
+   Example:
+   ```java
+   import lombok.ToString;
+
+   @ToString
+   public class MyClass {
+       private String name;
+   }
+   ```
+
+3. `@NoArgsConstructor`, `@RequiredArgsConstructor`, and `@AllArgsConstructor`:
+   - `@NoArgsConstructor`: Generates a no-argument constructor.
+   - `@RequiredArgsConstructor`: Generates a constructor for required fields.
+   - `@AllArgsConstructor`: Generates a constructor for all fields.
+
+   Example:
+   ```java
+   import lombok.AllArgsConstructor;
+   import lombok.NoArgsConstructor;
+   import lombok.RequiredArgsConstructor;
+
+   @NoArgsConstructor
+   @RequiredArgsConstructor
+   @AllArgsConstructor
+   public class MyClass {
+       private final String name;
+       private int age;
+   }
+   ```
+
+4. `@Data`:
+   - Combines `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`, and `@RequiredArgsConstructor` into a single annotation for convenience.
+
+   Example:
+   ```java
+   import lombok.Data;
+
+   @Data
+   public class MyClass {
+       private String name;
+       private int age;
+   }
+   ```
+
+5. `@Builder`:
+   - Generates a builder pattern for creating instances of the class with a fluent API.
+
+   Example:
+   ```java
+   import lombok.Builder;
+
+   @Builder
+   public class MyClass {
+       private String name;
+       private int age;
+   }
+
+   // Usage:
+   MyClass myObject = MyClass.builder().name("John").age(30).build();
+   ```
+
+6. `@EqualsAndHashCode`:
+   - Generates `equals()` and `hashCode()` methods based on the fields of the class.
+
+   Example:
+   ```java
+   import lombok.EqualsAndHashCode;
+
+   @EqualsAndHashCode
+   public class MyClass {
+       private String name;
+       private int age;
+   }
+   ```
+
+These are just a few of the commonly used Lombok annotations. Lombok provides many
+ more annotations to simplify various aspects of Java development, 
+including `@Cleanup`, `@Log`, `@Value`, and more. Developers can use Lombok annotations
+ to reduce boilerplate code and focus on writing more concise and readable Java code.
+
+
+
+
+Note:
+Use of build:
+@AllArgsConstructor(staticName="build")
+
+In Service class for AddCustomer:
+Customer customer=new Customer(1,"name","name@gmail.com") --> Customer customer=Customer.build(1,"name","name@gmail.com");
+
+
+
+
+
+
+
+{
+    "id":1,
+    "name":"Sudeesh",
+    "email":"sudeesh@gmail.com"
+}
+
+
+
+7.put @Slf4j on class.  Inside class - >  log.info();

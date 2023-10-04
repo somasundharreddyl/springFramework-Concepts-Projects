@@ -1,0 +1,44 @@
+                                         Exception Handling
+                                        --------------------
+
+1.Debugging - Removing Bugs.
+2.Coding - Adding Bug.
+3.Make Sure to write code in less No of Lines.Then You Can Debug Easily.
+4.bug -> Error.
+5.Errors:
+  a.Compile Time Error : (System.out.prin()) ---> Syntax Error --> Gives Red Line. 
+  b.Runtime Error      :  file Missing in future,fetching arrayIndexOutofBound Element
+  c.Logical Error      :  When You log in with ur FB account But You got into others account.
+6.Which one is Easy to Solve? Compile Time Error(gives Red Line & Suggestion).
+7.Logical Errors can easily find out & solve in Testing.
+8. But What not easy to solve is Runtime Error.Sometimes Runtime Errors cant find out in Testing.
+9.So As programmers, we need to solve this Runtime Errors(Exceptions).
+10.Everyline of code can be Normal Statement or Critical Statement.
+   int a=5;   --> Normal Statement.
+   db.getConnection() ---> Critical Statement.
+11.Examples:
+   int i=9;
+   int j=3;
+   int k=i+j; ---> Normal Statement
+   int k=i/j; ---> Critical Statemnt
+12.We must Handle Exceptions if the Execution dont want to stop  abruptly.
+13.Flow of Exceptions:
+
+
+
+                       ______ Error
+                      |                      _________Unchecked Exceptions(Runtime Exceptions)
+Object--->Throwable---|                     |
+                      |______ Exception ----|
+                                            |_________Checked Exceptions(CompileTime Exception)
+
+
+14.Runtime Exceptions:
+   Ex: ClassCastException,ArithmeticException,IndexArrayOutofBound,NullPointer,NumberFormatException
+
+15.CompileTime Exceptions: 
+   Ex: IO Exception(FileNotFoundException),SQLException,ClassNotFoundException,InterruptedException,DataAccessException
+
+16.Runtime Errors: ThreadDeath Error,IO Error,StackOverFlow Error,VirtualMachine Error.
+17.try,catch,finally
+18.throw,throws

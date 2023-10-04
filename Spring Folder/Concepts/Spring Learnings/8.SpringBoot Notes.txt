@@ -1,0 +1,205 @@
+                                      SpringBoot
+                                     ------------
+
+1.server.port=8082
+2.@ResponseBody -> it will return to browser whatever is written as it is.(String format Instead of JSON)
+3.View Technology - JSP
+4.src/main/resources/META-INF/resources/WEB-INF/jsp/hello.jsp
+5.<head><body></body></head>
+6.Application.properties:
+spring.mvc.view.prefix=/META-INF/resources/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+7.@RequestMapping("sayHello")
+ Public String sayHelloJsp(){
+ return "hello";      ---> Return hello.jsp
+}
+8.To know Exact Error Detail, logging.level.org.springframework=debug
+9.Add Below dependency If you are Working with .jsp File.
+               <dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+10.@RequestParam : Capturing QueryParams using RequestParam.
+a.Passing as Query Parameter in locolhost.
+b.Accepting in controller Method using @RequestParam
+c.Once it have in Controller, to Pass it to View & show it in Jsp,You need to
+put it in Model.
+
+Ex :  @ReuestMapping("sayHello")
+     Public String sayHelloJsp(@RequestParam String name,ModelMap model){
+     model.put("name",name);
+     return "hello";          ---> Return hello.jsp
+     }
+
+  localhost:8080/sayHello?name=Lavi
+
+
+11.Logging(slf4j): springboot-starter-logging --> starter-web
+
+Application.properties:
+logging.level.com.springboot.practice=debug
+
+private Logger logger=LoggerFactory.getLogger(this.getClass());
+logger.debug("Hello {}",name);
+logger.info("info level");
+
+
+12.dispatchServlet:
+a.DispatchServlet first Identify correct Controller Method.
+b.Controller Method puts data into Model and return view.
+c.View-Resolver identify correct View(hello.jsp) by adding prefix+suffix in Application Properties.
+d.DispatchServlet Execute that View(hello.jsp).
+
+13.Request vs Session :
+a.Request:All requests from Browser are handled by our web application deployed
+on a server.
+Request Scope : Active for single Request only.
+                - Once Response is sent back, the request Attributes will be Removed from Memory.
+                - Theses cannot be used for Future Requests.
+
+Session Scope : Details stored across multiple requests(login,welcome).
+               - Takes additional memeory as all details are stored on server.
+
+   @SessionAttributes("name")
+
+14. Expression language : ${name}
+
+15.Validations: spring boot Starter Validation(pom.xml)
+                Add Validations to Bean
+
+
+ -------------------------------------------------------------------------------------------------------------------------------
+
+                                                   Spring REST API
+                                                  -----------------
+
+@Controller ---> @RestController (REST API'S)
+@RequestMapping --> @GetMapping,@PutMapping (Specific Mappings)
+
+Whats Happening in Background:
+*By default, logging in info level. change to Debug.
+
+1. How are our Requests Handled?
+  - DispatcherServlet - Front Controller Pattern
+  -Mapping Servlets : dispatcherServlet urls=[/]
+  -Auto Configuration(DispatcherServletAutoConfiguration)
+
+2. How Object Convert into Json Format?
+@ResponseBody+JacksonHttpMessageConverters (AutoConfiguration)
+
+3. Configuring error mapping?(White lable page)
+- ErrorMVCAutoConfiguration
+
+
+*Path URL: customer/user/getCustomer/{id}
+*Path Variable : id
+public Customer getCustomer(@PathVariable int id){}
+
+
+-Request Methods for REST API:
+*GET - Retrieve Details of Specific User. - /users
+*POST - Create a New Resource.            - /users
+*PUT - Update an Existing Resource.       - 
+*PATCH - Update part of a Resource.       - /users/{id}
+*DELETE - Delete a Resource.              - /users/{id}
+
+
+---------------------------------------------------------------------------
+Coding Rules:
+
+1. int--> Integer (in Pojo Class)
+2.LocalDate
+3.Response Status for REST API : 200-Success,201-Created,204-No Content
+                               : 400-Bad Request,401-Unauthorized,404-Resource Not Found
+                               : 500 - Server Error.
+
+4.Write with ResponseEntity<Customer>.
+5.Exception Handling:
+@ControllerAdvice
+public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
+ 
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<ErrorDetails> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
+		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), 
+				ex.getMessage(), request.getDescription(false));
+		
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}
+ 
+	@ExceptionHandler(UserNotFoundException.class)
+	public final ResponseEntity<ErrorDetails> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {
+		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), 
+				ex.getMessage(), request.getDescription(false));
+		
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
+		
+	}
+ 
+	
+}
+6.Validations : Do not pass Null values,Invalid data in creating Resource(Customer-customerName as Null).
+ - Add Depependency : <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		      </dependency>
+ - Customer Class :
+public Class Customer{
+private Integer customerId;
+@size(min=3)
+private String name;
+}
+
+ -Controller Class:
+public class CustomerController{
+
+public void createCustomer(@Valid @RequestBody Customer cust){}
+
+}
+
+
+
+7.Advanced Rest API Features:
+
+a.Documentation.
+b.Content Negotiation.
+c.internationalization - i18n
+d.Versioning
+e.HATEOAS
+f.static filtering.
+g.Dynamic filtering.
+h.Monitoring
+
+a.Documentation :
+  1.Swagger tools and swagger specifications were introduced in 2011.
+  2.Open API Specification created based on Swagger Spec in 2016.
+  3. Swagger UI : Visualize and interact with Rest API.
+ - Generating Documentation for Rest API:
+  a. springdoc-openApi (Website)
+  b. Add Dependency : <dependency>
+	<groupId>org.springdoc</groupId>
+	<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+	<version>2.0.0-M4</version>
+                       </dependency>
+  c.localhost:8080/swagger-ui.html
+  d. http://localhost:8080/v3/api-docs
+ 
+
+b.Content Negotiation :
+  1. Json ---> XML format.
+
+ MIME Types-application/xml , application/json
+
+  a.Add dependency in pom.xml for xml.
+  b.Accept -- application/xml in Postman.
+
+
+
+c.Internationalization - i18n
+
+  Language Specific : english,nl,french,deutsch
+
+ 1. messages.properties in resources
+ 
+

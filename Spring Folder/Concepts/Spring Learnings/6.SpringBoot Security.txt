@@ -1,0 +1,666 @@
+                                             Spring Security
+                                          ---------------------
+
+1.Build multiple layers of Security.
+2.Application Security is not fun because it causes user-Frustation.
+3.OS Level Security,JVM Level Security and App Server Security all Managed already.Your job is to Secure Application(API) that you built.
+4.Spring security handle application security framework.
+5.Login, Logout Functionality,Allow/block access to URL's to Logged in users & Role based Users.
+6.Just by Adding Spring Security Dependency-session fixation,ClickJacking and click site request forgery are solved.
+7.Levels of Spring Security :
+  a.userName/Password Authentication.
+  b.SSO-Single Sign On/OKTA/LDAP.
+  c.App Level Authorization.
+  d.Intra App Authorization like OAuth.
+  e.Microservice Security(using tokens,JWT)
+  f.Method Level Security.
+8.Five Core Concepts in Spring Security:
+  a.Authentication.
+  b.Authorization.
+  c.Pricipal
+  d.Granted Authority.
+  e.Roles.
+9.Detailed View:
+  a.Authentication:
+    *Knowledge Based Authentication:(UserId,Password)-Simple-Not Secure-Easily Accessible by someone.
+    *Possession Based Authentication :Key Cards & Badges - Phone/Text Messages(OTP)
+    *MultiFactor Authentication(Both) : Enter Password and OTP.
+  
+  b.Authorization:
+    *Role Based Authentication.
+
+  c.Principal:
+    *Process of Identifying the person who is trying to access the Application.
+    *Authenticate only once.
+    *Once you Authenticate then this principal is established immediately after that.
+    *Currently logged-In user in Currently Logged-In Account.
+
+  d.Granted Authority:
+    *Authorities - accessible Work(admin - getAllCustomers, get CustomerById)
+    
+  e. Roles:
+    *Roles are Coarse-grained Permissions.(Admin,user)
+
+10.You do not need to do Configuration for all these.Springboot security does.
+
+---------------------------------------------------------------------------------------------------------------
+
+                                                Adding Spring Security
+                                              --------------------------
+1.Add dependency.
+
+Notes: Spring Default Behaviour after adding Dependency.
+ *Adds Mandatory Authentication for URLS.
+ *Adds login Form.
+ *Handles Login Error.
+ *Creates a user and sets a default Password. 
+
+2.To figure out default user - its user & default Password - Check Console.
+      userName : user
+      password : <check in console>
+
+3.Then Login with user and default password.
+
+4.If You want to customize username and password - Application.properties:
+  spring.security.user.name=foo
+  spring.security.user.password=foo
+
+5.But its not safe to write in Application.Properties & Its applicable for single user But not for Bunch of Users with their own User & Password.
+
+-------------------------------------------------------------------------------------------------------------------------
+                                                      Configure Authentication in Spring Security(In-Memory)
+                                                      -------------------------------------------------------
+1.Here we are Hardcoding the Couple of users and saving their credentials in IN-Memory.
+2.Configuring AuthenticationManagerBuilder leads to creating new AuthenticationManager Bean -> have authenticate() method.
+3.WebSecurityConfigurerAdapter contains configure(AuthenticationManagerBuilder auth) method.Here we are overriding that method.
+4.Type of Authentication that we need is InMemory.
+5.After that set User,Password and Role.
+6. We dont want passwords stored in clear texts in Application.We need to Encode it.HashingPassword.
+7. How to setup Password encoder?
+  * Just Expose an @Bean of type PasswordEncoder.
+Steps:
+a.Remove Applica.properties Credentials.
+
+         @EnableWebSecurity
+b.Create class SecurityConfig which extends WebSecurityConfigurerAdapter{
+
+@Override
+Protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//super.configure(auth);
+//Set configuration on Auth Object.
+
+auth.inMemoryAuthentication()
+      .withUser("user")
+      .password("Password123")
+      .roles("USER")
+      .and()             --> this method return Objects
+      .withUser("user1")
+      .password("Password1234")
+      .roles("ADMIN")
+       
+
+
+@Bean
+public Password getPasswordEncoder(){
+return NoOpPasswordEncoder.getInstance();
+}
+
+}
+
+
+}
+      
+    
+--------------------------------------------------------------------------------------------------------------------------------
+
+                                                       Configure Authorization
+                                                     --------------------------
+1.Consider 3 Apis Access by different Role Members.
+
+a.home() Api --> Accessible by ALL.
+
+b.user() Api --> Accessible by User and Admin.
+
+c.admin() Api---> Accessible by Admin.
+
+
+2.Here We are Using obj of HttpSecurity for Api Access.
+
+  Here Question is How to Access that HttpSecurity Object?same like authentication Obj.
+ Note:
+  SecurityConfig ----> Extends WebSecurityConfigurerAdapter.
+  
+  @Override
+  configure(AuthenticationManagerBuilder auth)   --> for Authentication
+
+  @Override
+  configure(HttpSecurity security)              ----> for Authorization
+
+
+
+3.       @EnableWebSecurity
+b.Create class SecurityConfig which extends WebSecurityConfigurerAdapter{
+
+@Override
+Protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//super.configure(auth);
+//Set configuration on Auth Object.
+
+auth.inMemoryAuthentication()
+      .withUser("user")
+      .password("Password123")
+      .roles("USER")
+      .and()             --> this method return Objects
+      .withUser("user1")
+      .password("Password1234")
+      .roles("ADMIN")
+  }     
+
+
+@Bean
+public Password getPasswordEncoder(){
+return NoOpPasswordEncoder.getInstance();
+}
+
+@Override
+protected void configure(HttpSecurity http) throws Exception{
+           http.authorizeRequests()           
+               .antMatchers("/admin").hasRole("ADMIN")  
+               .antMatchers("/user").hasAnyRole("USER","ADMIN")
+               .antMatchers("/**").hasRole("ADMIN")      ---> Admin can access all Url's. 
+               .antMatchers("/").permitAll()             --> That Homepage is accessible by all.You dont get login form for that URL(must be last-like Exceptions)
+               .and().formLogin();
+
+
+
+}
+
+}
+
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+                                             Filters
+                                           ------------
+1.filters are delegating Proxy.btw client and Servlets
+2.filter chaining(group of filters).
+3.Types of filters : 
+  a.Authentication Filter: Intercept all Authentication Requests and initialize all Authentication Process.
+      1.AuthenticateProvider takes input as Credentials and outut as Principal(information of currently logged-In User).
+      2.AuthenticateProvider has method named authenticate(). 
+4.An Application can have multiple AuthenticationProviders depending on Single Sign on,LDAP,OAuth,Pwd Auth.
+5.Each AuthenticationProviders has supports() method which tells what type of Authentication(OAuth,LDAP,PWD) it supports.return Boolean.
+6.On the Top of all these AuthenticationProviders we havec AuthenticationManager Interface with authenticate() method.Where each AuthenticationProvider implements AuthenticationManager.
+7.UserDetailsService Interface has methods like getAuthorities(),getPassword(),getUserName(),isAccountNonExpired(),isAccountNonLocked(),isCredentialsExpired()                  
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                            JDBC Authentication with Spring Security 
+                                           ------------------------------------------
+1.Add Dependencies - h2 Database,Spring-Security,spring-Web,JDBC API.
+2.
+@EnableWebSecurity
+Class SecurityConfig which extends WebSecurityConfiguration{
+
+@Autowired
+DataSource dataSource;          
+
+@Override
+Protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//super.configure(auth);
+//Set configuration on Auth Object.
+
+auth.jdbcAuthentication()
+    .dataSource(dataSource)     ---> trying to configure the H2 Embed DataSource.
+    .withDefaultSchema()
+    .withUser(
+           User.withUsername("user")
+            .password("password123")
+            .roles("USER")
+             )
+     .withUser(
+           User.withUsername("admin")
+            .password("password123")
+            .roles("ADMIN")
+             );
+}
+
+
+auth.jdbcAuthentication()
+    .dataSource(dataSource)     ---> trying to configure the H2 Embed DataSource.
+    
+//if We have our own_Schema and table.
+auth.jdbcAuthentication()
+    .dataSource(dataSource)     ---> if you're connected with External DataSource the Give that Datasource here.(& also Configure in Application.properties)
+    .usersByUsernameQuery("select username,password,enabled"
+                  +"from users"
+                  +"where username=?")
+
+    .authoritiesByUsernameQuery("select username,authority"
+                  +"from authorities"
+                  +"where username=?");
+
+
+@Override
+protected void configure(HttpSecurity http) throws Exception{
+           http.authorizeRequests()           --> Tells Spring Security to Authorize all Requests.
+               .antMatchers("/admin").hasRole("ADMIN")  
+               .antMatchers("/user").hasAnyRole("USER","ADMIN")
+               .antMatchers("/**").hasRole("ADMIN")      ---> Admin can access all Url's. 
+               .antMatchers("/").permitAll()             --> That Homepage is accessible by all(must be last-like Exceptions)
+               .and().formLogin();                       ---> spring security gives login and log out functionality
+
+}
+
+
+
+@Bean
+public Password getPasswordEncoder(){
+return NoOpPasswordEncoder.getInstance();
+}
+
+}
+
+
+3.Here we are Manually - creating schema.sql and data.sql in resources.
+
+schema.sql:
+-----------
+
+CREATE TABLE users (
+    username VARCHAR(255) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    enabled BOOLEAN NOT NULL
+);
+
+CREATE TABLE authorities (
+    userName VARCHAR(255) NOT NULL,
+    authority VARCHAR(255) NOT NULL,
+    FOREIGN KEY (userName) REFERENCES users(username)
+);
+
+create unique index ix_auth_username on authorities(username,authority);
+
+
+data.sql :
+----------
+
+INSERT INTO users(username,password,enabled) values ('user','pass',true);
+INSERT INTO users(username,password,enabled) values ('admin','pass',true);
+
+
+INSERT INTO authorities(userName,authority) 
+values('user','ROLE_USER');
+INSERT INTO authorities(userName,authority) 
+values('admin','ROLE_ADMIN');
+
+
+
+Note:
+Configure in Application.properties if you are connected with MysQl,OracleDB.
+
+
+
+-------------------------------------------------------------------------------------------------------------
+
+               <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+
+-----------------------------------------------------------------------------------------------------------
+
+                                          Authentication and Authorization(New Version)
+                                        ------------------------------------
+1.In New SpringBoot Version 3.0 have depricated WebSecurityConfigurerAdapter.
+
+2.Create package config and class SecurityConfig.
+
+3. Add @Configuration and @EnableWebSecurity.
+
+4.As Earlier mentioned WebSecurityConfigurerAdapter was depricated. Actually WebSecurityConfigurerAdapter
+  provides 3 override configure() Methods.
+  a. configure(AuthenticationManagerBuilder auth)
+  b. configure(HttpSecurity http)
+  c. passwordEncoder()   -----> this is not config method
+
+5. Now we cant override those configure methods. So we need to Explicitly create beans By using @Bean on methods.
+
+
+
+
+                                              Authentication
+                                            ------------------
+
+   @Configuration
+   @EnableWebSecurity
+6. public class SecurityConfig{
+    
+     @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder encoder){
+    
+    UserDetails admin = User.withUsername("Sundhar")
+                            .password(encoder.encode("pwd1"))
+                            .roles("ADMIN")
+                            .build();
+
+   UserDetails admin = User.withUsername("Rushi")
+                            .password(encoder.encode("pwd2"))
+                            .roles("USER")
+                            .build();
+
+   return new InMemoryUserDetailsManager(admin,user);
+
+    }
+
+
+   @Bean
+   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    return http.csrf().disable()
+               .authorizeHttpRequests()
+               .requestMatchers("/customers/welcome").permitAll()  ----> No Authentication Login Form.Direct Access.
+               .and()
+               .authorizeHttpRequests().requestMatchers("/customers/**")
+               .authenticated()
+               .and().formLogin()
+               .and().build();
+   }
+
+
+
+                               ( or)  ---> For Spring Versions 6.1 onwards
+
+
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	return http.csrf(csrf->csrf.disable())
+			   .authorizeHttpRequests(auth->auth.requestMatchers("/customers/findByName/{name}").permitAll())
+			   .authorizeHttpRequests(auth->auth.requestMatchers("/customers/**").authenticated())
+			   .formLogin(formLogin->formLogin.permitAll())
+			   .build();	    
+}
+
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BcryptPasswordEncoder();
+      }
+     
+
+                                          Authorization
+                                        ----------------
+
+7. Add @PreAuthorize("hasAuthority('ROLE_ADMIN')", @PreAuthorize("hasAuthority('ROLE_USER')" on specific Controller Methods.
+   
+8. Add @EnableMethodSecurity on SecurityConfig class.
+
+
+
+   @Configuration
+   @EnableWebSecurity
+   @EnableMethodSecurity
+9. public class SecurityConfig{
+    
+     @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder encoder){
+    
+    UserDetails admin = User.withUsername("Sundhar")
+                            .password(encoder.encode("pwd1"))
+                            .roles("ADMIN")
+                            .build();
+
+   UserDetails user = User.withUsername("Rushi")
+                            .password(encoder.encode("pwd2"))
+                            .roles("USER")
+                            .build();
+
+   return new InMemoryUserDetailsManager(admin,user);
+
+    }
+
+
+   @Bean
+   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    return http.csrf().disable()
+               .authorizeHttpRequests()
+               .requestMatchers("/customers/welcome","/customers/register").permitAll()  ----> No Authentication Login Form.Direct Access.
+               .and()
+               .authorizeHttpRequests()
+               .requestMatchers("/customers/**").authenticated()
+               .and().formLogin()
+               .and().build();
+   }
+
+
+                                   ( or)  ---> For Spring Versions 6.1 onwards
+
+
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	return http.csrf(csrf->csrf.disable())
+			   .authorizeHttpRequests(auth->auth.requestMatchers("/customers/findByName/{name}").permitAll())
+			   .authorizeHttpRequests(auth->auth.requestMatchers("/customers/**").authenticated())
+			   .formLogin(formLogin->formLogin.permitAll())
+			   .build();	    
+}
+
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BcryptPasswordEncoder();
+      }
+
+
+                                     Auth&Auth Using DataBase
+                                   -----------------------------
+
+
+10.In Above Example we Hardcoded the Credentials and their Roles. Now we are storing their Details in Database.
+
+11.Create UserDetailsInfo Entity class,UserDetailsInfoService & UserDetailsInfoRepository.
+
+
+    @Entity
+    @Data @AllArgs @NoArgs
+12. public class UserDetailsInfo{
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    private String userName;
+    private String email;
+    private String password;
+    private String roles;
+
+}
+
+
+13. public interface UserDetailsInfoRepository implements JpaRepository<UserDetails,Long>
+
+14.
+a.Here UserDetailsInfoService is Implementing UserDetailsService Interface and overriding it Methods.
+b.UserDetails class has Multiple abstract like String getPassword(),String getUserName(). But Dont have abstract Methods
+  that are UserDetailsInfo(String getEmail(),getId()).
+c.the Return type of loadByUsername() method is UserDetails.Which is Interface.So Here we are using UserDetailsInfo class to
+  implement UserDetails Interface by implementing some of interface Required Methods and methods in UserInfoDetails.
+
+
+@Component
+public class UserDetailsInfoService implements 	UserDetailsService{
+
+@Autowired
+private UserDetailsInfoRepository repo;
+
+@Override
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+
+Optional<UserDetailsInfo> userDetailsInfo = repo.findByUserName(username);
+
+   return userDetailsInfo.map(UserInfo::new)
+                         .orElseThrow(()-> new UserNameNotFoundException("User Not Found"));
+}
+
+}
+
+15.In Config Package : Create class UserInfo which Implements UserDetails and override all Methods.
+
+   public class UserInfo implements UserDetails{
+
+   private String name;
+   private String password;
+   private List<GrantedAuthority> authorities;
+  
+
+   
+   public UserInfo(UserDetailsInfo userDetailsInfo){
+     name=userDetailsInfo.getName();
+     password=userDetailsInfo.getPassword();
+     authorities=Arrays.stream(userDetailsInfo.getRoles().split(","))
+                       .map(SimpleGrantedAuthority::new)
+                       .collect(Collectors.toList());
+  }
+      
+     //All Overriden Methods
+
+  @Override
+  public Collections<? extends GrantedAuthority> getAuthorities(){
+     return authorities;
+}
+
+  @Override
+  public String getPassword(){
+   return password;
+  }
+
+
+   @Override
+   public String getUsername(){
+    return userName;
+   }
+   
+   true,true,true // Make Everything True
+
+}
+   
+ 
+16. Create Config Class :
+
+
+@Configuration
+   @EnableWebSecurity
+   @EnableMethodSecurity
+ public class SecurityConfig{
+    
+     @Bean
+    public UserDetailsService userDetailsService(){
+    
+    return new UserDetailsInfoService();
+
+    }
+
+
+   @Bean
+   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    return http.csrf().disable()
+               .authorizeHttpRequests()
+               .requestMatchers("/customers/welcome").permitAll()  ----> No Authentication Login Form.Direct Access.
+               .and()
+               .authorizeHttpRequests()
+               .requestMatchers("/customers/**").authenticated()
+               .and().formLogin()
+               .and().build();
+   }
+
+
+                                   ( or)  ---> For Spring Versions 6.1 onwards
+
+
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	return http.csrf(csrf->csrf.disable())
+			   .authorizeHttpRequests(auth->auth.requestMatchers("/customers/findByName/{name}").permitAll())  
+			   .authorizeHttpRequests(auth->auth.requestMatchers("/customers/**").authenticated())
+			   .formLogin(formLogin->formLogin.permitAll())
+			   .build();	    
+}
+
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BcryptPasswordEncoder();
+      }
+17.
+      @Bean
+    public AuthenticationProvider authenticationProvider(){
+    DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+    authenticationProvider.setUserDetailsService(userDetailsService());
+    authenticationProvider.setPasswordEncoder(passwordEncoder());
+     return authenticationProvider;
+      }
+
+//For SpringBoot 2x Ver,You dont need to write authenticationProvider() method.
+
+}
+
+
+     @Controller
+18. Create UserDetailsInfoController Class{
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDetailsInfo> register(@RequestedBody UserDetailsInfoDto userDetailsInfoDto){
+     return UserDetailsInfoService.save(userDetailsInfoDto);
+
+   }
+   
+}
+
+19. Before Storing into DB We must Encrypt Password.
+     In Service Layer : UserDetailsInfoService 
+{
+     @Autowired
+     private PasswordEncodr passwordEncoder;
+
+   public String save(UserDetailsInfoDto userDetailsInfoDto){
+      userDetailsInfoDto.setPassword(passwordEncoder.encode(userDetailsInfoDto.getPassword());
+      repo.save(userDetailsInfoDto);
+
+ } 
+
+20.In Authorization make above Url : "customers/register" as PermitAll.
+
+
+    .requestMatchers("/customers/welcome","customers/register").permitAll()
+
+
+21. Input :
+
+     {
+      role :"ROLE_ADMIN"
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   

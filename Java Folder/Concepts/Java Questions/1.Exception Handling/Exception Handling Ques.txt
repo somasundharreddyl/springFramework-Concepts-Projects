@@ -1,0 +1,99 @@
+1. What is an Exception?
+2. What is Exception Handling?Advantages?User Experience,avoids abnormal Termination.
+3. What are Exceptions Handled in Java?
+4.What are Runtime Exceptions?
+5.Difference BTW throws and throws?
+6.Checked vs Unchecked Exception?
+7.Can We have Statements btw try,catch and finally?No
+8.final vs finally vs finalize
+9.What do you understand by Unreachable catch Block Error?Compilation Error.
+10.Explain Exception Hierarchy?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Revision:
+1.What is Exception Propogation?
+Program that has a main() method that calls method1() and this method, in turn, calls 
+another method2(). If an exception occurs in method2() and is not handled, then it is 
+propagated to method1(). If method1() has an exception handling mechanism,
+then the propagation of exception stops and the exception gets handled. 
+
+2.What are Important Methods defined in Exception Class?
+Exception and its subclasses do not provide specific methods. All the methods that could
+be used by Exception are defined in the Throwable Class.
+   - getMessage(), getLocalizedMessage(),getCause(),printStackTrace().
+
+3.How do you handle checked Exceptions?
+using a try-catch block or by using the throws clause in the method declaration.
+
+4.Can You Catch and handle Multiple Exception?Yes,try with Multiple Catch,try with single catch( | ),try with single Catch(Exception e)
+
+5.What is Stack Trace?
+Debug Where exactly the exception occurs and due to What Reason.
+
+6.What is Exception Chaining?
+ Catch Exception Catches one Exception type then throws a new Exception of a different Type to indicate that a Program-specific
+Exception Occured.Chained Exceptions enable an Exception object to maintain Complete Stack-trace Information.
+
+For example, we have a method that reads two numbers and then divides them. The method throws ArithmeticException when we divide a 
+number by zero. While retrieving the denominator number from the array, there might have been an IOException that prompted to return of
+the number as 0 that resulted in ArithmeticException. The original root cause in this scenario was the IOException. The method caller 
+would not know this case and they assume the exception was due to dividing a number by 0.
+
+7.ClassNotFoundException vs NoClassDefFoundError?
+ Both these exceptions occur when ClassLoader or JVM is not able to find classes while loading during run-time. However, 
+the difference between these 2 are:
+ClassNotFoundException: This exception occurs when we try to load a class that is not found in the classpath at runtime by
+                        making use of the loadClass() or Class.forName() methods.
+NoClassDefFoundError  : This exception occurs when a class was present at compile-time but was not found at runtime. 
+
+
+8.What does JVM do When an Exception occurs in Program?
+
+When there is an exception inside a method, the method creates and passes (throws) the Exception object to the JVM. 
+This exception object has information regarding the type of exception and the program state when this error happens. 
+JVM is then responsible for finding if there are any suitable exception handlers to handle this exception by going 
+backwards in the call stack until it finds the right handler. If a matching exception handler is not found anywhere 
+in the call stack, then the JVM terminates the program abruptly and displays the stack trace of the exception.
+
+
+9. What happens when an exception is thrown by the main method?
+When there is an exception thrown by the main() method if the exception is not handled, then the program is terminated 
+by the Java Runtime, and the exception message along with the stack trace is printed in the system console.
+
+
+
+10. Is it possible to throw checked exceptions from a static block?
+Trying to throw a checked exception from a static block is also not possible. We can have a try and catch block in a static
+ block where a checked exception may be thrown from the try block but we have to resolve it within the catch block. We can't
+ propagate it further using a throw keyword
+
+
+
+Note:
+*CustomExceptions Comes Under RunTime Exceptions.
+
+
+
+
+
+
+
+

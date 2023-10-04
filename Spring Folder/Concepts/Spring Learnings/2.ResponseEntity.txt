@@ -1,0 +1,49 @@
+                                                 ResponseEntity
+                                              -------------------
+1.HTTP : Mediator btw Client and Server.
+  a. Http Request.
+  b. Http Response.
+
+2.Http Status Code:
+  When Client sends http Request,It will Process that Request and it will send Response Back to
+Client with Status Codes,Status Messages, header & Response Body.
+
+3. 1xx(100-199) : Information
+   2xx(200-299) : Success
+   3xx(300-399) : Redirectional
+   4xx(400-499) :Client Error     
+   5xx(500-599) : Server Error
+
+4. ResponseEntity<Customer> getCustomer(){
+    Customer customer=new Customer()
+     return new ResponseEntity<Customer>(customer,HttpStatus.OK);
+   }
+     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+     return new ResponseEntity<String>("Customer Created Successfully",HttpStatus.CREATED);
+
+
+5. To customize Status Codes then Use ResponseEntities.
+
+6. 
+
+
+200- Ok
+201 - Created
+204 - No Content
+
+
+400 - BAD REQUEST (Incorrect Information You are Sending/Important Inform is not Sending)
+404 - NOT FOUND (Wrong URL Path)
+405 - Method Not Allowed(GET -> POST)
+406- Not Acceptable - Response Body Not Supported by Client.(XML->Json)
+415 - UnSupported Media Type - Request Body Not Supported By Server.
+
+
+500 - Internal Server Error.(Not able to Process Request - NullPointerException,Arithmetic Exceptions Comes under)
+
+
+
+
+
+

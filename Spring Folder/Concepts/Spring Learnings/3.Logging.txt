@@ -1,0 +1,92 @@
+                                        Logging(logBack,log4J,SLF4J)
+                                       ----------------------------
+
+1.Why do we need Logging?
+- Make Developers life Easy.
+- To Record Sequence of Events/Flow of Application.
+- How it is Performing, if not - Whats Problem.
+- Plays a Crucial Role in Understanding the Behaviour of Application, Diagnosing issues and monitoring
+Its Performance.
+-SpringBoot offers Flexible logging capabilities by integrating with Various logging Frameworks and providing standardized
+ways to config and manage logs.
+
+2.How Logging is done in Spring Boot?
+- Springboot have Standard Logging byDefault - SLF4J(Simple Logging Facade for Java). No Need to Configure.
+- Java offers Several Logging Frameworks like  log4J,JUL,tiny log,logback.Need to CONFIGURE.
+- We can Customize log messages and define where log files are stored.
+
+
+3.Spring-boot-starter-web --> spring-boot-starter-logging
+
+4.Log Levels : Logging Framework provide different levels to categorize log messages based on severity
+and importance. Hierarchical Level. A higher Level includes all lower levels of Information.
+
+Default log Levels:
+INFO - Keep tracking of Normal Functioning.Signify Application Operational Activities.
+WARN - Indicate Potential issues that could cause Problem in Future.Not Critical Errors But are Worth Prevent Possible Errors.
+ERROR- Actual Errors that have occured in Application.Exceptions,Failed Operations.
+
+Explicitly Given Log Levels in Application.Properties:
+TRACE - Most Detailed Level.Provide Deep Insights.Diagnosing for Complex Issues.
+DEBUG - Useful for Debugging Purpose.Provide More Insights what happening within the Application But not with
+Exessive Detail.
+
+Note:
+*Starter-web Dependency is needed to create Logging in Application.
+
+Ex:
+In Controller Class,
+
+private static final Logger LOGGER=LoggerFactory.getLogger(className.class);
+
+In RestApi Methods,
+
+Logger.info("message");
+Logger.debug("message");      ---->  To enable this one.
+Logger.info("Welcome {}",name)---> Slf4j
+Logger.info("Welcome {}"+name)---> Log4j (need to perform Concatenation-Memory Waste)
+Customizing Log Levels:
+-----------------------
+logging.level.package or org.springframework=debug
+
+
+     or
+application.yaml:
+logging:
+   level:
+      com.telusko.spring:DEBUG
+      root:DEBUG
+
+Default Log Format:
+1.Date and Time.
+2.INFO- Log Level
+3.ProcessID
+4.Thread Name (nio-8080-exec-1)
+5.Logger Name (Logger loggername=LoggerBeanFactory.)
+6.Log Message.
+
+
+5.How to Create Separate Log File:
+  
+  Application.properties:
+  logging.file.name=fileName.log   --> creating file in Application only.
+  logging.file = C:/Users/SomaSundhar/api.log  ---> Saving in local File
+  spring.output.ansi.enabled=always   ---> Color Change.
+  logging.pattern.file= %d(yyyy-mm-dd) [%level] %c{1.} [%t] %m%n  --> Format change in file
+  logging.pattern.console=''''''''''''''''''''''''''''''''''''''''
+   
+
+
+Note:
+*application.yaml  cannot override application.properties.
+*First Priority always goes to application.properties. if You Forgot to mention Logging
+Level then it Look out for .yaml file.
+
+
+6.LogBack:(InBuilt in starter-web) - Logback Helps to separate Log levels in different files in Application(debug.log,error.log,info.log).
+* Successor of log4j.
+*Create logback.xml(Fixed Format) in resource.Copy logback Configuration for Separating levels.
+*Automatically, different app.log files created Based on Script in logback.xml file.It Creates another app.log
+file if current app.log file exceeds its Size.(raise more No of Requests).
+
+
