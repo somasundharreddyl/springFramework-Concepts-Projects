@@ -1,0 +1,13 @@
+1.Identify Classes.
+  - User(Customer,Admin)
+  - Account
+  - Transaction
+  
+2.Identify Attributes:
+  - Customer(Id,name,phone,email,password,address,dob,createdDate,updatedDate)
+  - Account(id,type,balance,ifsc,branchaddress,createdDate,updatedDate)
+  - Transaction(id,fromAcctId,toAcctId,amount,transactionTime&Date)
+
+3.Relationships:
+  - Account(CustomerId) => oneToOne Mapping
+  - Transaction(AccountId)=>OneToOne Mapping.

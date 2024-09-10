@@ -1,0 +1,35 @@
+                                 Project Review
+                               -----------------
+
+What should Your Project include :
+1.Code Quality  
+2.Communication Ability
+3.Work Tracing
+4.Document Skills
+5.Exposure to Third-Party tools/Services
+6.Technical Design & Architecture
+
+
+
+How to ace your Projects?
+1.Get all of your Assumptions and motives cleared early-on before 
+  you start with the effort.
+2.Prepare the technical Design & architecture going forward and commit it at 
+  start.
+3.Make it Work,then make it pretty,then make it fast.
+4.write tests and documentation compulsorily.
+
+
+Golden Tips:
+1.Implement modern DevOps Practices - Use Git for Version-Control, CI/CD for build and deploy,Docker for Containerization and more.
+2. Write a README file - Outline the tech architecture, modules, features 
+developed and other details here along with setup instructions.
+3.Use an issue tracker to track Tasks - use github issues with a project Board 
+ can help you communicate many key decisions.
+4. Data Validation and error handling.
+
+
+
+Repositories for Best Practices:
+1.github/harshcasper/WebEdge
+2.github/YashKumarVerma/uniauth-backend

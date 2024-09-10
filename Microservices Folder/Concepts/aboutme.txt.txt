@@ -1,0 +1,141 @@
+                               Microservices
+                              ---------------
+
+1.Service Discovery
+2.Centralized Configuration
+3.Distributed Tracing
+4.Event Driven Architecture
+5.Centralized Logging
+6.Circuit Breaker
+7.Secure Microservices Using Keycloak.
+
+
+* Spring Cloud : provides tools for developers to quickly Build some of the
+Common Design patterns(Config Management,Service Discovery,Circuit Breaker) 
+in Distributed System.
+
+
+                       Building Simple Online Shopping Application
+                      ----------------------------------------------
+
+1.Product Service : Create & View Products such as Prod Catalog.
+2.Order Service : can Order Products.
+3.Inventory Service : can Check if product is in stock or not.
+4.Notification Service : can Send Notifications, after Order is placed.
+5.Order,Inventory and Notification Service are going to interact with each other.
+6.Synchronous(Resilience4J) and Asynchronous Communication(Kafka,RabbitMQ).
+
+
+
+Note :
+
+1. Auth Server --> API Gateway Authentication
+2. Synchronous---->Resilience4J
+3. Asynchronous ---- RabbitMQ,Kafka ---> Notification Service
+4. Eureka ---> Service Discovery.
+5. Config Server ---> Create bean for RestTemplate(@LoadBalanced)
+6. Vault --> Store Secrets
+7. ElasticSearch/logstash/kibana --> Centralized Logging
+8. Zipkin --> Distributed Tracing.
+
+
+
+                                   Implementation of Project 
+                                   ---------------------------
+
+1.Create a ProductService(Lombok,Web,Devtools,MongoDb)
+2.Give MongoDB Config in Application.properties.
+   spring.data.mongodb.uri=mongodb://localhost:27017/product-service
+    
+3. create Product Entity with fields(id(String),name,description,price(BigDecimal)) add @Document(value="product") 
+instead of @Entity. Add @Id.
+4. Create ProductRepository which extends MongoRepository<Product,String>
+5. Create ProductController (/api/product). a)CreateProd(ProdRequest prodReq)   b)getAllProducts()  c)
+6. Create ProductRequest class in Dto Package with Fields - name,desc,price.
+7. Create ProductService class --> Product product=Product.builder().name(prodReq.getName()).desc().price().build();
+     a.@RequiredArgsConstructor on Service class.
+     b.log.info("prod {} is saved",prod.getId()); ---> at end( if void return type)
+8. Create Class ProductResponse in Dto Package ---> copy all fields inside Product(with id).
+9. In ProdService Class {
+
+   public List<ProductResponse> getAllProducts(){
+   List<Product> products=prodRepo.findAll();
+   products.stream().map(product->mapToProductResponse(product)).toList();
+                              
+                 (or)
+
+  products.stream().map(this::mapToProductResponse).toList();
+}
+
+   private ProductResponse mapToProductResponse(Product product){
+       return ProductResponse.builder()
+                             .id(product.getId())
+                             .name()
+                             .desc()
+                             .price()
+                             .build()
+   }
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------
+                              Integration Testing for Microservices
+                            -----------------------------------------
+
+10. Note :
+  - We are Doing Manual Testing By Using Postman.But We need to do Automated Test which is not Unit Testing, its Integration Testing 
+ By Spin up the whole Application to test Get and Post Prod are working or Not.
+  - To Achieve this We need to add TestContainers third party Library that supports Junit Testcases,Providing Lightweight instances of
+     Databases,Selenium Web Browser, Message Queue and RabbitMQ.
+
+   a. Data Access Layer(Repo) Integration Testing : Without Requiring complex setup on Developers Machines.
+   b. Application Integration Test : Running the application in short-lived test mode with dependencies such as DB,message Queues or Web Servers.
+   c. UI/Acceptance Test
+
+11. Add TestContainer Dependency.(Visit TestContainers Website) 
+    - Managing versions for multiple Testcontainers dependencies
+    - To avoid specifying the version of each dependency, you can use a BOM or Bill Of Materials.
+    - Using Maven you can add the following to dependencyManagement section in your pom.xml:
+
+      <dependencyManagement>
+       <dependencies>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-bom</artifactId>
+            <version>1.19.1</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        </dependencies>
+     </dependencyManagement>
+
+ 
+12.  Add MongoDBTestContainer: (Visit TestContainers Website --> Modules---> DB)
+
+    <dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>mongodb</artifactId>
+    <version>1.19.1</version>     -----> Remove Version Because You already mentioned above.
+    <scope>test</scope>
+   </dependency>
+
+
+13. If You are Writing JUNIT 5 Testcases, Need to Add JUnit5TestContainer Dependency.
+   (TestContainers Website --> TestFramework Integration --> Adding Testcontainers Junit 5 support)
+
+   
+    <dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>1.19.1</version>            --------> Remove Version
+    <scope>test</scope>
+    </dependency>
+
+
+14. Go To main/test/ProductServiceApplicationTests :
+
+     1. Add @TestContainers on class ProductServiceApplicationTests.saying Junit we are using TestContainers for Testing.
+     2. Define MongoDBContainer inside the test.You can't create NoArgsConstr.You need to specify Mongo Docker Image Version inside Constructor.
+        
+        @Container ---> Junit understands that this is MongoDB Container
+       static MongoDBContainer mongoDBContainer=new MongoDBContainer("mongo:4.4.2");
+     3. 

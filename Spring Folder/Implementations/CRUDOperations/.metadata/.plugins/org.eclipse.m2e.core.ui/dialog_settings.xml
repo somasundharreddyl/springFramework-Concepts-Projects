@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\SOMA SUNDHAR\OneDrive\Desktop\GitHubRepository\springFramework-Concepts-Projects\Spring Folder\Implementations\CRUDOperations"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

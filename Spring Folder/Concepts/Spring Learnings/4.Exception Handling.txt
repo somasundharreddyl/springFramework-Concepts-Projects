@@ -3,7 +3,7 @@
 1.Add Validation Dependency in pom.xml.
 
 a. These are all Java Validations.not Spring Validations.
-  @NotNull(message="Username should nor Null") --> id
+  @NotNull(message="Username should not Null") --> id
   @Email -->email
   @NotBlank
   @Pattern(regexp="^\\d{10}$"   ---> mobile

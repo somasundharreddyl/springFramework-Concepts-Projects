@@ -4,12 +4,12 @@
 ---------
 1.Spring is dependency Injection & Autowiring Framework.
 Concepts : Tight Coupling,Loose Coupling,Dependency Injection, IOC Container,Application Context,Spring Beans,Auto Wiring,Component Scan
-2.Injecting the Dependency (Ex: Private Student student)
+2.DI(Dependency Injection is Design Pattern) - Injecting the Dependency (Ex: Private Student student)
 3.@Autowired - search for the Suitable Class to Instantiate the Object of that Class.
 4.@Component - telling the Spring to manage bean or Obj for Particular Class.(Ex: @Component Class University)
 5.@Bean - In Spring, We call Object as Bean.
 6.Autowiring - autowiring the dependency object in Class.(Public University(Student stud){super(); this.student=student;})
-7.Ioc - Inversion of Control. Normally in Java, Object Creation of inner class is Controlled by Outer Class.But In Spring, To make it
+7.Ioc (is Principle)- Inversion of Control. Normally in Java, Object Creation of inner class is Controlled by Outer Class.But In Spring, To make it
 Loosely Coupled we give control to Spring.
  
                             @Component
@@ -20,8 +20,9 @@ Loosely Coupled we give control to Spring.
                                  this.student=stud;
                               }
 
-8.ApplicationContext - Manage all the Spring Beans.   Ex: ApplicationContext con=SpringBoot.run();
-                                                            con.getBean(example.Class);
+8.ApplicationContext - Manage all the Spring Beans.  
+ Ex: ApplicationContext con=SpringApplication.run();
+       Example obj = con.getBean(example.Class);
                          
 9. Logging - To know What happens in the Back When We Run Sprinboot Application.
             - application.level.org.springFramework=debug
@@ -304,6 +305,59 @@ Ans : BeanFactory will create a bean object when the getBean() method is called 
       ApplicationContext loads all the beans and creates objects at the time of startup only thus making it Eager initialization.
       BeanFactory interface provides basic features only thus requires less memory.
       ApplicationContext extends the features of BeanFactory.
+
+
+
+
+
+XML Based Configuration:
+-----------------------
+PSVM(){
+
+ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+Alien obj=(Alien) context.getBean("alien");
+obj.code();
+
+}
+
+
+public class Alien{public void code(){sout("coding");}}
+
+spring.xml:
+----------
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="alien" class="com.telusko.Alien"></bean>
+
+</beans>
+
+
+- Singleton vs Prototype : By Default, scope is Singleton.
+  ----------------------
+   <bean id="alien" class="com.telusko.Alien" scope="prototype"></bean>
+   * The Bean won't create unless and until we call .getBean() method in Prototype.
+
+
+Property Injection: assign value to class variable or assign object to class Reference.
+------------------
+    <bean id="alien" class="com.telusko.Alien" >
+    <property name="universe" value="pluto"></property>
+    <property name="laptop" ref="lap1"></property>
+    </bean>
+ 
+    <bean id="lap1" class="com.telusko.Laptop"></bean>
+
+Constructor Injection:
+--------------------
+<bean id="alien" class="com.telusko.Alien" >
+    <constructor-arg index="1" value="21">
+    <constructor-arg index="0" ref="lap1">
+    </bean>
+
 ------------------------------------------------------------------------------------------------------------------
 
                                            Spring Boot
