@@ -1,0 +1,45 @@
+Kafka:
+- Open Source distributed event Streaming Platform.
+- act as messaging System. 
+- Creating and Processing Real time stream of data.
+
+What is Real-time Event Streaming?
+- Continous Creation and Process of real time Data.
+
+What is Distributed?
+- equal distribution of Work btw multiple instances of kafka.
+
+
+How does it Work?
+- Works on PUB-SUB Model.
+
+
+Components of Kafka:
+---------------------
+1.Producer
+2.Consumer
+3.Broker(Kafka Server)
+4.Topic : specifies the category of message.Listeners can then just respond to messages
+          that belong to topics they are listening on.
+5.Partition: give better performance and high Availability.
+  - storage challenges solved: Topic get partitioned.
+  - help with Down-time: if one partition goes down then other partition store messages.
+  - decide no of partitions at topic creation.
+6.offset : a sequence number assign to each message in partition of kafka topic to know the track of consumed messages by Consumer.
+7.Consumer group:any consumer can talk to any partition.
+8.Zookeeper : track status of kafka cluster nodes,topics,partitions and offsets.
+
+
+
+Kafka Services:
+-------------
+1.Open Source : Apache Kafka
+2.Commercial Distribution : Confluent Kafka
+3.Managed Kafka Service : Confluent & AWS
+
+
+
+Kafka Installation:
+-----------
+1.Install Apache Kafka.
+2.Install Offset Explorer to monitor Kafka messaging System.

@@ -1,0 +1,727 @@
+Has-a Relationship : School has Students.
+--------------------
+1.Aggregation:Weak Relationship(Both Objs can Survive Individually.Ending of one Obj will not end other Object).
+(Removing Student from School, wont effect School).
+2.Composition:Strong Relationship(Ending of One Obj can end another Obj).(If we destroy school then class got Destroyed).
+
+- Aggregation:
+
+In Java, aggregation is a type of association between classes in which one class (the whole or container) contains a reference to another class (the part or component). Aggregation represents a “has-a” relationship, where one class contains objects of another class as part of its internal structure. It is a way to represent the relationship between objects when one object is composed of or contains other objects.
+
+Aggregation is typically used to model scenarios where one class represents a larger entity that is composed of smaller, reusable components. These components can exist independently and may be shared among multiple instances of the container class.
+
+Here’s an example of aggregation in Java:
+
+class Department {
+    private String name;
+
+    public Department(String name) {
+        this.name = name;
+    }
+
+    // Other department-related methods
+}
+
+class University {
+    private String name;
+    private List<Department> departments; // Aggregation
+
+    public University(String name) {
+        this.name = name;
+        this.departments = new ArrayList<>();
+    }
+
+    public void addDepartment(Department department) {
+        departments.add(department);
+    }
+
+    // Other university-related methods
+}
+In this example:
+
+The University class has a list of Department objects, representing the departments within the university.
+The University can add, remove, or modify departments, but the departments themselves are independent entities that can exist outside the university.
+Aggregation is useful for creating complex objects by combining simpler components. It allows for code reuse and better organization of classes in object-oriented programming.
+
+Composition:
+
+In Java, composition is a design principle that represents a “whole-part” relationship between classes. Unlike aggregation, which is a weaker form of association, composition implies a stronger relationship where one class (the whole) is composed of other classes or objects (the parts), and the parts cannot exist independently outside the whole. In other words, when the whole is destroyed, its parts are also destroyed.
+
+Composition is often used when one class is closely related to another class in such a way that one class is an essential part of the other. It allows you to create complex objects by assembling simpler objects as their components.
+
+Here’s an example of composition in Java:
+
+class Room {
+    private String name;
+
+    public Room(String name) {
+        this.name = name;
+    }
+
+    // Other room-related methods
+}
+
+class House {
+    private List<Room> rooms; // Composition
+
+    public House() {
+        this.rooms = new ArrayList<>();
+        rooms.add(new Room("Living Room"));
+        rooms.add(new Room("Bedroom"));
+        rooms.add(new Room("Kitchen"));
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    // Other house-related methods
+}
+In this example:
+
+The House class creates and owns a list of Room objects as its parts.
+Rooms are created and managed by the house, and they cannot exist independently outside the house. If the house is destroyed, the rooms are also destroyed.
+Composition is a powerful way to model complex systems, as it allows you to create hierarchies of objects with clearly defined ownership relationships. When using composition, the lifetime of the parts is tied to the lifetime of the whole, ensuring that parts are properly managed and encapsulated within the whole object.
+
+Difference between Aggregation and Composition:
+
+Aggregation and composition are two different types of relationships between classes in object-oriented programming. They represent how one class is related to another class or how objects of one class are used within another class. Here are the key differences between aggregation and composition:
+
+Aggregation:
+
+1. Strength of Relationship:
+
+Aggregation represents a weaker relationship between classes.
+It implies a “has-a” or “uses-a” relationship, where one class contains a reference to another class, but the objects involved can exist independently.
+2. Independence:
+
+In aggregation, the “part” class (the one contained within the other) can exist outside of the “whole” class (the one containing the part).
+The part can have a longer lifespan than the whole, and it may be used by multiple instances of the whole class.
+3. Ownership:
+
+There is no ownership or strong encapsulation in aggregation. The part does not belong exclusively to the whole.
+If the whole object is destroyed, the part objects can still exist.
+Example: An example of aggregation could be a university containing departments. Departments can exist independently and can be part of multiple universities.
+Composition:
+
+Strength of Relationship:
+Composition represents a stronger relationship between classes.
+It implies a “whole-part” relationship, where one class (the whole) is composed of other classes (the parts), and the parts cannot exist independently outside of the whole.
+2. Independence:
+
+In composition, the “part” objects are created and managed by the “whole” class.
+The parts cannot exist without the whole, and their lifecycles are tightly bound to the whole object.
+3. Ownership:
+
+Composition implies strong ownership and encapsulation. The part objects are owned and managed exclusively by the whole class.
+When the whole object is destroyed, the part objects are also destroyed.
+Example: An example of composition could be a house containing rooms. Rooms are created and managed by the house, and they cannot exist independently. When the house is destroyed, the rooms cease to exist.
+In summary, the main difference between aggregation and composition lies in the strength of the relationship and ownership. Aggregation represents a weaker, more independent relationship, while composition represents a stronger, ownership-based relationship where the parts are tightly integrated with the whole. The choice between these two relationships depends on the specific design requirements of the software.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3.Java is Static(Declare DataType for Variable) and Strong(Range for each DataType to Store Val) Typed Language.
+4.For Currency => Dont use Double(64 Bit IEEE 754),Float(32 Bit IEEE 754).Always use BigInteger.
+5.1 byte(-128 to 127 = 2^8=256)=8 bits
+6.Primitive DataTypes(8 types) : byte,char,short,int,long,float,double,boolean.
+   Note :values store in Stack.
+7.Reference DataTypes(Non-Primitive) : String, Arrays, Class, Interface.
+   Note : values store in Heap Memory.
+8.String literal : Strings that are present in String Constant Pool.
+9.Wrapper : 
+   Auto-boxing: Convert primitive to its Wrapper Class.
+   UnBoxing : Convert Wrapper class to its Primitive.
+  Advantages: 
+   1.we can change the value easily by using reference of an Object.
+   2.Collections work only on Objects.
+10.constant Variable :
+   static final int VALUE=10;
+11.Methods:
+   - helps to achieve Readability and Re-usuability.
+12. Static :
+   -Inside Static methods have only static method calls and static variables.if you want to access non-static 
+    variables/Methods,you need to create obj of current class and call it by Obj.(All Belongs to Same Class).
+13. Static Methods cannot be Overriden.Overriden or Dynamic Binding happens at Runtime(which Obj method to call)
+    static is Class level calls at Compile time.If we try to override then it is Method Hiding.
+14. Final Method: Final Method cannot be Overriden in java.
+   - if you want to use the logic of parent class instead of child class logic by Overriding.
+15. abstract Method: abstract methods can only define in abstract class.
+     public abstract int method();
+    - method should be Public.
+16. Variable Argument:
+   - sum(int a,int... nums){ for(int n:nums){total=total+n;}
+17. Constructor :
+    - new is keyword which tells to call Constructor, not Method.
+    - Constructor implicitly returns class Type(Object).
+    - Why constructor has same name like Class? To Identify easily from Methods.
+   Note :
+    - We can override variables & methods from Parent class But not Constructor.
+    - Constructor cannot be Static, final, abstract, synchronized.
+    - if we can't override constructor then whats the use of mentioning final before Constructor.
+    - if constructor is not inherited whats the use of mentioning abstracted.
+    - if Constructor is defined as Static then it only initializes static instance variables.
+    - Can we Define constructor in Interface? No. Because we cannot create object for interface then whats
+     the use of constructor(its only use is to create Objects).
+    - Private Constructor : Cannot create Obj outside the class. Ex: Singleton DP.
+18. Constructor Chaining :
+   - this() - current class constructor.
+   - super() - parent class constructor.
+   class Child extends Parent -> first it calls Parent class Constructor and then Child class Constr. 
+   Bydefault, super() is present in Child Constructor.
+
+19. Memory Management : Both Stack and Heap are created by JVM and stored in RAM.JVM Controls Garbage Collection in Heap.
+   
+   1. Stack :
+     - Store Temporary variables(method parameters) and Primitive Data Types.
+     - Separate Memory Block for each Method.
+     - Store Reference of the heap Objects.
+     - each Thread has its own Stack Memory.
+     - References: 
+       1.Strong Reference => Person p=new Person(); => Garbage Collection won't delete object.
+       2.Weak Reference =>  WeakReference<Person> wr=new WeakReference<>(); => GC delete object.
+       3.Soft Referencee => SoftReference<Person> sr=new SoftReference<String>(); => GC wont delete obj until if there is no Space.
+
+
+   2. Heap :
+    - Heap Memory divides into 2 Parts.
+      1. Young Generation.
+      2. Old Generation.
+    Non-Heap : PremGen -> MetaSpace.
+     1.Young Generation : 3 Parts
+      1.Eden -> Whenever we create new Obj(obj1,obj2,obj3), it stores in Eden.
+              - GC invokes.uses Mark&Sweep Algorithm.Mark obj's which has no Reference & delete them.
+              - Then Move Referenced Objects into S0(age=1 => age of moved Obj's is 1).
+              - In Next Iteration, Obj's created in Eden.GC Mark and Sweep Obj's in eden & S0.Move Eden and S0 Ref Obj's into S1(then age=2).
+      2.S0(Survivor)
+      3.S1(Survivor)
+    2.Old Generation :
+     - The Objects next then move into Old Generation when age=2.GC takes more time when compare to Young Generation to Destroy Objects.
+    3. MetaSpace :
+       - Class Varibales, Class MetaData(class Objects informtion),Static final variables store in MetaSpace.
+
+
+20. Classes:
+    1.Concrete Class:
+     - Class which can we create Obj using new Keyword.
+     - All Methods in this class have implementation.
+     - can be also child class from interface or abstract Class.
+     - class access Modifier can be: public, default.
+
+   2.Abstract Class:
+    - Show only Imp features to users and hode its Internal Impl.
+    - class declared as abstract. contains both abstract and non abstract methods,
+    - can't create an instance of this Class.
+    - Constructors can create.
+
+   3.SuperClass, SubClass and Object :
+    - Object class is parent class for all classes. contains clone(), toString(), equals(), notify(), wait().
+
+   4.Nested Class:
+    -1.Static Nested Class.
+    -2.Non-Static Nested Class/Inner class.
+    
+ a.Static Nested Class:
+
+--------------------------------------------------------------
+EX-1:
+ public class Student {
+ int rollno;
+ static String clg;
+ static class Department{
+	 public Department() {
+		 System.out.println("CSE DEPT");
+	 }
+	 public void getDept() {
+		 System.out.println("CSE DEPT FROM METHOD ");
+	 }
+ }
+ public void getStudDetails() {
+	 System.out.println("Roll No :1 \n" +" Name : SUNDHAR");
+ }
+  
+}
+
+Main.class:
+public class Main {
+public static void main(String[] args) {
+	Student.Department obj=new Student.Department();
+	obj.getDept();
+}
+}
+-------------------------------------------------------------------
+Ex-2:
+public class Student {	
+ int rollno;
+ static String clg;
+ private static class Department{ 
+	 public void getDept() {
+		 System.out.println("CSE DEPT FROM METHOD ");
+	 }
+ }
+ public void getDeptObject() {
+	 Department dept= new Department();
+	 dept.getDept();
+ }
+}
+
+
+Main.class:
+public class Main {
+public static void main(String[] args) {
+	Student stud=new Student();
+	stud.getDeptObject();
+}
+}
+-------------------------------------------------------------------
+
+
+ b.Non-static Nested Class :
+   - Inner class has access to all the instance variable and methods of outer class.
+      - default Non-Static Inner class has access to both static & Non-Static Instance Variables.
+   - its object can be initiated on after initiating the object of outer class.
+       - we can create obj of inner class when and only after creation of Outer class.
+       Ex: Outerclass.Innerclass innerObj=outerObj.new InnerClass();
+
+   1.Member(field) inner class: 
+    - it can be private,public,protected,default.
+ -----------------------------------------------------------------------------------
+
+ public class Student {	
+ int rollno;
+ static String clg;
+ 
+  class Department{
+	 public void getDept() {
+		 System.out.println("CSE DEPT FROM METHOD ");
+	 }
+ }
+  
+}
+
+
+Main.class:
+
+public class Main {
+public static void main(String[] args) {
+	Student stud=new Student();
+	Student.Department deptObj = stud.new Department();
+	deptObj.getDept();
+}
+}
+
+--------------------------------------------------------------------------
+
+    2.Local Inner class:
+    - class inside if,for,while loops.
+    - It cannot be declared as private,protected,Public. only Default is Allowed.
+    
+----------------------------------------------------------------------------
+
+Inheritance of Nested Class(Static Nested Class): 
+-------------------------------------------------
+ 
+
+public class Student { 
+
+int rollNo; 
+
+static String clgName; 
+
+static class Department{ 
+
+public void studDetails() { 
+
+System.out.println( clgName); 
+
+} 
+
+} 
+
+} 
+
+ 
+
+ 
+
+Main.class : 
+
+ 
+
+public class EngineeringDepartment extends Student.Department{ 
+
+public void display() { 
+
+studDetails(); 
+
+} 
+
+} 
+
+ 
+
+Inheritance of Nested Class(Default Inner Class): 
+-------------------------------------------------
+ 
+
+public class Student { 
+
+int rollNo; 
+
+static String clgName; 
+
+    class Department{ 
+
+    public Department() { 
+
+    System.out.println("Department Constructor."); 
+
+    } 
+
+public void studDetails() { 
+
+System.out.println( clgName); 
+
+} 
+
+} 
+
+} 
+
+ 
+
+ 
+
+public class EngineeringDepartment extends Student.Department{ 
+
+public EngineeringDepartment() { 
+
+new Student().super(); 
+
+} 
+
+public void display() { 
+
+studDetails(); 
+
+} 
+
+} 
+
+ 
+
+ 
+
+Anonymous Inner Class : 
+
+An Inner class without name is called Anonymous Inner class. 
+
+------------------------------------------------------------------------------------ 
+
+public abstract class Student { 
+
+int rollNo; 
+
+String name; 
+
+public abstract void getDetails(); 
+
+public void getStudentName() { 
+
+System.out.println(name); 
+
+} 
+
+} 
+
+ 
+
+ 
+
+public class Main { 
+
+public static void main(String[] args) { 
+
+Student stud=new Student() { 
+
+@Override 
+
+public void getDetails() { 
+
+System.out.println("21"); 
+
+} 
+
+}; 
+
+stud.getDetails(); 
+
+} 
+
+} 
+
+--------------------------------------------------------------------------------------- 
+
+21. Generic Classes :
+---------------------
+
+public class Student {
+	Object id;
+	public Object getId() {
+		return id;
+	}
+	public void setId(Object id) {
+		this.id=id;
+	}
+ }
+
+public class Main {
+public static void main(String[] args) {
+Student stud=new Student();
+stud.setId(21);
+Object obj=stud.getId();
+System.out.println((int)obj==21);
+}
+}
+
+
+- Make Use of Generic Class:
+-----------------------------
+
+public class Student<T> {
+	T id;
+	public T getId() {
+		return id;
+	}
+	public void setId(T id) {
+		this.id=id;
+	}
+ }
+
+public class Main {
+public static void main(String[] args) {
+Student<Integer> stud=new Student<>();
+stud.setId(21);
+Integer obj=stud.getId();
+System.out.println(obj==21);
+}
+}
+
+
+Non-Generic SubClass:
+----------------------
+- Define type of Generic while extending ParentClass.
+
+public class Student<T> {
+	T id;
+	public T getId() {
+		return id;
+	}
+	public void setId(T id) {
+		this.id=id;
+	}
+ }
+
+
+public class EngineeringStudent extends Student<String>{
+
+}
+
+
+
+public class Main {
+public static void main(String[] args) {
+Student<Integer> stud=new Student<>();
+EngineeringStudent engStud=new EngineeringStudent();
+engStud.setId("21");
+String rollNo=engStud.getId();
+System.out.println(rollNo);
+}
+}
+
+     
+Generic SubClass:
+------------------
+public class Student<T> {
+	T id;
+	public T getId() {
+		return id;
+	}
+	public void setId(T id) {
+		this.id=id;
+	}
+ }
+
+
+
+public class EngineeringStudent<T> extends Student<T>{
+
+}
+
+
+public class Main {
+public static void main(String[] args) {
+Student<String> engStud=new EngineeringStudent();
+engStud.setId("21");
+String rollNo=engStud.getId();
+System.out.println(rollNo);
+}
+}
+
+ 
+Morethan one Generic in Class:
+------------------------------
+public class Pair<K,V> {
+	private K key;
+	private V value;
+	public void put(K key, V value) {
+		this.key=key;
+		this.value=value;
+		}
+}
+
+
+public class Main {
+public static void main(String[] args) {
+Pair<String,String> pair=new Pair<>();
+pair.put("Key1", "Value1");
+}
+}
+
+
+Generic Method:
+---------------
+1.Type parameter should be before Return Type of Method Declaration.
+2.Type Parameter Scope is Limited to method only.
+
+public <T> void method1(T name){
+
+}
+
+
+
+Raw Type:
+---------
+1.Its the name of Generic class or Interface without any type Argument.
+  - Not specifying type of generic at Object Creation.
+
+public class Student<T> {
+	T id;
+	public T getId() {
+		return id;
+	}
+	public void setId(T id) {
+		this.id=id;
+	}
+ }
+
+public class Main {
+public static void main(String[] args) {
+Student stud=new Student();
+stud.setId(21);
+stud.setId("21");
+Integer obj=stud.getId();
+System.out.println(obj==21);
+}
+}
+
+
+UpperBound Generics:
+---------------------
+
+1.Number -> Integer,Float,BigInteger,Long....
+
+public class Student<T extends Number> {
+	T id;
+	public T getId() {
+		return id;
+	}
+	public void setId(T id) {
+		this.id=id;
+	}
+ }
+
+
+MultiBound Generics:
+-------------------
+
+public class A extends ParentClass implements Interface1, Interface2{}
+
+public class Print<T extends ParentClass & Interface1 & Interface2> {
+ T value;
+}
+
+
+
+WildCards:
+----------
+Upper Bounded WildCard:<? extends UpperBoundClassName>
+Lower Bounded WildCard:<? super LowerBoundedClassName>
+Unbounded Wildcard : <?>
+
+
+Type Erasure:
+------------
+
+- Source code(.java)  ------------------> ByteCode(.class)
+
+Public class Student<T>{
+T id;
+public void setId(T id){
+this.id=id;
+}
+}
+
+       ||
+       ||    Source to ByteCode
+       \/
+
+Public class Student{
+ Object id;
+public void setId(Object id){
+this.id=id;
+}
+}
+
+
+
+---------------------------------------------------
+
+1.Pojo Class:
+ - Plain Old Java Object.
+ - Contains Variables and its getter and Setter Methods.
+ - Class should be Public.
+ - Public default Constructor.
+ - No annotations should be used like @Table, @Entity, @Id etc.
+ - It should not extend any class or implement any Interface.
+
+-Usecases : Entity class, Response or RequestClass
+
+--------------------------------------------------------
+2.ENUM Class:
+ - Collection of Constants(Variable values can't be Changed).
+ - Constants are static and final implicitly.(Do not have to write it).
+ - cannot extend any class. it is internally extends java.lang.Enum class.
+ - can implement interfaces.
+ - can have variables, constructor and methods.
+ - cannot be initiated(its constr will be private only,even you give default it
+ makes it private in Bytecode).
+ - No other Class can extend Enum Class.
+ -It can have abstract method and all constant should implement that 
+abstract method.
+
+Link : https://notebook.zohopublic.in/public/notes/u3i1se962d56445eb4118ab4e4c0ca99e4728
+--------------------------------------------------------------------------------------
+     
+Interview Quest:
+1.Why in Java a Single File can have only 1 Public Class?
+  -Main Method should be in Public Class.
+  -Public class name should be same as file Name.
+
+2.How Float and Double Values Stored in Memory?
+ Ex: float a= .7f;
+     Sout((double) a) => .699999998079071
+
+3.When to use Static Keyword along with Method?
+  - if method not using any instance variables(Utility Methods) as Parameters and inside method
+     then we can declare that method as Static(Having local Variables).
+    Ex: Factory Design Pattern(only static Methods,no Instance variables as Parameters).
